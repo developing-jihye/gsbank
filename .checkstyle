@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
-  <local-check-config name="maven-checkstyle-plugin default" location="file:/C:/FrameG/apps/Team4/checkstyle.xml" type="remote" description="maven-checkstyle-plugin configuration default">
-    <property name="checkstyle.header.file" value="C:\FrameG\apps\.metadata\.plugins\org.eclipse.core.resources\.projects\Team4\com.basistech.m2e.code.quality.checkstyleConfigurator\checkstyle-header-default.txt"/>
+  <local-check-config name="maven-checkstyle-plugin default" location="file:/C:/FrameG/apps/team4/checkstyle.xml" type="remote" description="maven-checkstyle-plugin configuration default">
+    <property name="checkstyle.header.file" value="C:\FrameG\apps\.metadata\.plugins\org.eclipse.core.resources\.projects\team4\com.basistech.m2e.code.quality.checkstyleConfigurator\checkstyle-header-default.txt"/>
     <property name="checkstyle.cache.file" value="${project_loc}/target/checkstyle-cachefile"/>
   </local-check-config>
   <fileset name="java-sources-default" enabled="true" check-config-name="maven-checkstyle-plugin default" local="true">
