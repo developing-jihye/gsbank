@@ -30,7 +30,7 @@
         <!-- 좌측으로 이동 출력되는 태그-->
         <MARQUEE>${userNm} 님 환영합니다.K-디지털트레이닝 GSITM 부트캠프 금융Project 참여를 환영합니다.</MARQUEE>
 
-        <h2> MVC 샘플 </h2>
+        <h2> Team4 MVC 샘플 </h2>
 
         <form id="mvcSample">
 
