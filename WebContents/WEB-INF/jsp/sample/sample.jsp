@@ -69,28 +69,15 @@
                 <label for="text">메시지 내용:</label><br>
                 <textarea id="text" name="text" rows="4" required></textarea><br>
                 <button type="button" onclick="sendSms()">보내기</button>
-
-                <button type="button" onclick="sendSms()">보내기</button>
-
             </form>
 
             <div id="app">
-
                 <h2>VUE.JS 샘플</h2>
-
-
                 {{ message }}
-
                 <input v-on:keyup.enter="alertClick">
-
                 <button v-on:click="alertClick()"> 클릭 </button>
-
-                
                 <button @click="getCustInfoListAll(true)"> 리스트 가져오기 </button>
-
-                <input type="file">파일파일히히힣
-
-
+                <input type="file"> 파일첨부
 
                 <table class="" id="grid_app" style="border: 1px solid #999999;">
                     <thead>
@@ -121,8 +108,7 @@
                     </tbody>
                 </table>
 
-                <div class="dataTables_paginate paging_simple_numbers"
-                id="div_paginate"></div>
+                <div class="dataTables_paginate paging_simple_numbers" id="div_paginate"></div>
             </div>
 
 
@@ -143,7 +129,6 @@
                         if ("Y" === fromDtl && !cf_isEmpty(pagingConfig)) {
                             cv_pagingConfig.pageNo = pagingConfig.pageNo;
                             cv_pagingConfig.orders = pagingConfig.orders;
-
                             this.getList();
                         } else {
                             cv_sessionStorage
@@ -163,14 +148,15 @@
 
                             if (isInit === true) {
                                 cv_pagingConfig.pageNo = 1;
-
                                 /* cv_pagingConfig.orders = [{target : "reg_dt", isAsc : false}]; */ // 정렬기준이될 컬럼명
                             }
 
                             var params = {
-
+                                // params 에 담을 값 정의
                             }
                             /*
+
+                            // if 조건 일경우에 params 값 담기
                             if (this.all_srch != "Y") {
                                 params = {
                                     prod_nm: this.prod_nm,
@@ -188,23 +174,18 @@
                         },
                         getListCB: function (data) {
                             console.log("data >>" + data.list);
-
-
                             console.log("data >>");
                             data.list.forEach((item, index) => {
                                 console.log(`Item ${index + 1}:`, item);
                             });
                             
                             this.dataList = data.list;
-
-
-                            
+                           
                             for (var i = 0; i < this.dataList.length; i++) {
                                 console.log(this.dataList[i].col1);
                                 console.log(this.dataList[i].col2);
                             }
                             
-
                             /*
                             for (var i = 0; i < this.dataList.length; i++) {
                                 this.dataList[i].ntsl_amt_min = this.dataList[i].ntsl_amt_min
