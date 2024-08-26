@@ -36,7 +36,7 @@ import sample.MvcSample.svc.SampleBascSvc;
 @Controller
 public class SampleBascCtl {
 
-	//
+	//test
 	@Autowired
 	CommonSvc commonSvc;
 
