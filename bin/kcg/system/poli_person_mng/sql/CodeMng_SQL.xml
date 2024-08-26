@@ -4,7 +4,7 @@
 	
 	<insert id="insertCmmnCodeInfo" parameterType="cmmnMap">
 	/* system.poli_person_mng.code.insertCmmnCodeInfo */
-		INSERT INTO kcgbd.t_poli_person_code_mng(
+		INSERT INTO t_poli_person_code_mng(
 			code_grp_id
 			,code_idx
 			,code
@@ -47,7 +47,7 @@
 	
 	<update id="updateCmmnCodeInfo" parameterType="cmmnMap">
 	/* system.poli_person_mng.code.updateCmmnCodeInfo */
-		UPDATE kcgbd.t_poli_person_code_mng SET
+		UPDATE t_poli_person_code_mng SET
 			code_nm = #{code_nm}
 			,use_yn = #{use_yn}
 			,cat_nm_1 = #{cat_nm_1}
@@ -61,7 +61,7 @@
 	
 	<update id="updateReportInfo" parameterType="cmmnMap">
 	/* system.poli_person_mng.code.updateReportInfo */
-		UPDATE kcgbd.t_poli_person_report SET
+		UPDATE t_poli_person_report SET
 			${target_cd_nm} = #{code_nm}
 		WHERE 1=1
 			AND ${target_cd} = #{code}
@@ -89,7 +89,7 @@
 			,pcm.cat6
 			,pcm.cat_nm_6
 			,pcm.pt_idx
-		FROM kcgbd.t_poli_person_code_mng pcm
+		FROM t_poli_person_code_mng pcm
 		WHERE 1=1
 			AND pcm.code_grp_id = #{code_grp_id}
 		<if test='cat1 != null and cat1 != ""'>
@@ -115,7 +115,7 @@
 	 	SELECT
 	 		COUNT(*) cnt
 	 	FROM 
-	 		kcgbd.t_poli_person_code_mng A
+	 		t_poli_person_code_mng A
 	 	WHERE 1=1
 	 		AND A.code != #{code}
 	 		AND (
@@ -131,7 +131,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* system.poli_person_mng.code.deleteInfo */
-		DELETE FROM kcgbd.t_poli_person_code_mng
+		DELETE FROM t_poli_person_code_mng
 		WHERE 1=1
 			AND code_idx = #{code_idx}
 	</delete>

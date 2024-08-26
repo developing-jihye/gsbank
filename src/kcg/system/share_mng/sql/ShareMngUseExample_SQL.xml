@@ -11,15 +11,15 @@
 			,A.svc_desc
 			,A.use_tgt
 			,A.atch_file_1
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
 			,A.atch_file_2
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
 			,A.atch_file_3
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
 			,A.atch_file_4
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
 			,A.atch_file_5
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
 			,A.read_cnt
 			,A.reg_dt
 			,A.updt_dt
@@ -28,8 +28,8 @@
 			,A.reg_user_id
 			,USR.name reg_user_name
 		FROM 
-			kcgbd.t_use_sample A
-			,kcgbd.t_user USR
+			t_use_sample A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 		<if test='search_val != ""'>
@@ -52,15 +52,15 @@
 			,A.use_tgt
 			,A.ctnt
 			,A.atch_file_1
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
 			,A.atch_file_2
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
 			,A.atch_file_3
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
 			,A.atch_file_4
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
 			,A.atch_file_5
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
 			,A.read_cnt
 			,A.reg_dt
 			,A.updt_dt
@@ -69,8 +69,8 @@
 			,A.reg_user_id
 			,USR.name reg_user_name
 		FROM 
-			kcgbd.t_use_sample A
-			,kcgbd.t_user USR
+			t_use_sample A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND idx = #{idx}
@@ -78,7 +78,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* share.mng.use.example.updateInfo */
-		UPDATE kcgbd.t_use_sample
+		UPDATE t_use_sample
 		SET 
 			sbjt = #{sbjt}
 			,cat = #{cat}
@@ -97,13 +97,13 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* share.mng.use.example.deleteInfo */
-		DELETE FROM kcgbd.t_use_sample
+		DELETE FROM t_use_sample
 		WHERE idx = #{idx}
 	</delete>
 	
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* share.mng.use.example.insertInfo */
-		INSERT INTO kcgbd.t_use_sample(
+		INSERT INTO t_use_sample(
 			idx
 			,sbjt
 			,cat
@@ -169,8 +169,8 @@
 			, MAX(B.datanm)                     AS datanm
 			, UPPER(MAX(B.atchfileextsn))		AS atchfileextsn
 		FROM 
-			kcgbd.st_getportalopenapilist A
-			,kcgbd.st_getfiledatalist B
+			st_getportalopenapilist A
+			,st_getfiledatalist B
 		WHERE 1=1
 			AND A.docid = B.docid
 			AND B.datanm IS NOT NULL
@@ -199,12 +199,12 @@
 			,B.hive_table_nm
 		    ,D.accumulated_records
 		FROM 
-			kcgbd.t_rule_meta_0001 A
-			LEFT OUTER JOIN kcgbd.t_rule_meta_0002 B ON A.cnnc_manage_no = B.cnnc_manage_no
-			LEFT OUTER JOIN kcgbd.t_rule_meta_0003 C ON B.db_table_id = C.db_table_id
-		    LEFT OUTER JOIN kcgbd.t_batch_result_0003 D ON B.table_eng_nm = D.table_eng_nm 
+			t_rule_meta_0001 A
+			LEFT OUTER JOIN t_rule_meta_0002 B ON A.cnnc_manage_no = B.cnnc_manage_no
+			LEFT OUTER JOIN t_rule_meta_0003 C ON B.db_table_id = C.db_table_id
+		    LEFT OUTER JOIN t_batch_result_0003 D ON B.table_eng_nm = D.table_eng_nm 
 		    ,(
-		        SELECT planned_dt FROM kcgbd.t_batch_date_0001
+		        SELECT planned_dt FROM t_batch_date_0001
 		        WHERE flag = 0
 		        ORDER BY planned_dt DESC
 		        LIMIT 1

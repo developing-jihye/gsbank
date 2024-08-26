@@ -9,7 +9,7 @@
 			,ATH.auth_nm
 			,ATH.reg_dt
 		FROM
-			kcgbd.t_auth ATH
+			t_auth ATH
 		WHERE 1=1
 			AND ATH.admin_yn = 'N'
 		<if test='search_val != ""'>
@@ -26,7 +26,7 @@
 			,ATH.auth_nm
 			,ATH.reg_dt
 		FROM
-			kcgbd.t_auth ATH
+			t_auth ATH
 		WHERE 1=1
 			AND ATH.admin_yn = 'N'
 			AND ATH.auth_cd = #{auth_cd}
@@ -34,7 +34,7 @@
 
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* system.portal_auth_mng.insertInfo */
-		INSERT INTO kcgbd.t_auth (
+		INSERT INTO t_auth (
 			auth_cd
 			,auth_nm
 			,admin_yn
@@ -55,7 +55,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* system.portal_auth_mng.updateInfo */
-		UPDATE kcgbd.t_auth SET 
+		UPDATE t_auth SET 
 			auth_nm = #{auth_nm}
 			,updt_dt = now()
 			,updt_user_id = #{user_id}
@@ -65,7 +65,7 @@
 	
 	<delete id="delete" parameterType="cmmnMap">
 	/* system.portal_auth_mng.delete */
-		DELETE FROM kcgbd.t_auth
+		DELETE FROM t_auth
 		WHERE 1=1
 			AND auth_cd = #{auth_cd}
 	</delete>
@@ -88,8 +88,8 @@
 			,COALESCE(amm.u_yn,'N') u_yn
 			,COALESCE(amm.d_yn,'N') d_yn
 		FROM
-			kcgbd.t_menu mnu
-			LEFT JOIN kcgbd.t_auth_menu_mapping amm ON 1=1 
+			t_menu mnu
+			LEFT JOIN t_auth_menu_mapping amm ON 1=1 
 				AND mnu.menu_url = amm.menu_url 
 				AND amm.auth_cd = #{auth_cd}
 		WHERE 1=1
@@ -99,14 +99,14 @@
 	
 	<delete id="deleteAuthMenuMappingInfo" parameterType="cmmnMap">
 	/* system.portal_auth_mng.deleteAuthMenuMappingInfo */
-		DELETE FROM kcgbd.t_auth_menu_mapping
+		DELETE FROM t_auth_menu_mapping
 		WHERE 1=1
 			AND auth_cd = #{auth_cd}
 	</delete>
 	
 	<insert id="insertAuthMenuMappingInfo" parameterType="cmmnMap">
 	/* system.portal_auth_mng.insertAuthMenuMappingInfo */
-		INSERT INTO kcgbd.t_auth_menu_mapping (
+		INSERT INTO t_auth_menu_mapping (
 			auth_cd
 			,menu_url
 			,use_yn
@@ -130,7 +130,7 @@
 		SELECT
 			count(*) cnt
 		FROM
-			kcgbd.t_auth
+			t_auth
 		WHERE 1=1
 			AND auth_nm = #{auth_nm}
 			AND auth_cd != #{auth_cd}
