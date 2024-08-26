@@ -13,8 +13,8 @@
 			,A.reg_user_id
 			,A.updt_user_id
 			,USR.name reg_user_name
-		FROM kcgbd.t_err_cd_mng A
-			,kcgbd.t_user USR
+		FROM t_err_cd_mng A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 	</select>
@@ -30,8 +30,8 @@
 			,A.reg_user_id
 			,A.updt_user_id
 			,USR.name reg_user_name
-		FROM kcgbd.t_err_cd_mng A
-			,kcgbd.t_user USR
+		FROM t_err_cd_mng A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND A.err_cd = #{err_cd}
@@ -39,7 +39,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* etc.mng.err.cd.updateInfo */
-		UPDATE kcgbd.t_err_cd_mng
+		UPDATE t_err_cd_mng
 		SET 
 			err_kor_nm = #{err_kor_nm}
 			,err_eng_nm = #{err_eng_nm}
@@ -50,7 +50,7 @@
 	
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* etc.mng.err.cd.insertInfo */
-		INSERT INTO kcgbd.t_err_cd_mng(
+		INSERT INTO t_err_cd_mng(
 			err_cd
 			,err_kor_nm
 			,err_eng_nm
@@ -71,7 +71,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* etc.mng.err.cd.deleteInfo */
-		DELETE FROM kcgbd.t_err_cd_mng
+		DELETE FROM t_err_cd_mng
 		WHERE err_cd = #{err_cd}
 	</delete>
 	
@@ -80,8 +80,8 @@
 	/* etc.mng.err.cd.chkDpl */
 		SELECT 
 			count(A.err_cd) cnt
-		FROM kcgbd.t_err_cd_mng A
-			,kcgbd.t_user USR
+		FROM t_err_cd_mng A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND err_cd = #{err_cd}

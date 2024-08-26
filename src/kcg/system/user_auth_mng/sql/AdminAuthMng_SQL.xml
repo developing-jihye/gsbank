@@ -10,8 +10,8 @@
 			,ATH.auth_cd
 			,ATH.reg_dt
 		FROM
-			kcgbd.t_auth ATH
-			,kcgbd.t_user USR
+			t_auth ATH
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = ATH.auth_nm
 			AND ATH.admin_yn = 'Y'
@@ -31,8 +31,8 @@
 			,ATH.auth_cd
 			,ATH.reg_dt
 		FROM
-			kcgbd.t_auth ATH
-			,kcgbd.t_user USR
+			t_auth ATH
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = ATH.auth_nm
 			AND USR.user_id = #{auth_nm}
@@ -41,7 +41,7 @@
 
 	<insert id="insertInfo_user" parameterType="cmmnMap">
 	/* system.admin_auth_mng.insertInfo_user */
-		INSERT INTO kcgbd.t_user (
+		INSERT INTO t_user (
 			user_id
 			,auth_cd
 			,iam_yn
@@ -62,7 +62,7 @@
 
 	<insert id="insertInfo_auth" parameterType="cmmnMap">
 	/* system.admin_auth_mng.insertInfo_auth */
-		INSERT INTO kcgbd.t_auth (
+		INSERT INTO t_auth (
 			auth_cd
 			,auth_nm
 			,admin_yn
@@ -83,7 +83,7 @@
 	
 	<update id="delete_user" parameterType="cmmnMap">
 	/* system.admin_auth_mng.delete_user */
-		UPDATE kcgbd.t_user SET
+		UPDATE t_user SET
 			del_yn = 'Y'
 		WHERE 1=1
 			AND user_id = #{auth_nm}
@@ -91,7 +91,7 @@
 	
 	<delete id="delete_auth" parameterType="cmmnMap">
 	/* system.admin_auth_mng.delete_auth */
-		DELETE FROM kcgbd.t_auth
+		DELETE FROM t_auth
 		WHERE 1=1
 			AND auth_nm = #{auth_nm}
 	</delete>
@@ -110,8 +110,8 @@
 				ELSE 'Y'
 			 END use_yn
 		FROM
-			kcgbd.t_menu mnu
-			LEFT JOIN kcgbd.t_auth_menu_mapping amm ON 1=1 
+			t_menu mnu
+			LEFT JOIN t_auth_menu_mapping amm ON 1=1 
 				AND mnu.menu_url = amm.menu_url 
 				AND amm.auth_cd = #{auth_nm}
 		WHERE 1=1
@@ -121,14 +121,14 @@
 	
 	<delete id="deleteAuthMenuMappingInfo" parameterType="cmmnMap">
 	/* system.admin_auth_mng.deleteAuthMenuMappingInfo */
-		DELETE FROM kcgbd.t_auth_menu_mapping
+		DELETE FROM t_auth_menu_mapping
 		WHERE 1=1
 			AND auth_cd = #{auth_nm}
 	</delete>
 	
 	<insert id="insertAuthMenuMappingInfo" parameterType="cmmnMap">
 	/* system.admin_auth_mng.insertAuthMenuMappingInfo */
-		INSERT INTO kcgbd.t_auth_menu_mapping (
+		INSERT INTO t_auth_menu_mapping (
 			auth_cd
 			,menu_url
 			,use_yn
@@ -152,14 +152,14 @@
 		SELECT
 			count(*) cnt
 		FROM
-			kcgbd.t_user
+			t_user
 		WHERE 1=1
 			AND user_id = #{auth_nm}
 	</select>
 	
 	<update id="initPw" parameterType="cmmnMap">
 	/* system.admin_auth_mng.initPw */
-		UPDATE kcgbd.t_user SET
+		UPDATE t_user SET
 			user_pw = #{user_pw}
 		WHERE 1=1
 			AND user_id = #{auth_nm}

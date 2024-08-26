@@ -4,7 +4,7 @@
 
 	<insert id="insertFileInfo">
 	/* common.insertFileInfo */
-		INSERT INTO kcgbd.t_cmmn_file_info (
+		INSERT INTO t_cmmn_file_info (
 			stor_file_nm
 			,file_ext
 			,upload_path
@@ -25,7 +25,7 @@
 	
 	<update id="deleteFileInfo" parameterType="cmmnMap">
 	/* common.deleteFileInfo */
-		UPDATE kcgbd.t_cmmn_file_info SET
+		UPDATE t_cmmn_file_info SET
 			del_yn = 'y'
 		WHERE 1=1
 			AND stor_file_nm = #{stor_file_nm}
@@ -39,7 +39,7 @@
 			,upload_path
 			,path
 			,org_file_nm
-		FROM kcgbd.t_cmmn_file_info
+		FROM t_cmmn_file_info
 		WHERE 1=1
 			AND stor_file_nm = #{stor_file_nm}
 			AND del_yn = 'N'
@@ -54,7 +54,7 @@
 			,code_nm
 			,code_dc
 		FROM
-			kcgbd.t_cmmn_code
+			t_cmmn_code
 	</select>
 	
 	<select id="getUserInfoFromIam" parameterType="string" resultType="userInfoVO">
@@ -84,7 +84,7 @@
 	/* common.getStatisticCnt */
 		SELECT
 			${col_nm} cnt
-		FROM kcgbd.t_statistic
+		FROM t_statistic
 		WHERE 1=1
 			AND statistic_date = #{statistic_date}
 			AND user_id = #{user_id}
@@ -93,7 +93,7 @@
 	
 	<insert id="insertStatisticCnt" parameterType="cmmnMap">
 	/* common.insertStatisticCnt */
-		INSERT INTO kcgbd.t_statistic (
+		INSERT INTO t_statistic (
 			statistic_date
 			,${col_nm}
 			,user_id
@@ -106,7 +106,7 @@
 	
 	<update id="updateStatisticCnt" parameterType="cmmnMap">
 	/* common.updateStatisticCnt */
-		UPDATE kcgbd.t_statistic SET
+		UPDATE t_statistic SET
 			${col_nm} = ${col_nm_cnt}
 		WHERE 1=1
 			AND statistic_date = #{statistic_date}
@@ -130,7 +130,7 @@
 			,tu.tdept_nm 
 			,tu.email 
 			,tu.del_yn 
-		FROM kcgbd.t_user tu , kcgbd.t_auth ta 
+		FROM t_user tu , t_auth ta 
 		WHERE tu.auth_cd  = ta.auth_cd 
 			AND tu.user_id = #{user_id}
 	</select>
@@ -142,7 +142,7 @@
 		SELECT
 			keyword_cnt
 		FROM
-			kcgbd.t_keyword_log
+			t_keyword_log
 		WHERE 1=1
 			AND keyword = #{keyword}
 			AND reg_date = #{reg_date}
@@ -150,7 +150,7 @@
 
 	<insert id="insertKeywordCnt" parameterType="cmmnMap">
 	/* common.insertKeywordCnt */
-		INSERT INTO kcgbd.t_keyword_log (
+		INSERT INTO t_keyword_log (
 			keyword
 			,keyword_cnt
 			,reg_date
@@ -163,7 +163,7 @@
 
 	<update id="updateKeywordCnt" parameterType="cmmnMap">
 	/* common.updateKeywordCnt */
-		UPDATE kcgbd.t_keyword_log SET
+		UPDATE t_keyword_log SET
 			keyword_cnt = ${keyword_cnt}
 		WHERE 1=1
 			AND keyword = #{keyword}
@@ -173,7 +173,7 @@
 	
 	<update id="addReadCntBigdataTrend" parameterType="string">
 	/* common.addReadCntBigdataTrend */
-		UPDATE kcgbd.t_bigdata_trend
+		UPDATE t_bigdata_trend
 		SET 
 			read_cnt = (coalesce(read_cnt,0) + 1)
 		WHERE idx = #{idx}
@@ -181,7 +181,7 @@
 	
 	<update id="addReadCntInquire" parameterType="string">
 	/* common.addReadCntInquire */
-		UPDATE kcgbd.t_inquire
+		UPDATE t_inquire
 		SET 
 			read_cnt = (coalesce(read_cnt,0) + 1)
 		WHERE idx = #{idx}
@@ -189,7 +189,7 @@
 	
 	<update id="addReadCntLibrary" parameterType="string">
 	/* common.addReadCntLibrary */
-		UPDATE kcgbd.t_library
+		UPDATE t_library
 		SET 
 			read_cnt = (coalesce(read_cnt,0) + 1)
 		WHERE idx = #{idx}
@@ -197,7 +197,7 @@
 	
 	<update id="addReadCntNews" parameterType="string">
 	/* common.addReadCntNews */
-		UPDATE kcgbd.t_news
+		UPDATE t_news
 		SET 
 			read_cnt = (coalesce(read_cnt,0) + 1)
 		WHERE idx = #{idx}
@@ -205,7 +205,7 @@
 	
 	<update id="addReadCntAnalIdea" parameterType="string">
 	/* common.addReadCntAnalIdea */
-		UPDATE kcgbd.t_anal_idea
+		UPDATE t_anal_idea
 		SET 
 			read_cnt = (coalesce(read_cnt,0) + 1)
 		WHERE idx = #{idx}
@@ -213,7 +213,7 @@
 	
 	<update id="addReadCntDataVisualization" parameterType="string">
 	/* common.addReadCntDataVisualization */
-		UPDATE kcgbd.t_data_visualization
+		UPDATE t_data_visualization
 		SET 
 			read_cnt = (coalesce(read_cnt,0) + 1)
 		WHERE idx = #{idx}
@@ -221,7 +221,7 @@
 	
 	<update id="addReadCntUseExample" parameterType="string">
 	/* common.addReadCntUseExample */
-		UPDATE kcgbd.t_use_sample
+		UPDATE t_use_sample
 		SET 
 			read_cnt = (coalesce(read_cnt,0) + 1)
 		WHERE idx = #{idx}
@@ -247,14 +247,14 @@
 			,A.reg_dt
 			,to_char(A.reg_dt, 'yyyy-mm-dd hh24:mi') reg_dt_char
 		FROM
-			kcgbd.t_req_noti A
+			t_req_noti A
 		WHERE 1=1
 			AND A.target_user_id = #{user_id}
 	</select>
 	
 	<insert id="insertReqNoti" parameterType="cmmnMap">
 	/* common.insertReqNoti */
-		INSERT INTO kcgbd.t_req_noti (
+		INSERT INTO t_req_noti (
 			target_idx
 			,target_cat
 			,target_user_id
@@ -272,14 +272,14 @@
 		SELECT
 			COUNT(*)
 		FROM
-			kcgbd.t_req_noti
+			t_req_noti
 		WHERE 1=1
 			AND target_user_id = #{user_id}
 	</select>
 	
 	<delete id="deleteNotiInfo" parameterType="string">
 	/* common.deleteNotiInfo */
-		DELETE FROM kcgbd.t_req_noti
+		DELETE FROM t_req_noti
 		WHERE 1=1
 			AND target_idx = #{target_idx}
 	</delete>
@@ -290,14 +290,14 @@
 			CONCAT(
 				B.table_korean_nm
 				,' (' 
-				,(SELECT count(*) FROM kcgbd.t_download_req_dtl WHERE download_req_idx = A.idx)
+				,(SELECT count(*) FROM t_download_req_dtl WHERE download_req_idx = A.idx)
 				,'개 컬럼)'
 				) subject
 			,
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = B.req_sts) status
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = B.req_sts) status
 		FROM
-			kcgbd.t_download_req A
-			,kcgbd.t_rule_meta_0002 B
+			t_download_req A
+			,t_rule_meta_0002 B
 		WHERE 1=1
 			AND A.db_table_id = B.db_table_id
 			AND A.idx = #{target_idx}
@@ -307,9 +307,9 @@
 	/* common.getAnalToolReqInfo */
 		SELECT
 			A.sbjt subject
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) status
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) status
 		FROM
-			kcgbd.t_anal_tool_req A
+			t_anal_tool_req A
 		WHERE 1=1
 			AND A.idx = #{target_idx}
 	</select>
@@ -318,9 +318,9 @@
 	/* common.getDataAnalReqInfo */
 		SELECT
 			A.sbjt subject
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) status
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) status
 		FROM
-			kcgbd.t_data_anal_req A
+			t_data_anal_req A
 		WHERE 1=1
 			AND A.idx = #{target_idx}
 	</select>
@@ -329,9 +329,9 @@
 	/* common.getDataAnalReqInfo */
 		SELECT
 			A.sbjt subject
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) status
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) status
 		FROM
-			kcgbd.t_data_collect_req A
+			t_data_collect_req A
 		WHERE 1=1
 			AND A.idx = #{target_idx}
 	</select>
@@ -345,7 +345,7 @@
 				A.keyword
 				,SUM(A.keyword_cnt) cnt
 			FROM
-				kcgbd.t_keyword_log A
+				t_keyword_log A
 			WHERE 1=1
 				and A.reg_date >= to_char(current_timestamp + '-7 days', 'yyyy-mm-dd')
 			GROUP BY keyword

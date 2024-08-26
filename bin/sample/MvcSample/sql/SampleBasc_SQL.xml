@@ -6,7 +6,7 @@
 		resultType="cmmnMap">
 		/* sample.MvcSample.getAllList */
 		SELECT * FROM
-		kcgbd.TB_SAMPLE
+		TB_SAMPLE
 	</select>
 
 	<!-- 샘플 SQL -->
@@ -17,8 +17,8 @@
 		auth.auth_cd
 		,auth.admin_yn
 		FROM
-		kcgbd.t_auth auth
-		,kcgbd.t_user USR
+		t_auth auth
+		,t_user USR
 		WHERE 1=1
 		AND
 		USR.iam_yn = #{iam_yn}

@@ -7,25 +7,25 @@
 		select prod_cd
 		     , prod_nm
 		     , prod_ty_cd
-		     , (select code_nm from kcgbd.tb_codemst where code_cl = '121' and code_no = prod_ty_cd ) prod_ty_cd_nm
+		     , (select code_nm from tb_codemst where code_cl = '121' and code_no = prod_ty_cd ) prod_ty_cd_nm
 		     , sbstg_ty_cd
-		     , (select code_nm from kcgbd.tb_codemst where code_cl = '100' and code_no = sbstg_ty_cd ) sbstg_ty_cd_nm
+		     , (select code_nm from tb_codemst where code_cl = '100' and code_no = sbstg_ty_cd ) sbstg_ty_cd_nm
 		     , ntsl_amt_min
 		     , ntsl_amt_max
 		     , prod_air_min
 		     , prod_air_max
 		     , pay_ty_cd
-		     , (select code_nm from kcgbd.tb_codemst where code_cl = '110' and code_no = pay_ty_cd ) pay_ty_cd_nm
+		     , (select code_nm from tb_codemst where code_cl = '110' and code_no = pay_ty_cd ) pay_ty_cd_nm
 		     , to_char(to_date(prod_air_bgng_ymd, 'yyyymmdd'), 'yyyy-mm-dd') prod_air_bgng_ymd
 		     , to_char(to_date(prod_air_end_ymd, 'yyyymmdd'), 'yyyy-mm-dd') prod_air_end_ymd
 		     , int_tax_ty_cd
-		     , (select code_nm from kcgbd.tb_codemst where code_cl = '131' and code_no = int_tax_ty_cd ) int_tax_ty_cd_nm
+		     , (select code_nm from tb_codemst where code_cl = '131' and code_no = int_tax_ty_cd ) int_tax_ty_cd_nm
 		     , curr_stcd
 		     , to_char(to_date(ntsl_bgng_ymd, 'yyyymmdd'), 'yyyy-mm-dd') ntsl_bgng_ymd
 		     , to_char(to_date(ntsl_end_ymd, 'yyyymmdd'), 'yyyy-mm-dd') ntsl_end_ymd
 		     , wrter_nm
 		     , wrt_dt
-		  from kcgbd.tb_prodmst
+		  from tb_prodmst
 		 where 1=1
 		<if test='prod_cd != null and prod_cd != ""'>
 		   and prod_cd = #{prod_cd}
@@ -58,7 +58,7 @@
 		     , curr_stcd
 		     , wrter_nm
 		     , wrt_dt
-		  from kcgbd.tb_prodintrhist
+		  from tb_prodintrhist
 		 where prod_cd = #{prod_cd}
 		order by wrt_dt desc, prod_air_min desc
 	</select>
@@ -66,7 +66,7 @@
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* system.prod_mng.insertinfo */
 		 insert 
-		   into kcgbd.tb_prodmst (
+		   into tb_prodmst (
 		        prod_cd
 		      , prod_nm
 		      , prod_ty_cd
@@ -109,7 +109,7 @@
 	<insert id="insertHist" parameterType="cmmnMap">
 	/* system.prod_mng.insertHist */
 		 insert 
-		   into kcgbd.tb_prodintrhist (
+		   into tb_prodintrhist (
 		        prod_cd
 		      , prod_air_min
 		      , prod_air_max
@@ -133,7 +133,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* system.prod_mng.updateinfo */
-		update kcgbd.tb_prodmst
+		update tb_prodmst
 		   set prod_nm           = #{prod_nm}
 		     , prod_ty_cd        = #{prod_ty_cd}
 		     , sbstg_ty_cd       = #{sbstg_ty_cd}
@@ -154,7 +154,7 @@
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* system.prod_mng.deleteinfo */
 		delete 
-		  from kcgbd.tb_prodmst
+		  from tb_prodmst
 		 where prod_cd = #{prod_cd}
 	</delete>
 </mapper>

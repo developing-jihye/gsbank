@@ -24,8 +24,8 @@
 			,A.reg_user_id
 			,USR.name reg_user_name
 		FROM 
-			kcgbd.t_pup_mng A
-			,kcgbd.t_user USR
+			t_pup_mng A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 		<if test='search_val != ""'>
@@ -62,8 +62,8 @@
 			,A.reg_user_id
 			,USR.name reg_user_name
 		FROM 
-			kcgbd.t_pup_mng A
-			,kcgbd.t_user USR
+			t_pup_mng A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND A.idx = #{idx}
@@ -71,7 +71,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* etc.mng.popup.updateInfo */
-		UPDATE kcgbd.t_pup_mng 
+		UPDATE t_pup_mng 
 		SET 
 			pup_nm = #{pup_nm}
 			,pup_ctnt = #{pup_ctnt}
@@ -89,7 +89,7 @@
 	
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* etc.mng.popup.insertInfo */
-		INSERT INTO kcgbd.t_pup_mng(
+		INSERT INTO t_pup_mng(
 			idx
 			,pup_nm
 			,pup_ctnt
@@ -124,7 +124,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* etc.mng.popup.deleteInfo */
-		DELETE FROM kcgbd.t_pup_mng
+		DELETE FROM t_pup_mng
 		WHERE idx = #{idx}
 	</delete>
 	

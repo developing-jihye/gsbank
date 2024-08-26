@@ -8,15 +8,15 @@
 			A.idx
 			,A.sbjt
 			,A.atch_file_1
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
 			,A.atch_file_2
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
 			,A.atch_file_3
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
 			,A.atch_file_4
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
 			,A.atch_file_5
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
 			,A.read_cnt
 			,A.reg_dt
 			,A.updt_dt
@@ -25,8 +25,8 @@
 			,A.reg_user_id
 			,USR.name reg_user_name
 		FROM 
-			kcgbd.t_news A
-			,kcgbd.t_user USR
+			t_news A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 		<if test='search_val != ""'>
@@ -46,23 +46,23 @@
 			,A.sbjt
 			,A.ctnt
 			,A.atch_file_1
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
 			,A.atch_file_2
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
 			,A.atch_file_3
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
 			,A.atch_file_4
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
 			,A.atch_file_5
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
 			,A.read_cnt
 			,to_char(A.reg_dt, 'yyyy-mm-dd hh24:mi') reg_dt_char
 			,to_char(A.updt_dt, 'yyyy-mm-dd hh24:mi') updt_dt_char
 			,A.reg_user_id
 			,USR.name reg_user_name
 		FROM 
-			kcgbd.t_news A
-			,kcgbd.t_user USR
+			t_news A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND A.idx = #{idx}
@@ -70,7 +70,7 @@
 	
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* communi.mng.news.insertInfo */
-		INSERT INTO kcgbd.t_news(
+		INSERT INTO t_news(
 			idx
 			,sbjt
 			,ctnt
@@ -103,7 +103,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* communi.mng.news.updateInfo */
-		UPDATE kcgbd.t_news
+		UPDATE t_news
 		SET 
 			sbjt = #{sbjt}
 			,ctnt = #{ctnt}
@@ -119,7 +119,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* communi.mng.news.deleteInfo */
-		DELETE FROM kcgbd.t_news
+		DELETE FROM t_news
 		WHERE idx = #{idx}
 	</delete>
 	

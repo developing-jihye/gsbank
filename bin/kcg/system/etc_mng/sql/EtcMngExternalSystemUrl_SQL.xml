@@ -12,8 +12,8 @@
 			,A.reg_user_id
 			,A.updt_user_id
 			,USR.name reg_user_name
-		FROM kcgbd.t_ext_sys_url_mng A
-			,kcgbd.t_user USR
+		FROM t_ext_sys_url_mng A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 	</select>
@@ -28,8 +28,8 @@
 			,A.reg_user_id
 			,A.updt_user_id
 			,USR.name reg_user_name
-		FROM kcgbd.t_ext_sys_url_mng A
-			,kcgbd.t_user USR
+		FROM t_ext_sys_url_mng A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND A.ext_url = #{ext_url}
@@ -37,7 +37,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* etc.mng.external.system.url.updateInfo */
-		UPDATE kcgbd.t_ext_sys_url_mng
+		UPDATE t_ext_sys_url_mng
 		SET 
 			sys_nm = #{sys_nm}
 			,updt_dt = now()
@@ -47,7 +47,7 @@
 	
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* etc.mng.external.system.url.insertInfo */
-		INSERT INTO kcgbd.t_ext_sys_url_mng(
+		INSERT INTO t_ext_sys_url_mng(
 			ext_url
 			,sys_nm
 			,reg_dt
@@ -66,7 +66,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* etc.mng.external.system.url.deleteInfo */
-		DELETE FROM kcgbd.t_ext_sys_url_mng
+		DELETE FROM t_ext_sys_url_mng
 		WHERE ext_url = #{ext_url}
 	</delete>
 	
@@ -74,8 +74,8 @@
 	/* etc.mng.external.system.url.chkDpl */
 		SELECT 
 			count(ext_url) cnt
-		FROM kcgbd.t_ext_sys_url_mng A
-			,kcgbd.t_user USR
+		FROM t_ext_sys_url_mng A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND A.ext_url = #{ext_url}

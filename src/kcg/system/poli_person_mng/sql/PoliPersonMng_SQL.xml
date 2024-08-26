@@ -34,7 +34,7 @@
 			,A.tot_psn
 			,A.assn_psn
 			,A.code
-		FROM kcgbd.t_poli_person_report A
+		FROM t_poli_person_report A
 		WHERE 1=1
 		<if test='cat_cd_1 != ""'>
 			AND A.cat_cd_1 = #{cat_cd_1}
@@ -114,14 +114,14 @@
 			,A.tot_psn
 			,A.assn_psn
 			,A.code
-		FROM kcgbd.t_poli_person_report A
+		FROM t_poli_person_report A
 		WHERE 1=1
 			AND A.code = #{code}
 	</select>
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* system.poli_person_mng.code.updateCmndCdStts */
-		UPDATE kcgbd.t_poli_person_report
+		UPDATE t_poli_person_report
 		SET 
 			now_psn = #{now_psn}
 			,tot_psn = #{tot_psn}
@@ -133,7 +133,7 @@
 	
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* system.poli_person_mng.code.insertInfo */
-		INSERT INTO kcgbd.t_poli_person_report(
+		INSERT INTO t_poli_person_report(
 			idx
 			,cat_cd_1
 			,cat_nm_1
@@ -214,7 +214,7 @@
 			,pcm.cat6
 			,pcm.cat_nm_6
 			,pcm.pt_idx
-		FROM kcgbd.t_poli_person_code_mng pcm
+		FROM t_poli_person_code_mng pcm
 		WHERE 1=1
 			AND pcm.use_yn = 'Y'
 			AND pcm.code_grp_id = #{code_grp_id}
@@ -238,7 +238,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* system.poli_person_mng.deleteInfo */
-		DELETE FROM kcgbd.t_poli_person_report
+		DELETE FROM t_poli_person_report
 		WHERE idx = #{idx}
 	</delete>
 </mapper>
