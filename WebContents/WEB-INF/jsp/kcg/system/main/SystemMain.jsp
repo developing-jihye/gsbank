@@ -123,7 +123,7 @@
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<div class="panel-title">
-							<label class="control-label" style="font-size: 40px;">기상청 날씨 정보</label>
+							<label class="control-label" style="font-size: 40px;">기상청 날씨 정보(제거 예정)</label>
 						</div>
 					</div>
 
