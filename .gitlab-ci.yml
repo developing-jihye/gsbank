@@ -1,0 +1,78 @@
+stages:
+  - lint   # 코드 스타일 검사 단계
+  - build  # 빌드 단계
+  - test   # 테스트 단계
+  - deploy # 배포 단계
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"  # 로컬 Maven 저장소 위치 설정
+
+lint-job:
+  only:
+    refs:
+      - master
+      - develop  
+    changes:
+      - '**/*.java'  # Java 파일에 변경이 있을 때 실행
+      - '**/*.xml'  # xml 파일에 변경이 있을 때 실행  
+  stage: lint
+  ######## image: maven:3.8.1-openjdk-17  # Maven과 OpenJDK 17이 포함된 Docker 이미지 사용
+  script:
+    - mvn checkstyle:check  # Checkstyle을 사용하여 코드 스타일 검사
+
+
+build-job:
+  only:
+    refs:
+      - master
+      #- develop  
+    #changes:
+      #- '**/*.java'  # Java 파일에 변경이 있을 때 실행
+      #- '**/*.xml'  # xml 파일에 변경이 있을 때 실행    
+  stage: build
+  ## image: maven:3.8.1-openjdk-17  # Maven과 OpenJDK 17이 포함된 Docker 이미지 사용
+  script:
+    - mvn clean install  # 프로젝트 빌드 및 패키지 설치
+  artifacts:
+    paths:
+      - target/*.war  # 빌드 결과물인 JAR 파일을 artifacts로 저장, 얘를 해줘야 파일이 생성됨
+
+test-job1:
+  stage: test
+  # image: maven:3.8.1-openjdk-17  # Maven과 OpenJDK 17이 포함된 Docker 이미지 사용
+  script:
+    - mvn test  # 테스트 실행
+
+# 깃러너가 설치된 서버(노트북)의 OS 와 excute (예: shell, 파워쉘 등)의 환경에 맞게 스크립트를 짜야합니당.
+deploy-prod:
+  only:
+    refs:
+      - master #master 브랜치 에서만 deploy JOB 실행
+  stage: deploy
+  script:
+    - echo "Deploying something from the $CI_COMMIT_BRANCH branch to production environment..."
+
+    # PowerShell 스크립트 시작
+    - |
+      Write-Host "$CI_COMMIT_BRANCH 브랜치에서 production 환경으로 배포 중..."
+
+      $targetDir = "C:\App\Team4\tomcat\9.0\webapps"
+      if (!(Test-Path $targetDir)) {
+          New-Item -ItemType Directory -Path $targetDir -ErrorAction SilentlyContinue  # 디렉토리가 없으면 생성
+      }
+
+      # target 디렉토리의 war 파일들을 $targetDir로 복사하고 이름 변경
+      Get-ChildItem "target\*.war" | ForEach-Object {
+          # $newName = "$targetDir\" + $_.BaseName + "_" + (Get-Date -Format 'yyyyMMddHHmmss') + $_.Extension
+          $newName = "$targetDir\" + $_.BaseName + $_.Extension # ROOT.war
+          Copy-Item -Path $_.FullName -Destination $newName
+      }
+
+
+      # $targetDir 디렉토리 내의 모든 파일 목록 확인
+      Get-ChildItem $targetDir
+    # PowerShell 스크립트 끝
+  
+  environment:
+    name: production
+
