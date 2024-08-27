@@ -1,3 +1,53 @@
-/target/
+# Eclipse IDE
+.project
+.classpath
+.settings/
+*.launch
+*.suo
+*.sublime-workspace
 
+# Eclipse metadata
+.metadata/
+# Mac OS X
+.DS_Store
+# Windows
+Thumbs.db
+Desktop.ini
 
+# Build output
+bin/
+build/
+target/
+
+# Java-specific
+*.class
+*.jar
+*.war
+*.ear
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Environment files
+.env
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Eclipse specific
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+*.orig
+*.rej
+*.patch
+*.sublime-workspace
+*.sublime-project
