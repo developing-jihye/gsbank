@@ -1,0 +1,20 @@
+/target/
+
+
+*.log
+*.tmp
+
+
+# 파일 무시
+README.md
+pom.xml
+checkstyle.xml
+.project
+.pmd
+.checkstyle
+.classpath
+
+
+# 특정 파일 무시 (예시)
+src/kcg/login/sql/Login_SQL.xml
+
