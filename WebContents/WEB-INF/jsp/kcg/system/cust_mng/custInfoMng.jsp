@@ -129,7 +129,7 @@
 											</button>
 											<button type="button" class="btn btn-blue btn-icon icon-left"
 												style="margin-left: 5px;" @click="uiClear">
-												신규 (커밋용 수정)
+												신규
 												<i class="entypo-search"></i>
 											</button>
 											<button type="button" class="btn btn-blue btn-icon icon-left"
