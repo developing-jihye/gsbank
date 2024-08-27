@@ -64,8 +64,9 @@ public class SampleBascCtl {
 	public String sampleBascSelect(ModelMap model, HttpServletRequest request) {
 
 		log.info("sampleBascSelect START");
-		
-		
+		log.info("sampleBascSelect START");
+		log.info("sampleBascSelect START");
+		log.info("sampleBascSelect START");
         
 		String contextPath = request.getContextPath();
 
