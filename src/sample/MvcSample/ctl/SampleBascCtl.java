@@ -66,6 +66,7 @@ public class SampleBascCtl {
 		log.info("sampleBascSelect START");
 		log.info("sampleBascSelect START");
 		log.info("sampleBascSelect START");
+		log.info("sampleBascSelect START");
         
 		String contextPath = request.getContextPath();
 
