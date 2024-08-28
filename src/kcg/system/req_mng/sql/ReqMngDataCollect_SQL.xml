@@ -10,22 +10,22 @@
 			,USR.name reg_user_name
 			,A.sbjt
 			,A.gbn
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'DTCOLCTREQ' AND code_id =A.gbn) gbn_nm
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'DTCOLCTREQ' AND code_id =A.gbn) gbn_nm
 			,A.atch_file_1
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
 			,A.atch_file_2
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
 			,A.atch_file_3
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
 			,A.atch_file_4
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
 			,A.atch_file_5
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
 			,A.req_dtl_ctnt
 			,A.req_resn
 			,A.use_purp
 			,A.req_sts
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) req_sts_nm
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) req_sts_nm
 			,A.cmnt
 			,A.reg_dt
 			,A.updt_dt
@@ -37,8 +37,8 @@
 			,A.etc_act_db_org
 			,A.etc_act_db_nm
 		FROM 
-			kcgbd.t_data_collect_req A
-			,kcgbd.t_user USR
+			t_data_collect_req A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 		<if test='search_val != ""'>
@@ -59,22 +59,22 @@
 			,USR.name reg_user_name
 			,A.sbjt
 			,A.gbn
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'DTCOLCTREQ' AND code_id =A.gbn) gbn_nm
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'DTCOLCTREQ' AND code_id =A.gbn) gbn_nm
 			,A.atch_file_1
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
 			,A.atch_file_2
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
 			,A.atch_file_3
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
 			,A.atch_file_4
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
 			,A.atch_file_5
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
 			,A.req_dtl_ctnt
 			,A.req_resn
 			,A.use_purp
 			,A.req_sts
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) req_sts_nm
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = A.req_sts) req_sts_nm
 			,A.cmnt
 			,A.reg_dt
 			,A.updt_dt
@@ -88,8 +88,8 @@
 			,USR.email reg_user_email
 			,USR.tdept_nm reg_user_tdept_nm
 		FROM 
-			kcgbd.t_data_collect_req A
-			,kcgbd.t_user USR
+			t_data_collect_req A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND A.idx = #{idx}
@@ -98,7 +98,7 @@
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* req.mng.data.collect.updateInfo */
 		UPDATE 
-			kcgbd.t_data_collect_req
+			t_data_collect_req
 		SET 
 			req_sts = #{req_sts}
 			,cmnt = #{cmnt}
@@ -110,7 +110,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* req.mng.data.collect.deleteInfo */
-		DELETE FROM kcgbd.t_data_collect_req
+		DELETE FROM t_data_collect_req
 		WHERE 1=1
 		 	AND idx= #{idx}
 	</delete>
@@ -118,7 +118,7 @@
 	<update id="updtStatus" parameterType="cmmnMap">
 	/* req.mng.data.collect.updtStatus */
 		UPDATE 
-			kcgbd.t_data_collect_req
+			t_data_collect_req
 		SET 
 			req_sts = #{req_sts}
 			,updt_user_id = #{user_id}

@@ -19,7 +19,7 @@
 		,USR.gis_auth
 		,USR.del_yn AS delYn
 		,USR.user_pw AS userPw
-		FROM kcgbd.t_user USR
+		FROM t_user USR
 		WHERE 1=1
 		AND USR.del_yn =
 		'N'
@@ -34,7 +34,7 @@
 		SELECT
 		user_id as userId
 		FROM
-		kcgbd.t_user
+		t_user
 
 		WHERE 1=1
 		<if test="userNm != null and userNm != ''">
@@ -57,7 +57,7 @@
 		SELECT
 		user_pw as userPw
 		FROM
-		kcgbd.t_user
+		t_user
 
 		WHERE 1=1
 		<if test="userNm != null and userNm != ''">
@@ -132,8 +132,8 @@
 		auth.auth_cd
 		,auth.admin_yn
 		FROM
-		kcgbd.t_auth auth
-		,kcgbd.t_user USR
+		t_auth auth
+		,t_user USR
 		WHERE 1=1
 		AND
 		auth.auth_cd = USR.auth_cd
@@ -145,7 +145,7 @@
 	<insert id="insertUserAuthInfo" parameterType="cmmnMap">
 		/*
 		login.insertUserAuthInfo */
-		INSERT INTO kcgbd.t_user (
+		INSERT INTO t_user (
 		auth_cd
 		,user_id
 		,iam_yn
@@ -177,7 +177,7 @@
 	<update id="updateUserAuthInfo" parameterType="cmmnMap">
 		/*
 		login.updateUserAuthInfo */
-		UPDATE kcgbd.t_user SET
+		UPDATE t_user SET
 		auth_cd = #{auth_cd}
 		,status_cd = #{status_cd}
 		,name = #{name}
@@ -204,8 +204,8 @@
 		,amm.u_yn
 		,amm.d_yn
 		FROM
-		kcgbd.t_auth_menu_mapping amm
-		,kcgbd.t_menu mnu
+		t_auth_menu_mapping amm
+		,t_menu mnu
 		WHERE 1=1
 		AND
 		amm.menu_url = mnu.menu_url
@@ -224,7 +224,7 @@
 		,'Y' u_yn
 		,'Y' d_yn
 		FROM
-		kcgbd.t_menu mnu
+		t_menu mnu
 		WHERE 1=1
 	</select>
 
@@ -240,7 +240,7 @@
 		,'Y' u_yn
 		,'Y' d_yn
 		FROM
-		kcgbd.t_menu mnu
+		t_menu mnu
 		WHERE 1=1
 		AND mnu.admin_yn = 'N'
 	</select>
@@ -252,7 +252,7 @@
 		select
 		code_no as codeNo, code_nm as codeNm
 		from
-		kcgbd.tb_codemst
+		tb_codemst
 		where
 		code_cl = '141'
 	</select>
@@ -260,7 +260,7 @@
 	<insert id="registUserInfo" parameterType="cmmnMap">
 		/*login.registUserInfo */
 		INSERT INTO
-		kcgbd.t_user (
+		t_user (
 		auth_cd
 		,user_id
 		,iam_yn

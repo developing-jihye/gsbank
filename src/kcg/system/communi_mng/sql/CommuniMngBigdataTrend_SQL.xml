@@ -7,15 +7,15 @@
 			A.idx
 			,A.sbjt
 			,A.atch_file_1
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
 			,A.atch_file_2
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
 			,A.atch_file_3
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
 			,A.atch_file_4
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
 			,A.atch_file_5
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
 			,A.read_cnt
 			,A.reg_dt
 			,A.updt_dt
@@ -24,8 +24,8 @@
 			,A.reg_user_id
 			,USR.name reg_user_name
 		FROM 
-			kcgbd.t_bigdata_trend A
-			,kcgbd.t_user USR
+			t_bigdata_trend A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 		<if test='search_val != ""'>
@@ -45,15 +45,15 @@
 			,A.sbjt
 			,A.ctnt
 			,A.atch_file_1
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_1) atch_file_1_nm
 			,A.atch_file_2
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_2) atch_file_2_nm
 			,A.atch_file_3
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_3) atch_file_3_nm
 			,A.atch_file_4
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_4) atch_file_4_nm
 			,A.atch_file_5
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = A.atch_file_5) atch_file_5_nm
 			,A.read_cnt
 			,A.reg_dt
 			,A.updt_dt
@@ -62,8 +62,8 @@
 			,A.reg_user_id
 			,USR.name reg_user_name
 		FROM 
-			kcgbd.t_bigdata_trend A
-			,kcgbd.t_user USR
+			t_bigdata_trend A
+			,t_user USR
 		WHERE 1=1
 			AND USR.user_id = A.reg_user_id
 			AND idx = #{idx}
@@ -71,7 +71,7 @@
 	
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* communi.mng.bigdata.trend.insertInfo */
-		INSERT INTO kcgbd.t_bigdata_trend(
+		INSERT INTO t_bigdata_trend(
 			idx
 			,sbjt
 			,ctnt
@@ -104,7 +104,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* communi.mng.bigdata.trend.updateInfo */
-		UPDATE kcgbd.t_bigdata_trend
+		UPDATE t_bigdata_trend
 		SET 
 			sbjt = #{sbjt}
 			,ctnt = #{ctnt}
@@ -120,7 +120,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* communi.mng.bigdata.trend.deleteInfo */
-		DELETE FROM kcgbd.t_bigdata_trend
+		DELETE FROM t_bigdata_trend
 		WHERE idx = #{idx}
 	</delete>
 	

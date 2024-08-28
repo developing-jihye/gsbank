@@ -13,7 +13,7 @@
 			,to_char(mnu.reg_dt, 'YYYY-MM-DD HH24:MI:SS.MS') reg_dt_char
 			,mnu.reg_dt
 		FROM
-			kcgbd.t_menu mnu
+			t_menu mnu
 		WHERE 1=1
 		<if test='admin_yn != ""'>
 			AND mnu.admin_yn = #{admin_yn}
@@ -39,14 +39,14 @@
 			,to_char(mnu.reg_dt, 'YYYY-MM-DD HH24:MI:SS.MS') reg_dt_char
 			,mnu.reg_dt
 		FROM
-			kcgbd.t_menu mnu
+			t_menu mnu
 		WHERE 1=1
 			AND mnu.menu_url = #{menu_url}
 	</select>
 
 	<insert id="insertInfo" parameterType="cmmnMap">
 	/* system.menu_mng.insertInfo */
-		INSERT INTO kcgbd.t_menu(
+		INSERT INTO t_menu(
 			menu_url
 			,menu_nm
 			,menu_note
@@ -65,7 +65,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* system.menu_mng.updateInfo */
-		UPDATE kcgbd.t_menu SET
+		UPDATE t_menu SET
 			menu_nm = #{menu_nm}
 			,menu_note = #{menu_note}
 			,admin_yn = #{admin_yn}
@@ -76,7 +76,7 @@
 	
 	<delete id="delete" parameterType="cmmnMap">
 	/* system.menu_mng.delete */
-		DELETE FROM kcgbd.t_menu
+		DELETE FROM t_menu
 		WHERE menu_url = #{menu_url}
 	</delete>
 	
@@ -84,14 +84,14 @@
 	/* system.menu_mng.chkExist */
 		SELECT
 			count(*) cnt
-		FROM kcgbd.t_menu mnu
+		FROM t_menu mnu
 		WHERE 1=1
 			AND mnu.menu_url = #{menu_url}
 	</select>
 	
 	<delete id="deleteAuthMapping" parameterType="cmmnMap">
 	/* system.menu_mng.deleteAuthMapping */
-		DELETE FROM kcgbd.t_auth_menu_mapping
+		DELETE FROM t_auth_menu_mapping
 		WHERE menu_url = #{menu_url}
 	</delete>
 	

@@ -20,7 +20,7 @@
 			,SUM(A.communi_lib_cnt) communi_lib_cnt
 			,SUM(A.communi_news_cnt) communi_news_cnt
 		FROM
-			kcgbd.t_statistic A
+			t_statistic A
 		WHERE 1=1
 			AND A.statistic_date BETWEEN #{from_date} AND #{to_date}
 		GROUP BY A.statistic_date
@@ -35,7 +35,7 @@
 			,SUM(req_data_collect_cnt) req_data_collect_cnt
 			,SUM(req_dnld_cnt) req_dnld_cnt
 		FROM
-			kcgbd.t_statistic
+			t_statistic
 		WHERE 1=1
 			AND statistic_date BETWEEN #{from_date} AND #{to_date}
 	</select>
@@ -46,7 +46,7 @@
 			A.keyword
 			,SUM(A.keyword_cnt) keyword_cnt
 		FROM
-			kcgbd.t_keyword_log A
+			t_keyword_log A
 		WHERE 1=1
 			AND A.reg_date BETWEEN #{from_date} AND #{to_date}
 		GROUP BY A.keyword
@@ -71,7 +71,7 @@
 			,SUM(A.communi_lib_cnt) communi_lib_cnt
 			,SUM(A.communi_news_cnt) communi_news_cnt
 		FROM
-			kcgbd.t_statistic A
+			t_statistic A
 		WHERE 1=1
 			AND A.statistic_date BETWEEN #{from_date} AND #{to_date}
 	</select>

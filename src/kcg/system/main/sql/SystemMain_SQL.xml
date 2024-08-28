@@ -19,14 +19,14 @@
 			,SUM(communi_lib_cnt) communi_lib_cnt
 			,SUM(communi_news_cnt) communi_news_cnt
 		FROM
-			kcgbd.t_statistic
+			t_statistic
 		WHERE 1=1
 			AND statistic_date = #{statistic_date}
 	</select>
 	
 	<insert id="init" parameterType="string">
 	/* system.main.init */
-		INSERT INTO kcgbd.t_statistic (
+		INSERT INTO t_statistic (
 			statistic_date
 			,user_id
 		) VALUES (
@@ -43,7 +43,7 @@
 			,SUM(req_data_collect_cnt) req_data_collect_cnt
 			,SUM(req_dnld_cnt) req_dnld_cnt
 		FROM
-			kcgbd.t_statistic
+			t_statistic
 		WHERE 1=1
 			AND statistic_date BETWEEN #{from_date} AND #{to_date}
 	</select>
@@ -59,7 +59,7 @@
 					SUM(A.visit_cnt) visit_cnt
 					,A.statistic_date
 				FROM
-					kcgbd.t_statistic A
+					t_statistic A
 				WHERE 1=1
 					AND statistic_date BETWEEN #{from_date} AND #{to_date}
 				GROUP BY A.statistic_date

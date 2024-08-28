@@ -27,12 +27,12 @@
 			,B.regist_user
 			,C.name AS regist_user_name
 			,B.req_sts
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = B.req_sts ) AS req_sts_nm
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'APRVCD' AND code_id = B.req_sts ) AS req_sts_nm
 		FROM
-			kcgbd.regist_file A
-			,kcgbd.regist_file_form B
-			,kcgbd.t_user C
-			,kcgbd.t_cmmn_file_info D
+			regist_file A
+			,regist_file_form B
+			,t_user C
+			,t_cmmn_file_info D
 		WHERE 1=1
 			AND A.docid = B.docid
 			AND B.regist_user = C.user_id
@@ -56,7 +56,7 @@
 			A.docid
 			,A.doctitle
 			,A.brmncd
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'CATEGORY' AND code_id = A.brmncd ) AS brmncdnm
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'CATEGORY' AND code_id = A.brmncd ) AS brmncdnm
 			,A.searchkeyword
 			,A.doccontent
 			,A.dncnt
@@ -64,11 +64,11 @@
 			,A.datastdt
 			,to_char(A.datastdt, 'yyyy-mm-dd') datastdt_char
 			,B.dataurl
-			,(SELECT org_file_nm FROM kcgbd.t_cmmn_file_info WHERE stor_file_nm = B.dataurl) AS atch_file_nm
+			,(SELECT org_file_nm FROM t_cmmn_file_info WHERE stor_file_nm = B.dataurl) AS atch_file_nm
 			,B.nextregistprarnde
 			,to_char(B.nextregistprarnde, 'yyyy-mm-dd') nextregistprarnde_char
 			,B.datatynm
-			,(SELECT code_nm FROM kcgbd.t_cmmn_code WHERE code_grp_id = 'fileType' AND code_id = B.datatynm) AS datatynm_nm
+			,(SELECT code_nm FROM t_cmmn_code WHERE code_grp_id = 'fileType' AND code_id = B.datatynm) AS datatynm_nm
 			,B.atchfileextsn
 			,B.regist_form_dt
 			,to_char(B.regist_form_dt, 'yyyy-mm-dd') regist_form_dt_char
@@ -76,9 +76,9 @@
 			,C.name AS regist_user_name
 			,B.req_sts
 		FROM
-			kcgbd.regist_file A
-			,kcgbd.regist_file_form B
-			,kcgbd.t_user C
+			regist_file A
+			,regist_file_form B
+			,t_user C
 		WHERE 1=1
 			AND A.docid = B.docid
 			AND B.regist_user = C.user_id
@@ -87,7 +87,7 @@
 	
 	<update id="updateInfo" parameterType="cmmnMap">
 	/* reg.mng.share.doc.updateInfo */
-		UPDATE kcgbd.regist_file_form SET
+		UPDATE regist_file_form SET
 			req_sts = #{req_sts}
 		WHERE 1=1
 			AND dataurl = #{dataurl}
@@ -96,11 +96,11 @@
 	<update id="updateInfo2" parameterType="cmmnMap">
 	/* reg.mng.share.doc.updateInfo2 */
 	<![CDATA[
-		update    kcgbd.regist_file   A 
+		update    regist_file   A 
        		set    brmncd = #{brmncd},
    				   searchkeyword = #{searchkeyword},
    				   doccontent      =  #{doccontent}
-		from    kcgbd.regist_file_form    B
+		from    regist_file_form    B
 		WHERE    1=1
      	  AND    A.docid = B.docid
           AND    B.dataurl = #{dataurl} /* index */
@@ -109,7 +109,7 @@
 	
 	<delete id="deleteInfo" parameterType="cmmnMap">
 	/* reg.mng.share.doc.deleteInfo */
-		DELETE FROM kcgbd.regist_file_form
+		DELETE FROM regist_file_form
 		WHERE 1=1
 			AND dataurl = #{dataurl}
 	</delete>

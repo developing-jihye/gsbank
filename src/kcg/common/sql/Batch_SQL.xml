@@ -7,14 +7,14 @@
 	/* batch.getHadoopFileInfoMaxLastUpdtDt */
 		SELECT MAX(last_updt_dt)
 		FROM
-			kcgbd.st_t_hadoop_attachfile
+			st_t_hadoop_attachfile
 	</select>
 	
 	<select id="getHadoopFileInfoMaxLastUpdtDt_2" resultType="string">
 	/* batch.getHadoopFileInfoMaxLastUpdtDt_2 */
 		SELECT MAX(last_updt_dt)
 		FROM
-			kcgbd.st_t_hadoop_attachfile
+			st_t_hadoop_attachfile
 		WHERE 1=1
 			AND hdfs_file_stre_cours_nm = '/user/hive/filedata/file_cs_ism_002/20211025/20190805000000000101_1833'
 	</select>
@@ -62,7 +62,7 @@
 	
 	<insert id="insertImgVideoInfo" parameterType="cmmnMap">
 	/* batch.insertImgVideoInfo */
-		INSERT INTO kcgbd.st_t_hadoop_attachfile (
+		INSERT INTO st_t_hadoop_attachfile (
 			cntrl_hstry_sn
 			,wrter_id
 			,content
@@ -128,14 +128,14 @@
 			,view_cnt
 			,stor_file_nm
 		FROM
-			kcgbd.st_t_hadoop_attachfile
+			st_t_hadoop_attachfile
 		WHERE 1=1
 			AND trans_yn = 'N'
 	</select>
 	
 	<update id="updateHadoopFileStorInfo" parameterType="cmmnMap">
 	/* batch.updateHadoopFileStorInfo */
-		UPDATE kcgbd.st_t_hadoop_attachfile SET
+		UPDATE st_t_hadoop_attachfile SET
 			trans_yn = 'Y'
 			,stor_file_nm = #{stor_file_nm}
 		WHERE 1=1
@@ -147,7 +147,7 @@
 		SELECT 
 			COUNT(*)
 		FROM
-			kcgbd.t_cmmn_file_info
+			t_cmmn_file_info
 		WHERE 1=1
 			AND stor_file_nm = #{stor_file_nm}
 	</select>
