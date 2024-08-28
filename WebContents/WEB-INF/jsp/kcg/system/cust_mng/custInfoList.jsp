@@ -25,7 +25,7 @@
 
                     <ol class="breadcrumb bc-3">
                         <li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
-                        <li class="active"><strong>고객정보 목록 조회</strong></li>
+                        <li class="active"><strong>밥먹자</strong></li>
                     </ol>
 
                     <h2>고객정보 목록</h2>
