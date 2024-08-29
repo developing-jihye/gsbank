@@ -13,6 +13,7 @@ import common.utils.mybatis_paginator.domain.PageList;
 import kcg.common.svc.CommonSvc;
 import kcg.system.promion_mng.svc.PromionMngSvc;
 
+// controller입니다.
 @RequestMapping("/promion_mng")
 @Controller
 public class PromionMngCtl {
