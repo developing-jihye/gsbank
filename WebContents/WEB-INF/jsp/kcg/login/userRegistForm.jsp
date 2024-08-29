@@ -53,7 +53,7 @@
 
 	<div>*사용자명 :
     <input type="text" class = "input-radius" id="picNm" name="picNm" placeholder="">
-    	<button type="button" onClick="cleanRegistForm()"> 신규 </button>
+    	<button class="neww" type="button" onClick="cleanRegistForm()"> 신규 </button>
     </div>
     <br>
 
