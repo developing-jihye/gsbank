@@ -24,7 +24,13 @@
     --orange-100: rgb(233, 112, 52);
 }
 
-/* ������ ���� ��Ÿ�� */
+
+
+
+
+
+
+/* 기본 스타일 */
 body {
     width: 100%;
     height: 100%;
@@ -34,6 +40,57 @@ body {
     font-weight: normal;
     font-style: normal;
 }
+
+/* 컨테이너 스타일링 */
+.container {
+    display: flex;
+    width: 100%;
+    height: 800px;
+   
+    background-color: #fff;
+
+   
+}
+
+/* 왼쪽 컨테이너 스타일링 */
+.container .left {
+    flex: 1;
+    padding: 50px;
+  /*   border-right: 2px solid black; */
+    background-color: #fff;
+
+   
+}
+
+/* 오른쪽 컨테이너 스타일링 */
+.container .right {
+    flex: 1;
+    padding: 20px;
+    background-color: #c0c0c0;
+
+}
+
+.flex-gap-10 { gap: 10px; }
+
+
+
+
+
+ .form-group2 {
+            margin-bottom: 10px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 .text-center { text-align: center; }
 /* Flex ��Ÿ�� */
 .flex {display: flex};
@@ -77,8 +134,10 @@ body {
 /* Form */
 .form-group { display: flex; align-items: center; justify-content: center; width: 100%;}
 .form-group label {height:30px; font-weight: bold; text-align: right;margin-right: 10px;}
-.form-group input { height: 30px; border: 1px solid var(--gray-200); margin-left:10px}
-.form-group select { flex: 1; height: 36px; border: 1px solid var(--gray-200);  }
+
+.form-group input { height: 50px; border: 1px solid var(--gray-200); margin-left:10px; font-size: 14px; }
+
+.form-group select { flex: 1; height: 50px; border: 1px solid var(--gray-200); font-size: 14px;  }
 
 .form-control { flex: 1; width: 100%; }
 /*---*/
@@ -87,10 +146,12 @@ body {
 .form-group-right input { height: 30px; border: 1px solid var(--gray-200); margin-left:10px}
 .form-group-right select { flex: 1; height: 36px; border: 1px solid var(--gray-200);  }
 
-input.form-control {height:30px;  background: var(--gray-100); }
+input.form-control {height:50px;  background: var(--gray-100); font-size: 14px;  }
+
 input.form-control[disabled] { background: var(--gray-100); }
 label.form-control {height:30px; font-weight: bold; }
 textarea.form-control[disabled] { background: var(--gray-100); padding: 4px 8px; }
-select.form-control { height: 36px;}
+
+select.form-control { height: 50px; font-size: 14px; }
 
 

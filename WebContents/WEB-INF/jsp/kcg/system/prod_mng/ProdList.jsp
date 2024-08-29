@@ -19,10 +19,14 @@
 </head>
 <body class="page-body">
 
+	    
+
 	<div class="page-container">
 
 		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp"
 			flush="false" />
+			
+			
 
 		<div class="main-content">
 
@@ -37,8 +41,43 @@
 
 			<h2>상품관리 > 상품목록조회</h2>
 			<br />
+			
+			
+			
+			<div class="container">
+         <div class="left">
+            <div class="form-group2">
+                <label for="prodName" class="form-control">상품명:</label>
+                <input id="prodName" class="form-control" type="text" placeholder="상품명 입력">
+            </div>
+            <div class="form-group2">
+                <label for="prodCode" class="form-control">상품코드:</label>
+                <input id="prodCode" class="form-control" type="text" placeholder="상품코드 입력">
+            </div>
+            <div class="form-group2">
+                <label for="startDate" class="form-control">판매시작일:</label>
+                <input id="startDate" class="form-control" type="date">
+            </div>
+            <div class="form-group2">
+                <label for="paymentCycle" class="form-control">납입주기:</label>
+                <select id="paymentCycle" class="form-control">
+                    <option value="">전체</option>
+                    <option value="1">월납</option>
+                    <option value="2">년납</option>
+                    <option value="3">일시납</option>
+                </select>
+            </div>
+            <button class="btn btn-blue">검색</button>
+        </div>
+        <div class="right">
+            <h2>Right Container</h2>
+        
+        </div>
+    </div>
+    
 
-			<div class="flex-column flex-gap-10" id="vueapp">
+
+			<!-- <div class="flex-column flex-gap-10" id="vueapp">
 				<template>
 					<div class="flex flex-100">
 						<div class="flex-wrap flex-66 flex flex-gap-10 flex-padding-10">
@@ -47,7 +86,7 @@
 									class="form-control" v-model="prod_nm" value="" />
 							</div>
 							<div class="form-group flex-40">
-								<label class="form-control">가입대상:</label> <select
+								<label class="form-control">상품코드</label> <select
 									v-model="sbstg_ty_cd" class="form-control">
 									<option value="0">전체</option>
 									<option value="1">일반개인</option>
@@ -88,6 +127,8 @@
 							</div>
 						</div>
 					</div>
+					 -->
+					
 					<div class="flex flex-100 flex-padding-10 flex-gap-10"
 						style="justify-content: flex-end; border: 1px solid #999999;">
 						<button type="button" class="btn btn-blue btn-icon icon-left"
@@ -166,6 +207,8 @@
 		</div>
 
 	</div>
+	
+	
     <!-- 출력팝업DIV -->
     <div class="modal fade" id="popup_print">
         <template>
