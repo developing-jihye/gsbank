@@ -78,9 +78,9 @@ body {
 
  .form-group2 {
             margin-bottom: 10px;
+              align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 레이블과 입력 필드를 양 끝으로 정렬 */
         }
-
-
 
 
 
@@ -149,7 +149,7 @@ body {
 input.form-control {height:50px;  background: var(--gray-100); font-size: 14px;  }
 
 input.form-control[disabled] { background: var(--gray-100); }
-label.form-control {height:30px; font-weight: bold; }
+label.form-control {height:50px; font-weight: bold; font-size: 14px; }
 textarea.form-control[disabled] { background: var(--gray-100); padding: 4px 8px; }
 
 select.form-control { height: 50px; font-size: 14px; }
