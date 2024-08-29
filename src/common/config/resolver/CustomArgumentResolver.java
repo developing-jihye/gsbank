@@ -51,6 +51,8 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 				|| HttpSession.class.isAssignableFrom(parameterType)
 				// || int.class.isAssignableFrom(parameterType)
 				// || MultipartFile.class.isAssignableFrom(parameterType) // 추가
+				
+				
 				) {
 			return true;
 		} else {
