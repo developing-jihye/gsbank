@@ -24,6 +24,36 @@
     --orange-100: rgb(233, 112, 52);
 }
 
+
+  .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-blue {
+            background-color: #007bff;
+        }
+
+
 /* 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙타占쏙옙 */
 body {
     width: 100%;
@@ -78,11 +108,19 @@ body {
 .form-group select { flex: 1; height: 36px; border: 1px solid var(--gray-200);  }
 
 .form-control { flex: 1; width: 100%; }
-
 input.form-control {height:30px;  background: var(--gray-100); }
 input.form-control[disabled] { background: var(--gray-100); }
 label.form-control {height:30px; font-weight: bold; }
 textarea.form-control[disabled] { background: var(--gray-100); padding: 4px 8px; }
 select.form-control { height: 36px; }
+
+
+
+
+
+
+
+
+
 
 
