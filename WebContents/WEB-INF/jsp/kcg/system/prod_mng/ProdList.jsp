@@ -42,76 +42,42 @@
 			<h2>상품관리 > 상품목록조회</h2>
 			<br />
 			
-			<body>
-    <div id="vueapp" class="container flex-gap-10 flex flex-100">
-        <div class="left">
-            <!-- Vue.js 템플릿 코드 삽입 -->
-            <template>
-                <div class="flex flex-100">
-                    <div class="flex-wrap flex-66 flex flex-gap-10 flex-padding-10">
-                        <div class="form-group flex-40">
-                            <label class="form-control">상품명:</label>
-                            <input class="form-control" v-model="prod_nm" value="" />
-                        </div>
-                        <div class="form-group flex-40">
-                            <label class="form-control">상품코드</label>
-                            <select v-model="sbstg_ty_cd" class="form-control">
-                                <option value="0">전체</option>
-                                <option value="1">일반개인</option>
-                                <option value="2">청년생활지원</option>
-                            </select>
-                        </div>
-                        <div class="form-group flex-40">
-                            <label class="form-control">판매시작일:</label>
-                            <input type="text" class="form-control" v-model="from_date" data-format="yyyy-mm-dd" style="width: 180px;">
-                        </div>
-                        <div class="form-group flex-40">
-                            <label class="form-control">납입주기:</label>
-                            <select v-model="pay_ty_cd" class="form-control">
-                                <option value="">전체</option>
-                                <option value="1">월납</option>
-                                <option value="2">년납</option>
-                                <option value="3">일시납</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="flex-wrap flex-33 flex flex-center flex-gap-10 flex-padding-10">
-                        <div class="form-group" style="width: 45%;">
-                            <button type="button" class="btn btn-blue btn-icon icon-left form-control" @click="getListCond(true)">
-                                조건검색 <i class="entypo-search"></i>
-                            </button>
-                        </div>
-                        <div class="form-group" style="width: 45%;">
-                            <button type="button" class="btn btn-blue btn-icon icon-left form-control" @click="getListAll(true)">
-                                전체검색 <i class="entypo-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </template>
+			
+			
+			<div class="container">
+         <div class="left">
+            <div class="form-group2">
+                <label for="prodName" class="form-control">상품명:</label>
+                <input id="prodName" class="form-control" type="text" placeholder="상품명 입력">
+            </div>
+            <div class="form-group2">
+                <label for="prodCode" class="form-control">상품코드:</label>
+                <input id="prodCode" class="form-control" type="text" placeholder="상품코드 입력">
+            </div>
+            <div class="form-group2">
+                <label for="startDate" class="form-control">판매시작일:</label>
+                <input id="startDate" class="form-control" type="date">
+            </div>
+            <div class="form-group2">
+                <label for="paymentCycle" class="form-control">납입주기:</label>
+                <select id="paymentCycle" class="form-control">
+                    <option value="">전체</option>
+                    <option value="1">월납</option>
+                    <option value="2">년납</option>
+                    <option value="3">일시납</option>
+                </select>
+            </div>
+            <button class="btn btn-blue">검색</button>
         </div>
         <div class="right">
             <h2>Right Container</h2>
-            <p>This is the right container with no border.</p>
-        </div>
-    </div>
-			
-			
-			
-			<!-- <div class="container flex-gap-10 flex flex-100">
-        <div class="left">
-            <h2>Left Container</h2>
-            <p>This is the left container with a black border on the right.</p>
-        </div>
-        <div class="right">
-            <h2>Right Container</h2>
-            <p>This is the right container with no border.</p>
+        
         </div>
     </div>
     
 
 
-			<div class="flex-column flex-gap-10" id="vueapp">
+			<!-- <div class="flex-column flex-gap-10" id="vueapp">
 				<template>
 					<div class="flex flex-100">
 						<div class="flex-wrap flex-66 flex flex-gap-10 flex-padding-10">
@@ -162,8 +128,6 @@
 						</div>
 					</div>
 					 -->
-					
-					
 					
 					<div class="flex flex-100 flex-padding-10 flex-gap-10"
 						style="justify-content: flex-end; border: 1px solid #999999;">
@@ -243,6 +207,8 @@
 		</div>
 
 	</div>
+	
+	
     <!-- 출력팝업DIV -->
     <div class="modal fade" id="popup_print">
         <template>
