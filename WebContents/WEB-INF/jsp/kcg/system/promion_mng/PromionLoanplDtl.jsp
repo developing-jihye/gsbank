@@ -191,6 +191,10 @@
 	                        <table>
 	                        	<tr>
 	                        		<td class="center" style="width: 40%; vertical-align: top;">
+	                        		<div class="panel-heading">
+											<div class="panel-title">계산 결과 차트</div>
+										</div>
+										<div id="chart" class="bottom-right-bottom flex-100"></div>
 	                        			<div class="form-wrapper flex flex-wrap flex-gap-10">
 			                                <div class="form-group">
 			                                    <label>회차별납입금:</label>
@@ -212,25 +216,20 @@
 			                                    <label>총상환금액:</label>
 			                                    <input class="form-control" id="tot_pay_amt" v-model="info.tot_pay_amt_fmt" disabled />
 			                                </div>
-			                            </div>	
-			                            
-			                            <div class="panel-heading">
-											<div class="panel-title">계산 결과 차트</div>
-										</div>
-										<div id="chart" class="bottom-right-bottom flex-100"></div>
+			                            </div>
 	                        		</td>
-	                        		<td class="center" style="width: 3%;">
-	                        		</td>
+	                        		<!-- <td class="center" style="width: 3%;">
+	                        		</td> -->
 	                        		<td class="center" style="width: 57%; vertical-align: top;">
 			                            <table class="table table-bordered datatable dataTable" id="grid_app">
 											<thead>
 												<tr class="replace-inputs">
-													<th style="width: 5%;" class="center">회차</th>
-													<th style="width: 19%;" class="center">총상환금</th>
-													<th style="width: 19%;" class="center">납입원금</th>
-													<th style="width: 19%;" class="center">회차이자</th>
-													<th style="width: 19%;" class="center">누적납입원금</th>
-													<th style="width: 19%;" class="center">잔금</th>
+													<th style="width: 10%;" class="center">회차</th>
+													<th style="width: 18%;" class="center">총상환금</th>
+													<th style="width: 18%;" class="center">납입원금</th>
+													<th style="width: 18%;" class="center">회차이자</th>
+													<th style="width: 18%;" class="center">누적납입원금</th>
+													<th style="width: 18%;" class="center">잔금</th>
 												</tr>
 											</thead>
 											<tbody id="grid_tbody">
