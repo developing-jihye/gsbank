@@ -9,11 +9,19 @@
 	<link rel="stylesheet" href="/static_resources/system/js/select2/select2-bootstrap.css">
 	<link rel="stylesheet" href="/static_resources/system/js/select2/select2.css">
 	<link rel="stylesheet" href="/static_resources/system/js/datatables/promion.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap">
 	
 	<!-- Bilboard Chart(https://naver.github.io/billboard.js) -->
 	<script src="https://d3js.org/d3.v6.min.js"></script>
 	<script src="/static_resources/system/js/datatables/billboard.js"></script>
 	<link rel="stylesheet" href="/static_resources/system/js/datatables/billboard.css">
+	
+	<style type="text/css">
+	 * {
+            font-family: 'Noto Sans', sans-serif;
+        }
+	</style>
+	
 	
 	<title>금융계산기</title>
 </head>
@@ -95,64 +103,64 @@
                 </div>
                 
 				<div class="right flex-column flex-100">
-                    <div class="right-top">
-                        <ul class="nav">
-                            <li class="nav-tab" @click="tabChange(1)">적금 설계</li>
-                            <%-- <li class="nav-tab" @click="tabChange(2)">목돈마련적금 설계</li> --%>
-                            <li class="nav-tab" @click="tabChange(3)">예금 설계</li>
-                            <li class="nav-tab active" @click="tabChange(4)">대출 설계</li>
-                        </ul>
-                        <div class="nav-content flex-column flex-gap-10">
-                        	<%-- <div class="form-group" style="justify-content: left">
-                                <label>설계번호:</label>
-                                <input class="form-control" id="prod_ds_sn" v-model="info.prod_ds_sn" disabled />
-                            </div> --%>
-                            <div class="form-group" style="justify-content: left">
-                                <label>상품선택:</label>
-                                <input class="form-control" id="prod_cd" v-model="info.prod_cd" disabled />
-                                <input class="form-control" id="prod_nm" v-model="info.prod_nm" />
-                                <button type="button" class="btn" @click="popupProd()">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                            <div class="form-group" style="justify-content: left">
-                                <label>대출상환방법:</label>
-                                <select class="form-control" id="loan_rpty_cd" v-model="info.loan_rpty_cd" style="padding-top: 3px;">
-									<option value="1">원금균등상환</option>
-									<option value="2">원리금균등상환</option>
-								</select>
-                            </div>
-                            <div class="form-group" style="justify-content: left">
-                                <label>대출금액 (원):</label>
-                                <input class="form-control flex-50" type="text" id="loan_amt" v-model="info.loan_amt" style="width: 700px;"/>
-                                <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(10)">+100만원</button>
-                                <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(50)">+500만원</button>
-                                <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(100)">+1000만원</button>
-                                <button type="button" class="btn btn-navy flex-20" @click="setLoanAmt(0)">정정</button>
-                            </div>
-                            <div class="form-group" style="justify-content: left">
-                                <label>상환기간 (개월):</label>
-                                <input class="form-control flex-50" type="text" id="repy_prd" v-model="info.repy_prd" style="width: 700px;"/>
-                                <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(3)">+3개월</button>
-                                <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(6)">+6개월</button>
-                                <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(12)">+12개월</button>
-                                <button type="button" class="btn btn-navy flex-20" @click="setRepyPrd(0)">정정</button>
-                            </div>
-                            <div class="form-group" style="justify-content: left">
-                                <label>대출금리 (%):</label>
-                                <input class="form-control" type="text" id="loan_rate" v-model="info.loan_rate" />
-                            </div>
-                            <div class="form-group" style="justify-content: left">
-                                <label>작성일자:</label>
-								<input class="form-control" v-model="info.wrt_dt" disabled />
-                            </div>
-                            <div class="dataTables_filter">
-								<button type="button" class="btn btn-red btn-small" @click="prcCalc()">
-									계산하기
-								</button>
-							</div>
-                        </div>
-                    </div>
+					 <div class="right-top">
+					    <ul class="nav">
+					        <li class="nav-tab" @click="tabChange(1)">적금 설계</li>
+					        <%-- <li class="nav-tab" @click="tabChange(2)">목돈마련적금 설계</li> --%>
+					        <li class="nav-tab" @click="tabChange(3)">예금 설계</li>
+					        <li class="nav-tab active" @click="tabChange(4)">대출 설계</li>
+					    </ul>
+					    <div class="nav-content flex-column flex-gap-10">
+					        <%-- <div class="form-group" style="justify-content: left">
+					            <label>설계번호:</label>
+					            <input class="form-control" id="prod_ds_sn" v-model="info.prod_ds_sn" disabled />
+					        </div> --%>
+					        <div class="form-group flex-row align-items-center" style="height: 40px;">
+					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">상품선택:</label>
+					            <input class="form-control" id="prod_cd" v-model="info.prod_cd" disabled style="height: 100%;"/>
+					            <input class="form-control" id="prod_nm" v-model="info.prod_nm" style="height: 100%;"/>
+					            <button type="button" class="btn" @click="popupProd()" style="height: 100%;">
+					                <i class="fa fa-search"></i>
+					            </button>
+					        </div>
+					        <div class="form-group flex-row align-items-center" style="height: 40px;">
+					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">대출상환방법:</label>
+					            <select class="form-control" id="loan_rpty_cd" v-model="info.loan_rpty_cd" style="height: 100%; padding-top: 0;">
+					                <option value="1">원금균등상환</option>
+					                <option value="2">원리금균등상환</option>
+					            </select>
+					        </div>
+					        <div class="form-group flex-row align-items-center" style="height: 40px;">
+					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">대출금액 (원):</label>
+					            <input class="form-control flex-50" type="text" id="loan_amt" v-model="info.loan_amt" style="height: 100%; width: 700px;"/>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(10)" style="height: 100%;">+100만원</button>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(50)" style="height: 100%;">+500만원</button>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(100)" style="height: 100%;">+1000만원</button>
+					            <button type="button" class="btn btn-navy flex-20" @click="setLoanAmt(0)" style="height: 100%;">정정</button>
+					        </div>
+					        <div class="form-group flex-row align-items-center" style="height: 40px;">
+					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">상환기간 (개월):</label>
+					            <input class="form-control flex-50" type="text" id="repy_prd" v-model="info.repy_prd" style="height: 100%; width: 700px;"/>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(3)" style="height: 100%;">+3개월</button>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(6)" style="height: 100%;">+6개월</button>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(12)" style="height: 100%;">+12개월</button>
+					            <button type="button" class="btn btn-navy flex-20" @click="setRepyPrd(0)" style="height: 100%;">정정</button>
+					        </div>
+					        <div class="form-group flex-row align-items-center" style="height: 40px;">
+					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">대출금리 (%):</label>
+					            <input class="form-control" type="text" id="loan_rate" v-model="info.loan_rate" style="height: 100%;"/>
+					        </div>
+					        <div class="form-group flex-row align-items-center" style="height: 40px;">
+					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">작성일자:</label>
+					            <input class="form-control" v-model="info.wrt_dt" disabled style="height: 100%;"/>
+					            <button type="button" class="btn btn-red btn-small" @click="prcCalc()" style="height: 100%; margin-left: 10px;">
+					                계산하기
+					            </button>
+					        </div>
+					    </div>
+					</div>
+
+
                     
 					<%-- <div class="dt-buttons" style="padding-top: 15px;">
 						<input id="external" type="radio" v-model="info.simpl_ty_cd" value="1" :disabled="info.prod_ds_sn!=''&&info.prod_ds_sn!=undefined">
@@ -294,45 +302,45 @@
 
 <!-- 상품팝업 -->
 <div class="modal fade" id="pop_prod">
-<template>
-	<div class="modal-dialog" style="width: 500px;">
-		<div class="modal-content">
-			<div class="modal-body">
-				<div class="dataTables_wrapper">					
-					<div class="dt-buttons">
-						<div>
-							<label>코드:</label>
-							<input type="search" id="pop_prod_cd" style="width: 80px;" v-model="pop_prod_cd">
-							<label>코드명:</label>
-							<input type="search" id="pop_prod_nm" style="width: 200px;" v-model="pop_prod_nm">
-							<button type="button" class="btn btn-red" style="margin-left: 5px;" @click="getList">
-								검색
-							</button>
-						</div>
-					</div>
-				</div>
-				<div style="height: 400px;overflow: auto;" class="dataTables_wrapper">		
-					<table class="table table-bordered datatable dataTable">
-						<thead style="position: sticky;top: 0px;">
-							<tr>
-								<th class="center" style="width: 25%;">상품코드</th>
-								<th class="center" style="width: 50%;">상품명</th>
-								<th class="center" style="width: 25%;">가입대상</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="item in dataList" @click="selProd(item.prod_cd)" style="cursor: pointer;">
-								<td class="center">{{item.prod_cd}}</td>
-								<td class="left">{{item.prod_nm}}</td>
-								<td class="left">{{item.sbstg_ty_cd_nm}}</td>
-							</tr>
-						</tbody>
-					</table>	
-				</div>				
-			</div>
-		</div>
-	</div>
-</template>
+  <template>
+    <div class="modal-dialog" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="dataTables_wrapper">					
+            <div class="dt-buttons" style="display: flex; align-items: center;">
+              <div style="display: flex; align-items: center;">
+                <label style="margin-right: 5px;">코드:</label>
+                <input type="search" id="pop_prod_cd" style="width: 80px; height: 24px;" v-model="pop_prod_cd">
+                <label style="margin: 0 5px;">코드명:</label>
+                <input type="search" id="pop_prod_nm" style="width: 190px; height: 24px;" v-model="pop_prod_nm">
+                <button type="button" class="btn btn-red" style="margin-left: 5px; height: 24px; display: flex; align-items: center; justify-content: center;" @click="getList">
+                  검색하기
+                </button>
+              </div>
+            </div>
+          </div>
+          <div style="height: 400px; overflow: auto;" class="dataTables_wrapper">		
+            <table class="table table-bordered datatable dataTable">
+              <thead style="position: sticky; top: 0px;">
+                <tr>
+                  <th class="center" style="width: 25%;">상품코드</th>
+                  <th class="center" style="width: 50%;">상품명</th>
+                  <th class="center" style="width: 25%;">가입대상</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in dataList" @click="selProd(item.prod_cd)" style="cursor: pointer;">
+                  <td class="center">{{item.prod_cd}}</td>
+                  <td class="left">{{item.prod_nm}}</td>
+                  <td class="left">{{item.sbstg_ty_cd_nm}}</td>
+                </tr>
+              </tbody>
+            </table>	
+          </div>				
+        </div>
+      </div>
+    </div>
+  </template>
 </div>
 
 <!-- 고객팝업 -->
