@@ -66,7 +66,13 @@
                     <option value="3">일시납</option>
                 </select>
             </div>
-            <button class="btn btn-blue">전체 검색</button>
+            <div class="Align_A">
+            <button type="button"
+							class="btn btn-blue"
+							@click="cf_movePage('/prod_mng/dtl')">
+							검색
+						</button>
+						</div>
         </div>
         <div class="right">
         
@@ -74,7 +80,7 @@
         
     
         
-        <div class="flex flex-100 flex-padding-10 flex-gap-10"
+        <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background round1"
 						style="justify-content: flex-end; border: 1px solid #999999;">
 						
 						
@@ -88,14 +94,16 @@
 							@click="cf_movePage('/prod_mng/dtl')">
 							등록 <i class="entypo-plus"></i>
 						</button>
-						
-
+				
 					</div>
 					
-					<div style="height: 20px;"></div>
 					
-					<div class="table-container" style="max-height: 400px; overflow-y: auto; border: 1px solid #999999;">
-    <table class="table table-bordered datatable dataTable"
+					
+					
+					<div style="height: 30px;"></div>
+					
+					<div class="table-container" style="max-height: 580px; overflow-y: auto; border: 1px solid #999999;">
+    <table class="table table-bordered datatable dataTable custom-table"
         id="grid_app" style="width: 100%; border-collapse: collapse;">
         <thead>	
             <tr class="replace-inputs">
@@ -117,14 +125,14 @@
                 <td class="center">
                     <input type="checkbox" :data-idx="item.prod_cd" name="is_check" @click="onCheck">
                 </td>
-                <td class="left" @click="gotoDtl(item.prod_cd)">{{item.prod_nm}}</td>
-                <td class="center" @click="gotoDtl(item.prod_cd)">{{item.sbstg_ty_cd_nm}}</td>
+                <td class="center center-align" @click="gotoDtl(item.prod_cd)">{{item.prod_nm}}</td>
+                <td class="center center-align" @click="gotoDtl(item.prod_cd)">{{item.sbstg_ty_cd_nm}}</td>
         <!--         <td class="right" @click="gotoDtl(item.prod_cd)" style="text-align: right;">{{item.ntsl_amt_min}}</td>
                 <td class="right" @click="gotoDtl(item.prod_cd)" style="text-align: right;">{{item.ntsl_amt_max}}</td> -->
-                <td class="center" @click="gotoDtl(item.prod_cd)">{{item.pay_ty_cd_nm}}</td>
-                <td class="right" @click="gotoDtl(item.prod_cd)" style="text-align: right;">{{item.prod_air_min}}</td>
-                <td class="right" @click="gotoDtl(item.prod_cd)" style="text-align: right;">{{item.prod_air_max}}</td>
-                <td class="center" @click="gotoDtl(item.prod_cd)">{{item.int_tax_ty_cd_nm}}</td>
+                <td class="center center-align" @click="gotoDtl(item.prod_cd)">{{item.pay_ty_cd_nm}}</td>
+                <td class="center center-align" @click="gotoDtl(item.prod_cd)" style="text-align: center;">{{item.prod_air_min}}</td>
+                <td class="center center-align" @click="gotoDtl(item.prod_cd)" style="text-align: center;">{{item.prod_air_max}}</td>
+                <td class="center center-align" @click="gotoDtl(item.prod_cd)">{{item.int_tax_ty_cd_nm}}</td>
             </tr>
         </tbody>
     </table>
@@ -182,14 +190,15 @@
 <!-- 
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="div_paginate"></div> -->
-					<div class="flex flex-100 flex-padding-10 flex-gap-10"
+						
+				<!-- 	<div class="flex flex-100 flex-padding-10 flex-gap-10"
 						style="justify-content: flex-end; border: 1px solid #999999;">
 						<button type="button" class="btn btn-blue btn-icon btn-small"
 							@click="close()">
 							close
 						</button>
 					</div>
-					
+					 -->
 					
         
         
@@ -250,7 +259,7 @@
 					</div>
 					
 					
-		<div class="flex flex-100 flex-padding-10 flex-gap-10"
+		<div class="flex flex-100 flex-padding-10 flex-gap-10 white-background"
 						style="justify-content: flex-end; border: 1px solid #999999;">
 						<button type="button" class="btn btn-blue btn-icon icon-left"
 							@click="popupPrint()">
@@ -260,12 +269,9 @@
 							class="btn btn-orange btn-icon icon-left btn-small"
 							@click="cf_movePage('/prod_mng/dtl')">
 							등록 <i class="entypo-plus"></i>
-						</button>
-						
-						
-						
-						
-					</div>
+						</button>				
+							</div>
+					
 					<table class="table table-bordered datatable dataTable"
 						id="grid_app" style="border: 1px solid #999999;">
 						<thead>
@@ -313,13 +319,14 @@
 
 					<!-- <div class="dataTables_paginate paging_simple_numbers"
 						id="div_paginate"></div> -->
-					<div class="flex flex-100 flex-padding-10 flex-gap-10"
+						
+				<!-- 	<div class="flex flex-100 flex-padding-10 flex-gap-10"
 						style="justify-content: flex-end; border: 1px solid #999999;">
 						<button type="button" class="btn btn-blue btn-icon btn-small"
 							@click="close()">
 							close
 						</button>
-					</div>
+					</div> -->
 					
 					
 
