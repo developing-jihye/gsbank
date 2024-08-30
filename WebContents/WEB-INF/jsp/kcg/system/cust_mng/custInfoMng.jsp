@@ -113,12 +113,11 @@
 
 									<div class="form-group">
 										<div class="">
-											<button type="button" class="btn btn-blue btn-icon icon-left"
+											<button type="button" class="btn btn-blue2 btn-icon icon-left"
 												style="margin-left: 5px;" @click="custInsert">
 												등록
-												<i class="entypo-search"></i>
 											</button>
-											<button type="button" class="btn btn-blue btn-icon icon-left"
+<!-- 											<button type="button" class="btn btn-blue btn-icon icon-left"
 												style="margin-left: 5px;" @click="custUpdate">
 												변경
 												<i class="entypo-search"></i>
@@ -126,17 +125,14 @@
 											<button type="button" class="btn btn-blue btn-icon icon-left"
 												style="margin-left: 5px;" @click="custDelete">
 												삭제
-												<i class="entypo-search"></i>
-											</button>
-											<button type="button" class="btn btn-blue btn-icon icon-left"
+											</button> -->
+											<button type="button" class="btn btn-blue2 btn-icon icon-left"
 												style="margin-left: 5px;" @click="uiClear">
 												신규
-												<i class="entypo-search"></i>
 											</button>
-											<button type="button" class="btn btn-blue btn-icon icon-left"
+											<button type="button" class="btn btn-orange2 btn-icon icon-left"
 												style="margin-left: 5px;" @click="custInfoList">
 												고객목록
-												<i class="entypo-search"></i>
 											</button>
 										</div>
 									</div>
