@@ -33,6 +33,7 @@ body {
     font-optical-sizing: auto;
     font-weight: normal;
     font-style: normal;
+    color: #000000;
 }
 .text-center { text-align: center; }
 /* Flex 占쏙옙타占쏙옙 */
@@ -58,7 +59,7 @@ body {
 .flex-padding-10 {padding: 10px;}
 .flex-margin-10 {margin: 10px;}
 /* 占쏙옙튼 */
-.btn { padding: 4px 12px; border: 1px solid var(--black-100); cursor: pointer; }
+.btn { padding: 4px 12px; border: 0px solid var(--black-100); cursor: pointer; }
 .btn.btn-default { background: var(--white-100); color: var(--black-100); }
 .btn.btn-skyblue { background: var(--blue-500); color: var(--black-100); }
 .btn.btn-blue { background: var(--blue-100); color: var(--white-100); }
@@ -73,21 +74,31 @@ body {
 .width-fix-100 {width:100px;}
 /* Form */
 .form-group { display: flex; align-items: center; justify-content: center; width: 100%;}
-.form-group label {height:30px; font-weight: bold; text-align: right;margin-right: 10px;}
-.form-group input { height: 30px; border: 1px solid var(--gray-200); margin-left:10px}
-.form-group select { flex: 1; height: 36px; border: 1px solid var(--gray-200);  }
+.form-group label {height:30px; font-weight: bold; text-align: center;margin-right: -10px; line-height: 32px;}
+.form-group input {height: 37px; border: 1px solid var(--gray-200); margin-left:10px; align-items: center; justify-content: center; margin-right : 25px;}
+.form-group select { margin-left : 20px ;height: 36px; border: 1px solid var(--gray-200);  }
 
-.form-control { flex: 1; width: 100%; }
+.form-control { flex: 1; width: 100%;} 
 
-input.form-control {height:30px; }
+input.form-control {height:37px; margin-left: 5% }
 input.form-control[disabled] { background: var(--gray-100); }
-label.form-control {height:30px; font-weight: bold; }
+label.form-control {height:37px; font-weight: bold; }
 textarea.form-control[disabled] { background: var(--gray-100); padding: 4px 8px; }
-select.form-control { height: 36px; }
-/*** fix width of percentage**/
-.fix-width-33 {width: 33%;}
-.panel-body {display: flex;border: 1px solid #999999;}
-.left-panel{gap: 10px;display: flex;flex-direction: column;border: 1px solid #999999;margin: 10px;padding: 5px;}
+select.form-control {
+    width: 150px !important; /* !important로 우선순위 높이기 */
+    height: 37px;
+    margin-left : 5%;
+}
 
-.right-panel{gap: 10px;display: flex;flex-direction: column;border: 1px solid #999999;margin: 10px;padding: 5px;}
+/*** fix width of percentage**/
+.fix-width-33 {
+    width: 20%; /* 기존의 너비 설정 (33%로 유지 또는 조정 가능) */
+    max-width: 150px; /* 최대 너비 설정, 필요에 따라 조정 */
+    text-align: center; /* 레이블 텍스트 오른쪽 정렬 (기본값) */
+}
+.panel-body {display: flex; width: 40%;}
+.panel-body h2 {text-align: center;/* 중앙 정렬 */font-size: 24px; margin-bottom: 20px;/* 원하는 폰트 크기로 변경 */}
+.left-panel{gap: 10px;display: flex;flex-direction: column;border: 1px solid #999999;margin: 10px;padding: 15px;}
+.right-panel{gap: 10px;display: flex;flex-direction: column;border: 1px solid #999999;margin: 10px;padding: 5px; }
+.contorllbox {}
 @charset "UTF-8";

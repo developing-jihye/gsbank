@@ -32,11 +32,12 @@
 
 					<h2>고객정보 관리</h2>
 					<br />
-					<div id="vueapp" style="display: flex;justify-items: center;">
+					<div id="vueapp" style="display: flex; justify-content: center; align-items: center;">
 						<template>
-							<div class="panel-body" style="border: 1px solid #666666;width: 100%;">
+							<div class="panel-body">
 								<div class="left-panel flex-66">
-
+								
+									<h2>고객정보 등록</h2>
 									<div class="form-group">
 										<label for="err_eng_nm" class="fix-width-33">작성일자:</label>
 										<input type="text" class="form-control" id="wrt_dt" v-model="wrt_dt">
@@ -93,7 +94,7 @@
 										<input type="text" class="form-control" id="cust_addr" v-model="cust_addr">
 									</div>
 
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label for="prod_nm" class="fix-width-33">상담내역:</label>
 										<input type="text" class="form-control" id="tsk_dtl_cn"
 											v-model="tsk_dtl_cn">
@@ -106,7 +107,7 @@
 											style="margin-left: 10px;" @click="custInfo(true)">
 											검색
 										</button>
-									</div>
+									</div> -->
 
 
 
@@ -139,12 +140,12 @@
 											</button>
 										</div>
 									</div>
-								</div>
+<!-- 								</div>
 								<div class="right-panel flex-33">
 									<label>이율변동내역</label>
 									<textarea type="text" style="width:100%;font-size:13px; border:1px;" rows="37"
 										cols="33" id="field_contents"></textarea>
-								</div>
+								</div> -->
 							</div>
 						</template>
 					</div>
