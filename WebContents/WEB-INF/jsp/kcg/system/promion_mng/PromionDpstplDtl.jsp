@@ -191,6 +191,10 @@
 	                        <table>
 	                        	<tr>
 	                        		<td class="center" style="width: 40%; vertical-align: top;">
+	                        		<div class="panel-heading">
+											<div class="panel-title">계산 결과 차트</div>
+										</div>
+										<div id="chart" class="bottom-right-bottom flex-100"></div>
 	                        			<div class="form-wrapper flex flex-wrap flex-gap-10">
 			                                <div class="form-group">
 			                                    <label>예치금액합계:</label>
@@ -212,24 +216,18 @@
 			                                    <label>세후수령액:</label>
 			                                    <input class="form-control" id="atx_rcve_amt" v-model="info.atx_rcve_amt_fmt" disabled />
 			                                </div> 
-			                            </div>	
-			                            
-			                            <div class="panel-heading">
-											<div class="panel-title">계산 결과 차트</div>
-										</div>
-										<div id="chart" class="bottom-right-bottom flex-100"></div>
+			                            </div>
 	                        		</td>
-	                        		<td class="center" style="width: 3%;">
-	                        		</td>
+	                        		<!-- <td class="center" style="width: 3%;">
+	                        		</td> -->
 	                        		<td class="center" style="width: 57%; vertical-align: top;">
 			                            <table class="table table-bordered datatable dataTable" id="grid_app">
 											<thead>
 												<tr class="replace-inputs">
 													<th style="width: 10%;" class="center">회차</th>
-													<th style="width: 23%;" class="center">회차예치금액</th>
-													<th style="width: 23%;" class="center">누적예치금액</th>
-													<th style="width: 21%;" class="center">회차이자</th>
-													<th style="width: 23%;" class="center">회차원리금</th>
+													<th style="width: 30%;" class="center">회차예치금액</th>
+													<th style="width: 30%;" class="center">누적예치금액</th>
+													<th style="width: 30%;" class="center">회차원리금</th>
 												</tr>
 											</thead>
 											<tbody id="grid_tbody">
@@ -578,7 +576,7 @@ var vueapp = new Vue({
 				html += '<td class="right" style="text-align: right;">' + i + '</td>';
 				html += '<td class="right" style="text-align: right;">' + numberFormat(Math.round(nScPayAmt)) + '</td>';
 				html += '<td class="right" style="text-align: right;">' + numberFormat(Math.round(nAcmPayAmt)) + '</td>';
-				html += '<td class="right" style="text-align: right;">' + numberFormat(Math.round(nScInt)) + '</td>';
+				/* html += '<td class="right" style="text-align: right;">' + numberFormat(Math.round(nScInt)) + '</td>'; */
 				html += '<td class="right" style="text-align: right;">' + numberFormat(Math.round(nScPniAmt)) + '</td>';
 				html += '</tr>';
 			}
