@@ -39,40 +39,40 @@
 								
 									<h2>고객정보 등록</h2>
 									<div class="form-group">
-										<label for="err_eng_nm" class="fix-width-33">작성일자:</label>
-										<input type="text" class="form-control" id="wrt_dt" v-model="wrt_dt">
+										<label for="err_eng_nm" class="fix-width-33">작성일자</label>
+										<input type="date" class="form-control" id="wrt_dt" v-model="wrt_dt">
 									</div>
 
 									<div class="form-group">
-										<label for="prod_nm" class="fix-width-33">고객명:</label>
+										<label for="prod_nm" class="fix-width-33">고객명</label>
 										<input type="text" class="form-control" id="cust_nm2" v-model="cust_nm2">
 									</div>
 
 
 									<div class="form-group">
-										<label for="err_eng_nm" class="fix-width-33">실명번호:</label>
+										<label for="err_eng_nm" class="fix-width-33">주민번호</label>
 										<input type="text" class="form-control" id="rrno" v-model="rrno">
 									</div>
 
 									<div class="form-group">
-										<label for="err_eng_nm" class="fix-width-33">이메일:</label>
+										<label for="err_eng_nm" class="fix-width-33">이메일</label>
 										<input type="text" class="form-control" id="cust_eml_addr"
 											v-model="cust_eml_addr">
 									</div>
 
 									<div class="form-group">
-										<label for="err_eng_nm" class="fix-width-33">전화번호:</label>
+										<label for="err_eng_nm" class="fix-width-33">전화번호</label>
 										<input type="text" class="form-control" id="co_telno" v-model="co_telno">
 									</div>
 
 									<div class="form-group">
-										<label for="err_eng_nm" class="fix-width-33">핸드폰번호:</label>
+										<label for="err_eng_nm" class="fix-width-33">핸드폰번호</label>
 										<input type="text" class="form-control" id="cust_mbl_telno"
 											v-model="cust_mbl_telno">
 									</div>
 
 									<div class="form-group">
-										<label for="err_eng_nm" class="fix-width-33">직업:</label>
+										<label for="err_eng_nm" class="fix-width-33">직업</label>
 										<select id="occp_ty_cd" class="form-control" v-model="occp_ty_cd">
 											<option value="10000000">관리자(사무직)</option>
 											<option value="10100000">전문가 및 관련 종사자</option>
@@ -90,7 +90,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="prod_nm" class="fix-width-33">고객 주소:</label>
+										<label for="prod_nm" class="fix-width-33">고객 주소</label>
 										<input type="text" class="form-control" id="cust_addr" v-model="cust_addr">
 									</div>
 
