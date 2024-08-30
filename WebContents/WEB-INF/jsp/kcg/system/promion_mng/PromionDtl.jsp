@@ -98,15 +98,15 @@
                     <div class="right-top">
                         <ul class="nav">
                             <li class="nav-tab active" @click="tabChange(1)">적금 설계</li>
-                            <li class="nav-tab" @click="tabChange(2)">목돈마련적금 설계</li>
+                            <!-- <li class="nav-tab" @click="tabChange(2)">목돈마련적금 설계</li> -->
                             <li class="nav-tab" @click="tabChange(3)">예금 설계</li>
                             <li class="nav-tab" @click="tabChange(4)">대출 설계</li>
                         </ul>
                         <div class="nav-content flex-column flex-gap-10">
-                        	<div class="form-group" style="justify-content: left">
+                        	<%-- <div class="form-group" style="justify-content: left">
                                 <label>설계번호:</label>
                                 <input class="form-control" id="prod_ds_sn" v-model="info.prod_ds_sn" disabled />
-                            </div>
+                            </div> --%>
                             <div class="form-group" style="justify-content: left">
                                 <label>상품선택:</label>
                                 <input class="form-control" id="prod_cd" v-model="info.prod_cd" disabled />
@@ -155,10 +155,17 @@
                                 <label>작성일자:</label>
 								<input class="form-control" v-model="info.wrt_dt" disabled />
                             </div>
+                            
+                            <div class="dataTables_filter"> <%-- 계산하기 버튼 추가 --%>
+	                            <button type="button" class="btn btn-red btn-small" @click="prcCalc()">
+									계산하기
+								</button>
+							</div>
+							<%-- 계산하기 버튼 추가 --%>
                         </div>
                     </div>
                     
-					<div class="dt-buttons" style="padding-top: 15px;">
+					<%-- <div class="dt-buttons" style="padding-top: 15px;"> 삭제 되는 부분
 						<input id="external" type="radio" v-model="info.simpl_ty_cd" value="1" :disabled="info.prod_ds_sn!=''&&info.prod_ds_sn!=undefined">
 						<label class="tab_item" for="external">정상설계</label>
 						<input id="internal" type="radio" v-model="info.simpl_ty_cd"  value="0" :disabled="info.prod_ds_sn!=''&&info.prod_ds_sn!=undefined">
@@ -177,12 +184,9 @@
 						<button type="button" class="btn btn-blue btn-icon btn-small" @click="gotoList()">
 							목록 <i class="entypo-list"></i>
 						</button>
-					</div>
+					</div> --%>
 					
-                    <ul class="nav">
-                        <li class="nav-tab active">계산결과</li>
-                    </ul>
-                    <div class="right-bottom flex-100">
+                    <div class="right-bottom flex-100"> <%-- 계산 결과 보여주는 부분 --%>
                         <form class="form flex-column" method="POST" action="#">
 	                        <table>
 	                        	<tr>
@@ -210,8 +214,9 @@
 			                                </div>
 			                            </div>	
 			                            
+			                            <%-- 계산 결과 차트 그리는 부분 --%>
 			                            <div class="panel-heading">
-											<div class="panel-title">계산결과 CHART</div>
+											<div class="panel-title">계산 결과 차트</div>
 										</div>
 										<div id="chart" class="bottom-right-bottom flex-100"></div>
 	                        		</td>
@@ -236,10 +241,11 @@
 	                        </table>
                         </form>
                     </div>
+                    
                 </div>
                 
                 <!-- 프린트 Start -->
-                <div border="1"  class="modal fade" id="printArea">
+                <div border="1"  class="modal fade" id="printArea"> <%-- 차트 그리는 부분 --%>
                     <span style="font-size: 30px; font-weight: bold">[ {{custInfo.cust_nm}} ]</span> <span style="font-size: 30px;">고객님!! </span>
                     <span style="color: red; font-size: 30px; font-weight: bold">[ {{info.prod_nm}} ]</span> <span style="font-size: 30px;">가입을 제안 드립니다. </span>
 				    <table border="1" style="width: 1100px; height: 700px;">
@@ -286,6 +292,7 @@
 				
 			</template>
 			</div>
+			
 		</div>
 		
 		<br />

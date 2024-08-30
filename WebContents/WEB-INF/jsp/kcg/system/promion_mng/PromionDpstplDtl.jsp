@@ -98,15 +98,15 @@
                     <div class="right-top">
                         <ul class="nav">
                             <li class="nav-tab" @click="tabChange(1)">적금 설계</li>
-                            <li class="nav-tab" @click="tabChange(2)">목돈마련적금 설계</li>
+                            <%-- <li class="nav-tab" @click="tabChange(2)">목돈마련적금 설계</li> --%>
                             <li class="nav-tab active" @click="tabChange(3)">예금 설계</li>
                             <li class="nav-tab" @click="tabChange(4)">대출 설계</li>
                         </ul>
                         <div class="nav-content flex-column flex-gap-10">
-                        	<div class="form-group" style="justify-content: left">
+                        	<%-- <div class="form-group" style="justify-content: left">
                                 <label>설계번호:</label>
                                 <input class="form-control" id="prod_ds_sn" v-model="info.prod_ds_sn" disabled />
-                            </div>
+                            </div> --%>
                             <div class="form-group" style="justify-content: left">
                                 <label>상품선택:</label>
                                 <input class="form-control" id="prod_cd" v-model="info.prod_cd" disabled />
@@ -155,16 +155,21 @@
                                 <label>작성일자:</label>
 								<input class="form-control" v-model="info.wrt_dt" disabled />
                             </div>
+                            <div class="dataTables_filter">
+                            	<button type="button" class="btn btn-red btn-small" @click="prcCalc()">
+									계산하기
+								</button>
+                            </div>
                         </div>
                     </div>
                     
-					<div class="dt-buttons" style="padding-top: 15px;">
+					<!-- <div class="dt-buttons" style="padding-top: 15px;">
 						<input id="external" type="radio" v-model="info.simpl_ty_cd" value="1" :disabled="info.prod_ds_sn!=''&&info.prod_ds_sn!=undefined">
 						<label class="tab_item" for="external">정상설계</label>
 						<input id="internal" type="radio" v-model="info.simpl_ty_cd"  value="0" :disabled="info.prod_ds_sn!=''&&info.prod_ds_sn!=undefined">
 						<label class="tab_item" for="internal">간편설계</label>
-					</div>
-					<div class="dataTables_filter">
+					</div> -->
+					<%-- <div class="dataTables_filter">
 						<button type="button" class="btn btn-red btn-small" @click="prcCalc()">
 							이자계산
 						</button>
@@ -177,11 +182,11 @@
 						<button type="button" class="btn btn-blue btn-icon btn-small" @click="gotoList()">
 							목록 <i class="entypo-list"></i>
 						</button>
-					</div>
+					</div> --%>
 					
-                    <ul class="nav">
+                    <%-- <ul class="nav">
                         <li class="nav-tab active">계산결과</li>
-                    </ul>
+                    </ul> --%>
                     <div class="right-bottom flex-100">
                         <form class="form flex-column" method="POST" action="#">
 	                        <table>
@@ -207,11 +212,11 @@
 			                                <div class="form-group">
 			                                    <label>세후수령액:</label>
 			                                    <input class="form-control" id="atx_rcve_amt" v-model="info.atx_rcve_amt_fmt" disabled />
-			                                </div>
+			                                </div> 
 			                            </div>	
 			                            
 			                            <div class="panel-heading">
-											<div class="panel-title">계산결과 CHART</div>
+											<div class="panel-title">계산 결과 차트</div>
 										</div>
 										<div id="chart" class="bottom-right-bottom flex-100"></div>
 	                        		</td>
