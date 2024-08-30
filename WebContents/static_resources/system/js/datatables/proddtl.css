@@ -82,6 +82,8 @@ body {
 
 .form-control { flex: 1; width: 100%;} 
 
+.custdtlabel {height:30px; font-weight: bold; text-align: center;margin-right: -10px; line-height: 32px;}
+
 input.form-control {height:37px; margin-left: 5% }
 input.form-control[disabled] { background: var(--gray-100); }
 label.form-control {height:37px; font-weight: bold; }
