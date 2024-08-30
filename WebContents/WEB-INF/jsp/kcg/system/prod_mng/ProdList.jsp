@@ -43,14 +43,14 @@
 			
 			
 			
-			<div class="container">
+			<div class="container" id="vueapp">
          <div class="left">
             <div class="form-group2">
                 <label for="prodName" class="form-control">상품명:</label>
                 <input id="prodName" class="form-control" type="text" placeholder="상품명 입력">
             </div>
             <div class="form-group2">
-                <label for="prodCode" class="form-control">상품코드:</label>
+                <label for="prodCode" class="form-control">가입대상:</label>
                 <input id="prodCode" class="form-control" type="text" placeholder="상품코드 입력">
             </div>
             <div class="form-group2">
@@ -66,17 +66,95 @@
                     <option value="3">일시납</option>
                 </select>
             </div>
-            <button class="btn btn-blue">검색</button>
+            <button class="btn btn-blue">전체 검색</button>
         </div>
         <div class="right">
+        
+        
+        
             <h2>Right Container</h2>
+        
+        <div class="flex flex-100 flex-padding-10 flex-gap-10"
+						style="justify-content: flex-end; border: 1px solid #999999;">
+						
+						<button type="button" class="btn btn-blue btn-icon icon-left"
+							@click="popupPrint()">
+							인쇄 <i class="entypo-print"></i>
+						</button>
+						<button type="button"
+							class="btn btn-orange btn-icon icon-left btn-small"
+							@click="cf_movePage('/prod_mng/dtl')">
+							등록 <i class="entypo-plus"></i>
+						</button>
+						
+						
+						
+						
+					</div>
+					<table class="table table-bordered datatable dataTable"
+						id="grid_app" style="border: 1px solid #999999;">
+						<thead>
+							<tr class="replace-inputs">
+								<th style="width: 4%;" class="center hidden-xs nosort"><input
+									type="checkbox" id="allCheck" @click="all_check(event.target)"></th>
+								<th style="width: 20%;" class="center sorting"
+									@click="sortList(event.target)" sort_target="prod_nm">상품명</th>
+								<th style="width: 10%;" class="center sorting"
+									@click="sortList(event.target)" sort_target="sbstg_ty_cd_nm">가입대상</th>
+								<th style="width: 13%;" class="center sorting"
+									@click="sortList(event.target)" sort_target="ntsl_amt_min">최소가입금액</th>
+								<th style="width: 13%;" class="center sorting"
+									@click="sortList(event.target)" sort_target="ntsl_amt_max">최대가입금액</th>
+								<th style="width: 10%;" class="center sorting"
+									@click="sortList(event.target)" sort_target="pay_ty_cd_nm">납입주기</th>
+								<th style="width: 10%;" class="center sorting"
+									@click="sortList(event.target)" sort_target="prod_air_min">최소적용이율</th>
+								<th style="width: 10%;" class="center sorting"
+									@click="sortList(event.target)" sort_target="prod_air_max">최대적용이율</th>
+								<th style="width: 10%;" class="center sorting"
+									@click="sortList(event.target)" sort_target="int_tax_ty_cd_nm">이자과세</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="item in dataList" style="cursor: pointer;">
+								<td class="center"><input type="checkbox"
+									:data-idx="item.prod_cd" name="is_check" @click="onCheck">
+								</td>
+								<td class="left" @click="gotoDtl(item.prod_cd)">{{item.prod_nm}}</td>
+								<td class="center" @click="gotoDtl(item.prod_cd)">{{item.sbstg_ty_cd_nm}}</td>
+								<td class="right" @click="gotoDtl(item.prod_cd)"
+									style="text-align: right;">{{item.ntsl_amt_min}}</td>
+								<td class="right" @click="gotoDtl(item.prod_cd)"
+									style="text-align: right;">{{item.ntsl_amt_max}}</td>
+								<td class="center" @click="gotoDtl(item.prod_cd)">{{item.pay_ty_cd_nm}}</td>
+								<td class="right" @click="gotoDtl(item.prod_cd)"
+									style="text-align: right;">{{item.prod_air_min}}</td>
+								<td class="right" @click="gotoDtl(item.prod_cd)"
+									style="text-align: right;">{{item.prod_air_max}}</td>
+								<td class="center" @click="gotoDtl(item.prod_cd)">{{item.int_tax_ty_cd_nm}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="dataTables_paginate paging_simple_numbers"
+						id="div_paginate"></div>
+					<div class="flex flex-100 flex-padding-10 flex-gap-10"
+						style="justify-content: flex-end; border: 1px solid #999999;">
+						<button type="button" class="btn btn-blue btn-icon btn-small"
+							@click="close()">
+							close
+						</button>
+					</div>
+					
+					
+        
         
         </div>
     </div>
     
 
 
-			<!-- <div class="flex-column flex-gap-10" id="vueapp">
+			<div class="flex-column flex-gap-10" id="vueapp1">
 				<template>
 					<div class="flex flex-100">
 						<div class="flex-wrap flex-66 flex flex-gap-10 flex-padding-10">
@@ -126,9 +204,9 @@
 							</div>
 						</div>
 					</div>
-					 -->
 					
-					<div class="flex flex-100 flex-padding-10 flex-gap-10"
+					
+		<div class="flex flex-100 flex-padding-10 flex-gap-10"
 						style="justify-content: flex-end; border: 1px solid #999999;">
 						<button type="button" class="btn btn-blue btn-icon icon-left"
 							@click="popupPrint()">
@@ -139,6 +217,10 @@
 							@click="cf_movePage('/prod_mng/dtl')">
 							등록 <i class="entypo-plus"></i>
 						</button>
+						
+						
+						
+						
 					</div>
 					<table class="table table-bordered datatable dataTable"
 						id="grid_app" style="border: 1px solid #999999;">
@@ -187,15 +269,17 @@
 
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="div_paginate"></div>
-<!-- 					<div class="flex flex-100 flex-padding-10 flex-gap-10" -->
-<!-- 						style="justify-content: flex-end; border: 1px solid #999999;"> -->
-<!-- 						<button type="button" class="btn btn-blue btn-icon btn-small" -->
-<!-- 							@click="close()"> -->
-<!-- 							close -->
-<!-- 						</button> -->
-<!-- 					</div> -->
+					<div class="flex flex-100 flex-padding-10 flex-gap-10"
+						style="justify-content: flex-end; border: 1px solid #999999;">
+						<button type="button" class="btn btn-blue btn-icon btn-small"
+							@click="close()">
+							close
+						</button>
+					</div>
+					
+					
 
-						
+		
 						
 				</template>
 			</div>
