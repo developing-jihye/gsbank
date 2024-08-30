@@ -26,9 +26,13 @@
 	 
     <div id="login-button">
     <img src="/static_resources/login/images/loginBox.png">
+    
 </div>
 <div id="container">
-  <h1> GS ITM 부트캠프 </h1>
+
+  <h1> <- 로그인 </h1>
+  
+ <img src="/static_resources/login/images/gsBank.png" class="gsbank" alt="Gs Bank">
   <span class="close-btn">
     <img src="/static_resources/login/images/deletBtn.png">
   </span>
@@ -36,7 +40,7 @@
   <form>
     <input type="text" id="usr_id"  name="usr_id" placeholder="아이디를 입력하세요">
     <input type="password" id = "usr_pw" name="usr_pw" placeholder="비밀번호를 입력하세요">
-    <a href="#" onclick="login()">Log in</a>
+    <a href="#" onclick="login()">로그인</a>
         <div class="account-container">
             <span class="findId" id="findId">아이디 찾기</span>
             <span class="findPw" id="findPw">비밀번호 찾기</span>

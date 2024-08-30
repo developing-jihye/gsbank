@@ -20,6 +20,8 @@ img{
   height: auto;
 }
 
+
+
 #login-button{
   cursor: pointer;
   position: absolute;
@@ -32,7 +34,7 @@ img{
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: rgba(3,3,3);
+  background: rgba(0,51,102);
   overflow: hidden;
   opacity: 0.4;
   box-shadow: 10px 10px 30px #000;
@@ -49,9 +51,17 @@ img{
   width: 260px;
   height: 350px;
   border-radius: 5px;
-  background: rgba(3,3,3,0.9);
+  background: rgba(255, 255, 255, 0.9);
   box-shadow: 1px 1px 50px #000;
   display: none;
+}
+
+.gsbank {
+  display: block;
+   margin:  10px 10% 0;
+    margin-top: -25px;
+  width: 65%;
+  height: auto;
 }
 
 .close-btn{
@@ -101,16 +111,38 @@ h1{
   font-family: 'Open Sans Condensed', sans-serif;
   position: relative;
   margin-top: 0px;
-  text-align: center;
-  font-size: 25px;
-  color: #ddd;
+  text-align: left;
+  font-size: 20px;
+  color: rgb(0,0,0);
   text-shadow: 3px 3px 10px #000;
+  margin-bottom: 50px;
+  padding-top: 10px;
+  padding-left: 10px;
 }
 
 
 
 /* Inputs */
-a,
+a{
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-decoration: none;
+  position: relative;
+  width: 80%;
+  display: block;
+  margin: 9px auto;
+  font-size: 17px;
+  color: rgb(0, 0, 0);
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255, 255, 255, 0.274);
+  -webkit-transition: all 2s ease-in-out;
+  -moz-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+
 input{
   font-family: 'Open Sans Condensed', sans-serif;
   text-decoration: none;
@@ -119,10 +151,12 @@ input{
   display: block;
   margin: 9px auto;
   font-size: 17px;
-  color: #fff;
+  color: rgb(0, 0, 0);
   padding: 8px;
   border-radius: 6px;
   border: none;
+  border-bottom: 2px solid rgb(0, 0, 0); /* 하단에만 밑줄 추가 */
+  border-radius: 0; /* 경계선 둥글기 제거 */
   background: rgba(255, 255, 255, 0.274);
   -webkit-transition: all 2s ease-in-out;
   -moz-transition: all 2s ease-in-out;
@@ -149,7 +183,7 @@ input{
 }
 
 .regist{
-  color: #fff;
+  color: #003366;
   background: #22cc2b59;
   border: none;
   padding: 10px 20px;
@@ -186,7 +220,7 @@ a{
   font-family: 'Open Sans Condensed', sans-serif;
   text-align: center;
   padding: 4px 8px;
-  background: rgba(107,255,3,0.3);
+  background: rgba(0,115,230, 0.3);
 }
 
 a:hover{
@@ -292,7 +326,7 @@ a:hover{
 }
 
 .findId {
-  color: #fff;
+  color: #212121;
 }
 
 .findIdForm {
@@ -323,7 +357,7 @@ a:hover{
 
 
 .findPw {
-  color: #fff;
+  color: #262626;
 }
 
 .findPwForm {
@@ -345,13 +379,14 @@ a:hover{
   position: relative;
   width: 80%;
   display: block;
-  margin: 9px auto;
+  margin: 3px auto ;
+  margin-top: -5px ;
   font-size: 17px;
-  color: #fff;
+  color: #212121;
   padding: 8px;
   border-radius: 6px;
   border: none;
-  background: rgba(255, 255, 255, 0.274);
+  background: rgba(0, 115, 230, );
   -webkit-transition: all 2s ease-in-out;
   -moz-transition: all 2s ease-in-out;
   -o-transition: all 2s ease-in-out;

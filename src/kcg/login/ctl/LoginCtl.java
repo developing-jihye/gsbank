@@ -136,7 +136,7 @@ System.out.println("====================================================>>> line
 
 		// 사용자권한별 메뉴정보 셋팅
 		log.debug(">>> Set user auth menu.");
-		userInfoVO.setMenuList(loginSvc.getAuthMenuList(userInfoVO.getAuth(), userInfoVO.getAdminYn()));
+		userInfoVO.setMenuList(loginSvc.getAuthMenuList(userInfoVO.getAuth(), userInfoVO.getAdminYn())); 
 
 		// 세션에 로그인정보 셋팅
 		log.debug(">>> Set user login Info to Session.");
@@ -280,16 +280,19 @@ System.out.println("====================================================>>> line
 
 		// TODO 부서명 코드 조회
 		// List<?>
+		/* List<?> list = loginSvc.selectCodeJbpsTyCdList(); */
 
 		// TODO 직위 코드 조회
 		List<?> list2 = loginSvc.selectCodeJbpsTyCdList();
 
+        //콘솔	진행 하기위해서 for문이용함	
 		for (Object data : list2) {
 			System.out.println(data); // 콘솔 출력
 		}
 
 		// view로 넘주기 위헤 model에 담기
 		model.addAttribute("list2", list2);
+		model.addAttribute("list", list2);
 
 		return "kcg/login/userRegistForm";
 	}
@@ -325,7 +328,7 @@ System.out.println("====================================================>>> line
 		// String userPswd =
 		// CryptUtil.hashSHA512HexString(request.getParameter("userPswd"));
 		// log.info(">>>userPswd = " + userPswd);
-
+	
 		/*
 		params.put("userId", request.getParameter("userId")); // ID
 		params.put("userPswd", CryptUtil.hashSHA512HexString(request.getParameter("userPswd"))); // PW 암호화
