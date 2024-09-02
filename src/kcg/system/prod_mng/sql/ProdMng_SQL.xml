@@ -28,7 +28,7 @@
 		  from tb_prodmst
 		 where 1=1
 		<if test='prod_cd != null and prod_cd != ""'>
-		   and prod_cd = #{prod_cd}
+		   and prod_cd like concat('%',#{prod_cd},'%')
 		</if>
 		<if test='prod_nm != null and prod_nm != ""'>
 		   and prod_nm like concat('%',#{prod_nm},'%')
