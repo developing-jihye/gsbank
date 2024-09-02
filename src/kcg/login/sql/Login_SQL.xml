@@ -247,14 +247,23 @@
 
 
 	<select id="selectCodeJbpsTyCdList" resultType="TbCodemstEntity">
-		/*
-		login.TbCodemstEntity */
+		/* login.selectCodeJbpsTyCdList */
 		select
 		code_no as codeNo, code_nm as codeNm
 		from
 		tb_codemst
 		where
 		code_cl = '141'
+	</select>
+	
+	<select id="selectCodeJbpsTyCdList2" resultType="TbCodemstEntity">
+		/* login.selectCodeJbpsTyCdList2 */
+		select
+		code_no as codeNo, code_nm as codeNm
+		from
+		tb_codemst
+		where
+		code_cl = '400'
 	</select>
 
 	<insert id="registUserInfo" parameterType="cmmnMap">
