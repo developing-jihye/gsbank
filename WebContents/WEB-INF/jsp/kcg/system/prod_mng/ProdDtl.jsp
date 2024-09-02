@@ -27,7 +27,7 @@
 			<li class="active"><strong>상품정보관리</strong></li>
 		</ol>
 	
-		<h2>상품관리 > 상품정보관리</h2>
+		<h2>상품관리 > 상품정보관리1</h2>
 		<br/>
 		
 		<div class="row">
@@ -37,7 +37,7 @@
 					<div class="left-panel flex-66">
 						<div class="form-group">
 							<label for="prod_nm" class="fix-width-33">상품명:</label>
-							<input type="text" class="form-control" id="prod_nm" v-model="info.prod_nm">
+							<input type="text" class="form-control" id="prod_nm" v-model="info.prod_nm">	
 						</div>
 						<div class="form-group">
 							<label for="prod_cd" class="fix-width-33">상품코드:</label>

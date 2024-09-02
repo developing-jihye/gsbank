@@ -1,42 +1,404 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp" flush="false"/>
-	<!-- Imported styles on this page -->
-	<link rel="stylesheet" href="/static_resources/system/js/datatables/datatables.css">
-	<link rel="stylesheet" href="/static_resources/system/js/select2/select2-bootstrap.css">
-	<link rel="stylesheet" href="/static_resources/system/js/select2/select2.css">
-	 <style type="text/css">
-	 	.has-text-centered {text-align: center}
-        .has-text-prev { background-color : #ECEFF1   }
-        .has-text-next { background-color : #ECEFF1 }
-        .has-text-primary { background-color : #598987 }
-    </style> 				              
-	<title>관리자시스템</title>
+<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp"
+	flush="false" />
+<!-- Imported styles on this page -->
+<link rel="stylesheet"
+	href="/static_resources/system/js/datatables/datatables.css">
+<link rel="stylesheet"
+	href="/static_resources/system/js/select2/select2-bootstrap.css">
+<link rel="stylesheet"
+	href="/static_resources/system/js/select2/select2.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap">
+
+<%-- 스타일 시작 --%>
+<style type="text/css">
+.has-text-centered {
+	text-align: center
+}
+
+.has-text-prev {
+	background-color: #ECEFF1
+}
+
+.has-text-next {
+	background-color: #ECEFF1
+}
+
+.has-text-primary {
+	background-color: #598987
+}
+
+.modal-content {
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #f6f6f6;
+	border-radius: 8px 8px 0 0;
+}
+
+.modal-header .close {
+	color: #a6a6a6;
+	font-size: 1.5em;
+}
+
+.modal-title {
+	margin: 0;
+	font-size: 1.25em;
+	font-weight: 600;
+}
+
+.modal-body {
+	padding: 20px;
+	background-color: #fff;
+}
+
+.schedule-list {
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.schedule-item {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #fafafa;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.schedule-item:hover {
+	background-color: #eaeaea;
+}
+
+.time {
+	font-weight: 500;
+	margin-right: 10px;
+}
+
+.task-type {
+	font-style: italic;
+	color: #666;
+	margin-right: 10px;
+}
+
+.task-title {
+	flex: 1;
+}
+
+.no-data {
+	text-align: center;
+	color: #888;
+	padding: 20px;
+}
+
+.modal-footer {
+	border-top: 1px solid #e5e5e5;
+	background-color: #f6f6f6;
+	border-radius: 0 0 8px 8px;
+}
+
+.btn {
+	border-radius: 4px;
+}
+
+.btn-orange {
+	background-color: #ff9900;
+	color: #fff;
+}
+
+.btn-orange:hover {
+	background-color: #e68a00;
+	color: #fff;
+}
+
+.modal-dialog {
+	max-width: 800px;
+	margin: 30px auto;
+}
+
+.modal-content {
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.close {
+	color: #fff;
+	font-size: 1.5rem;
+	opacity: 1;
+}
+
+.modal-body {
+	padding: 40px;
+}
+
+.form-group {
+	margin-bottom: 1rem;
+}
+
+.control-label {
+	font-weight: bold;
+	color: #333;
+}
+
+.input-group {
+	display: flex;
+	align-items: center;
+}
+
+.date-field {
+	max-width: 80px;
+	text-align: center;
+	margin-right: 5px;
+}
+
+.time-select {
+	max-width: 80px;
+	margin-right: 5px;
+}
+
+.btn-primary {
+	background-color: #0073e6;
+	border-color: #0073e6;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+	border-color: #004a9d;
+}
+
+.btn-danger {
+	background-color: #dc3545;
+	border-color: #dc3545;
+}
+
+.btn-danger:hover {
+	background-color: #c82333;
+	border-color: #bd2130;
+}
+
+.btn-secondary {
+	background-color: #f6f6f6;
+	border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+	background-color: #a6a6a6;
+	border-color: #545b62;
+}
+
+.form-control {
+	position: relative;
+	z-index: 2;
+	float: left;
+	width: 25% !important;
+	margin-bottom: 0;
+}
+
+input.form-control {
+	position: relative;
+	z-index: 2;
+	float: left;
+	width: 25% !important;
+	margin-bottom: 0;
+}
+
+label.control-label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+@media ( min-width : 768px) {
+	.form-horizontal .control-label {
+		text-align: left;
+		margin-bottom: 0;
+		padding-top: 10px;
+		padding-bottom: 15px;
+	}
+	.table-hover tbody tr:hover {
+		background-color: #f6f6f6;
+	}
+	.table {
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: 0px;
+	}
+	
+	  body.page-body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .page-container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+             min-height: 600px; 
+            overflow-y: auto;
+        }
+
+        .breadcrumb {
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .breadcrumb .active {
+            color: #a6a6a6;
+        }
+
+        .breadcrumb i {
+            margin-right: 5px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #212121;
+            font-family: 'Noto Sans', sans-serif;
+        }
+
+        .dataTables_wrapper {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 100%; /* Ensure it doesn't exceed the container width */
+            overflow-x: auto; /* Allow horizontal scrolling if necessary */
+        }
+
+        .subtitle {
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-family: 'Noto Sans', sans-serif !important;
+        }
+
+        .button.is-small.is-primary.is-outlined {
+            border: 1px solid #0073e6;
+            background-color: #fff;
+            color: #0073e6;
+            font-weight: bold;
+        }
+
+        .button.is-small.is-primary.is-outlined:hover {
+            background-color: #0073e6;
+            color: #fff;
+        }
+
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table.table th, table.table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        table.table th {
+            background-color: #f8f9fa;
+        }
+
+        table.table td.has-text-prev {
+            color: #a6a6a6;
+        }
+
+        table.table td.has-text-next {
+            color: #6c757d;
+        }
+
+        table.table td.has-text-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+
+        .btn-icon.icon-left {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.875em;
+        }
+
+        .entypo-plus {
+            margin-left: 5px;
+        }
+        
+        tr,td {
+    	font-size: 14px;
+		}
+		
+		th {
+   		 color: #212121 !important;
+		}
+        
+              
+        * {
+            font-family: 'Noto Sans', sans-serif;
+        }
+        
+      
+	
+}
+</style>
+
+<%-- 스타일 끝 --%>
+
+
+
+<title>관리자시스템</title>
 </head>
 <body class="page-body">
 
-<div class="page-container">
+	<div class="page-container">
 
-	<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp" flush="false"/>
+		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp"
+			flush="false" />
 
-	<div class="main-content">
+		<div class="main-content">
 
-		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp" flush="false"/>
-		
-		<ol class="breadcrumb bc-3">
-			<li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
-			<li class="active"><strong>스케쥴 관리</strong></li>
-		</ol>
-	  
-		<h2>${userInfoVO.userId}님의 스케쥴 목록</h2>
-		<br/> 
-		
-		<div class="dataTables_wrapper" id="vueapp">
-		<template>
-			<!-- 
+			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp"
+				flush="false" />
+
+			<ol class="breadcrumb bc-3">
+				<li><a href="#none" onclick="cf_movePage('/system')"><i
+						class="fa fa-home"></i>Home</a></li>
+				<li class="active"><strong>스케쥴 관리</strong></li>
+			</ol>
+
+			<h2>${userInfoVO.userId}님의 스케쥴</h2>
+			<br />
+
+			<div class="dataTables_wrapper" id="vueapp">
+				<template>
+					<!-- 
 			<div class="dt-buttons" style="padding-top: 15px;">		
 				<button type="button" class="btn btn-orange btn-icon icon-left btn-small" @click="gotoDtl()">
 					추가<i class="entypo-plus"></i>
@@ -49,270 +411,238 @@
 				</button>
 			</div>
 			 -->
-			<div class="dataTables_filter">
-			</div>    
-		 
-		      <div >
-			      <h2 class="subtitle has-text-centered">
-			        <button class="button is-small is-primary is-outlined mr-5"
-			        @click="calendarData(-1)">&lt;</button>
-			        {{ year }}년 {{ month }}월
-			        <button class="button is-small is-primary is-outlined ml-5"
-			        @click="calendarData(1)">&gt;</button>
-			      </h2>
-		      </div>
-		   		     
-		      <table class="table table-bordered datatable" id="grid_app">
-		        <thead>
-		          <th class="replace-inputs center" v-for="day in days" :key="day">{{ day }}</th>
-		        </thead> 
-		        <tbody>   
-			        <template v-for="(date, idx) in dates" :key="idx" >
-			          <tr style="height: 10px;">
-			            <td class='center'
-			              v-for="(day, secondIdx) in date"
-			              :key="secondIdx"
-			              :class="{ 'has-text-prev': idx === 0 && day >= lastMonthStart, 'has-text-next': dates.length - 1 === idx && nextMonthStart > day, 'has-text-primary': day === today && currentMonth === 0 }"
-			            >       
-			            {{ idx === 0 && day >= lastMonthStart ?  (month === 1?13:month) -1 : dates.length - 1 === idx && nextMonthStart > day ? (month === 12?0:month) + 1 : month}}월 {{ day }}일 
-			            <!-- 
+					<div class="dataTables_filter"></div>
+
+					<div>
+						<h2 class="subtitle has-text-centered">
+							<button class="button is-small is-primary is-outlined mr-5"
+								@click="calendarData(-1)">&lt;</button>
+							<%-- 다음 달로 이동하는 버튼 --%>
+							{{ year }}년 {{ month }}월
+							<button class="button is-small is-primary is-outlined ml-5"
+								@click="calendarData(1)">&gt;</button>
+							<%-- 다음 달로 이동하는 버튼 --%>
+						</h2>
+					</div>
+
+					<table class="table table-bordered datatable" id="grid_app">
+						<thead>
+							<th class="replace-inputs center" v-for="day in days" :key="day">{{
+								day }}</th>
+						</thead>
+						<tbody>
+							<template v-for="(date, idx) in dates" :key="idx">
+								<tr style="height: 10px;">
+									<td class='center' v-for="(day, secondIdx) in date"
+										:key="secondIdx"
+										:class="{ 'has-text-prev': idx === 0 && day >= lastMonthStart, 'has-text-next': dates.length - 1 === idx && nextMonthStart > day, 'has-text-primary': day === today && currentMonth === 0 }">
+										{{ idx === 0 && day >= lastMonthStart ? (month === 1?13:month)
+										-1 : dates.length - 1 === idx && nextMonthStart > day ? (month
+										=== 12?0:month) + 1 : month}}월 {{ day }}일 <!-- 
 			            <button type="button" class="btn btn-orange btn-icon icon-left btn-small" @click="itemaddclick()">
 							추가<i class="entypo-plus"></i>
 						</button>
-						 -->   
-			            </td>   
-			          </tr>     
-			          <tr style="height: 100px;">
-			            <td
-			              v-for="(day, secondIdx) in date"
-			              :key="secondIdx"
-			              :class="{ 'has-text-prev': idx === 0 && day >= lastMonthStart, 'has-text-next': dates.length - 1 === idx && nextMonthStart > day, 'has-text-primary': day === today && currentMonth === 0 }"
-			              @click.stop="itemclick( idx === 0 && day >= lastMonthStart ?  (month === 1?year-1:year)  : dates.length - 1 === idx && nextMonthStart > day ? (month === 12 ? year+1 : year)  : year ,idx === 0 && day >= lastMonthStart ?  (month === 1?13:month) -1 : dates.length - 1 === idx && nextMonthStart > day ? (month === 12?0:month) + 1 : month, day , dataList, $event)"  
-			               v-on:onmouse="itemaddmouseover(this)"
-			               style="cursor:pointer;" 
-			            >	
-				            <div v-for="item in dataList" style="width: 100%;" v-if="parseInt(item.TSK_BGNG_DT_MON) === (idx === 0 && day >= lastMonthStart ?  (month === 1?13:month) -1 : dates.length - 1 === idx && nextMonthStart > day ? (month === 12?0:month) + 1 : month) && parseInt(item.TSK_BGNG_DT_DD) === day ">	    					            
-				           {{item.TSK_TY_CD_NM}} {{item.TSK_SJ}}    
- 							</div> 		               
-			            </td>   
-			          </tr> 
-			        </template>			          
-		        </tbody> 
-		      </table>
+						 -->
+									</td>
+								</tr>
+								<tr style="height: 100px;">
+									<td v-for="(day, secondIdx) in date" :key="secondIdx"
+										:class="{ 'has-text-prev': idx === 0 && day >= lastMonthStart, 'has-text-next': dates.length - 1 === idx && nextMonthStart > day, 'has-text-primary': day === today && currentMonth === 0 }"
+										@click.stop="itemclick( idx === 0 && day >= lastMonthStart ?  (month === 1?year-1:year)  : dates.length - 1 === idx && nextMonthStart > day ? (month === 12 ? year+1 : year)  : year ,idx === 0 && day >= lastMonthStart ?  (month === 1?13:month) -1 : dates.length - 1 === idx && nextMonthStart > day ? (month === 12?0:month) + 1 : month, day , dataList, $event)"
+										v-on:onmouse="itemaddmouseover(this)" style="cursor: pointer;">
+										<div v-for="item in dataList" style="width: 100%;"
+											v-if="parseInt(item.TSK_BGNG_DT_MON) === (idx === 0 && day >= lastMonthStart ?  (month === 1?13:month) -1 : dates.length - 1 === idx && nextMonthStart > day ? (month === 12?0:month) + 1 : month) && parseInt(item.TSK_BGNG_DT_DD) === day ">
+											{{item.TSK_TY_CD_NM}} {{item.TSK_SJ}}</div>
+									</td>
+								</tr>
+							</template>
+						</tbody>
+					</table>
 
-		</template> 
-		</div>
-		
-		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp" flush="false"/>
-	</div>
-</div> 
-<!-- 일별일정 팝업 -->
-<div class="modal fade" id="pop_info_day">
-<template> 
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="btn_popClose">&times;</button>
-				<h4 class="modal-title" id="modify_nm">{{info.year}}년 {{info.mon}}월 {{info.day}}일 일별 일정</h4>
-			</div> 
-			<div class="modal-body"> 
-			 	<div style="height: 500px;"> 
-					<template >
-			            <div v-for="item in info.dataList" style="width: 100%;cursor:pointer;" @click.stop="itemviewclick(info.year, info.mon, info.day)"  >			            
-			           {{parseInt(item.TSK_BGNG_DT_HH)}}시 {{parseInt(item.TSK_BGNG_DT_MM)}}분  {{item.TSK_TY_CD_NM}} {{item.TSK_SJ}}    
-						</div>    
-		            </template>
-	            </div>    
-			</div> 
-			<div class="modal-footer"> 
-				<button type="button" class="btn btn-orange btn-icon icon-right" @click.stop="itemaddclick(info.year, info.mon, info.day)">일정추가<i class="entypo-plus"></i></button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" @click="popupCustClose">Close</button>			
-			</div> 
-		</div>  
-	</div>
-</template>               
-</div>
-<!--// 일별일정 팝업 -->      
-<!-- 수정/등록 팝업 -->
-<div class="modal fade" id="pop_info_add">
-<template>    
-	<div class="modal-dialog4">
-		<div class="modal-content"> 
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="btn_popClose">&times;</button>
-				<h4 class="modal-title" id="modify_nm">일정 등록</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal form-groups-bordered">
-					<div class="form-group">
-						<label for="err_cd" class="col-sm-2 control-label">제목</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" id=TSK_SJ v-model="info.TSK_SJ">
-						</div>
-					</div> 
-					<div class="form-group">
-						<label for="err_cd" class="col-sm-2 control-label">업무유형</label>
-						<div class="col-sm-4">  
-							<select id="TSK_TY_CD" class="form-control" v-model="info.TSK_TY_CD">
-									<option value="1">고객상담</option>
-									<option value="2">직무교육</option>
-									<option value="3">일반업무수행</option>
-							</select>
-							<input type="text" id="TSK_TY_CD_NM" v-model="info.TSK_TY_CD_NM">
-						</div>  
-					</div> 
-					<div class="form-group">
-						<label for="err_kor_nm" class="col-sm-2 control-label">시작</label>
-						 
-							<div class="col-sm-1">
-								<input class="form-control" type="text" id="TSK_BGNG_DT_YEAR" v-model="info.TSK_BGNG_DT_YEAR" readonly>
-							</div>
-							<div class="col-sm-1" style="padding-left:0; padding-right: 0px;">
-							년
-							</div>
-							<div class="col-sm-1">
-								<input class="form-control" type="text" id="TSK_BGNG_DT_MON" v-model="info.TSK_BGNG_DT_MON" readonly>
-							</div>
-							<div class="col-sm-1" style="padding-left:0; padding-right: 0px;">
-							월
-							</div> 
-							<div class="col-sm-1" >
-								<input class="form-control" type="text" id="TSK_BGNG_DT_DD" v-model="info.TSK_BGNG_DT_DD" readonly>
-							</div>
-							<div class="col-sm-1" style="padding-left:0; padding-right: 0px;">
-							일
-							</div> 
-							<div class="col-sm-1">
-								<select class="form-control" id="TSK_BGNG_DT_HH" v-model="info.TSK_BGNG_DT_HH" style="width:70px">
-									<c:set var="total" value="0"/>
-									<c:forEach var="i" begin="0" end="23" step="1" >
-									<option value="<c:if test="${i<10}">0</c:if>${i}"><c:if test="${i<10}">0</c:if>${i}</option>
-									<c:set var="total" value="${total+1}"/>
-									</c:forEach>
-								</select>
-							</div> 
-							<div class="col-sm-1" style="padding-left:5; padding-right: 0px;">
-							시
-							</div>
-							<div class="col-sm-1">							
-								<select class="form-control" id="TSK_BGNG_DT_MM" v-model="info.TSK_BGNG_DT_MM" style="width:70px">
-									<c:set var="total" value="0"/>
-									<c:forEach var="i" begin="0" end="59" step="1" >
-									<option value="<c:if test="${i<10}">0</c:if>${i}"><c:if test="${i<10}">0</c:if>${i}</option>
-									<c:set var="total" value="${total+1}"/>
-									</c:forEach> 
-								</select>
-							</div>
-							<div class="col-sm-1" style="padding-left:5; padding-right: 0px;">
-							분 
-							</div>
-						 
-					</div> 
-					<div class="form-group">
-						<label for="err_kor_nm" class="col-sm-2 control-label">종료</label>
-					 
-							<div class="col-sm-1">
-								<input class="form-control" type="text" id="TSK_END_DT_YEAR" v-model="info.TSK_END_DT_YEAR" readonly>
-							</div>
-							<div class="col-sm-1" style="padding-left:0; padding-right: 0px;">
-							년
-							</div>
-							<div class="col-sm-1">
-								<input class="form-control" type="text" id="TSK_END_DT_MON" v-model="info.TSK_END_DT_MON" readonly>
-							</div>
-							<div class="col-sm-1" style="padding-left:0; padding-right: 0px;">
-							월
-							</div>
-							<div class="col-sm-1">
-								<input class="form-control" type="text" id="TSK_END_DT_DD" v-model="info.TSK_END_DT_DD" readonly>
-							</div>
-							<div class="col-sm-1" style="padding-left:0; padding-right: 0px;">
-							일
-							</div>  
-							<div class="col-sm-1"> 
-								<select class="form-control" id="TSK_END_DT_HH" v-model="info.TSK_END_DT_HH" style="width:70px">
-									<c:set var="total" value="0"/>
-									<c:forEach var="i" begin="0" end="23" step="1" >
-									<option value="<c:if test="${i<10}">0</c:if>${i}"><c:if test="${i<10}">0</c:if>${i}</option>
-									<c:set var="total" value="${total+1}"/>
-									</c:forEach>
-								</select>
-							</div> 
-							<div class="col-sm-1" style="padding-left:5; padding-right: 0px;"> 
-							시
-							</div> 
-							<div class="col-sm-1">							
-								<select class="form-control" id="TSK_END_DT_MM" v-model="info.TSK_END_DT_MM" style="width:70px">
-									<c:set var="total" value="0"/>
-									<c:forEach var="i" begin="0" end="59" step="1" >
-									<option value="<c:if test="${i<10}">0</c:if>${i}"><c:if test="${i<10}">0</c:if>${i}</option>
-									<c:set var="total" value="${total+1}"/>
-									</c:forEach> 
-								</select>
-							</div>
-							<div class="col-sm-1" style="padding-left:5; padding-right: 0px;">
-							분 
-							</div>
-						
-					</div>					
-					<div class="form-group">  
-						<label for="err_eng_nm" class="col-sm-2 control-label">접촉고객명</label>
-						<div class="col-sm-4"> 
-							<input class="form-control col-sm-2" type="text" id="TSK_CUST_NM" v-model="info.TSK_CUST_NM">
-						</div>
-						<div class="col-sm-4">
-							<button type="button" class="btn btn-blue btn-icon icon-left" style="margin-left: 1px;" @click="custInfo">
-							 검색
-							</button>
-						</div>		
-					</div> 
-					<div class="form-group">  
-						<label for="err_eng_nm" class="col-sm-2 control-label">일정메모</label>
-						<div class="col-sm-10">
-							<input class="form-control col-sm-2" type="text" id="TSK_DTL_CN" v-model="info.TSK_DTL_CN">
-						</div>
-					</div>
-				</form>   
-			</div> 
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" @click="save()" >저장</button>
-				<button type="button" class="btn btn-primary" @click="del()" v-if="info.save_mode === 'update'">삭제</button>
-       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			</div>
-		</div>   
-	</div>
-</template>  
-</div> 
-<!--// 수정/등록 팝업 -->
-
-<!-- 고객명 팝업 -->
-			<div class="modal fade" id="pop_cust_info">
-				<template>
-					<div class="modal-dialog" style="width: 500px;">
-						<div class="modal-content">
-							<div class="modal-body">
-								<div style="height: 400px;overflow: auto;" class="dataTables_wrapper">
-									<table class="table table-bordered datatable dataTable">
-										<thead style="position: sticky;top: 0px;">
-											<tr>
-												<th class="center" style="width: 20%;">고객명</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr v-for="item in custList" @click="selCustItem(item.cust_nm)"
-												style="cursor: pointer;">
-												<td class="center">{{item.cust_nm}}</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
 				</template>
 			</div>
-			<!-- 고객명 팝업 -->   
- 
+
+			<%-- <jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
+				flush="false" /> --%>
+		</div>
+	</div>
+	<!-- 일별일정 팝업 -->
+	<div class="modal fade" id="pop_info_day">
+		<template>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true" id="btn_popClose">&times;</button>
+						<h4 class="modal-title" id="modify_nm">{{info.year}}년
+							{{info.mon}}월 {{info.day}}일 일별 일정</h4>
+					</div>
+					<div class="modal-body">
+						<div class="schedule-list">
+							<template v-if="info.dataList.length">
+								<div v-for="item in info.dataList" class="schedule-item"
+									@click.stop="itemviewclick(info.year, info.mon, info.day)">
+									<span class="time">{{parseInt(item.TSK_BGNG_DT_HH)}}시
+										{{parseInt(item.TSK_BGNG_DT_MM)}}분</span> <span class="task-type">{{item.TSK_TY_CD_NM}}</span>
+									<span class="task-title">{{item.TSK_SJ}}</span>
+								</div>
+							</template>
+							<template v-else>
+								<div class="no-data">일정이 없습니다.</div>
+							</template>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-orange btn-icon icon-right"
+							@click.stop="itemaddclick(info.year, info.mon, info.day)">
+							일정추가<i class="entypo-plus"></i>
+						</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal" @click="popupCustClose">Close</button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
+	<!--// 일별일정 팝업 -->
+
+	<!-- 수정/등록 팝업 -->
+	<div class="modal fade" id="pop_info_add">
+		<template>
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true" id="btn_popClose">&times;</button>
+						<h4 class="modal-title" id="modify_nm">일정 등록</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="TSK_SJ" class="control-label">제목</label> <input
+									class="form-control" type="text" id="TSK_SJ"
+									v-model="info.TSK_SJ">
+							</div>
+							<div class="form-group">
+								<label for="TSK_TY_CD" class="control-label">업무유형</label>
+								<div class="input-group">
+									<select id="TSK_TY_CD" class="form-control"
+										v-model="info.TSK_TY_CD">
+										<option value="1">고객상담</option>
+										<option value="2">직무교육</option>
+										<option value="3">일반업무수행</option>
+									</select> <input type="text" id="TSK_TY_CD_NM" class="form-control"
+										v-model="info.TSK_TY_CD_NM">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">시작</label>
+								<div class="input-group">
+									<input class="form-control date-field" type="text"
+										id="TSK_BGNG_DT_YEAR" v-model="info.TSK_BGNG_DT_YEAR" readonly>
+									<input class="form-control date-field" type="text"
+										id="TSK_BGNG_DT_MON" v-model="info.TSK_BGNG_DT_MON" readonly>
+									<input class="form-control date-field" type="text"
+										id="TSK_BGNG_DT_DD" v-model="info.TSK_BGNG_DT_DD" readonly>
+									<select class="form-control time-select" id="TSK_BGNG_DT_HH"
+										v-model="info.TSK_BGNG_DT_HH">
+										<option v-for="i in 24" :value="i-1">{{ i < 10 ? '0'
+											+ (i-1) : (i-1) }}</option>
+									</select> <select class="form-control time-select" id="TSK_BGNG_DT_MM"
+										v-model="info.TSK_BGNG_DT_MM">
+										<option v-for="i in 60" :value="i-1">{{ i < 10 ? '0'
+											+ (i-1) : (i-1) }}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">종료</label>
+								<div class="input-group">
+									<input class="form-control date-field" type="text"
+										id="TSK_END_DT_YEAR" v-model="info.TSK_END_DT_YEAR" readonly>
+									<input class="form-control date-field" type="text"
+										id="TSK_END_DT_MON" v-model="info.TSK_END_DT_MON" readonly>
+									<input class="form-control date-field" type="text"
+										id="TSK_END_DT_DD" v-model="info.TSK_END_DT_DD" readonly>
+									<select class="form-control time-select" id="TSK_END_DT_HH"
+										v-model="info.TSK_END_DT_HH">
+										<option v-for="i in 24" :value="i-1">{{ i < 10 ? '0'
+											+ (i-1) : (i-1) }}</option>
+									</select> <select class="form-control time-select" id="TSK_END_DT_MM"
+										v-model="info.TSK_END_DT_MM">
+										<option v-for="i in 60" :value="i-1">{{ i < 10 ? '0'
+											+ (i-1) : (i-1) }}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="TSK_CUST_NM" class="control-label">접촉고객명</label>
+								<div class="input-group">
+									<input class="form-control" type="text" id="TSK_CUST_NM"
+										v-model="info.TSK_CUST_NM">
+									<button type="button" class="btn btn-primary" @click="custInfo">검색</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="TSK_DTL_CN" class="control-label">일정메모</label> <input
+									class="form-control" type="text" id="TSK_DTL_CN"
+									v-model="info.TSK_DTL_CN">
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" @click="save()">저장</button>
+						<button type="button" class="btn btn-danger" @click="del()"
+							v-if="info.save_mode === 'update'">삭제</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
+	<!--// 수정/등록 팝업 -->
+
+	<!-- 고객명 팝업 -->
+	<div class="modal fade" id="pop_cust_info" tabindex="-1" role="dialog"
+		aria-labelledby="pop_cust_infoLabel" aria-hidden="true">
+		<template>
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="pop_cust_infoLabel">고객 목록</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="table-responsive">
+							<table class="table table-striped table-hover">
+								<thead class="thead-light">
+									<tr>
+										<th class="text-center" style="width: 20%;">고객명</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="item in custList" @click="selCustItem(item.cust_nm)"
+										style="cursor: pointer;">
+										<td class="text-center">{{item.cust_nm}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
+	<!-- 고객명 팝업 -->
+
 
 </body>
 <script>
@@ -604,13 +934,13 @@ var pop_info_add = new Vue({
 				this.info.TSK_BGNG_DT_YEAR = year;
 				this.info.TSK_BGNG_DT_MON = mon_mon;
 				this.info.TSK_BGNG_DT_DD = day_day;
-				this.info.TSK_BGNG_DT_HH = "";
-				this.info.TSK_BGNG_DT_MM = "";
+				this.info.TSK_BGNG_DT_HH = "00";
+				this.info.TSK_BGNG_DT_MM = "00";
 				this.info.TSK_END_DT_YEAR = year;
 				this.info.TSK_END_DT_MON = mon_mon;
 				this.info.TSK_END_DT_DD = day_day;
-				this.info.TSK_END_DT_HH = ""; 
-				this.info.TSK_END_DT_MM = "";
+				this.info.TSK_END_DT_HH = "00"; 
+				this.info.TSK_END_DT_MM = "00";
 				this.info.TSK_CUST_NM = "";
 				this.info.TSK_SJ = ""; 
 				this.info.TSK_DTL_CN = "";
@@ -676,9 +1006,19 @@ var pop_info_add = new Vue({
 			
 			if(!confirm("저장하시겠습니까?")) return;
 			
+			 this.info.TSK_BGNG_DT_HH = this.padZero(this.info.TSK_BGNG_DT_HH);
+			 this.info.TSK_BGNG_DT_MM = this.padZero(this.info.TSK_BGNG_DT_MM);
+			 this.info.TSK_END_DT_HH = this.padZero(this.info.TSK_END_DT_HH);
+			 this.info.TSK_END_DT_MM = this.padZero(this.info.TSK_END_DT_MM);
+			
 			cf_ajax("/scheduleMng/save", this.info, this.saveCB);
 			
 		}, 
+		
+		padZero: function(value) {
+		    return value.toString().padStart(2, '0');
+		},
+	
 		saveCB : function(data){			
 			if (data.status == "OK") {
 				alert("활동정보 입력 완료");

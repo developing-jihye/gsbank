@@ -1424,8 +1424,8 @@ fieldset[disabled] .btn-blue.focus {
   background-clip: padding-box;
 }
 .btn-blue.btn-icon.icon-left {
-  padding-right: 12px;
-  padding-left: 39px;
+  padding-right: 30px !important;
+  padding-left: 30px !important;
 }
 .btn-blue.btn-icon.icon-left i {
   float: left;
@@ -1558,8 +1558,8 @@ fieldset[disabled] .btn-red.focus {
   background-clip: padding-box;
 }
 .btn-red.btn-icon.icon-left {
-  padding-right: 12px;
-  padding-left: 39px;
+  padding-right: 30px;
+  padding-left: 30px;
 }
 .btn-red.btn-icon.icon-left i {
   float: left;
@@ -1615,6 +1615,11 @@ fieldset[disabled] .btn-red.focus {
   color: #FFF;
   background-color: #ff9600;
   border-color: #ff9600;
+}
+.btn-orange2 {
+  color: #FFF;
+  background-color: #FF9900;
+  border-color: #FF9900;
 }
 .btn-orange:focus,
 .btn-orange.focus {
@@ -7165,4 +7170,36 @@ dd-content,
 }
 .custom-handler .dd-item button + .dd-handle + .dd-content {
   padding-left: 50px;
+}
+
+.btn-blue2 {
+  color: #FFF;
+  background-color: #003366;
+  border-color: #003366;
+}
+
+.btn-blue3 {
+  color: #FFF;
+  background-color: #003366;
+  border-color: #003366;
+}
+.btn-blue2.btn-icon.icon-left {
+  padding-right: 30px !important;
+  padding-left: 30px !important;
+}
+
+.btn-blue3.btn-icon.icon-left {
+  padding-right: 20px !important;
+  padding-left: 20px !important;
+}
+
+
+.btn-orange2 {
+  color: #FFF;
+  background-color: #FF9900;
+  border-color: #FF9900;
+}
+.btn-orange2.btn-icon.icon-left {
+  padding-right: 30px !important;
+  padding-left: 30px !important;
 }

@@ -1,151 +1,278 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.ArrayList"  %>
-<%@ page import="java.util.List"  %>
-<%@ page import="common.utils.common.CmmnMap"  %>
-<%@ page import="common.utils.json.JsonUtil"  %>
-<%
-	CmmnMap statData = (CmmnMap) request.getAttribute("statData");
-	String today = statData.getString("today");
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
+<%@ page import="common.utils.common.CmmnMap"%>
+<%@ page import="common.utils.json.JsonUtil"%>
 
-	CmmnMap visitStat = statData.getCmmnMap("visitStat");
-	String visitChart_title = visitStat.getString("title");
-	List<CmmnMap> visitChart_dataList = visitStat.getCmmnMapList("dataList");
-	List<String> visitChart_labels = new ArrayList<String>();
-	List<Integer> visitChart_datasets_data = new ArrayList<Integer>();
-	for(CmmnMap map : visitChart_dataList){
-		visitChart_labels.add(map.getString("mmdd_date"));
-		visitChart_datasets_data.add(map.getInt("visit_cnt"));
-	}
-	String jsn_visitChart_labels = JsonUtil.toJsonStr(visitChart_labels);
-	String jsn_visitChart_datasets_data = JsonUtil.toJsonStr(visitChart_datasets_data);
-	
-	
-	CmmnMap reqStat = statData.getCmmnMap("reqStat");
-	List<Integer> reqChart_datasets_data = new ArrayList<>();
-	reqChart_datasets_data.add(reqStat.getInt("req_anal_tool_cnt"));
-	reqChart_datasets_data.add(reqStat.getInt("req_data_anal_cnt"));
-	reqChart_datasets_data.add(reqStat.getInt("req_data_collect_cnt"));
-	reqChart_datasets_data.add(reqStat.getInt("req_dnld_cnt"));
-	String jsn_reqChart_datasets_data = JsonUtil.toJsonStr(reqChart_datasets_data);
-	
-%>
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- 헤더META-->
-	<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp" flush="false"/>
+<!-- 헤더META-->
+<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp"
+	flush="false" />
 
-	<script src="/static_resources/lib/Chart.js/2.9.4/Chart.min.js"></script>
-	
-	<script src="/static_resources/system/js/bootstrap-datepicker.js"></script>
-	<script src="/static_resources/system/js/bootstrap-datepicker.ko.js"></script>
+<script src="/static_resources/lib/Chart.js/2.9.4/Chart.min.js"></script>
+<script src="/static_resources/system/js/bootstrap-datepicker.js"></script>
+<script src="/static_resources/system/js/bootstrap-datepicker.ko.js"></script>
 
-	<!-- 현재 위치 받아오기 -->
-	<script src="/static_resources/js/hnpTest.js"></script>
-	<style>
-	body{
+<!-- 스타일 시트 -->
+<link rel="stylesheet" href="/static_resources/system/css/systemMain.css" />
 
-	}
-	
-	</style>
-	
-	<title>관리자시스템 | Dashboard</title>
+<title>관리자시스템 | Dashboard</title>
 </head>
 <body class="page-body" data-url="http://neon.dev">
 
-<div class="page-container" class="main-content" style = "background-image:url('/static_resources/system/images/main_board.jpg');
-								  background-size:cover;
-								  size:container;
-								  background-position:center;
-								  repeat:no-repeat"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
+	<div class="page-container" class="main-content">
+		<!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
 
-	<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp" flush="false"/>
-
-	<div style= "opacity:0.9">
+		<!-- 사이드바 -->
+		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp"
+			flush="false" />
 
 		<!-- 헤더 -->
-		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp" flush="false"/>
-		
-		<ol class="breadcrumb bc-3">
-			<li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
-			<li class="active"><strong>대시보드</strong></li>
-		</ol>
-	
-		<h2>대시보드</h2>
-		
-
-		<br/>
-		
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<div class="panel-title">
-							<label class="control-label" style="font-size: 40px;">최근 10일간 접속통계</label>
-						</div>
+		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp"
+			flush="false" />
+			
+		<!-- 메인 -->
+		<main>
+			<!-- 좌측 -->
+			<div class="personal-side">
+				<div class="my-customers small">
+					<h1 class="title">담당 고객 추이</h1>
+					<div class="cus-age">
+						<h2 class="subtitle">연령 추이</h2>
+						<div class="graph"></div>
 					</div>
-					<div class="panel-body">
-						<div style="height: 300px">
-							<canvas id="visitChart" style="width:100%; height:100%;"></canvas>
-							<script>
-							var ctx = document.getElementById('visitChart').getContext('2d');
-							var visitChart = new Chart(ctx, {
-							    type: 'bar',
-							    data: {
-							        labels: <%=jsn_visitChart_labels%>,
-							        datasets: [{
-							            label: '<%=visitChart_title%>',
-							            data: <%=jsn_visitChart_datasets_data%>,
-							            borderWidth: 1
-							        }]
-							    },
-							    options: {
-							        scales: {
-							            y: {
-							                beginAtZero: true
-							            }
-							        },
-							        legend: {
-							            display: false
-							        },
-							    }
-							});
-							</script>
-						</div>
+					<div class="cus-gender">
+						<h2 class="subtitle">성별 추이</h2>
+						<div class="graph"></div>
+					</div>
+				</div>
+				<div class="to-do-list small">
+					<h1 class="title">오늘 할 일</h1>
+					<p class="completed">✔ 1/7 Completed</p>
+					<ul id="toDoList">
+						<li><input type="checkbox"
+							onchange="handleTaskCompletion(this)" /> 무슨 무슨 할 일</li>
+						<li><input type="checkbox"
+							onchange="handleTaskCompletion(this)" /> 무슨 무슨 할 일</li>
+						<li><input type="checkbox"
+							onchange="handleTaskCompletion(this)" /> 무슨 무슨 할 일</li>
+						<li><input type="checkbox"
+							onchange="handleTaskCompletion(this)" /> 무슨 무슨 할 일</li>
+						<li><input type="checkbox"
+							onchange="handleTaskCompletion(this)" /> 무슨 무슨 할 일</li>
+						<li><input type="checkbox"
+							onchange="handleTaskCompletion(this)" /> 무슨 무슨 할 일</li>
+						<li><input type="checkbox"
+							onchange="handleTaskCompletion(this)" /> 무슨 무슨 할 일</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 메인 -->
+			<div class="main-side">
+				<div class="my-sales">
+					<h1 class="title">나의 판매 현황</h1>
+					<div class="chart">
+						<img
+							src="https://www.cmn.co.kr/webupload/ckeditor/images/20221029_142541_0483013.png"
+							alt="나의 판매 현황 그래프" />
+					</div>
+				</div>
+				<div class="sales-monitor">
+					<!-- 탭 영역 -->
+					<div class="tabs">
+						<button class="tab-button active" onclick="showTabContent('age')">
+							연령대별</button>
+						<button class="tab-button" onclick="showTabContent('gender')">
+							성별별</button>
+						<button class="tab-button" onclick="showTabContent('product')">
+							상품 종류별</button>
+					</div>
+					<!-- 날짜(월) 필터 -->
+					<div class="date-filter">
+						<select id="month">
+							<option value="2024-01">2024년 1월</option>
+							<option value="2024-02">2024년 2월</option>
+							<!-- 추가 옵션들 -->
+						</select>
+					</div>
+					<!-- 콘텐츠 영역 -->
+					<div class="tab-content" id="age">
+						<h1 class="title">연령대별 인기 상품</h1>
+						<div class="chart age"></div>
+					</div>
+					<div class="tab-content" id="gender" style="display: none">
+						<h1 class="title">성별별 인기 상품</h1>
+						<div class="chart gender"></div>
+					</div>
+					<div class="tab-content" id="product" style="display: none">
+						<h1 class="title">상품 종류별 인기 상품</h1>
+						<div class="chart product"></div>
 					</div>
 				</div>
 			</div>
-
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<div class="panel-title">
-							<label class="control-label" style="font-size: 40px;">기상청 날씨 정보(제거)</label>
+			<!-- 우측 -->
+			<div class="companion-side">
+				<div class="best-marketer small">
+					<h1 class="title">이달의 마케터</h1>
+					<div class="person">
+						<p class="rank">1위</p>
+						<img
+							src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+							alt="프로필 사진" />
+						<div class="person-info">
+							<p class="name">홍길동</p>
+							<p class="sales">전월 총 판매량: 1,753 건</p>
+						</div>
+					</div>
+					<div class="person">
+						<p class="rank">2위</p>
+						<img
+							src="https://images.pexels.com/photos/2748239/pexels-photo-2748239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+							alt="프로필 사진" />
+						<div class="person-info">
+							<p class="name">홍길동</p>
+							<p class="sales">전월 총 판매량: 1,753 건</p>
+						</div>
+					</div>
+					<div class="person">
+						<p class="rank">3위</p>
+						<img
+							src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+							alt="프로필 사진" />
+						<div class="person-info">
+							<p class="name">홍길동</p>
+							<p class="sales">전월 총 판매량: 1,753 건</p>
+						</div>
+					</div>
+				</div>
+				<div class="chatting-room small">
+					<h1 class="title">실시간 채팅</h1>
+					<div class="chat">
+						<img
+							src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+							alt="글쓴이 프로필 사진" />
+						<div class="chat-info">
+							<span class="name">홍길동</span> <span class="chattedAt">1분 전</span>
+							<p class="message">Lorem ipsum dolor sit amet consectetur
+								adipisicing elit. Nihil, similique?</p>
+						</div>
+					</div>
+					<div class="chat">
+						<img
+							src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+							alt="글쓴이 프로필 사진" />
+						<div class="chat-info">
+							<span class="name">홍길동</span> <span class="chattedAt">1분 전</span>
+							<p class="message">Lorem ipsum dolor sit amet consectetur
+								adipisicing elit. Nihil, similique?</p>
+						</div>
+					</div>
+					<div class="chat">
+						<img
+							src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+							alt="글쓴이 프로필 사진" />
+						<div class="chat-info">
+							<span class="name">홍길동</span> <span class="chattedAt">1분 전</span>
+							<p class="message">Lorem ipsum dolor sit amet consectetur
+								adipisicing elit. Nihil, similique?</p>
 						</div>
 					</div>
 
- <!-- 기상청 API 받아옴 -->
-	<div class = "MeteorologicalAdministration">
-		<div id="weatherInfo">
-        <p><strong>날짜:</strong> <span id="dateElement"></span></p>
-        <p><strong>시간:</strong> <span id="timeElement"></span></p>
-        <p><strong>날씨:</strong> <span id="weatherElement"></span></p>
-        <p><strong>온도:</strong> <span id="temperaturesElement"></span></p>
-        <p><strong>습도:</strong> <span id="humidityElement"></span></p>
-    </div>
-	</div>
-<!-- 기상청 API 받아옴 종료-->
-</div>
-</body>
-
-				<div class="MeteorologicalAdministration">
-					<a href="#gm" onclick="cf_movePage('/system')">
-						<img src="/static_resources/system/images/img_title.png" width="800" alt="" />
-					</a>
+					<!-- 메시지 입력 창 및 전송 버튼 -->
+					<div class="chat-input">
+						<input type="text" id="messageInput" placeholder="메시지를 입력하세요..." />
+						<button onclick="sendMessage()">전송</button>
+					</div>
 				</div>
+			</div>
+		</main>
+
+		<script>
+		// 탭 콘텐츠 표시 함수
+		function showTabContent(tabName) {
+		    var contents = document.getElementsByClassName("tab-content");
+		    for (var i = 0; i < contents.length; i++) {
+		        contents[i].style.display = "none";
+		    }
+
+		    var tabs = document.getElementsByClassName("tab-button");
+		    for (var i = 0; i < tabs.length; i++) {
+		        tabs[i].classList.remove("active");
+		    }
+
+		    document.getElementById(tabName).style.display = "block";
+		    event.currentTarget.classList.add("active");
+		}
+
+		// 메시지 전송 함수
+		function sendMessage() {
+		    var input = document.getElementById("messageInput");
+		    var messageText = input.value.trim();
+
+		    if (messageText !== "") {
+		        var chatRoom = document.querySelector(".chatting-room");
+		        var newChat = document.createElement("div");
+		        newChat.className = "chat";
+		        newChat.innerHTML = '<img src="https://via.placeholder.com/50" alt="프로필 사진" />'
+		                + '<div class="chat-info">'
+		                + '<span class="name">사용자</span>'
+		                + '<span class="chattedAt">방금</span>'
+		                + '<p class="message">'
+		                + messageText
+		                + "</p>"
+		                + "</div>";
+		        chatRoom.insertBefore(newChat, chatRoom.lastElementChild);
+		        scrollToBottom();  // 메시지 전송 후 스크롤을 맨 아래로 이동
+		    }
+		}
+
+		// 채팅창 스크롤을 맨 아래로 이동시키는 함수
+		function scrollToBottom() {
+		    var chatRoom = document.querySelector(".chatting-room");
+		    chatRoom.scrollTop = chatRoom.scrollHeight;
+		}
+
+		// 할 일 완료 처리 함수
+		function handleTaskCompletion(checkbox) {
+		    var listItem = checkbox.parentElement;
+		    var toDoList = document.getElementById("toDoList");
+
+		    if (checkbox.checked) {
+		        listItem.style.textDecoration = "line-through"; // 완료된 항목에 취소선 추가
+		        toDoList.appendChild(listItem); // 완료된 항목을 리스트의 맨 뒤로 이동
+		    } else {
+		        listItem.style.textDecoration = "none"; // 취소선 제거
+		        toDoList.insertBefore(listItem, toDoList.firstChild); // 완료되지 않은 항목을 리스트의 맨 앞으로 이동
+		    }
+
+		    updateCompletionStatus();
+		}
+
+		// 완료 상태 업데이트 함수
+		function updateCompletionStatus() {
+		    var checkboxes = document.querySelectorAll("#toDoList input[type='checkbox']");
+		    var completedCount = 0;
+		    checkboxes.forEach(function(checkbox) {
+		        if (checkbox.checked) {
+		            completedCount++;
+		        }
+		    });
+		    var statusText = "✔ " + completedCount + "/" + checkboxes.length + " Completed";
+		    document.querySelector(".to-do-list .completed").textContent = statusText;
+		}
+
+		// 페이지 로드 시 실행되는 코드
+		window.onload = function() {
+		    scrollToBottom();
+		}
+		</script>
+
+	</div>
+</body>
 
 
 </html>
