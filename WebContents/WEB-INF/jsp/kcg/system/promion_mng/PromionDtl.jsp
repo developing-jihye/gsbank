@@ -129,7 +129,7 @@
 					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(10)" style="height: 100%;">+10만원</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(50)" style="height: 100%;">+50만원</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(100)" style="height: 100%;">+100만원</button>
-					            <button type="button" class="btn btn-navy flex-20" @click="setCircleAcmlAmt(0)" style="height: 100%; background-color: rgb(0,51,102);">정정</button>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(0)" style="height: 100%;">정정</button>
 					        </div>
 					        <div class="form-group flex-row align-items-center" style="height: 40px;">
 					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">목표기간 (개월):</label>
@@ -137,7 +137,7 @@
 					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(3)" style="height: 100%;">+3개월</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(6)" style="height: 100%;">+6개월</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(12)" style="height: 100%;">+12개월</button>
-					            <button type="button" class="btn btn-navy flex-20" @click="setGoalPrd(0)" style="height: 100%; background-color: rgb(0,51,102);">정정</button>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(0)" style="height: 100%;">정정</button>
 					        </div>
 					        <div class="form-group flex-row align-items-center" style="height: 40px;">
 					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">적용금리 (%):</label>
@@ -306,10 +306,10 @@
           <div class="dataTables_wrapper">					
             <div class="dt-buttons" style="display: flex; align-items: center;">
               <div style="display: flex; align-items: center;">
-                <label style="margin-right: 5px;">코드:</label>
-                <input type="search" id="pop_prod_cd" style="width: 80px; height: 24px;" v-model="pop_prod_cd">
-                <label style="margin: 0 5px;">코드명:</label>
-                <input type="search" id="pop_prod_nm" style="width: 190px; height: 24px;" v-model="pop_prod_nm">
+                <label style="margin-right: 5px;">상품코드:</label>
+                <input type="search" id="pop_prod_cd" style="width: 85px; height: 24px;" v-model="pop_prod_cd">
+                <label style="margin: 0 5px;">상품명:</label>
+                <input type="search" id="pop_prod_nm" style="width: 160px; height: 24px;" v-model="pop_prod_nm">
                 <button type="button" class="btn btn-red" style="margin-left: 5px; height: 24px; display: flex; align-items: center; justify-content: center;" @click="getList">
                   검색하기
                 </button>
@@ -684,9 +684,9 @@ var pop_prod = new Vue({
 	methods : {
 		getList : function(){
 			this.dataList = [];
-			var params = {
-				prod_cd : this.prod_cd,
-				prod_nm : this.prod_nm,
+			var params = {				
+				prod_cd : this.pop_prod_cd,
+				prod_nm : this.pop_prod_nm,
 				prod_ty_cd : vueapp.info.prod_ty_cd,
 			}
 			cf_ajax("/prod_mng/getList", params, function(data){
