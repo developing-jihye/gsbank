@@ -136,7 +136,7 @@
 					            <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(10)" style="height: 100%;">+100만원</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(50)" style="height: 100%;">+500만원</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(100)" style="height: 100%;">+1000만원</button>
-					            <button type="button" class="btn btn-navy flex-20" @click="setLoanAmt(0)" style="height: 100%; background-color: rgb(0,51,102);">정정</button>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setLoanAmt(0)" style="height: 100%;">정정</button>
 					        </div>
 					        <div class="form-group flex-row align-items-center" style="height: 40px;">
 					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">상환기간 (개월):</label>
@@ -144,7 +144,7 @@
 					            <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(3)" style="height: 100%;">+3개월</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(6)" style="height: 100%;">+6개월</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(12)" style="height: 100%;">+12개월</button>
-					            <button type="button" class="btn btn-navy flex-20" @click="setRepyPrd(0)" style="height: 100%;">정정</button>
+					            <button type="button" class="btn btn-transparent flex-20" @click="setRepyPrd(0)" style="height: 100%;">정정</button>
 					        </div>
 					        <div class="form-group flex-row align-items-center" style="height: 40px;">
 					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">대출금리 (%):</label>
