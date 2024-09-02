@@ -109,14 +109,18 @@ public class CustMngCtl {
 	
 	@RequestMapping("/getCustInfoListAll")
 	public PageList<CmmnMap> getCustInfoListAll(CmmnMap params, PagingConfig pagingConfig) {
-		
-		log.debug("CustMngCtl.getCustInfoListAll.params >>>" + params);
-		log.debug("CustMngCtl.getCustInfoListAll.pagingConfig >>>" + pagingConfig);
-		
-		PageList<CmmnMap> pageList = custMngSvc.getCustInfoListAll(params, pagingConfig); 
-		log.debug("{}",pageList);
-		return pageList;
-		//return custMngSvc.getListAll(params, pagingConfig);
+	    
+	    log.debug("CustMngCtl.getCustInfoListAll.params >>>" + params);
+	    log.debug("CustMngCtl.getCustInfoListAll.pagingConfig >>>" + pagingConfig);
+	    
+	    // 클라이언트에서 limit이 설정되지 않은 경우, 기본 limit을 설정
+	    if (pagingConfig.getLimit() == null) {
+	        pagingConfig.setLimit("100");  // 기본값을 100으로 설정 (원하는 대로 조정 가능)
+	    }
+
+	    PageList<CmmnMap> pageList = custMngSvc.getCustInfoListAll(params, pagingConfig); 
+	    log.debug("{}", pageList);
+	    return pageList;
 	}
 	
 	@RequestMapping("/getCustCardInfo")

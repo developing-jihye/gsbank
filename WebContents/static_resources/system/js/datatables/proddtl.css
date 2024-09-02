@@ -106,4 +106,26 @@ select.form-control {
 .left-panel{gap: 10px;display: flex;flex-direction: column;border: 1px solid #999999;margin: 10px;padding: 15px;}
 .right-panel{gap: 10px;display: flex;flex-direction: column;border: 1px solid #999999;margin: 10px;padding: 5px; }
 .contorllbox {}
+.info {
+  position: relative;
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+#info__id input {
+  height: 40px; /* 버튼과 같은 높이로 맞춤 */
+  padding-right: 95px; /* 버튼이 겹치지 않도록 여유 공간 추가 */
+}
+
+#info__id button {
+  position: absolute;
+  width: 90px;
+  height: 40px; /* 입력 필드와 동일한 높이로 설정 */
+  top: 0;
+  right: 5px;
+  margin: auto 0;
+  border-radius: 3px;
+}
+
+
 @charset "UTF-8";
