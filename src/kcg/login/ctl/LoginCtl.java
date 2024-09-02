@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.FlashMap;
 import common.config.properties.SettingProperties;
 import common.exception.NeedAuthrizationException;
 import common.utils.common.CmmnMap;
+import common.utils.crypt.CryptUtil;
 import common.utils.kdtfilemng.KdtFileMng;
 import common.utils.string.StringUtil;
 import kcg.common.svc.CommonCacheSvc;
@@ -256,15 +258,20 @@ System.out.println("====================================================>>> line
         // 클라이언트로 응답할 데이터를 생성 또는 가공
         log.info("::: ajaxGetCodeJbpsTyCdList called :::");
 
-        List<?> list2 = loginSvc.selectCodeJbpsTyCdList();
+        List<?> list = loginSvc.selectCodeJbpsTyCdList();
+        
+		/* List<?> list3 = loginSvc.selectCodeJbpsTyCdList2(); */
+        
 
-        for (Object data : list2) {
+        for (Object data : list) {
             System.out.println(data); // 콘솔 출력
         }
 
         // 데이터를 맵에 담아서 반환
         Map<String, Object> response = new HashMap<>();
-        response.put("list2", list2);
+        
+        response.put("list", list);   
+		/* response.put("list3", list3); */
 
         return ResponseEntity.ok(response); // ResponseEntity를 사용하여 JSON 응답 반환
     }
@@ -283,17 +290,18 @@ System.out.println("====================================================>>> line
 		/* List<?> list = loginSvc.selectCodeJbpsTyCdList(); */
 
 		// TODO 직위 코드 조회
-		List<?> list2 = loginSvc.selectCodeJbpsTyCdList();
+		List<?> list = loginSvc.selectCodeJbpsTyCdList();
+		List<?> list2 = loginSvc.selectCodeJbpsTyCdList2();
 
         //콘솔	진행 하기위해서 for문이용함	
-		for (Object data : list2) {
+		for (Object data : list) {
 			System.out.println(data); // 콘솔 출력
 		}
 
 		// view로 넘주기 위헤 model에 담기
+		model.addAttribute("list", list);
 		model.addAttribute("list2", list2);
-		model.addAttribute("list", list2);
-
+		
 		return "kcg/login/userRegistForm";
 	}
 
@@ -303,54 +311,62 @@ System.out.println("====================================================>>> line
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/userRegistProc")
-	public String userRegistProc(CmmnMap params,
-								 HttpServletRequest request,
-								 HttpSession session,
-								 ModelMap model,
-								 // MultipartFile photoNm,
-								 MultipartHttpServletRequest fileRequest,
-								 @RequestParam("test") int test
-								 )
-			throws Exception {
+	@RequestMapping(value = "/userRegistProc", method = RequestMethod.POST)
+	public String userRegistProc(
+	        CmmnMap params,
+	        HttpServletRequest request,
+	        HttpSession session,
+	        ModelMap model,
+	        MultipartHttpServletRequest fileRequest)
+	        throws Exception {
 
-		log.info(">>>LoginCtl.userRegistProc START ::::");
-	
-		log.info("파일전송 경로  = " + kdtFileMng.singFileMng(fileRequest));
-		log.info("photoNm = " + request.getParameter("photoNm"));
-		log.info("userId = " + request.getParameter("userId"));
-		log.info("userPswd = " + request.getParameter("userPswd"));
-		log.info("userNm = " + request.getParameter("userNm"));
-		log.info("picMblTelno = " + request.getParameter("picMblTelno"));
-		log.info("jncmpYmd = " + request.getParameter("jncmpYmd"));
-		log.info("jbpsNm = " + request.getParameter("jbpsNm"));
+	    log.info(">>>LoginCtl.userRegistProc START ::::");
 
-		// String userPswd =
-		// CryptUtil.hashSHA512HexString(request.getParameter("userPswd"));
-		// log.info(">>>userPswd = " + userPswd);
-	
-		/*
-		params.put("userId", request.getParameter("userId")); // ID
-		params.put("userPswd", CryptUtil.hashSHA512HexString(request.getParameter("userPswd"))); // PW 암호화
-		params.put("userNm", request.getParameter("userNm")); // 이름
-		params.put("picMblTelno", request.getParameter("picMblTelno")); // 연락처
-		params.put("jncmpYmd", request.getParameter("jncmpYmd")); // 입사년도
-		params.put("jbpsNm", request.getParameter("jbpsNm")); // 직위
-		*/
+	    // 파일 업로드 정보 로깅
+	    log.info("파일전송 경로  = " + kdtFileMng.singFileMng(fileRequest));
 
-		// 등록 서비스 호출
-		// int rslt = loginSvc.registUserInfo(params);
-		// log.info(">>> rslt = " + rslt);
+	    // 폼 파라미터를 가져와서 로깅
+	    
+	    String userId = request.getParameter("userId");
+	    String userPswd = request.getParameter("userPswd");
+	    String userNm = request.getParameter("userNm");
+	    String picMblTelno = request.getParameter("picMblTelno");
+	    String jncmpYmd = request.getParameter("jncmpYmd");
+	    String jbpsNm = request.getParameter("jbpsNm");
 
-		// 사용자등록 로직 START //
+	    log.info("photoNm = " + request.getParameter("photoNm"));
+	    log.info("userId = " + userId);
+	    log.info("userPswd = " + userPswd);
+	    log.info("userNm = " + userNm);
+	    log.info("picMblTelno = " + picMblTelno);
+	    log.info("jncmpYmd = " + jncmpYmd);
+	    log.info("jbpsNm = " + jbpsNm);
 
-		// 사용자ID 중복 검사
-		// int countUser =
-		// userBascService.conutUser(registUserInfoFormVO.getPicEmlAddr());
+	    // 패스워드 해싱
+	    String hashedUserPswd = CryptUtil.hashSHA512HexString(userPswd);
+	    log.info(">>>userPswd = " + hashedUserPswd);
 
-		// System.out.println("해당 이메일 개수 =============== " + countUser);
+	    // 파라미터를 설정
+	    params.put("userId", userId); // ID
+	    params.put("userPswd", hashedUserPswd); // PW 암호화
+	    params.put("userNm", userNm); // 이름
+	    params.put("picMblTelno", picMblTelno); // 연락처
+	    params.put("jncmpYmd", jncmpYmd); // 입사년도
+	    params.put("jbpsNm", jbpsNm); // 직위
 
-		return "redirect:/login";
+	    // 등록 서비스 호출
+	    int rslt = loginSvc.registUserInfo(params);
+	    log.info(">>> rslt = " + rslt);
+
+	    // 등록 성공 또는 실패 확인
+	    if (rslt > 0) {
+	        log.info("회원 등록 성공");
+	    } else {
+	        log.error("회원 등록 실패");
+	    }
+
+	    // 로그인 페이지로 리다이렉트
+	    return "redirect:/login";
 	}
 
 }
