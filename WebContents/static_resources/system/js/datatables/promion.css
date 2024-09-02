@@ -29,7 +29,7 @@ body {
     width: 100vw;
     height: 100vh;
     background: var(--gray-300);
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-optical-sizing: auto;
     font-weight: normal;
     font-style: normal;
@@ -171,7 +171,7 @@ select.form-control { height: 26px; }
 .right .right-bottom .form .form-group:last-child { color: var(--red-200); }
 .right .right-bottom .form .form-group:last-child input { color: var(--red-200); }
 
-.right .right-bottom .form .form-wrapper { border: 1px solid var(--gray-200); padding: var(--wrapper-padding); margin-bottom: var(--wrapper-padding); }
+.right .right-bottom .form .form-wrapper { /* border: 1px solid var(--gray-200); */ padding: var(--wrapper-padding); margin-bottom: var(--wrapper-padding); }
 
 .right .right-bottom .form .button { width: fit-content; margin-left: auto; }
 .right .right-bottom .form .button .btn { width: 80px; }
