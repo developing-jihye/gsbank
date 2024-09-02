@@ -189,6 +189,16 @@ public class LoginSvc  {
 		return cmmnDao.selectList("login.selectCodeJbpsTyCdList");
 	}
 	
+	public List<?> selectCodeJbpsTyCdList2() {
+		log.info(">>> LoginSvc.selectCodeJbpsTyCdList2 START");
+		
+		
+		log.info(">>> LoginSvc.selectCodeJbpsTyCdList2 END");
+		return cmmnDao.selectList("login.selectCodeJbpsTyCdList2");
+	}
+	
+	
+	
 	
 	public int registUserInfo(CmmnMap params) {
 		log.info(">>> LoginSvc.registUserInfo START");

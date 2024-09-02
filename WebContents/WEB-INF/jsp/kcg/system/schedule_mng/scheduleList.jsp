@@ -536,25 +536,24 @@ label.control-label {
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">시작</label>
-								<div class="input-group">
-									<input class="form-control date-field" type="text"
-										id="TSK_BGNG_DT_YEAR" v-model="info.TSK_BGNG_DT_YEAR" readonly>
-									<input class="form-control date-field" type="text"
-										id="TSK_BGNG_DT_MON" v-model="info.TSK_BGNG_DT_MON" readonly>
-									<input class="form-control date-field" type="text"
-										id="TSK_BGNG_DT_DD" v-model="info.TSK_BGNG_DT_DD" readonly>
-									<select class="form-control time-select" id="TSK_BGNG_DT_HH"
-										v-model="info.TSK_BGNG_DT_HH">
-										<option v-for="i in 24" :value="i-1">{{ i < 10 ? '0'
-											+ (i-1) : (i-1) }}</option>
-									</select> <select class="form-control time-select" id="TSK_BGNG_DT_MM"
-										v-model="info.TSK_BGNG_DT_MM">
-										<option v-for="i in 60" :value="i-1">{{ i < 10 ? '0'
-											+ (i-1) : (i-1) }}</option>
-									</select>
-								</div>
-							</div>
+    <label class="control-label">시작</label>
+    <div class="input-group">
+        <input class="form-control date-field" type="text"
+               id="TSK_BGNG_DT_YEAR" v-model="info.TSK_BGNG_DT_YEAR" readonly>
+        <input class="form-control date-field" type="text"
+               id="TSK_BGNG_DT_MON" v-model="info.TSK_BGNG_DT_MON" readonly>
+        <input class="form-control date-field" type="text"
+               id="TSK_BGNG_DT_DD" v-model="info.TSK_BGNG_DT_DD" readonly>
+        <select class="form-control time-select" id="TSK_BGNG_DT_HH"
+                v-model="info.TSK_BGNG_DT_HH">
+            <option v-for="i in 24" :value="i-1">{{ i < 10 ? '0' + (i-1) : (i-1) }}</option>
+        </select>
+        <select class="form-control time-select" id="TSK_BGNG_DT_MM"
+                v-model="info.TSK_BGNG_DT_MM">
+            <option v-for="i in 60" :value="i-1">{{ i < 10 ? '0' + (i-1) : (i-1) }}</option>
+        </select>
+    </div>
+</div>
 							<div class="form-group">
 								<label class="control-label">종료</label>
 								<div class="input-group">
@@ -1006,19 +1005,9 @@ var pop_info_add = new Vue({
 			
 			if(!confirm("저장하시겠습니까?")) return;
 			
-			/*  this.info.TSK_BGNG_DT_HH = this.padZero(this.info.TSK_BGNG_DT_HH);
-			 this.info.TSK_BGNG_DT_MM = this.padZero(this.info.TSK_BGNG_DT_MM);
-			 this.info.TSK_END_DT_HH = this.padZero(this.info.TSK_END_DT_HH);
-			 this.info.TSK_END_DT_MM = this.padZero(this.info.TSK_END_DT_MM); */
-			
 			cf_ajax("/scheduleMng/save", this.info, this.saveCB);
 			
 		}, 
-		
-		padZero: function(value) {
-		    return value.toString().padStart(2, '0');
-		},
-	
 		saveCB : function(data){			
 			if (data.status == "OK") {
 				alert("활동정보 입력 완료");

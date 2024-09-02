@@ -49,7 +49,7 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 				|| Principal.class.isAssignableFrom(parameterType)
 				|| Device.class.isAssignableFrom(parameterType)
 				|| HttpSession.class.isAssignableFrom(parameterType)
-				// || int.class.isAssignableFrom(parameterType)
+				|| int.class.isAssignableFrom(parameterType)
 				// || MultipartFile.class.isAssignableFrom(parameterType) // 추가
 				
 				

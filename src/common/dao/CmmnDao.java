@@ -44,7 +44,9 @@ public class CmmnDao extends SqlSessionDaoSupport {
 	 *
 	 * @return DBMS가 지원하는 경우 insert 적용 결과 count
 	 */
+	
 	public int insert(String queryId, Object parameterObject) {
+		
 		return getSqlSession().insert(queryId, parameterObject);
 	}
 	
@@ -55,6 +57,8 @@ public class CmmnDao extends SqlSessionDaoSupport {
 	 *
 	 * @return DBMS가 지원하는 경우 update 적용 결과 count
 	 */
+	
+	
 	public int update(String queryId) {
 		return getSqlSession().update(queryId);
 	}
