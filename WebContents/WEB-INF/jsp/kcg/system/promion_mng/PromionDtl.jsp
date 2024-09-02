@@ -306,10 +306,10 @@
           <div class="dataTables_wrapper">					
             <div class="dt-buttons" style="display: flex; align-items: center;">
               <div style="display: flex; align-items: center;">
-                <label style="margin-right: 5px;">코드:</label>
-                <input type="search" id="pop_prod_cd" style="width: 80px; height: 24px;" v-model="pop_prod_cd">
-                <label style="margin: 0 5px;">코드명:</label>
-                <input type="search" id="pop_prod_nm" style="width: 190px; height: 24px;" v-model="pop_prod_nm">
+                <label style="margin-right: 5px;">상품코드:</label>
+                <input type="search" id="pop_prod_cd" style="width: 85px; height: 24px;" v-model="pop_prod_cd">
+                <label style="margin: 0 5px;">상품명:</label>
+                <input type="search" id="pop_prod_nm" style="width: 160px; height: 24px;" v-model="pop_prod_nm">
                 <button type="button" class="btn btn-red" style="margin-left: 5px; height: 24px; display: flex; align-items: center; justify-content: center;" @click="getList">
                   검색하기
                 </button>
@@ -684,9 +684,9 @@ var pop_prod = new Vue({
 	methods : {
 		getList : function(){
 			this.dataList = [];
-			var params = {
-				prod_cd : this.prod_cd,
-				prod_nm : this.prod_nm,
+			var params = {				
+				prod_cd : this.pop_prod_cd,
+				prod_nm : this.pop_prod_nm,
 				prod_ty_cd : vueapp.info.prod_ty_cd,
 			}
 			cf_ajax("/prod_mng/getList", params, function(data){
