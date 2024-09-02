@@ -38,8 +38,8 @@
 	
 	// 히든인풋에 부서명 기입
 	function setValueDeptNm() {
-		// console.log($("#deptNmValue option:selected").val());
-	    $('#deptNm').attr('value', $("#deptNmValue option:selected").val());
+		console.log($("#deptNmValue option:selected").val());
+	    $('#tdeptNm').attr('value', $("#deptNmValue option:selected").val());
 	}
 	
 

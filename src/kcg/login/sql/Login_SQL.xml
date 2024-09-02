@@ -290,11 +290,11 @@
 		,now()
 		,'AAA'
 		,#{userNm}
-		,'1234'
+		,#{tdeptNm}
 		,#{jbpsNm}
 		,'test'
 		,'1234'
-		,'test@test.com'
+		,#{picEmlAddr}
 		,'N'
 		,#{userPswd}
 		)
