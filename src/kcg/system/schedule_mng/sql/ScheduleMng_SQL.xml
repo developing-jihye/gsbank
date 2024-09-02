@@ -110,30 +110,48 @@
            and to_char(A.tsk_bgng_dt, 'dd') LIKE concat('%',#{day})
 	</select>
 	
-	<insert id="insertTaskInfo" parameterType="cmmnMap">
-	/* system.schedule_mng.insertTaskInfo */
-		INSERT INTO TB_PICTASK(
-			tsk_sn
-	       ,pic_mbl_telno
-	       ,tsk_sj
-	       ,tsk_ty_cd
-	       ,tsk_bgng_dt
-	       ,tsk_end_dt
-	       ,tsk_dtl_cn
-	       ,cust_mbl_telno
-	       ,tsk_imprtn_cd
-		)VALUES(
-			nextval('tb_pictask_tsk_sn_seq')
-	       ,(select pic_mbl_telno from tb_picmst where pic_nm = #{user_id})
-	       ,#{tsk_sj}
-	       ,#{tsk_ty_cd}
-	       ,to_date(concat(#{tsk_bgng_dt_year},#{tsk_bang_dt_mon},#{tsk_bgng_dt_dd},' ',#{tsk_bgng_dt_hh},#{tsk_bgng_dt_mm},'00')::text, 'YYYYMMDD HH24MISS')
-	       ,to_date(concat(#{tsk_bgng_dt_year},#{tsk_end_dt_mon},#{tsk_end_dt_dd},' ',#{tsk_end_dt_hh},#{tsk_end_dt_mm},'00')::text, 'YYYYMMDD HH24MISS')
-	       ,#{tsk_dtl_cn}
-	       ,(select cust_mbl_telno from tb_custmst where cust_nm = #{tsk_cust_nm})
-	       ,'A'
-		)
-	</insert>
+	<insert id="insertTaskInfo" parameterType="map">
+    /* system.schedule_mng.insertTaskInfo */
+    INSERT INTO TB_PICTASK(
+        tsk_sn,
+        pic_mbl_telno,
+        tsk_sj,
+        tsk_ty_cd,
+        tsk_bgng_dt,
+        tsk_end_dt,
+        tsk_dtl_cn,
+        cust_mbl_telno,
+        tsk_imprtn_cd
+    ) VALUES (
+        nextval('tb_pictask_tsk_sn_seq'),
+        (SELECT pic_mbl_telno FROM tb_picmst WHERE pic_nm = #{user_id}),
+        #{tsk_sj},
+        #{tsk_ty_cd},
+        to_timestamp(
+            concat(
+                lpad(coalesce(#{tsk_bgng_dt_year}, '2024'), 4, '0'),
+                lpad(coalesce(#{tsk_bgng_dt_mon}, '01'), 2, '0'),
+                lpad(coalesce(#{tsk_bgng_dt_dd}, '01'), 2, '0'),
+                lpad(coalesce(#{tsk_bgng_dt_hh}, '00'), 2, '0'),
+                lpad(coalesce(#{tsk_bgng_dt_mm}, '00'), 2, '0'),
+                '00'
+            ), 'YYYYMMDDHH24MISS'
+        ),
+        to_timestamp(
+            concat(
+                lpad(coalesce(#{tsk_end_dt_year}, '2024'), 4, '0'),
+                lpad(coalesce(#{tsk_end_dt_mon}, '01'), 2, '0'),
+                lpad(coalesce(#{tsk_end_dt_dd}, '01'), 2, '0'),
+                lpad(coalesce(#{tsk_end_dt_hh}, '00'), 2, '0'),
+                lpad(coalesce(#{tsk_end_dt_mm}, '00'), 2, '0'),
+                '00'
+            ), 'YYYYMMDDHH24MISS'
+        ),
+        #{tsk_dtl_cn},
+        (SELECT cust_mbl_telno FROM tb_custmst WHERE cust_nm = #{tsk_cust_nm}),
+        'A'
+    )
+</insert>
 	
 	<delete id="deleteTaskInfo" parameterType="cmmnMap">
 	/* system.schedule_mng.deleteTaskInfo */
@@ -143,3 +161,5 @@
 	</delete>
 	
 </mapper>
+
+sql 문법

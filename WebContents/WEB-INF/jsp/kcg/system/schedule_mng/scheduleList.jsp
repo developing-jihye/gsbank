@@ -1,3 +1,4 @@
+코드 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -934,13 +935,13 @@ var pop_info_add = new Vue({
 				this.info.TSK_BGNG_DT_YEAR = year;
 				this.info.TSK_BGNG_DT_MON = mon_mon;
 				this.info.TSK_BGNG_DT_DD = day_day;
-				this.info.TSK_BGNG_DT_HH = "00";
-				this.info.TSK_BGNG_DT_MM = "00";
+				this.info.TSK_BGNG_DT_HH = "";
+				this.info.TSK_BGNG_DT_MM = "";
 				this.info.TSK_END_DT_YEAR = year;
 				this.info.TSK_END_DT_MON = mon_mon;
 				this.info.TSK_END_DT_DD = day_day;
-				this.info.TSK_END_DT_HH = "00"; 
-				this.info.TSK_END_DT_MM = "00";
+				this.info.TSK_END_DT_HH = ""; 
+				this.info.TSK_END_DT_MM = "";
 				this.info.TSK_CUST_NM = "";
 				this.info.TSK_SJ = ""; 
 				this.info.TSK_DTL_CN = "";
@@ -1006,10 +1007,10 @@ var pop_info_add = new Vue({
 			
 			if(!confirm("저장하시겠습니까?")) return;
 			
-			 this.info.TSK_BGNG_DT_HH = this.padZero(this.info.TSK_BGNG_DT_HH);
+			/*  this.info.TSK_BGNG_DT_HH = this.padZero(this.info.TSK_BGNG_DT_HH);
 			 this.info.TSK_BGNG_DT_MM = this.padZero(this.info.TSK_BGNG_DT_MM);
 			 this.info.TSK_END_DT_HH = this.padZero(this.info.TSK_END_DT_HH);
-			 this.info.TSK_END_DT_MM = this.padZero(this.info.TSK_END_DT_MM);
+			 this.info.TSK_END_DT_MM = this.padZero(this.info.TSK_END_DT_MM); */
 			
 			cf_ajax("/scheduleMng/save", this.info, this.saveCB);
 			
