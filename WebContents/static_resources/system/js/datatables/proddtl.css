@@ -69,6 +69,7 @@ body {
 .btn.btn-navy { background: var(--blue-300); color: var(--white-100); }
 .btn.btn-red { background: var(--red-100); color: var(--white-100); }
 .btn.btn-gray { background: var(--gray-300); color: var(--white-100); }
+.btn.btn-green2 { background: #66CC66; color: var(--white-100); }
 .btn.btn-peach { background: var(--peach-100); color: var(--black-100); }
 .btn.btn-transparent { background: transparent; color: var(--black-100); }
 .btn.btn-orange { background: var(--orange-100); color: var(--white-100); }

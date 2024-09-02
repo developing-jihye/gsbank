@@ -1,140 +1,285 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <!DOCTYPE html>
-        <html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
 
-        <head>
-            <jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp" flush="false" />
-            <!-- Imported styles on this page -->
-            <link rel="stylesheet" href="/static_resources/system/js/datatables/datatables.css">
-            <link rel="stylesheet" href="/static_resources/system/js/select2/select2-bootstrap.css">
-            <link rel="stylesheet" href="/static_resources/system/js/select2/select2.css">
-            <link rel="stylesheet" href="/static_resources/system/js/datatables/proddtl.css">
-            <title>관리자시스템</title>
-        </head>
+<head>
+<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp"
+	flush="false" />
+<!-- Imported styles on this page -->
+<link rel="stylesheet"
+	href="/static_resources/system/js/datatables/datatables.css">
+<link rel="stylesheet"
+	href="/static_resources/system/js/select2/select2-bootstrap.css">
+<link rel="stylesheet"
+	href="/static_resources/system/js/select2/select2.css">
+<link rel="stylesheet"
+	href="/static_resources/system/js/datatables/proddtl.css">
+<title>관리자시스템</title>
+</head>
 
-        <body class="page-body">
+<body class="page-body">
 
-            <div class="page-container">
+	<div class="page-container">
 
-                <jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp" flush="false" />
+		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp"
+			flush="false" />
 
-                <div class="main-content">
+		<div class="main-content">
 
-                    <jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp" flush="false" />
+			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp"
+				flush="false" />
 
-                    <ol class="breadcrumb bc-3">
-                        <li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
-                        <li class="active"><strong>밥먹자</strong></li>
-                    </ol>
+			<ol class="breadcrumb bc-3">
+				<li><a href="#none" onclick="cf_movePage('/system')"><i
+						class="fa fa-home"></i>Home</a></li>
+				<li class="active"><strong>밥먹자</strong></li>
+			</ol>
 
-                    <h2>고객정보 목록</h2>
-                    <br />
+			<h2>고객정보 목록</h2>
+			<br />
 
-                    <div class="flex-column flex-gap-10" id="vueapp">
-                        <template>
-                            <div class="flex flex-100">
-                                <div class="flex-wrap flex-66 flex flex-gap-10 flex-padding-10">
-                                    <div class="form-group flex-40">
-                                        <label class="fix-width-33">고객명 :</label>
-                                        <input class="form-control" v-model="cust_nm" value="">
-                                    </div>
-                                    <div class="form-group flex-40">
-                                        <label class="fix-width-33">관리담당자:</label>
-                                        <input class="form-control" v-model="pic_nm" value="">
-                                    </div>
-                                    <div class="form-group flex-40">
-                                        <label class="fix-width-33">생년월일:</label>
-                                        <input type="text" class="form-control" v-model="rrno">
-                                    </div>
-                                    <div class="form-group flex-40">
-                                        <label class="fix-width-33">관리부서:</label>
-                                        <input type="text" class="form-control" v-model="dept_nm">
-                                    </div>
-                                </div>
+			<div class="flex-column flex-gap-10" id="vueapp">
+				<template>
+					<div class="flex flex-100">
+						<div class="flex-wrap flex-100 flex flex-gap-10 flex-padding-15"
+							style="justify-content: center; flex-direction: column; align-items: center;">
+							<div
+								style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+								<div class="form-group flex-40">
+									<label class="fix-width-33">고객명 :</label> <input
+										class="form-control" v-model="cust_nm" value="">
+								</div>
+								<div class="form-group flex-40">
+									<label class="fix-width-33">관리담당자:</label> <input
+										class="form-control" v-model="pic_nm" value="">
+								</div>
+								<div class="form-group flex-40">
+									<label class="fix-width-33">생년월일:</label> <input type="text"
+										class="form-control" v-model="rrno">
+								</div>
+								<div class="form-group flex-40">
+									<label class="fix-width-33">관리부서:</label> <input type="text"
+										class="form-control" v-model="dept_nm">
+								</div>
+							</div>
 
-                                <div class="flex-wrap flex-33 flex flex-center flex-gap-10 flex-padding-10">
-                                    <div class="form-group" style="width:45%;">
-                                        <button type="button" class="btn btn-blue btn-icon icon-left form-control "
-                                            v-model="search_val" @click="getCustInfoList(true)">
-                                            조건검색
-                                            <i class="entypo-search"></i>
-                                        </button>
-                                    </div>
-                                    <div class="form-group" style="width:45%;">
-                                        <button type="button" class="btn btn-blue btn-icon icon-left form-control"
-                                            v-model="search_val" @click="getCustInfoListAll(true)">
-                                            전체검색
-                                            <i class="entypo-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flex flex-100 flex-padding-10 flex-gap-10"
-                                style="justify-content:flex-end;border: 1px solid #999999;">
-                                <button type="button" class="btn btn-blue btn-icon icon-left" style="margin-left: 5px;"
-                                    @click="popCustmnglistPrint">
-                                    관리대장출력
-                                    <i class="entypo-archive"></i>
-                                </button>
-                                <button type="button" class="btn btn-blue btn-icon icon-left" style="margin-left: 5px;"
-                                    @click="popCustmngCardPrint">
-                                    관리카드출력
-                                    <i class="entypo-vcard"></i>
-                                </button>
-                                <button type="button" class="btn btn-blue btn-icon icon-left" style="margin-left: 5px;"
-                                    @click="popDamdangSet">
-                                    담당자설정
-                                    <i class="entypo-user"></i>
-                                </button>
-                                <button type="button" class="btn btn-orange btn-icon icon-left"
-                                    style="margin-left: 5px;" @click="custInfoMng">
-                                    고객관리
-                                    <i class="entypo-users"></i>
-                                </button>
-                                <button type="button" class="btn btn-orange btn-icon icon-left"
-                                    style="margin-left: 5px;" @click="picInfoMng">
-                                    담당자관리
-                                    <i class="entypo-clipboard"></i>
-                                </button>
-                            </div>
-                            <table class="table table-bordered datatable dataTable" id="grid_app"
-                                style="border: 1px solid #999999;">
-                                <thead>
-                                    <tr class="replace-inputs">
-                                        <th style="width: 5%;" class="center"><input type="checkbox" id="allCheck"
-                                                @click="all_check(event.target)" style="cursor: pointer;"></th>
-                                        <th style="width: 20%;" class="center">성명</th>
-                                        <th style="width: 15%;" class="center">생년월일</th>
-                                        <th style="width: 15%;" class="center">핸드폰번호</th>
-                                        <th style="width: 15%;" class="center">직업</th>
-                                        <th style="width: 30%;" class="center">주소</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="item in dataList" @dblclick="gotoDtl(item.cust_mbl_telno)"
-                                        style="cursor: pointer;">
-                                        <td class="center" @dblclick.stop="return false;"><input type="checkbox"
-                                                :data-idx="item.cust_nm" name="is_check" @click.stop="onCheck"
-                                                style="cursor: pointer;">
-                                        </td>
-                                        <td class="center">{{item.cust_nm}}</td>
-                                        <td class="center">{{item.rrno}}</td>
-                                        <td class="center">{{item.cust_mbl_telno}}</td>
-                                        <td class="center">{{item.occp_ty_cd_nm}}</td>
-                                        <td class="center">{{item.cust_addr}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </template>
-                    </div>
-
-
-                    <jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp" flush="false" />
-                </div>
+							<!-- 검색 버튼들을 아래로 이동 -->
+							<div
+								style="display: flex; justify-content: center; width: 100%; margin-top: 0px;">
+								<!-- 버튼들을 하나의 div로 묶고 중앙 정렬 -->
+								<div style="display: flex; justify-content: center; gap: 20%;">
+									<button type="button" class="btn btn-blue2 btn-icon icon-left"
+										v-model="search_val" @click="getCustInfoList(true)">조건검색</button>
+									<button type="button" class="btn btn-blue2 btn-icon icon-left"
+										v-model="search_val" @click="getCustInfoListAll(true)">전체검색</button>
+								</div>
+							</div>
+							<!-- <div style="display: flex; justify-content: center; align-items: center; margin-top: 15px; gap: 20%; height: 0px;">
+            <div class="form-group" style=" margin-right: 5px;">
+                <button type="button" class="btn btn-blue2 btn-icon icon-left form-control"
+                    v-model="search_val" @click="getCustInfoList(true)">
+                    조건검색
+                </button>
             </div>
+            <div class="form-group" style="">
+                <button type="button" class="btn btn-blue2 btn-icon icon-left form-control"
+                    v-model="search_val" @click="getCustInfoListAll(true)">
+                    전체검색
+                </button>
+            </div>
+        </div> -->
+						</div>
+					</div>
+					<div style="display: flex; width: 100%; gap: 20px;">
 
-            <!-- 고객기본정보조회 팝업 -->
+						<!-- 고객조회 페이지 (비율 2) -->
+						<div style="flex: 2; border: 1px solid #999999; padding: 15px;">
+							<div>
+								<div
+									style="display: flex; gap: 162px; margin-top: 10px; justify-content: flex-end; margin-bottom: 15px;">
+									<div style="display: flex; gap: 10px;">
+										<button type="button" class="btn btn-blue3 btn-icon icon-left"
+											@click="popCustmnglistPrint">관리대장출력</button>
+										<button type="button" class="btn btn-blue3 btn-icon icon-left"
+											@click="popCustmngCardPrint">관리카드출력</button>
+										<button type="button" class="btn btn-blue3 btn-icon icon-left"
+											@click="popDamdangSet">담당자설정</button>
+									</div>
+
+
+									<!-- <div style="margin-right: 20px;"></div> 간격 추가 -->
+
+
+
+									<div style="display: flex; gap: 10px;">
+										<button type="button"
+											class="btn btn-orange2 btn-icon icon-left"
+											@click="custInfoMng">고객관리</button>
+										<button type="button"
+											class="btn btn-orange2 btn-icon icon-left"
+											@click="picInfoMng">담당자관리</button>
+									</div>
+								</div>
+
+
+								<div style="overflow-y: auto; max-height: 500px;">
+									<table class="table table-bordered"
+										style="width: 100%; text-align: center;">
+										<thead>
+											<tr>
+												<th style="text-align: center;"><input type="checkbox"
+													@click="selectAll($event)"></th>
+												<th style="text-align: center;">성명</th>
+												<th style="text-align: center;">생년월일</th>
+												<th style="text-align: center;">핸드폰번호</th>
+												<th style="text-align: center;">직업</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="(item, index) in dataList" :key="index"
+												@click="gotoDtl(item.cust_mbl_telno)">
+												<td><input type="checkbox"
+													:data-idx="item.cust_mbl_telno"
+													@click.stop="handleCheck(item.cust_mbl_telno)"></td>
+												<td>{{ item.cust_nm }}</td>
+												<td>{{ item.rrno }}</td>
+												<td>{{ item.cust_mbl_telno }}</td>
+												<td>{{ item.occp_ty_cd_nm }}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<!-- 고객 상세정보 (비율 1) -->
+						<div style="flex: 1; border: 1px solid #999999; padding: 15px;">
+							<div style="margin-top: 15px">
+								<div class="custdtlabel"
+									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+									<label style="width: 100px; text-align: center;">작성일자</label> <input
+										type="text" class="form-control"
+										v-model="selectedCustomer.wrt_dt"
+										style="flex: 1; max-width: 300px;">
+								</div>
+								<div class="custdtlabel"
+									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+									<label style="width: 100px; text-align: center;">성명</label> <input
+										type="text" class="form-control"
+										v-model="selectedCustomer.cust_nm"
+										style="flex: 1; max-width: 300px;">
+								</div>
+								<div class="custdtlabel"
+									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+									<label style="width: 100px; text-align: center;">주민번호</label> <input
+										type="text" class="form-control"
+										v-model="selectedCustomer.rrno"
+										style="flex: 1; max-width: 300px;">
+								</div>
+								<div class="custdtlabel"
+									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+									<label style="width: 100px; text-align: center;">E-mail</label>
+									<input type="text" class="form-control"
+										v-model="selectedCustomer.cust_eml_addr"
+										style="flex: 1; max-width: 300px;">
+								</div>
+								<div class="custdtlabel"
+									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+									<label style="width: 100px; text-align: center;">전화번호</label> <input
+										type="text" class="form-control"
+										v-model="selectedCustomer.co_telno"
+										style="flex: 1; max-width: 300px;">
+								</div>
+								<div class="custdtlabel"
+									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+									<label style="width: 100px; text-align: center">핸드폰번호</label> <input
+										type="text" class="form-control"
+										v-model="selectedCustomer.cust_mbl_telno"
+										style="flex: 1; max-width: 300px;">
+								</div>
+								<div class="custdtlabel"
+									style="display: flex; align-items: center; justify-content: center; margin-bottom: 30px; margin-right: 10px">
+									<label style="width: 100px; text-align: center;">직업</label> <input
+										type="text" class="form-control"
+										v-model="selectedCustomer.occp_ty_cd_nm"
+										style="flex: 1; max-width: 300px;">
+								</div>
+								<div class="custdtlabel"
+									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+									<label style="width: 100px; text-align: center;">주소</label>
+									<textarea class="form-control"
+										v-model="selectedCustomer.cust_addr" rows="3"
+										style="flex: 1; max-width: 300px; padding: 5px 10px; resize: none; margin-left: 19px;"></textarea>
+								</div>
+							</div>
+							<div
+								style="display: flex; justify-content: center; gap: 10px; margin-top: 57px;">
+								<button class="btn btn-blue2 btn-icon icon-left" @click="custUpdate">변경</button>
+								<button class="btn btn-red btn-icon icon-left" @click="custDelete">삭제</button>
+								<button class="btn btn-orange2 btn-icon icon-left" @click="clearSelectedCustomer">초기화</button>
+							</div>
+						</div>
+						<!-- 고객 상세정보 (비율 1) -->
+						<div style="flex: 1; border: 1px solid #999999; padding: 15px;">
+							<!-- 상담내역 표시 -->
+							<!-- <h3 style="margin-top: 0px; text-align: center;">고객 상담내용</h3> -->
+							<textarea class="form-control"
+								v-model="selectedCustomer.tsk_dtl_cn"
+								style="height: 307px; resize: none; background-color: white; margin-top:11px;"
+								readonly></textarea>
+
+							<!-- 상담내역 입력창 -->
+							<textarea v-model="newTskDtl" class="form-control"
+								style="height: 64px; resize: none; margin-top: 10px"></textarea>
+
+							<!-- 수정 버튼 -->
+							<div
+								style="display: flex; justify-content: center; margin-top: 39px; gap: 10px">
+								<button class="btn btn-green3 btn-icon icon-left" @click="updateTskDtl">수정</button>
+							</div>
+						</div>
+					</div>
+					<!-- <table class="table table-bordered datatable dataTable"
+						id="grid_app" style="border: 1px solid #999999;">
+						<thead>
+							<tr class="replace-inputs">
+								<th style="width: 5%;" class="center"><input
+									type="checkbox" id="allCheck" @click="all_check(event.target)"
+									style="cursor: pointer;"></th>
+								<th style="width: 20%;" class="center">성명</th>
+								<th style="width: 15%;" class="center">생년월일</th>
+								<th style="width: 15%;" class="center">핸드폰번호</th>
+								<th style="width: 15%;" class="center">직업</th>
+								<th style="width: 30%;" class="center">주소</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="item in dataList"
+								@dblclick="gotoDtl(item.cust_mbl_telno)"
+								style="cursor: pointer;">
+								<td class="center" @dblclick.stop="return false;"><input
+									type="checkbox" :data-idx="item.cust_nm" name="is_check"
+									@click.stop="onCheck" style="cursor: pointer;"></td>
+								<td class="center">{{item.cust_nm}}</td>
+								<td class="center">{{item.rrno}}</td>
+								<td class="center">{{item.cust_mbl_telno}}</td>
+								<td class="center">{{item.occp_ty_cd_nm}}</td>
+								<td class="center">{{item.cust_addr}}</td>
+							</tr>
+						</tbody>
+					</table> -->
+				</template>
+			</div>
+
+
+			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
+				flush="false" />
+		</div>
+	</div>
+
+	<!-- <!-- 고객기본정보조회 팝업
             <div class="modal fade" id="pop_cust_info">
                 <template>
                     <div class="modal-dialog4">
@@ -221,422 +366,450 @@
                     </div>
                 </template>
             </div>
-            <!--// 고객기본정보조회 팝업  -->
+            // 고객기본정보조회 팝업  -->
+	-->
 
-            <!-- 관리대장출력 팝업 -->
-            <div class="modal fade" id="pop_cust_mnglist_print">
-                <template>
-                    <div class="modal-dialog4">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                    id="btn_popClose">&times;</button>
-                                <h4 class="modal-title" id="modify_nm">고객정보출력관리</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form class="form-horizontal form-groups-bordered">
-                                    <div>
-                                        [고객관리카드] 를(을) 출력하시겠습니까?<br>
-                                        ※고객정보는 개인정보관리 대상이므로 유의하셔야 합니다.
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            출력인원 : {{printInfo.custCount}}명
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <table class="table datatable dataTable">
-                                            <thead>
-                                                <tr class="replace-inputs">
-                                                    <th style="width: 20%;" class="center">성명</th>
-                                                    <th style="width: 20%;" class="center">생년월일</th>
-                                                    <th style="width: 30%;" class="center">핸드폰번호</th>
-                                                    <th style="width: 30%;" class="center">직업</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr v-for="item in printInfo.custList">
-                                                    <td class="center">{{item.cust_nm}}</td>
-                                                    <td class="center">{{item.rrno}}</td>
-                                                    <td class="center">{{item.cust_mbl_telno}}</td>
-                                                    <td class="center">{{item.occp_ty_cd_nm}}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+	<!-- 관리대장출력 팝업 -->
+	<div class="modal fade" id="pop_cust_mnglist_print">
+		<template>
+			<div class="modal-dialog4">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true" id="btn_popClose">&times;</button>
+						<h4 class="modal-title" id="modify_nm">고객정보출력관리</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal form-groups-bordered">
+							<div>
+								[고객관리카드] 를(을) 출력하시겠습니까?<br> ※고객정보는 개인정보관리 대상이므로 유의하셔야 합니다.
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10">출력인원 : {{printInfo.custCount}}명</div>
+							</div>
+							<div class="form-group">
+								<table class="table datatable dataTable">
+									<thead>
+										<tr class="replace-inputs">
+											<th style="width: 20%;" class="center">성명</th>
+											<th style="width: 20%;" class="center">생년월일</th>
+											<th style="width: 30%;" class="center">핸드폰번호</th>
+											<th style="width: 30%;" class="center">직업</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="item in printInfo.custList">
+											<td class="center">{{item.cust_nm}}</td>
+											<td class="center">{{item.rrno}}</td>
+											<td class="center">{{item.cust_mbl_telno}}</td>
+											<td class="center">{{item.occp_ty_cd_nm}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" @click="print">인쇄</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="cust_mnglist_printArea" style="height:0px;display:none;">
-                        <table class="table datatable dataTable">
-                            <thead>
-                                <tr class="replace-inputs">
-                                    <th style="width: 20%;" class="center">성명</th>
-                                    <th style="width: 20%;" class="center">생년월일</th>
-                                    <th style="width: 30%;" class="center">핸드폰번호</th>
-                                    <th style="width: 30%;" class="center">직업</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in printInfo.custList">
-                                    <td class="center">{{item.cust_nm}}</td>
-                                    <td class="center">{{item.rrno}}</td>
-                                    <td class="center">{{item.cust_mbl_telno}}</td>
-                                    <td class="center">{{item.occp_ty_cd_nm}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </template>
-            </div>
-            <!--// 관리대장출력 팝업  -->
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" @click="print">인쇄</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+			<div id="cust_mnglist_printArea" style="height: 0px; display: none;">
+				<table class="table datatable dataTable">
+					<thead>
+						<tr class="replace-inputs">
+							<th style="width: 20%;" class="center">성명</th>
+							<th style="width: 20%;" class="center">생년월일</th>
+							<th style="width: 30%;" class="center">핸드폰번호</th>
+							<th style="width: 30%;" class="center">직업</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item in printInfo.custList">
+							<td class="center">{{item.cust_nm}}</td>
+							<td class="center">{{item.rrno}}</td>
+							<td class="center">{{item.cust_mbl_telno}}</td>
+							<td class="center">{{item.occp_ty_cd_nm}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</template>
+	</div>
+	<!--// 관리대장출력 팝업  -->
 
-            <!-- 고객관리카드 출력 팝업 -->
-            <div class="modal fade" id="pop_cust_card_print">
-                <template>
-                    <div class="modal-dialog4">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                    id="btn_popClose">&times;</button>
-                                <h4 class="modal-title" id="modify_nm">고객관리카드 출력</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form class="form-horizontal form-groups-bordered">
-                                    <div>
-                                        [고객관리카드] 를(을) 출력하시겠습니까?<br>
-                                        ※고객정보는 개인정보관리 대상이므로 유의하셔야 합니다.
-                                    </div>
-                                    <div class="clearAfter">
-                                        <div class="left">
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">고객명</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="cust_nm" v-model="info.cust_nm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">실명번호</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="rrno" v-model="info.rrno">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">E-mail</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="cust_eml_addr" v-model="info.cust_eml_addr">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">전화번호</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="co_tel_no" v-model="info.co_tel_no">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">핸드폰</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="cust_mbl_telno"
-                                                        v-model="info.cust_mbl_telno">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">직업</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="occp_ty_cd_nm" v-model="info.occp_ty_cd_nm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">주소</label>
-                                                <div class="col-sm-9">
-                                                    <textarea id="cust_addr" v-model="info.cust_addr"
-                                                        style="width:100%;"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">담당자</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="pic_nm" v-model="info.pic_nm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">부서</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="dept_nm" v-model="info.dept_nm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">직위</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="jbps_ty_cd_nm" v-model="info.jbps_ty_cd_nm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">연락처</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="pic_mbl_telno" v-model="info.pic_mbl_telno">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_eng_nm" class="col-sm-2 control-label">상담내역</label>
-                                            </div>
-                                            <div class="col-sm-10">
-                                                <tr>
-                                                    <textarea id="tsk_dtl_cn" v-model="info.tsk_dtl_cn"
-                                                        style="width:100%;"></textarea>
-                                                </tr>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" @click="print_card">인쇄</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="cust_mngcard_printArea" style="height:0px;display:none;">
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">고객명</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="cust_nm" v-model="info.cust_nm">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">실명번호</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="rrno" v-model="info.rrno">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">E-mail</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="cust_eml_addr" v-model="info.cust_eml_addr">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">전화번호</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="co_tel_no" v-model="info.co_tel_no">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">핸드폰</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="cust_mbl_telno" v-model="info.cust_mbl_telno">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">직업</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="occp_ty_cd_nm" v-model="info.occp_ty_cd_nm">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">주소</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="cust_addr" v-model="info.cust_addr">
-                                <!-- <textarea  type="submit" id="cust_addr" v-model="info.cust_addr" style="width:100%;" ></textarea> -->
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">담당자</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="pic_nm" v-model="info.pic_nm">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">부서</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="dept_nm" v-model="info.dept_nm">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">직위</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="jbps_ty_cd_nm" v-model="info.jbps_ty_cd_nm">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_cd" class="col-sm-3 control-label">연락처</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="pic_mbl_telno" v-model="info.pic_mbl_telno">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="err_eng_nm" class="col-sm-2 control-label">상담내역</label>
-                            <div class="col-sm-9">
-                                <input type="submit" id="tsk_dtl_cn" v-model="info.tsk_dtl_cn">
-                            </div>
-                        </div>
-                        <!-- <div class="col-sm-10">
+	<!-- 고객관리카드 출력 팝업 -->
+	<div class="modal fade" id="pop_cust_card_print">
+		<template>
+			<div class="modal-dialog4">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true" id="btn_popClose">&times;</button>
+						<h4 class="modal-title" id="modify_nm">고객관리카드 출력</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal form-groups-bordered">
+							<div>
+								[고객관리카드] 를(을) 출력하시겠습니까?<br> ※고객정보는 개인정보관리 대상이므로 유의하셔야 합니다.
+							</div>
+							<div class="clearAfter">
+								<div class="left">
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">고객명</label>
+										<div class="col-sm-9">
+											<input type="text" id="cust_nm" v-model="info.cust_nm">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">실명번호</label>
+										<div class="col-sm-9">
+											<input type="text" id="rrno" v-model="info.rrno">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">E-mail</label>
+										<div class="col-sm-9">
+											<input type="text" id="cust_eml_addr"
+												v-model="info.cust_eml_addr">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">전화번호</label>
+										<div class="col-sm-9">
+											<input type="text" id="co_tel_no" v-model="info.co_tel_no">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">핸드폰</label>
+										<div class="col-sm-9">
+											<input type="text" id="cust_mbl_telno"
+												v-model="info.cust_mbl_telno">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">직업</label>
+										<div class="col-sm-9">
+											<input type="text" id="occp_ty_cd_nm"
+												v-model="info.occp_ty_cd_nm">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">주소</label>
+										<div class="col-sm-9">
+											<textarea id="cust_addr" v-model="info.cust_addr"
+												style="width: 100%;"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">담당자</label>
+										<div class="col-sm-9">
+											<input type="text" id="pic_nm" v-model="info.pic_nm">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">부서</label>
+										<div class="col-sm-9">
+											<input type="text" id="dept_nm" v-model="info.dept_nm">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">직위</label>
+										<div class="col-sm-9">
+											<input type="text" id="jbps_ty_cd_nm"
+												v-model="info.jbps_ty_cd_nm">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">연락처</label>
+										<div class="col-sm-9">
+											<input type="text" id="pic_mbl_telno"
+												v-model="info.pic_mbl_telno">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_eng_nm" class="col-sm-2 control-label">상담내역</label>
+									</div>
+									<div class="col-sm-10">
+										<tr>
+											<textarea id="tsk_dtl_cn" v-model="info.tsk_dtl_cn"
+												style="width: 100%;"></textarea>
+										</tr>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" @click="print_card">인쇄</button>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+			<div id="cust_mngcard_printArea" style="height: 0px; display: none;">
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">고객명</label>
+					<div class="col-sm-9">
+						<input type="submit" id="cust_nm" v-model="info.cust_nm">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">실명번호</label>
+					<div class="col-sm-9">
+						<input type="submit" id="rrno" v-model="info.rrno">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">E-mail</label>
+					<div class="col-sm-9">
+						<input type="submit" id="cust_eml_addr"
+							v-model="info.cust_eml_addr">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">전화번호</label>
+					<div class="col-sm-9">
+						<input type="submit" id="co_tel_no" v-model="info.co_tel_no">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">핸드폰</label>
+					<div class="col-sm-9">
+						<input type="submit" id="cust_mbl_telno"
+							v-model="info.cust_mbl_telno">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">직업</label>
+					<div class="col-sm-9">
+						<input type="submit" id="occp_ty_cd_nm"
+							v-model="info.occp_ty_cd_nm">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">주소</label>
+					<div class="col-sm-9">
+						<input type="submit" id="cust_addr" v-model="info.cust_addr">
+						<!-- <textarea  type="submit" id="cust_addr" v-model="info.cust_addr" style="width:100%;" ></textarea> -->
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">담당자</label>
+					<div class="col-sm-9">
+						<input type="submit" id="pic_nm" v-model="info.pic_nm">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">부서</label>
+					<div class="col-sm-9">
+						<input type="submit" id="dept_nm" v-model="info.dept_nm">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">직위</label>
+					<div class="col-sm-9">
+						<input type="submit" id="jbps_ty_cd_nm"
+							v-model="info.jbps_ty_cd_nm">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_cd" class="col-sm-3 control-label">연락처</label>
+					<div class="col-sm-9">
+						<input type="submit" id="pic_mbl_telno"
+							v-model="info.pic_mbl_telno">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="err_eng_nm" class="col-sm-2 control-label">상담내역</label>
+					<div class="col-sm-9">
+						<input type="submit" id="tsk_dtl_cn" v-model="info.tsk_dtl_cn">
+					</div>
+				</div>
+				<!-- <div class="col-sm-10">
 						<tr>										
 						   <textarea  type="submit" id="tsk_dtl_cn" v-model="info.tsk_dtl_cn" style="width:100%;" ></textarea>
 						</tr> 
 					</div>   -->
-                    </div>
-                </template>
-            </div>
-            <!--// 고객관리카드 출력 팝업  -->
+			</div>
+		</template>
+	</div>
+	<!--// 고객관리카드 출력 팝업  -->
 
-            <!-- 담당자설정 팝업 -->
-            <div class="modal fade" id="pop_damdang_set">
-                <template>
-                    <div class="modal-dialog4">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                    id="btn_popClose">&times;</button>
-                                <h4 class="modal-title" id="modify_nm">담당자 설정</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form class="form-horizontal form-groups-bordered">
-                                    <div class="clearAfter">
-                                        <div class="left">
-                                            <div class="form-group">
-                                                <label for="err_cd" class="col-sm-3 control-label">담당자명 : </label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="pic_nm" v-model="picInfo.pic_nm">
-                                                    <button type="button" class="btn" @click="popupPicInfo">
-                                                        <i class="fa fa-search"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-blue btn-icon icon-left"
-                                                        style="margin-left: 5px;" @click="damdangSave">
-                                                        등록
-                                                        <i class="entypo-search"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_kor_nm" class="col-sm-3 control-label">부서명 : </label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="dept_nm" v-model="picInfo.dept_nm">
-                                                    <button type="button" class="btn btn-blue btn-icon icon-left"
-                                                        style="margin-left: 5px;" @click="damdangDelete">
-                                                        삭제
-                                                        <i class="entypo-search"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_eng_nm" class="col-sm-3 control-label">직위 : </label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="jbps_ty_cd_nm"
-                                                        v-model="picInfo.jbps_ty_cd_nm">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_eng_nm" class="col-sm-3 control-label">연락처 : </label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="pic_mbl_telno"
-                                                        v-model="picInfo.pic_mbl_telno">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_eng_nm" class="col-sm-3 control-label">E-mail : </label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="pic_eml_addr" v-model="picInfo.pic_eml_addr">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_eng_nm" class="col-sm-3 control-label">입사일자 : </label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" id="jncmp_ymd" v-model="picInfo.jncmp_ymd">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="err_eng_nm" class="col-sm-3 control-label">기타 : </label>
-                                                <div class="col-sm-9">
-                                                    <textarea id="etc_tsk_cn" v-model="picInfo.etc_tsk_cn"
-                                                        style="width:100%;"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <table class="table datatable dataTable">
-                                                    <thead>
-                                                        <tr class="replace-inputs">
-                                                            <th style="width: 20%;" class="center">성명</th>
-                                                            <th style="width: 20%;" class="center">생년월일</th>
-                                                            <th style="width: 30%;" class="center">핸드폰번호</th>
-                                                            <th style="width: 30%;" class="center">직업</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr v-for="item in picInfo.custList" style="cursor: pointer;">
-                                                            <td class="center">{{item.cust_nm}}</td>
-                                                            <td class="center">{{item.rrno}}</td>
-                                                            <td class="center">{{item.cust_mbl_telno}}</td>
-                                                            <td class="center">{{item.occp_ty_cd_nm}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                    @click="popupPicClose">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </div>
-            <!--// 담당자설정 팝업  -->
-            <!-- 팝업 -->
-            <div class="modal fade" id="pop_pic_info">
-                <template>
-                    <div class="modal-dialog" style="width: 500px;">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div style="height: 400px;overflow: auto;" class="dataTables_wrapper">
-                                    <table class="table table-bordered datatable dataTable">
-                                        <thead style="position: sticky;top: 0px;">
-                                            <tr>
-                                                <th class="center" style="width: 20%;">담당자명</th>
-                                                <th class="center" style="width: 20%;">부서명</th>
-                                                <th class="center" style="width: 20%;">직위</th>
-                                                <th class="center" style="width: 50%;">연락처</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="item in dataList" @click="selItem(item.pic_nm)"
-                                                style="cursor: pointer;">
-                                                <td class="center">{{item.pic_nm}}</td>
-                                                <td class="center">{{item.dept_nm}}</td>
-                                                <td class="center">{{item.jbps_ty_cd_nm}}</td>
-                                                <td class="center">{{item.pic_mbl_telno}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </div>
-            <!-- 팝업 -->
-        </body>
-        <script>
+	<!-- 담당자설정 팝업 -->
+	<div class="modal fade" id="pop_damdang_set">
+		<template>
+			<div class="modal-dialog4">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true" id="btn_popClose">&times;</button>
+						<h4 class="modal-title" id="modify_nm">담당자 설정</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal form-groups-bordered">
+							<div class="clearAfter">
+								<div class="left">
+									<div class="form-group">
+										<label for="err_cd" class="col-sm-3 control-label">담당자명
+											: </label>
+										<div class="col-sm-9">
+											<input type="text" id="pic_nm" v-model="picInfo.pic_nm">
+											<button type="button" class="btn" @click="popupPicInfo">
+												<i class="fa fa-search"></i>
+											</button>
+											<button type="button" class="btn btn-blue btn-icon icon-left"
+												style="margin-left: 5px;" @click="damdangSave">
+												등록 <i class="entypo-search"></i>
+											</button>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_kor_nm" class="col-sm-3 control-label">부서명
+											: </label>
+										<div class="col-sm-9">
+											<input type="text" id="dept_nm" v-model="picInfo.dept_nm">
+											<button type="button" class="btn btn-blue btn-icon icon-left"
+												style="margin-left: 5px;" @click="damdangDelete">
+												삭제 <i class="entypo-search"></i>
+											</button>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_eng_nm" class="col-sm-3 control-label">직위
+											: </label>
+										<div class="col-sm-9">
+											<input type="text" id="jbps_ty_cd_nm"
+												v-model="picInfo.jbps_ty_cd_nm">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_eng_nm" class="col-sm-3 control-label">연락처
+											: </label>
+										<div class="col-sm-9">
+											<input type="text" id="pic_mbl_telno"
+												v-model="picInfo.pic_mbl_telno">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_eng_nm" class="col-sm-3 control-label">E-mail
+											: </label>
+										<div class="col-sm-9">
+											<input type="text" id="pic_eml_addr"
+												v-model="picInfo.pic_eml_addr">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_eng_nm" class="col-sm-3 control-label">입사일자
+											: </label>
+										<div class="col-sm-9">
+											<input type="text" id="jncmp_ymd" v-model="picInfo.jncmp_ymd">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="err_eng_nm" class="col-sm-3 control-label">기타
+											: </label>
+										<div class="col-sm-9">
+											<textarea id="etc_tsk_cn" v-model="picInfo.etc_tsk_cn"
+												style="width: 100%;"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<table class="table datatable dataTable">
+											<thead>
+												<tr class="replace-inputs">
+													<th style="width: 20%;" class="center">성명</th>
+													<th style="width: 20%;" class="center">생년월일</th>
+													<th style="width: 30%;" class="center">핸드폰번호</th>
+													<th style="width: 30%;" class="center">직업</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr v-for="item in picInfo.custList"
+													style="cursor: pointer;">
+													<td class="center">{{item.cust_nm}}</td>
+													<td class="center">{{item.rrno}}</td>
+													<td class="center">{{item.cust_mbl_telno}}</td>
+													<td class="center">{{item.occp_ty_cd_nm}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal" @click="popupPicClose">Close</button>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
+	<!--// 담당자설정 팝업  -->
+	<!-- 팝업 -->
+	<div class="modal fade" id="pop_pic_info">
+		<template>
+			<div class="modal-dialog" style="width: 500px;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div style="height: 400px; overflow: auto;"
+							class="dataTables_wrapper">
+							<table class="table table-bordered datatable dataTable">
+								<thead style="position: sticky; top: 0px;">
+									<tr>
+										<th class="center" style="width: 20%;">담당자명</th>
+										<th class="center" style="width: 20%;">부서명</th>
+										<th class="center" style="width: 20%;">직위</th>
+										<th class="center" style="width: 50%;">연락처</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="item in dataList" @click="selItem(item.pic_nm)"
+										style="cursor: pointer;">
+										<td class="center">{{item.pic_nm}}</td>
+										<td class="center">{{item.dept_nm}}</td>
+										<td class="center">{{item.jbps_ty_cd_nm}}</td>
+										<td class="center">{{item.pic_mbl_telno}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
+	<!-- 팝업 -->
+</body>
+<script>
             var vueapp = new Vue({
                 el: "#vueapp",
-                data: {
-                    dataList: [],
-                    search_nm: "",
-                    cust_nm: "",
-                    pic_nm: "",
-                    rrno: "",
-                    dept_nm: "",
-                    search_val: "",
-                },
+    data: {
+        dataList: [],  // 고객 목록 데이터
+        search_nm: "",
+        cust_nm: "",
+        pic_nm: "",
+        rrno: "",
+        dept_nm: "",
+        search_val: "",
+        selectedCustomer: {
+            wrt_dt: "",
+            cust_nm: "",
+            rrno: "",
+            cust_eml_addr: "",
+            co_telno: "",
+            cust_mbl_telno: "",
+            occp_ty_cd_nm: "",
+            cust_addr: "",
+            tsk_dtl_cn: "",  // 상담내역 추가
+        },
+        newTskDtl: "",  // 새로운 상담내역 입력을 위한 변수
+    },
                 mounted: function () {
                     var fromDtl = cf_getUrlParam("fromDtl");
                     var pagingConfig = cv_sessionStorage.getItem("pagingConfig");
@@ -661,6 +834,46 @@
                     }
                 },
                 methods: {
+
+                	//고객변경
+                	 custUpdate: function () {
+                         var params = {
+                             cust_nm: this.selectedCustomer.cust_nm,
+                             wrt_dt: this.selectedCustomer.wrt_dt,
+                             rrno: this.selectedCustomer.rrno,
+                             cust_eml_addr: this.selectedCustomer.cust_eml_addr,
+                             co_telno: this.selectedCustomer.co_telno,
+                             cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
+                             occp_ty_cd_nm: this.selectedCustomer.occp_ty_cd_nm,
+                             cust_addr: this.selectedCustomer.cust_addr,
+                         };
+                         cf_ajax("/custMng/updateCust", params, this.changeStsCB);
+                     },
+                  // 고객 정보 삭제 메서드
+                     custDelete: function () {
+                         var params = {
+                             cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
+                         };
+                         cf_ajax("/custMng/updateCustStcd", params, this.deleteStsCB);
+                     },
+
+                     // 변경 성공 콜백 메서드
+                     changeStsCB: function (data) {
+                         if (data.status == "OK") {
+                             alert("고객정보 변경 완료");
+                             this.getCustInfoList(true); // 변경 후 고객 목록을 다시 불러옵니다.
+                         }
+                     },
+
+                     // 삭제 성공 콜백 메서드
+                     deleteStsCB: function (data) {
+                         if (data.status == "OK") {
+                             alert("고객정보 삭제 완료");
+                             this.getCustInfoList(true); // 삭제 후 고객 목록을 다시 불러옵니다.
+                         }
+                     },
+                     
+                    
                     getCustInfoList: function (isInit) {
 
                         cv_pagingConfig.func = this.getCustInfoList;
@@ -704,14 +917,86 @@
                         cf_ajax("/custMng/getCustInfoListAll", params, this.getListCB);
                     },
                     getListCB: function (data) {
-                        //console.log(data);
+                    	console.log("Server data:", data);
                         this.dataList = data.list;
                         cv_pagingConfig.renderPagenation("system");
+                        
                     },
+                    
+                 
+
+                 // 상담내역 수정 로직 추가
+                    updateTskDtl: function () {
+                        if (this.newTskDtl.trim()) {
+                            this.selectedCustomer.tsk_dtl_cn = this.newTskDtl;
+                            var params = {
+                                cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
+                                tsk_dtl_cn: this.selectedCustomer.tsk_dtl_cn,
+                            };
+                            cf_ajax("/custMng/updateCust", params, this.updateTskDtlCB);
+                            this.newTskDtl = "";  // 수정 후 입력창 초기화
+                        } else {
+                            alert("수정할 상담내역을 입력해주세요.");
+                        }
+                    },
+
+                    // 상담내역 업데이트 콜백
+                    updateTskDtlCB: function(data) {
+                        if (data.status == "OK") {
+                            alert("상담내역 수정 완료");
+                            this.getCustInfoList(true);  // 수정 후 고객 목록을 다시 불러옵니다.
+                        }
+                    },
+                    
+                    selectAll: function (event) {
+                        // 모든 체크박스 선택/해제
+                        const isChecked = event.target.checked;
+                        this.dataList.forEach(item => item.isChecked = isChecked);
+                        
+                        if (isChecked && this.dataList.length > 0) {
+                            // 첫 번째 체크된 고객의 상세 정보 표시
+                            this.gotoDtl(this.dataList[0]);
+                        } else {
+                            // 모든 체크 해제 시 선택된 고객 정보 초기화
+                            this.selectedCustomer = {};
+                        }
+                    },
+                
                     gotoDtl: function (cust_mbl_telno) {
-                        console.log(cust_mbl_telno);
-                        pop_cust_info.init(cust_mbl_telno);
-                        $('#pop_cust_info').modal('show');
+                        var params = { cust_mbl_telno: cust_mbl_telno };
+                        cf_ajax("/custMng/getInfo", params, function(data) {
+                            vueapp.selectedCustomer = data;
+                            // 팝업에서 불러온 상담내역을 고객 상세정보에도 반영
+                            if (data.tsk_dtl_cn) {
+                                vueapp.selectedCustomer.tsk_dtl_cn = data.tsk_dtl_cn;
+                            }
+                            console.log("Selected customer data:", vueapp.selectedCustomer);
+                        });
+                    },
+                    
+                    handleCheck: function (cust_mbl_telno) {
+                        var checkbox = event.target;
+
+                        if (checkbox.checked) {
+                            // 체크박스 선택 시 고객 정보를 가져옴
+                            this.gotoDtl(cust_mbl_telno);
+                        } else {
+                            // 체크박스 해제 시 고객 상세 정보를 초기화
+                            this.clearSelectedCustomer();
+                        }
+                    },
+                    clearSelectedCustomer: function () {
+                        // selectedCustomer 객체 초기화
+                        this.selectedCustomer = {
+                            wrt_dt: "",
+                            cust_nm: "",
+                            rrno: "",
+                            cust_eml_addr: "",
+                            co_telno: "",
+                            cust_mbl_telno: "",
+                            occp_ty_cd_nm: "",
+                            cust_addr: ""
+                        };
                     },
                     sortList: function (obj) {
                         cf_setSortConf(obj, "cust_nm");
@@ -724,10 +1009,8 @@
                     all_check: function (obj) {
                         $('[name=is_check]').prop('checked', obj.checked);
                     },
-                    onCheck: function () {
-                        $("#allCheck").prop('checked',
-                            $("[name=is_check]:checked").length === $("[name=is_check]").length
-                        );
+                    onCheck: function (item, event) {
+                    	this.gotoDtl(customer);
                     },
                     popCustmnglistPrint: function () {
                         var chkedList = $("[name=is_check]:checked");
@@ -848,6 +1131,8 @@
                     },
                     getInfoCB: function (data) {
                         this.info = data;
+                        // 고객 상세정보의 상담내역을 업데이트
+                        vueapp.selectedCustomer.tsk_dtl_cn = data.tsk_dtl_cn;
                     },
                 },
             });
@@ -1206,6 +1491,7 @@
                     },
                 },
             });
+           
         </script>
 
-        </html>
+</html>

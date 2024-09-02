@@ -7203,3 +7203,19 @@ dd-content,
   padding-right: 30px !important;
   padding-left: 30px !important;
 }
+
+
+.btn-green3 {
+  color: #FFF;
+  background-color: #66CC66;
+  border-color: #66CC66;
+}
+.btn-green3.btn-icon.icon-left {
+  padding-right: 30px !important;
+  padding-left: 30px !important;
+}
+
+.btn-green2.btn-icon.icon-left {
+  padding-right: 20px !important;
+  padding-left: 20px !important;
+}
