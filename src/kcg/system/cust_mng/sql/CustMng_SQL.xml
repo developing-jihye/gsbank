@@ -59,35 +59,37 @@
 	</select>
 	
 	<select id="getInfo" parameterType="cmmnMap" resultType="cmmnMap">
-	/* system.cust_mng.getInfo */
-		SELECT A.CUST_NM                  as CUST_NM
-           ,A.RRNO                        as RRNO
-           ,A.CUST_MBL_TELNO              as CUST_MBL_TELNO
-           ,A.CO_TELNO                    as CO_TELNO
-           ,A.CUST_EML_ADDR               as CUST_EML_ADDR
-           ,A.OCCP_TY_CD_NM               as OCCP_TY_CD_NM
-           ,A.CUST_ADDR                   as CUST_ADDR
-           ,A.WRT_DT                      as WRT_DT
-           ,A.TSK_DTL_CN                  as TSK_DTL_CN
-		  FROM (
-		SELECT
-			A.CUST_NM                     as CUST_NM
-           ,A.RRNO                        as RRNO
-           ,A.CUST_MBL_TELNO              as CUST_MBL_TELNO
-           ,A.CO_TELNO                    as CO_TELNO
-           ,A.CUST_EML_ADDR               as CUST_EML_ADDR
-           ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '140' AND CODE_NO = A.OCCP_TY_CD) as OCCP_TY_CD_NM
-           ,A.CUST_ADDR                   as CUST_ADDR
-           ,TO_CHAR(A.WRT_DT, 'YYYYDDMM') as WRT_DT
-           ,B.TSK_DTL_CN                  as TSK_DTL_CN
-           ,row_number() over (PARTITION by A.CUST_NM order by A.CUST_NM desc) as rownumber
-		FROM
-			TB_CUSTMST A
-			left outer join TB_PICTASK B
-            on A.CUST_MBL_TELNO = B.CUST_MBL_TELNO
-		WHERE 1=1
-		  and A.CUST_MBL_TELNO = #{cust_mbl_telno} ) A
-	</select>
+    /* system.cust_mng.getInfo */
+    SELECT A.CUST_NM as CUST_NM
+           ,A.RRNO as RRNO
+           ,A.CUST_MBL_TELNO as CUST_MBL_TELNO
+           ,A.CO_TELNO as CO_TELNO
+           ,A.CUST_EML_ADDR as CUST_EML_ADDR
+           ,A.OCCP_TY_CD_NM as OCCP_TY_CD_NM
+           ,A.CUST_ADDR as CUST_ADDR
+           ,A.WRT_DT as WRT_DT
+           ,A.TSK_DTL_CN as TSK_DTL_CN
+    FROM (
+        SELECT A.CUST_NM as CUST_NM
+               ,A.RRNO as RRNO
+               ,A.CUST_MBL_TELNO as CUST_MBL_TELNO
+               ,A.CO_TELNO as CO_TELNO
+               ,A.CUST_EML_ADDR as CUST_EML_ADDR
+               ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '140' AND CODE_NO = A.OCCP_TY_CD) as OCCP_TY_CD_NM
+               ,A.CUST_ADDR as CUST_ADDR
+               ,TO_CHAR(A.WRT_DT, 'YYYYDDMM') as WRT_DT
+               ,B.TSK_DTL_CN as TSK_DTL_CN
+               ,row_number() over (PARTITION by A.CUST_NM order by A.CUST_NM desc) as rownumber
+        FROM 
+        	TB_CUSTMST A
+        	LEFT OUTER JOIN TB_PICTASK B 
+        	ON A.CUST_MBL_TELNO = B.CUST_MBL_TELNO
+        WHERE 1=1
+          AND A.CUST_MBL_TELNO = #{cust_mbl_telno}
+    ) A
+    WHERE rownumber = 1
+</select>
+
 	
 	<select id="getCustInfoList" parameterType="cmmnMap" resultType="cmmnMap">
 	/* system.cust_mng.getCustInfoList */
