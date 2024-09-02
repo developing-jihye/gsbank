@@ -69,9 +69,9 @@
                 <label for="ntsl_amt_min" class="form-control1">가입금액:</label>
                 <div class="form-control2">
                     <label>(최소)</label>
-                    <input type="text" id="ntsl_amt_min" v-model="info.ntsl_amt_min">
+                    <input type="text" id="ntsl_amt_min" v-model="info.ntsl_amt_min" class="rounded-input">
                     <label>원 ~ (최대)</label>
-                    <input type="text" id="ntsl_amt_max" v-model="info.ntsl_amt_max">
+                    <input type="text" id="ntsl_amt_max" v-model="info.ntsl_amt_max" class="rounded-input">
                     <label>원</label>
                 </div>
             </div>
@@ -91,19 +91,34 @@
                 <label for="prod_air_max" class="form-control1">적용이율(최대):</label>
                 <div class="form-control2">
                     <label>(최소)</label>
-                    <input type="text" id="prod_air_min" v-model="info.prod_air_min">
+                    <input type="text" id="prod_air_min" v-model="info.prod_air_min" class="rounded-input">
                     <label>%  ~ (최대)</label>
-                    <input type="text" id="prod_air_max" v-model="info.prod_air_max">
+                    <input type="text" id="prod_air_max" v-model="info.prod_air_max" class="rounded-input">
                     <label>%</label>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group1">
                 <label for="prod_air_bgng_ymd" class="form-control1">적용기간:</label>
-                <div class="form-control2">
+                
+                
+             <!--    <div class="form-control3">
                     <input type="date" id="prod_air_bgng_ymd" v-model="info.prod_air_bgng_ymd">
                     <label>To</label>
                     <input type="date" id="prod_air_end_ymd" v-model="info.prod_air_end_ymd">
-                    <label>End</label>
+                    <label>End</label> -->
+                    
+                    <div class="form-control3">
+    <div class="date-group">
+        <input type="date" id="prod_air_bgng_ymd" v-model="info.prod_air_bgng_ymd">
+        <label for="prod_air_bgng_ymd">To</label>
+    </div>
+    <div class="date-group">
+        <input type="date" id="prod_air_end_ymd" v-model="info.prod_air_end_ymd">
+        <label for="prod_air_end_ymd">End</label>
+    </div>
+</div>
+                    
+                    
                 </div>
             </div>
             <div class="form-group">
@@ -123,15 +138,21 @@
                     <option value="3">판매중지</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="ntsl_bgng_ymd" class="form-control1">판매기간(시작):</label>
-                <div class="form-control2">
-                    <input type="date" id="ntsl_bgng_ymd" v-model="info.ntsl_bgng_ymd">
-                    <label>To</label>
-                    <input type="date" id="ntsl_end_ymd" v-model="info.ntsl_end_ymd">
-                    <label>End</label>
-                </div>
-            </div>
+           <div class="form-group1">
+    <label for="ntsl_bgng_ymd" class="form-control1">판매기간:</label>
+
+    <div class="form-control3">
+        <div class="date-group">
+            <input type="date" id="ntsl_bgng_ymd" v-model="info.ntsl_bgng_ymd">
+            <label for="ntsl_bgng_ymd">To</label>
+        </div>
+        <div class="date-group">
+            <input type="date" id="ntsl_end_ymd" v-model="info.ntsl_end_ymd">
+            <label for="ntsl_end_ymd">End</label>
+        </div>
+    </div>
+</div>
+
       
                 <div class="button-group">
                     <button type="button" class="btn btn-green btn-icon btn-small" @click="save">

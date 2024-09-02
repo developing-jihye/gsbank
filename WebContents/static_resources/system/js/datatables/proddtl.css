@@ -57,6 +57,12 @@
 
 
 
+.rounded-input {
+    border-radius: 20px; /* 원하는 값으로 조정 가능 */
+    border: 1px solid #ccc; /* 필요에 따라 border 색상 및 두께 조정 */
+    padding: 8px; /* 필요에 따라 패딩 조정 */
+}
+
 
 
 
@@ -79,10 +85,21 @@
     
 }
 
+.form-group1 {
+	 display: flex; /* Flexbox 컨테이너로 설정 */
+    margin-bottom: 10px;
+    
+              align-items: center; /* 세로 중앙 정렬 */
+  justify-content: flex-start; /* 레이블과 입력 필드를 왼쪽으로 정렬 */
+    gap: 10px; /* 요소들 사이의 간격 설정 */
+    flex-wrap: wrap; 
+    
+}
+
 .form-control-label {
     width: 50%;
     font-weight: bold;
-    margin-right: 10px;
+    margin-right: 20px;
     text-align: right;
 }
 
@@ -127,28 +144,19 @@
 
 .form-control3 {
     display: flex;
-    align-items: center; /* 수직 정렬을 가운데로 설정 */
-    gap: 10px; /* 요소들 사이에 간격을 설정 */
-    height: 50px; /* 높이 설정 */
-    font-size: 14px; /* 글자 크기 설정 */
-    border: 1px solid #ccc; /* 테두리 설정 */
-    padding: 10px; /* 내부 여백 설정 */
-    background: #f9f9f9; /* 배경색 설정 */
-    flex-wrap: wrap; /* 요소들이 부모의 너비에 맞게 감싸도록 설정 */
+    align-items: left; /* 수직 정렬을 가운데로 설정 */
+    gap: 20px; /* 날짜 입력 필드 사이의 간격 설정 */
 }
 
-.form-control3 label {
-    margin-right: 10px; /* 라벨과 입력 요소 사이에 간격을 설정 */
+.date-group {
+    margin-left: 48px;
+    align-items: left; /* 수직 정렬을 가운데로 설정 */
+    gap: 5px; /* 날짜 입력 필드와 라벨 사이의 간격 설정 */
 }
 
-.form-control3 input[type="date"] {
-    margin-right: 20px; /* 입력 요소와 라벨 사이의 간격 설정 */
-    padding: 5px; /* 입력 요소의 내부 여백 설정 */
-    border: 1px solid #ccc; /* 입력 요소의 테두리 설정 */
-    border-radius: 4px; /* 입력 요소의 모서리 둥글게 설정 */
-    flex: 1; /* 입력 요소가 가능한 한 많이 확장되도록 설정 */
-    max-width: 150px; /* 입력 요소의 최대 너비 설정 */
-}
+
+
+
 
 
 

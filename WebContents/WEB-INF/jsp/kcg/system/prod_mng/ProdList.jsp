@@ -43,11 +43,16 @@
 			
 			
 			
+			
+		
+			
+			
+			
 			<div class="container" id="vueapp">
          <div class="left">
             <div class="form-group2">
                 <label for="prodName" class="form-control">상품명:</label>
-                <input id="prodName" class="form-control" type="text" placeholder="상품명 입력">
+                <input id="prodName" class="form-control" v-model="prod_nm" placeholder="상품명 입력">
             </div>
             <div class="form-group2">
                 <label for="prodCode" class="form-control">가입대상:</label>
@@ -67,14 +72,16 @@
                 </select>
             </div>
             <div class="Align_A">
+            
             <button type="button"
 							class="btn btn-blue"
-							@click="cf_movePage('/prod_mng/dtl')">
+							@click="getListCond(true)">
 							검색
 						</button>
 						</div>
         </div>
         <div class="right">
+        
         
         
         
