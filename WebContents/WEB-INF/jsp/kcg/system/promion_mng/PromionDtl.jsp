@@ -97,10 +97,10 @@
 				<div class="right flex-column flex-100">
                     <div class="right-top">
 					    <ul class="nav">
-					        <li class="nav-tab active" @click="tabChange(1)">적금 설계</li>
+					        <li class="nav-tab active" style="background-color: rgb(0,51,102);" @click="tabChange(1)">적금 설계</li>
 					        <!-- <li class="nav-tab" @click="tabChange(2)">목돈마련적금 설계</li> -->
-					        <li class="nav-tab" @click="tabChange(3)">예금 설계</li>
-					        <li class="nav-tab" @click="tabChange(4)">대출 설계</li>
+					        <li class="nav-tab" style="background-color: rgba(0,51,102,0.3);" @click="tabChange(3)">예금 설계</li>
+					        <li class="nav-tab" style="background-color: rgba(0,51,102,0.3);" @click="tabChange(4)">대출 설계</li>
 					    </ul>
 					    <div class="nav-content flex-column flex-gap-10">
 					        <%-- <div class="form-group" style="justify-content: left">
@@ -129,7 +129,7 @@
 					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(10)" style="height: 100%;">+10만원</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(50)" style="height: 100%;">+50만원</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(100)" style="height: 100%;">+100만원</button>
-					            <button type="button" class="btn btn-navy flex-20" @click="setCircleAcmlAmt(0)" style="height: 100%;">정정</button>
+					            <button type="button" class="btn btn-navy flex-20" @click="setCircleAcmlAmt(0)" style="height: 100%; background-color: rgb(0,51,102);">정정</button>
 					        </div>
 					        <div class="form-group flex-row align-items-center" style="height: 40px;">
 					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">목표기간 (개월):</label>
@@ -137,7 +137,7 @@
 					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(3)" style="height: 100%;">+3개월</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(6)" style="height: 100%;">+6개월</button>
 					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(12)" style="height: 100%;">+12개월</button>
-					            <button type="button" class="btn btn-navy flex-20" @click="setGoalPrd(0)" style="height: 100%;">정정</button>
+					            <button type="button" class="btn btn-navy flex-20" @click="setGoalPrd(0)" style="height: 100%; background-color: rgb(0,51,102);">정정</button>
 					        </div>
 					        <div class="form-group flex-row align-items-center" style="height: 40px;">
 					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">적용금리 (%):</label>
@@ -154,7 +154,7 @@
 					        <div class="form-group flex-row align-items-center" style="height: 40px;">
 					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">작성일자:</label>
 					            <input class="form-control" v-model="info.wrt_dt" disabled style="height: 100%;"/>
-					            <button type="button" class="btn btn-red btn-small" @click="prcCalc()" style="height: 100%; margin-left: 10px;">
+					            <button type="button" class="btn btn-red btn-small" @click="prcCalc()" style="height: 100%; margin-left: 10px; background-color:#FF9900">
 					                계산하기
 					            </button>
 					        </div>
@@ -189,9 +189,9 @@
 	                        	<tr>
 	                        	<%-- 계산 결과 차트 그리는 부분 --%>
 	                        		<td class="center" style="width: 40%; vertical-align: top;">
-	                        			<div class="panel-heading">
+	                        			<!-- <div class="panel-heading">
 											<div class="panel-title">계산 결과 차트</div>
-										</div>
+										</div> -->
 										<div id="chart" class="bottom-right-bottom flex-100"></div>
 	                        			<div class="form-wrapper flex flex-wrap flex-gap-10">
 			                                <div class="form-group">
@@ -618,7 +618,8 @@ var vueapp = new Vue({
                     groups: [
                         []
                     ],
-                    order: null
+                    order: null,
+                    labels: true
                 },
                 bindto: "#chart"
             });

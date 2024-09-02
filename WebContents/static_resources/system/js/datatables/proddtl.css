@@ -57,20 +57,22 @@ body {
 .flex-gap-10 { gap: 10px; }
 .flex-gap-20 { gap: 20px; }
 .flex-padding-10 {padding: 10px;}
+.flex-padding-15 {padding: 15px;}
 .flex-margin-10 {margin: 10px;}
 /* 占쏙옙튼 */
 .btn { padding: 4px 12px; border: 0px solid var(--black-100); cursor: pointer; }
 .btn.btn-default { background: var(--white-100); color: var(--black-100); }
 .btn.btn-skyblue { background: var(--blue-500); color: var(--black-100); }
 .btn.btn-blue { background: var(--blue-100); color: var(--white-100); }
+.btn.btn-blue2 { background: #003366; color: var(--white-100); }
+.btn.btn-blue3 { background: #003366; color: var(--white-100); }
 .btn.btn-navy { background: var(--blue-300); color: var(--white-100); }
 .btn.btn-red { background: var(--red-100); color: var(--white-100); }
 .btn.btn-gray { background: var(--gray-300); color: var(--white-100); }
 .btn.btn-peach { background: var(--peach-100); color: var(--black-100); }
 .btn.btn-transparent { background: transparent; color: var(--black-100); }
 .btn.btn-orange { background: var(--orange-100); color: var(--white-100); }
-
-/*---*/
+.btn.btn-orange2 { background: #FF9900; color: var(--white-100); }
 .width-fix-100 {width:100px;}
 /* Form */
 .form-group { display: flex; align-items: center; justify-content: center; width: 100%;}
@@ -79,6 +81,8 @@ body {
 .form-group select { margin-left : 20px ;height: 36px; border: 1px solid var(--gray-200);  }
 
 .form-control { flex: 1; width: 100%;} 
+
+.custdtlabel {height:30px; font-weight: bold; text-align: center;margin-right: -10px; line-height: 32px;}
 
 input.form-control {height:37px; margin-left: 5% }
 input.form-control[disabled] { background: var(--gray-100); }

@@ -1006,9 +1006,19 @@ var pop_info_add = new Vue({
 			
 			if(!confirm("저장하시겠습니까?")) return;
 			
+			 this.info.TSK_BGNG_DT_HH = this.padZero(this.info.TSK_BGNG_DT_HH);
+			 this.info.TSK_BGNG_DT_MM = this.padZero(this.info.TSK_BGNG_DT_MM);
+			 this.info.TSK_END_DT_HH = this.padZero(this.info.TSK_END_DT_HH);
+			 this.info.TSK_END_DT_MM = this.padZero(this.info.TSK_END_DT_MM);
+			
 			cf_ajax("/scheduleMng/save", this.info, this.saveCB);
 			
 		}, 
+		
+		padZero: function(value) {
+		    return value.toString().padStart(2, '0');
+		},
+	
 		saveCB : function(data){			
 			if (data.status == "OK") {
 				alert("활동정보 입력 완료");
