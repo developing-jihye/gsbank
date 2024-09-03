@@ -21,14 +21,6 @@
 	text-align: center
 }
 
-.has-text-prev {
-	background-color: #ECEFF1
-}
-
-.has-text-next {
-	background-color: #ECEFF1
-}
-
 .has-text-primary {
 	background-color: #598987
 }
@@ -68,17 +60,21 @@
 .schedule-item {
 	display: flex;
 	align-items: center;
-	padding: 10px;
-	margin-bottom: 10px;
-	background-color: #fafafa;
-	border: 1px solid #ddd;
-	border-radius: 5px;
+	padding: 15px;
+	margin-bottom: 15px;
+	background: #ffffff;
+	border: 1px solid #a6a6a6;
+	border-radius: 10px;
 	cursor: pointer;
-	transition: background-color 0.3s;
+	transition: background 0.3s ease, box-shadow 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	font-size: 14px; 
+	color: #212121; 
 }
 
 .schedule-item:hover {
-	background-color: #eaeaea;
+	background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .time {
@@ -285,13 +281,15 @@ label.control-label {
         }
 
         .dataTables_wrapper {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 100%; /* Ensure it doesn't exceed the container width */
-            overflow-x: auto; /* Allow horizontal scrolling if necessary */
-        }
+        background-color: rgb(255, 192, 97);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 95%;
+        overflow-x: auto;
+        margin: 0 auto;
+        display: block; 
+}
 
         .subtitle {
             margin-bottom: 20px;
@@ -364,6 +362,23 @@ label.control-label {
             font-family: 'Noto Sans', sans-serif;
         }
         
+        td, th {
+    padding: 0;
+    background-color: #ffffff !important;
+}
+
+.has-text-prev {
+	background-color: #ECEFF1 !important;
+}
+
+.has-text-next {
+	background-color: #ECEFF1 !important;
+}
+
+    table.table td.has-text-next {
+        color: #a6a6a6;
+    }
+}
       
 	
 }

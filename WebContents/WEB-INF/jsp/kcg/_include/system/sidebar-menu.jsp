@@ -76,7 +76,7 @@
 					</a>
 					<ul data-lnb="12" data-snb="0">
 						<li data-lnb="12" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/scheduleMng/scheduleList')">
+							<a href="#gm" onclick="cf_movePage('/schedule/calendar')">
 								<span class="title">스케쥴관리</span>
 							</a>
 						</li>						
