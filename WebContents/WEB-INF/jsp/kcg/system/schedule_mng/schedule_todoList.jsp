@@ -21,6 +21,9 @@
 <!-- TOAST UI TimePicker 관련 CSS -->
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css" />
+	
+	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+	
 
 <!-- 의존성 스크립트 -->
 <script
@@ -33,6 +36,8 @@
 <!-- TOAST UI Calendar 스크립트 -->
 <script
 	src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+	
+	
 
 <title>스케줄 관리</title>
 
@@ -64,7 +69,8 @@ body {
     margin-left: 2%;
     border: 1px solid #e5e5e5;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: #f6f6f6;
+    border-radius: 5px;
 }
 
 #todo-list h3 {
@@ -202,12 +208,69 @@ body {
 
 /* 버튼 활성화 스타일 */
 button.active {
-    background-color: #009688;
     color: white;
 }
 
+ * {
+            font-family: 'Noto Sans', sans-serif !important; 
+        }
 
-   
+	.calendar-button {
+    background-color: rgb(108, 122, 137); /* 배경 색상 */
+    color: #ffffff; /* 글자 색상 */
+    border: none; /* 테두리 없애기 */
+    border-radius: 4px; /* 모서리 둥글게 만들기 */
+    padding: 4px 8px; /* 여백 추가 */
+    font-size: 14px; /* 글자 크기 */
+    font-weight: bold; /* 글자 굵게 */
+    cursor: pointer; /* 마우스 커서가 버튼 위에 올 때 손가락 모양으로 변경 */
+    transition: background-color 0.3s, box-shadow 0.3s; /* 배경 색상 및 그림자 부드러운 전환 효과 */
+    outline: none; /* 포커스 시 외곽선 없애기 */
+    margin: 0 2px;
+}
+
+/* 버튼 호버 상태 */
+.calendar-button:hover {
+    background-color: #003366; /* 호버 시 배경 색상 변경 */
+}
+
+/* 버튼 클릭 상태 */
+.calendar-button:active {
+    background-color: #001533; /* 클릭 시 배경 색상 변경 */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3); /* 클릭 시 안쪽 그림자 추가 */
+}
+
+/* 버튼 포커스 상태 */
+.calendar-button:focus {
+    box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.5); /* 포커스 시 외곽선 추가 */
+}
+
+.render-range{
+ color: #212121;
+}
+
+.toastui-calendar-popup-button.toastui-calendar-popup-confirm {
+    background-color: #ff9900;
+    border: none;
+    border-radius: 40px;
+    color: #fff;
+    float: right;
+    font-size: 12px;
+    font-weight: 700;
+    height: 36px;
+    width: 96px;
+}
+
+.kc-main-content{
+	background-color: rgb(255, 192, 97);
+    padding: 10px;
+    margin: 30px;
+    border-radius: 8px;
+}
+
+
+
+
 </style>
 
 </head>
@@ -225,16 +288,16 @@ button.active {
 			</ol>
 			<div class="kc-main-content">
 
-				<h2 class="kc-consult-list-title">스케줄 관리</h2>
+				<h2 class="kc-consult-list-title" style="padding: 0px 20px; color: #ffffff; ">스케줄 관리</h2>
 
 				<div id="menu"> <!-- 스케줄 아이콘 변경 -->
-				    <div id="menu-navi" style="display: flex; align-items: center;">
+				    <div id="menu-navi" style="display: flex; align-items: center; padding: 6px 20px;">
+				        <button type="button" class="calendar-button move-day" data-action="move-prev" style="padding: 4px 16px;">&lt;</button>
 				        <button type="button" class="calendar-button move-today" data-action="move-today">오늘</button>
-				        <button type="button" class="calendar-button move-day" data-action="move-prev">&lt;</button>
-				        <button type="button" class="calendar-button move-day" data-action="move-next">&gt;</button>
-				        <span id="renderRange" class="render-range" style="margin-left: 10px;">2024년 8월</span>
+						<button type="button" class="calendar-button move-day" data-action="move-next" style="padding: 4px 16px;">&gt;</button>
+				         <span id="renderRange" class="render-range" style="margin: 10px; margin-left: auto; font-size: 18px; color: #ffffff;">2024년 8월</span>
 				    </div>
-				    <div id="view-modes" style="display: flex; gap: 8px;">
+				    <div id="view-modes" style="display: flex; padding: 0 20px;">
 				        <button type="button" class="calendar-button" data-view-mode="month">Month</button>
 				        <button type="button" class="calendar-button" data-view-mode="week">Week</button>
 				        <button type="button" class="calendar-button" data-view-mode="day">Day</button>
@@ -243,8 +306,8 @@ button.active {
 
 
 				<div class="calendar-container">
-					<div id="calendar" style="height: 800px; width: 65%;"></div>
-					<div id="todo-list" style="width: 30%; margin-left: 2%;">
+					<div id="calendar" style="height: 800px; width: 80%;"></div>
+					<div id="todo-list" style="width: 30%; margin-left: 2%; padding: 10px;">
 						<h3>오늘의 할 일</h3>
 						<h4 id="today-date"></h4>
 						<ul id="todo-items"></ul>
