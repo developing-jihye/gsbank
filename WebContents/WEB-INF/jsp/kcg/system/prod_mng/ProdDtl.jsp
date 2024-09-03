@@ -153,6 +153,16 @@
     </div>
 </div>
 
+<!--  <div class="form-group">
+                <label for="sl_qtt" class="form-control1">판매량:</label>
+                <input type="text" class="form-control" id="sl_qtt" v-model="info.sl_qtt">
+            </div> -->
+
+
+
+
+
+
       
                 <div class="button-group">
                     <button type="button" class="btn btn-green btn-icon btn-small" @click="save">
@@ -361,6 +371,9 @@ var vueapp = new Vue({
 				return;
 			}else if(cf_isEmpty(this.info.prod_ty_cd)){
 				alert("상품유형을 입력하세요.");
+				return;
+			}else if(cf_isEmpty(this.info.sl_qtt)){
+				alert("판매량을 입력하세요.");
 				return;
 			}
 			

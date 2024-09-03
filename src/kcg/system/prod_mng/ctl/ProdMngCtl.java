@@ -48,11 +48,18 @@ public class ProdMngCtl {
 	@RequestMapping("/getList")
 	public List<CmmnMap> getList(CmmnMap params) {
 		log.info("ProdMngCtl.getList >>>>>>>>>>");
+		
+		log.info("ProdMngCtl.getList >>>>> " + params.getString("params"));
+		
 		return prodMngSvc.getList(params);
 	}
 	
 	@RequestMapping("/getListPaging")
 	public PageList<CmmnMap> getListPaging(CmmnMap params, PagingConfig pagingConfig) {
+		
+		log.info("ProdMngCtl.getListPaging >>>>> " + params.getString("params"));
+		
+		
 		return prodMngSvc.getListPaging(params, pagingConfig);
 	}
 	

@@ -39,9 +39,13 @@
 		<if test='pay_ty_cd != null and pay_ty_cd != ""'>
 		   and pay_ty_cd = #{pay_ty_cd}
 		</if>
+		
 		<if test='from_date != null and from_date != ""'>
-		   and #{from_date} between ntsl_bgng_ymd and ntsl_bgng_ymd
+		   and ntsl_bgng_ymd >= #{from_date}
+		
+		<!--    and #{from_date} between ntsl_bgng_ymd and ntsl_end_ymd -->
 		</if>
+		
 		<if test='prod_ty_cd != null and prod_ty_cd != ""'>
 		   and prod_ty_cd = #{prod_ty_cd}
 		</if>

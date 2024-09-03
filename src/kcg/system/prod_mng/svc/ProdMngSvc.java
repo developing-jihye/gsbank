@@ -27,8 +27,8 @@ public class ProdMngSvc {
 	
 	@Autowired
 	CommonSvc commonSvc;
-
-	@Autowired
+	
+	@Autowired	
 	CmmnDao cmmnDao;
 
 	public List<CmmnMap> getList(CmmnMap params) {
