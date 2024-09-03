@@ -137,45 +137,51 @@
 	
 	<select id="getCustCardInfo" parameterType="cmmnMap" resultType="cmmnMap">
 	/* system.cust_mng.getCustCardInfo */
-		select A.CUST_NM                     as CUST_NM
-              ,A.RRNO                        as RRNO
-              ,A.CUST_MBL_TELNO              as CUST_MBL_TELNO
-              ,A.CO_TELNO                    as CO_TELNO
-              ,A.CUST_EML_ADDR               as CUST_EML_ADDR
-              ,A.OCCP_TY_CD_NM               as OCCP_TY_CD_NM
-              ,A.CUST_ADDR                   as CUST_ADDR
-              ,A.PIC_NM                      as PIC_NM
-              ,A.DEPT_NM                     as DEPT_NM
-              ,A.JBPS_TY_CD_NM               as JBPS_TY_CD_NM
-              ,A.PIC_MBL_TELNO               as PIC_MBL_TELNO 
-              ,A.TSK_DTL_CN                  as TSK_DTL_CN
-          from  
-          (select A.CUST_NM                     as CUST_NM
-                 ,A.RRNO                        as RRNO
-                 ,A.CUST_MBL_TELNO              as CUST_MBL_TELNO
-                 ,A.CO_TELNO                    as CO_TELNO
-                 ,A.CUST_EML_ADDR               as CUST_EML_ADDR
-                 ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '140' AND CODE_NO = A.OCCP_TY_CD) as OCCP_TY_CD_NM
-                 ,A.CUST_ADDR                   as CUST_ADDR
-                 ,C.PIC_NM                      as PIC_NM
-                 ,C.DEPT_NM                     as DEPT_NM
-                 ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '141' AND CODE_NO = C.JBPS_TY_CD) as JBPS_TY_CD_NM
-                 ,C.PIC_MBL_TELNO               as PIC_MBL_TELNO 
-                 ,D.TSK_DTL_CN                  as TSK_DTL_CN    
-                 ,row_number() over (PARTITION by A.CUST_NM order by A.CUST_NM desc) as rownumber
-            from TB_CUSTMST    A
-                ,TB_CUSTPICREL B    
-                ,TB_PICMST     C
-                left outer join TB_PICTASK D
-                on C.PIC_MBL_TELNO = D.PIC_MBL_TELNO
-           where 1=1
-             and A.CUST_MBL_TELNO = B.CUST_MBL_TELNO
-             and B.PIC_MBL_TELNO  = C.PIC_MBL_TELNO
-             and A.CURR_STCD      = '0'
-             and B.CURR_STCD      = '0'
-             and C.CURR_STCD      = '0'
-             and A.CUST_MBL_TELNO = #{cust_mbl_telno}) A
-           where A.rownumber = 1
+SELECT A.CUST_NM AS CUST_NM,
+       A.RRNO AS RRNO,
+       A.CUST_MBL_TELNO AS CUST_MBL_TELNO,
+       A.CO_TELNO AS CO_TELNO,  -- 확인 대상 필드
+       A.CUST_EML_ADDR AS CUST_EML_ADDR,
+       A.OCCP_TY_CD_NM AS OCCP_TY_CD_NM,
+       A.CUST_ADDR AS CUST_ADDR,
+       A.PIC_NM AS PIC_NM,
+       A.DEPT_NM AS DEPT_NM,
+       A.JBPS_TY_CD_NM AS JBPS_TY_CD_NM,
+       A.PIC_MBL_TELNO AS PIC_MBL_TELNO,
+       A.TSK_DTL_CN AS TSK_DTL_CN
+FROM (
+        SELECT A.CUST_NM AS CUST_NM,
+               A.RRNO AS RRNO,
+               A.CUST_MBL_TELNO AS CUST_MBL_TELNO,
+               A.CO_TELNO AS CO_TELNO,  -- 확인 대상 필드
+               A.CUST_EML_ADDR AS CUST_EML_ADDR,
+               (SELECT CODE_NM 
+                  FROM TB_CODEMST 
+                 WHERE CODE_CL = '140' 
+                   AND CODE_NO = A.OCCP_TY_CD) AS OCCP_TY_CD_NM,
+               A.CUST_ADDR AS CUST_ADDR,
+               C.PIC_NM AS PIC_NM,
+               C.DEPT_NM AS DEPT_NM,
+               (SELECT CODE_NM 
+                  FROM TB_CODEMST 
+                 WHERE CODE_CL = '141' 
+                   AND CODE_NO = C.JBPS_TY_CD) AS JBPS_TY_CD_NM,
+               C.PIC_MBL_TELNO AS PIC_MBL_TELNO,
+               D.TSK_DTL_CN AS TSK_DTL_CN,
+               ROW_NUMBER() OVER (PARTITION BY A.CUST_NM ORDER BY A.CUST_NM DESC) AS rownumber
+          FROM TB_CUSTMST A
+          LEFT JOIN TB_CUSTPICREL B 
+                 ON A.CUST_MBL_TELNO = B.CUST_MBL_TELNO 
+                AND B.CURR_STCD = '0'
+          LEFT JOIN TB_PICMST C 
+                 ON B.PIC_MBL_TELNO = C.PIC_MBL_TELNO 
+                AND C.CURR_STCD = '0'
+          LEFT JOIN TB_PICTASK D 
+                 ON C.PIC_MBL_TELNO = D.PIC_MBL_TELNO
+         WHERE A.CURR_STCD = '0'
+           AND A.CUST_MBL_TELNO = #{cust_mbl_telno}
+       ) A
+WHERE A.rownumber = 1;
 	</select>
 	
 	<select id="getInitInfo" parameterType="cmmnMap" resultType="cmmnMap">
@@ -210,17 +216,18 @@
           and A.PIC_NM = #{pic_nm}
 	</select>
 	
-	<select id="getPicInfo" parameterType="cmmnMap" resultType="cmmnMap">
-	/* system.cust_mng.getPicInfo */
-		select 
-		     A.PIC_NM                      as PIC_NM
-            ,A.DEPT_NM                     as DEPT_NM
-            ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '141' AND CODE_NO = A.JBPS_TY_CD) as JBPS_TY_CD_NM
-            ,A.PIC_MBL_TELNO               as PIC_MBL_TELNO
-         from TB_PICMST  A
-        where 1=1
-          and A.CURR_STCD      = '0'
-	</select>
+<select id="getPicInfo" parameterType="cmmnMap" resultType="cmmnMap">
+    /* system.cust_mng.getPicInfo */
+    SELECT 
+        A.PIC_NM AS PIC_NM,
+        A.DEPT_NM AS DEPT_NM,
+        (SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '141' AND CODE_NO = A.JBPS_TY_CD) AS JBPS_TY_CD_NM,
+        A.PIC_MBL_TELNO AS PIC_MBL_TELNO,
+        A.USER_ID AS USER_ID  <!-- user_id 추가 -->
+    FROM TB_PICMST A
+    WHERE 1 = 1
+      AND A.CURR_STCD = '0'
+</select>
 	
 	<update id="updatePicRoof" parameterType="cmmnMap">
 	/* system.cust_mng.updatePicRoof */
@@ -370,7 +377,8 @@
 	<insert id="insertCustInfo" parameterType="cmmnMap">
 	/* system.cust_mng.insertCustInfo */
 		INSERT INTO TB_CUSTMST(
-			cust_nm
+			user_id
+		   ,cust_nm
 	       ,rrno
 	       ,cust_mbl_telno
 	       ,co_telno
@@ -381,6 +389,7 @@
 	       ,wrt_dt
 	       ,curr_stcd
 		)VALUES(
+			#{user_id},
 			#{cust_nm}
 	       ,#{rrno}
 	       ,#{cust_mbl_telno}
