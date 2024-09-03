@@ -44,20 +44,25 @@ public class ScheduleMngSvc {
 	}
 	
 	public List<CmmnMap> getDayList(CmmnMap params) {
-		String year = params.getString("year");
-		String mon = params.getString("mon");
-		String day = params.getString("day");
-		UserInfoVO userInfoVO = commonSvc.getLoginInfo();
-		params.put("user_id", userInfoVO.getUserId());
-		params.put("year", year);
-		params.put("mon", mon);
-		params.put("day", day);
-		
-        List<CmmnMap> dataList = cmmnDao.selectList("system.schedule_mng.getDayList", params);
-		
-        log.debug("ScheduleMngSvc.getDayList >>>>" + dataList);
-        
-		return dataList;
+	    // 파라미터 추출
+	    String year = params.getString("year");
+	    String mon = params.getString("mon");
+	    String day = params.getString("day");
+	    
+	    // 로그인 정보로부터 user_id 설정
+	    UserInfoVO userInfoVO = commonSvc.getLoginInfo();
+	    params.put("user_id", userInfoVO.getUserId());
+	    params.put("year", year);
+	    params.put("mon", mon);
+	    params.put("day", day);
+
+	    // 쿼리 실행
+	    List<CmmnMap> dataList = cmmnDao.selectList("system.schedule_mng.getDayList", params);
+	    
+	    // 디버그 로그 출력
+	    log.debug("ScheduleMngSvc.getDayList >>>> " + dataList);
+	    
+	    return dataList;
 	}
 	
 	public List<CmmnMap> getCustInfo(CmmnMap params) {

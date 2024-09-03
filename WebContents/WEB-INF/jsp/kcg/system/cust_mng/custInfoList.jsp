@@ -124,32 +124,35 @@
 								</div>
 
 
-								<div style="overflow-y: auto; max-height: 500px;">
-									<table class="table table-bordered"
-										style="width: 100%; text-align: center;">
-										<thead>
-											<tr>
-												<th style="text-align: center;"><input type="checkbox"
-													@click="selectAll($event)"></th>
-												<th style="text-align: center;">성명</th>
-												<th style="text-align: center;">생년월일</th>
-												<th style="text-align: center;">핸드폰번호</th>
-												<th style="text-align: center;">직업</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr v-for="(item, index) in dataList" :key="index"
-												@click="gotoDtl(item.cust_mbl_telno)">
-												<td><input type="checkbox"
-													:data-idx="item.cust_mbl_telno"
-													@click.stop="handleCheck(item.cust_mbl_telno)"></td>
-												<td>{{ item.cust_nm }}</td>
-												<td>{{ item.rrno }}</td>
-												<td>{{ item.cust_mbl_telno }}</td>
-												<td>{{ item.occp_ty_cd_nm }}</td>
-											</tr>
-										</tbody>
-									</table>
+								<div id="vueapp">
+									<div style="overflow-y: auto; max-height: 500px;"
+										@scroll="onScroll">
+										<table class="table table-bordered"
+											style="width: 100%; text-align: center;">
+											<thead>
+												<tr>
+<th style="text-align: center;">
+    <input type="checkbox" :checked="allSelected" @click="selectAll($event)">
+</th>
+        <th style="text-align: center;">성명</th>
+        <th style="text-align: center;">생년월일</th>
+        <th style="text-align: center;">핸드폰번호</th>
+        <th style="text-align: center;">직업</th>
+    </tr>
+											</thead>
+<tbody>
+    <tr v-for="(item, index) in visibleDataList" :key="index" @click="gotoDtl(item.cust_mbl_telno)">
+        <td>
+            <input type="checkbox" v-model="item.isChecked" @click.stop="onItemCheck">
+        </td>
+        <td>{{ item.cust_nm }}</td>
+        <td>{{ item.rrno }}</td>
+        <td>{{ item.cust_mbl_telno }}</td>
+        <td>{{ item.occp_ty_cd_nm }}</td>
+    </tr>
+</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -216,9 +219,12 @@
 							</div>
 							<div
 								style="display: flex; justify-content: center; gap: 10px; margin-top: 57px;">
-								<button class="btn btn-blue2 btn-icon icon-left" @click="custUpdate">변경</button>
-								<button class="btn btn-red btn-icon icon-left" @click="custDelete">삭제</button>
-								<button class="btn btn-orange2 btn-icon icon-left" @click="clearSelectedCustomer">초기화</button>
+								<button class="btn btn-blue2 btn-icon icon-left"
+									@click="custUpdate">변경</button>
+								<button class="btn btn-red btn-icon icon-left"
+									@click="custDelete">삭제</button>
+								<button class="btn btn-orange2 btn-icon icon-left"
+									@click="clearSelectedCustomer">초기화</button>
 							</div>
 						</div>
 						<!-- 고객 상세정보 (비율 1) -->
@@ -227,7 +233,7 @@
 							<!-- <h3 style="margin-top: 0px; text-align: center;">고객 상담내용</h3> -->
 							<textarea class="form-control"
 								v-model="selectedCustomer.tsk_dtl_cn"
-								style="height: 307px; resize: none; background-color: white; margin-top:11px;"
+								style="height: 307px; resize: none; background-color: white; margin-top: 11px;"
 								readonly></textarea>
 
 							<!-- 상담내역 입력창 -->
@@ -237,7 +243,8 @@
 							<!-- 수정 버튼 -->
 							<div
 								style="display: flex; justify-content: center; margin-top: 39px; gap: 10px">
-								<button class="btn btn-green3 btn-icon icon-left" @click="updateTskDtl">수정</button>
+								<button class="btn btn-green3 btn-icon icon-left"
+									@click="updateTskDtl">수정</button>
 							</div>
 						</div>
 					</div>
@@ -789,27 +796,37 @@
 <script>
             var vueapp = new Vue({
                 el: "#vueapp",
-    data: {
-        dataList: [],  // 고객 목록 데이터
-        search_nm: "",
-        cust_nm: "",
-        pic_nm: "",
-        rrno: "",
-        dept_nm: "",
-        search_val: "",
-        selectedCustomer: {
-            wrt_dt: "",
-            cust_nm: "",
-            rrno: "",
-            cust_eml_addr: "",
-            co_telno: "",
-            cust_mbl_telno: "",
-            occp_ty_cd_nm: "",
-            cust_addr: "",
-            tsk_dtl_cn: "",  // 상담내역 추가
-        },
-        newTskDtl: "",  // 새로운 상담내역 입력을 위한 변수
-    },
+                data() {
+                    return {
+                        dataList: [],  // 고객 목록 데이터
+                        visibleDataList: [],   // 화면에 표시할 데이터
+                        itemsToDisplay: 50,    // 한 번에 표시할 데이터 수
+                        isLoading: false,      // 로딩 상태
+                        search_nm: "",
+                        cust_nm: "",
+                        pic_nm: "",
+                        rrno: "",
+                        dept_nm: "",
+                        search_val: "",
+                        selectedCustomer: {
+                            wrt_dt: "",
+                            cust_nm: "",
+                            rrno: "",
+                            cust_eml_addr: "",
+                            co_telno: "",
+                            cust_mbl_telno: "",
+                            occp_ty_cd_nm: "",
+                            cust_addr: "",
+                            tsk_dtl_cn: "",  // 상담내역 추가
+                        },
+                        newTskDtl: "",  // 새로운 상담내역 입력을 위한 변수
+                        allSelected: false, // 전체 체크박스의 상태
+                    }
+                },
+                mounted() {
+                    // 데이터 로드 및 초기화
+                    this.loadData();
+                },
                 mounted: function () {
                     var fromDtl = cf_getUrlParam("fromDtl");
                     var pagingConfig = cv_sessionStorage.getItem("pagingConfig");
@@ -834,7 +851,48 @@
                     }
                 },
                 methods: {
+                    loadData() {
+                        axios.get('/custMng/getCustInfoListAll').then(response => {
+                            this.dataList = response.data.map(item => ({
+                                ...item,
+                                isChecked: false, // 기본적으로 모든 체크박스를 해제 상태로 초기화
+                            }));
+                            this.addMoreItems(); // 처음에 일부 데이터만 표시
+                        });
+                    },
+                    onItemCheck() {
+                        this.allSelected = this.visibleDataList.every(item => item.isChecked);
+                    },
+                    addMoreItems() {
+                        if (this.isLoading) return; // 이미 로딩 중이면 종료
 
+                        this.isLoading = true;  // 로딩 상태 설정
+
+                        // 현재 visibleDataList의 길이와 itemsToDisplay를 사용하여 추가할 데이터 계산
+                        const start = this.visibleDataList.length;
+                        const end = start + this.itemsToDisplay;
+
+                        // 데이터를 추가 (더 많은 데이터를 한번에 추가하도록 수정)
+                        this.visibleDataList = this.visibleDataList.concat(this.dataList.slice(start, end));
+
+                        this.isLoading = false;  // 로딩 상태 해제
+                    },
+                    
+                	      onScroll(event) {
+                	          const container = event.target;
+
+                	          // 스크롤이 끝에 도달했는지 확인
+                	          if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+                	            this.addMoreItems();  // 추가 데이터 로드
+                	          }
+                	        },
+                	        
+                	        selectAll() {
+                	            // 전체 선택 상태를 반영하여 모든 항목의 체크 상태를 설정
+                	            this.visibleDataList.forEach(item => {
+                	                item.isChecked = this.allSelected;
+                	            });
+                	        },
                 	//고객변경
                 	 custUpdate: function () {
                          var params = {
@@ -898,29 +956,34 @@
                         cf_ajax("/custMng/getCustInfoList", params, this.getListCB);
                     },
                     getCustInfoListAll: function (isInit) {
-
                         cv_pagingConfig.func = this.getCustInfoListAll;
                         if (isInit === true) {
-                            cv_pagingConfig.pageNo = 1; // Limt 10 기준으로 1... 2.. 3.. 페이지 이런식으로 필터링됩니다. (Limt 값은) PagingConfig.class에 명시되어 있습니다.
+                            cv_pagingConfig.pageNo = 1;
                             cv_pagingConfig.orders = [{ target: "cust_nm", isAsc: false }];
+                            cv_pagingConfig.limit = "100";  // 원하는 limit 값을 설정
                         }
 
                         var params = {
                             search_nm: this.search_nm,
-                            search_val: this.search_val,
-                        }
+                            search_val: this.search_val
+                        };
 
                         cv_sessionStorage
                             .setItem('pagingConfig', cv_pagingConfig)
                             .setItem('params', params);
 
+                        console.log("Fetching all customer info with params:", params);
+
                         cf_ajax("/custMng/getCustInfoListAll", params, this.getListCB);
                     },
+                    
                     getListCB: function (data) {
-                    	console.log("Server data:", data);
-                        this.dataList = data.list;
+                        console.log("Server data:", data);
+
+                        this.dataList = data.list;  // 전체 데이터 저장
+                        this.visibleDataList = this.dataList;  // 전체 데이터를 visibleDataList에 할당하여 모두 표시
+
                         cv_pagingConfig.renderPagenation("system");
-                        
                     },
                     
                  
@@ -948,20 +1011,17 @@
                         }
                     },
                     
-                    selectAll: function (event) {
-                        // 모든 체크박스 선택/해제
+                    selectAll(event) {
                         const isChecked = event.target.checked;
-                        this.dataList.forEach(item => item.isChecked = isChecked);
-                        
-                        if (isChecked && this.dataList.length > 0) {
-                            // 첫 번째 체크된 고객의 상세 정보 표시
-                            this.gotoDtl(this.dataList[0]);
-                        } else {
-                            // 모든 체크 해제 시 선택된 고객 정보 초기화
-                            this.selectedCustomer = {};
-                        }
+                        this.allSelected = isChecked;
+                        this.visibleDataList.forEach(item => item.isChecked = isChecked);
                     },
                 
+                    handleCheck: function (cust_mbl_telno) {
+                        const checkbox = event.target;
+                        checkbox.checked = !checkbox.checked; // 체크박스 상태 토글
+                    },
+                    
                     gotoDtl: function (cust_mbl_telno) {
                         var params = { cust_mbl_telno: cust_mbl_telno };
                         cf_ajax("/custMng/getInfo", params, function(data) {
@@ -974,17 +1034,7 @@
                         });
                     },
                     
-                    handleCheck: function (cust_mbl_telno) {
-                        var checkbox = event.target;
-
-                        if (checkbox.checked) {
-                            // 체크박스 선택 시 고객 정보를 가져옴
-                            this.gotoDtl(cust_mbl_telno);
-                        } else {
-                            // 체크박스 해제 시 고객 상세 정보를 초기화
-                            this.clearSelectedCustomer();
-                        }
-                    },
+                    
                     clearSelectedCustomer: function () {
                         // selectedCustomer 객체 초기화
                         this.selectedCustomer = {
@@ -1012,72 +1062,72 @@
                     onCheck: function (item, event) {
                     	this.gotoDtl(customer);
                     },
-                    popCustmnglistPrint: function () {
-                        var chkedList = $("[name=is_check]:checked");
-                        if (chkedList.length == 0) {
+                    
+                    
+                    
+                    // 관리대장 출력 기능
+                    popCustmnglistPrint() {
+                        const selectedItems = this.visibleDataList.filter(item => item.isChecked);
+                        
+                        if (selectedItems.length === 0) {
                             alert("출력할 대상을 선택하여 주십시오.");
                             return;
                         }
-                        //check list 가져오기..
-                        var dateCopyList = [];
-                        var idx;
-                        chkedList.each(function (i) {
-                            idx = $(this).attr("data-idx");
-                            dateCopyList.push(vueapp.dataList.getElementFirst("cust_nm", idx));
-                        });
 
-                        console.log(dateCopyList);
+                        const dateCopyList = selectedItems.map(item => ({
+                            cust_nm: item.cust_nm,
+                            rrno: item.rrno,
+                            cust_mbl_telno: item.cust_mbl_telno,
+                            occp_ty_cd_nm: item.occp_ty_cd_nm,
+                        }));
 
-                        //출력팝업 띄우기
                         pop_cust_mnglist_print.init(dateCopyList);
                         $('#pop_cust_mnglist_print').modal('show');
-
                     },
-                    popCustmngCardPrint: function () {
-                        var chkedList = $("[name=is_check]:checked");
-                        if (chkedList.length == 0) {
+                    
+                    
+                    // 관리카드 출력 기능
+                    popCustmngCardPrint() {
+                        const selectedItems = this.visibleDataList.filter(item => item.isChecked);
+                        
+                        if (selectedItems.length === 0) {
                             alert("출력할 대상을 선택하여 주십시오.");
                             return;
-                        } else if (chkedList.length > 1) {
-                            alert("출력할 대상을 한개만 선택하여 주십시오.");
+                        } else if (selectedItems.length > 1) {
+                            alert("출력할 대상을 한 개만 선택하여 주십시오.");
                             return;
                         }
 
-                        //check list 가져오기..
-                        var dateCopyList = [];
-                        var idx;
-                        chkedList.each(function (i) {
-                            idx = $(this).attr("data-idx");
-                            dateCopyList.push(vueapp.dataList.getElementFirst("cust_nm", idx));
-                        });
+                        const dateCopyList = selectedItems.map(item => ({
+                            cust_nm: item.cust_nm,
+                            rrno: item.rrno,
+                            cust_mbl_telno: item.cust_mbl_telno,
+                            occp_ty_cd_nm: item.occp_ty_cd_nm,
+                        }));
 
-                        console.log(dateCopyList);
-
-                        //출력팝업 띄우기
                         pop_cust_card_print.init(dateCopyList);
                         $('#pop_cust_card_print').modal('show');
                     },
-                    popDamdangSet: function () {
-                        var chkedList = $("[name=is_check]:checked");
-                        if (chkedList.length == 0) {
+                    popDamdangSet() {
+                        const selectedItems = this.visibleDataList.filter(item => item.isChecked);
+                        
+                        if (selectedItems.length === 0) {
                             alert("담당자 설정 대상을 선택하여 주십시오.");
                             return;
                         }
-                        //check list 가져오기..
-                        var dateCopyList = [];
-                        var idx;
-                        chkedList.each(function (i) {
-                            idx = $(this).attr("data-idx");
-                            dateCopyList.push(vueapp.dataList.getElementFirst("cust_nm", idx));
-                        });
 
-                        console.log(dateCopyList);
+                        const dateCopyList = selectedItems.map(item => ({
+                            cust_nm: item.cust_nm,
+                            rrno: item.rrno,
+                            cust_mbl_telno: item.cust_mbl_telno,
+                            occp_ty_cd_nm: item.occp_ty_cd_nm,
+                        }));
 
-                        //설정팝업 띄우기
                         pop_damdang_set.init(dateCopyList);
                         $('#pop_damdang_set').modal('show');
-
                     },
+                    
+                    
                     custInfoMng: function () {
                         cf_movePage('/custMng/custInfoMng');
                     },

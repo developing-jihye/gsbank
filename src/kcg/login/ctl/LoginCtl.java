@@ -333,26 +333,35 @@ System.out.println("====================================================>>> line
 	    String picMblTelno = request.getParameter("picMblTelno");
 	    String jncmpYmd = request.getParameter("jncmpYmd");
 	    String jbpsNm = request.getParameter("jbpsNm");
+	    String tdeptNm = request.getParameter("tdeptNm");
+	    String picEmlAddr = request.getParameter("picEmlAddr");
+	    String etcTskCn = request.getParameter("etcTskCn");
 
 	    log.info("photoNm = " + request.getParameter("photoNm"));
 	    log.info("userId = " + userId);
-	    log.info("userPswd = " + userPswd);
 	    log.info("userNm = " + userNm);
-	    log.info("picMblTelno = " + picMblTelno);
-	    log.info("jncmpYmd = " + jncmpYmd);
+	    log.info("tdeptNm = " + tdeptNm);
 	    log.info("jbpsNm = " + jbpsNm);
-
+	    log.info("picMblTelno = " + picMblTelno);
+	    log.info("picEmlAddr = " + picEmlAddr);
+	    log.info("jncmpYmd = " + jncmpYmd);
+	    log.info("etcTskCn = " + etcTskCn);
+	    log.info("userPswd = " + userPswd);
 	    // 패스워드 해싱
 	    String hashedUserPswd = CryptUtil.hashSHA512HexString(userPswd);
 	    log.info(">>>userPswd = " + hashedUserPswd);
 
 	    // 파라미터를 설정
 	    params.put("userId", userId); // ID
-	    params.put("userPswd", hashedUserPswd); // PW 암호화
-	    params.put("userNm", userNm); // 이름
-	    params.put("picMblTelno", picMblTelno); // 연락처
-	    params.put("jncmpYmd", jncmpYmd); // 입사년도
+	    params.put("userNm", userNm); // 이름   
+	    params.put("tdeptNm", tdeptNm); // 부서
 	    params.put("jbpsNm", jbpsNm); // 직위
+	    params.put("picMblTelno", picMblTelno); // 연락처
+	    params.put("picEmlAddr", picEmlAddr); // 이메일id
+	    params.put("jncmpYmd", jncmpYmd); // 입사년도
+	    params.put("etcTskCn", etcTskCn); // 기타
+	    params.put("userPswd", hashedUserPswd); // PW 암호화
+	   
 
 	    // 등록 서비스 호출
 	    int rslt = loginSvc.registUserInfo(params);

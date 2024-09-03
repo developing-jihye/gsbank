@@ -41,20 +41,21 @@
             </div>
 
             <div>
-                *사용자명 : <input type="text" class="input-radius" id="picNm" name="picNm" placeholder="">
+                *사용자명 : <input type="text" class="input-radius" id="userNm" name="userNm" placeholder="">
             </div>
-            <br>
+           <br>
 
-            <div>
-                *부서명 : <select id="deptNmValue" name="deptNmValue" class="form-control" oninput="setValueDeptNm()">
-                    <option disabled selected hidden>부서</option>
-                    <c:forEach items="${list2}" var="list2">
-                        <option><c:out value="${list2.codeNm}" /></option>
-                    </c:forEach>
-                </select>
-            </div>
-            <br>
-
+<div>
+    *부서명 : 
+    <select id="deptNmValue" name="deptNmValue" class="form-control" oninput="setValueDeptNm()">
+        <option disabled selected hidden>부서</option>
+        <c:forEach items="${list2}" var="dept">
+            <option ><c:out value="${dept.codeNm}" /></option>
+        </c:forEach>
+    </select>
+    <input type="hidden" class="input-radius" id="tdeptNm" name="tdeptNm" placeholder="">
+</div>
+<br>
             <div>
                 *직위 : <select id="jbpsTyCd" name="jbpsTyCd" class="form-control" oninput="setValueJbpsNm()">
                     <option disabled selected hidden>선택</option>
