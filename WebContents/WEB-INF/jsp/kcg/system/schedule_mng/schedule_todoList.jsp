@@ -21,9 +21,11 @@
 <!-- TOAST UI TimePicker 관련 CSS -->
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css" />
-	
-	 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-	
+
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"
+	rel="stylesheet">
+
 
 <!-- 의존성 스크립트 -->
 <script
@@ -36,8 +38,8 @@
 <!-- TOAST UI Calendar 스크립트 -->
 <script
 	src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
-	
-	
+
+
 
 <title>스케줄 관리</title>
 
@@ -45,242 +47,238 @@
 
 /* 전체 페이지 레이아웃 */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 /* 캘린더 및 Todo 리스트 컨테이너 */
 .calendar-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+	display: flex;
+	justify-content: space-between;
+	padding: 20px;
 }
 
 #calendar {
-    height: 800px;
-    width: 65%;
-    border: 1px solid #e5e5e5;
+	height: 800px;
+	width: 65%;
+	border: 1px solid #e5e5e5;
 }
 
 #todo-list {
-    width: 30%;
-    margin-left: 2%;
-    border: 1px solid #e5e5e5;
-    padding: 10px;
-    background-color: #f6f6f6;
-    border-radius: 5px;
+	width: 30%;
+	margin-left: 2%;
+	border: 1px solid #e5e5e5;
+	padding: 10px;
+	background-color: #f6f6f6;
+	border-radius: 5px;
 }
 
 #todo-list h3 {
-    margin: 0 0 10px;
-    font-size: 1.5em;
+	margin: 0 0 10px;
+	font-size: 1.5em;
 }
 
 #today-date {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 10px;
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 #todo-items {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
 .todo-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd; /* 기본 테두리 색상 설정 */
-    cursor: pointer;
-    position: relative;
-    background-color: #fff; /* 기본 배경색 설정 */
-    border-radius: 4px; /* 모서리 둥글게 설정 (선택 사항) */
-    margin: 8px;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border: 1px solid #ddd; /* 기본 테두리 색상 설정 */
+	cursor: pointer;
+	position: relative;
+	background-color: #fff; /* 기본 배경색 설정 */
+	border-radius: 4px; /* 모서리 둥글게 설정 (선택 사항) */
+	margin: 8px;
 }
 
-
 .todo-item:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 
 .todo-icon {
-    margin-right: 10px;
+	margin-right: 10px;
 }
 
 .todo-time {
-    margin-right: 10px;
-    font-weight: bold;
+	margin-right: 10px;
+	font-weight: bold;
 }
 
 .todo-content {
-    flex: 1;
+	flex: 1;
 }
 
 .todo-title-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 5px;
 }
 
 .todo-title {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .todo-type {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .todo-type-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 5px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-right: 5px;
 }
 
 .todo-complete {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background-color: #0073e6;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	background-color: #0073e6;
+	color: white;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 /* 완료된 일정 스타일 */
 .todo-completed {
-    background-color: #e0f2f1;
-    text-decoration: line-through;
+	background-color: #e0f2f1;
+	text-decoration: line-through;
 }
 
 /* 모달 윈도우 스타일 */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 5px;
+	background-color: #fff;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	max-width: 600px;
+	border-radius: 5px;
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .close {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+	color: #aaa;
+	font-size: 28px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
 }
 
 .modal-body p {
-    margin: 10px 0;
+	margin: 10px 0;
 }
 
 .modal-body i {
-    margin-right: 5px;
+	margin-right: 5px;
 }
 
 /* 버튼 활성화 스타일 */
 button.active {
-    color: white;
+	color: white;
 }
 
- * {
-            font-family: 'Noto Sans', sans-serif !important; 
-        }
+* {
+	font-family: 'Noto Sans', sans-serif !important;
+}
 
-	.calendar-button {
-    background-color: rgb(108, 122, 137);
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 18px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    outline: none;
-    margin: 0 5px;
+.calendar-button {
+	background-color: rgb(108, 122, 137);
+	color: #ffffff;
+	border: none;
+	border-radius: 4px;
+	padding: 8px 18px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s, box-shadow 0.3s;
+	outline: none;
+	margin: 0 5px;
 }
 
 /* 버튼 호버 상태 */
 .calendar-button:hover {
-    background-color: #003366; /* 호버 시 배경 색상 변경 */
+	background-color: #003366; /* 호버 시 배경 색상 변경 */
 }
 
 /* 버튼 클릭 상태 */
 .calendar-button:active {
-    background-color: #001533; /* 클릭 시 배경 색상 변경 */
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3); /* 클릭 시 안쪽 그림자 추가 */
+	background-color: #001533; /* 클릭 시 배경 색상 변경 */
+	box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3); /* 클릭 시 안쪽 그림자 추가 */
 }
 
 /* 버튼 포커스 상태 */
 .calendar-button:focus {
-    box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.5); /* 포커스 시 외곽선 추가 */
+	box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.5); /* 포커스 시 외곽선 추가 */
 }
 
-.render-range{
- color: #212121;
+.render-range {
+	color: #212121;
 }
 
 .toastui-calendar-popup-button.toastui-calendar-popup-confirm {
-    background-color: #ff9900;
-    border: none;
-    border-radius: 40px;
-    color: #fff;
-    float: right;
-    font-size: 12px;
-    font-weight: 700;
-    height: 36px;
-    width: 96px;
+	background-color: #ff9900;
+	border: none;
+	border-radius: 40px;
+	color: #fff;
+	float: right;
+	font-size: 12px;
+	font-weight: 700;
+	height: 36px;
+	width: 96px;
 }
 
-.kc-main-content{
+.kc-main-content {
 	background-color: rgb(255, 192, 97);
-    padding: 10px;
-    margin: 30px;
-    border-radius: 8px;
+	padding: 10px;
+	margin: 30px;
+	border-radius: 8px;
 }
-
 
 .breadcrumb.bc-3, .breadcrumb.breadcrumb-3 {
-    padding-left: 35px;
-    margin: 10px 0px;
-    background-color: transparent;
-    margin-top: 3%;
-    font-size: 18px;
+	padding-left: 35px;
+	margin: 10px 0px;
+	background-color: transparent;
+	margin-top: 3%;
+	font-size: 18px;
 }
-
 </style>
 
 </head>
@@ -298,35 +296,47 @@ button.active {
 			</ol>
 			<div class="kc-main-content">
 
-				<h2 class="kc-consult-list-title" style="padding: 0px 20px; color: #ffffff; ">스케줄 관리</h2>
+				<h2 class="kc-consult-list-title"
+					style="padding: 0px 20px; color: #ffffff;">스케줄 관리</h2>
 
-				<div id="menu"> <!-- 스케줄 아이콘 변경 -->
-				    <div id="menu-navi" style="display: flex; align-items: center; padding: 6px 20px;">
-				        <div style="display: flex; justify-content: center; flex: 1;">
-       					 <button type="button" class="calendar-button move-day" data-action="move-prev" style="padding: 4px 16px;">&lt;</button>
-        				<button type="button" class="calendar-button move-today" data-action="move-today">오늘로</button>
-       					 <button type="button" class="calendar-button move-day" data-action="move-next" style="padding: 4px 16px;">&gt;</button>
-    					</div>
-				         <span id="renderRange" class="render-range" style="margin: 10px; margin-left: auto; font-size: 18px; color: #ffffff;">2024년 8월</span>
-				    </div>
-				   <div id="view-modes" style="display: flex; padding: 0 20px; justify-content: flex-end;">
-    <button type="button" class="calendar-button" data-view-mode="month">Month</button>
-    <button type="button" class="calendar-button" data-view-mode="week">Week</button>
-    <button type="button" class="calendar-button" data-view-mode="day">Day</button>
-</div>
+				<div id="menu">
+					<!-- 스케줄 아이콘 변경 -->
+					<div id="menu-navi"
+						style="display: flex; align-items: center; padding: 6px 20px;">
+						<div style="display: flex; justify-content: center; flex: 1;">
+							<button type="button" class="calendar-button move-day"
+								data-action="move-prev" style="padding: 4px 16px;">&lt;</button>
+							<button type="button" class="calendar-button move-today"
+								data-action="move-today">오늘로</button>
+							<button type="button" class="calendar-button move-day"
+								data-action="move-next" style="padding: 4px 16px;">&gt;</button>
+						</div>
+						<span id="renderRange" class="render-range"
+							style="margin: 10px; margin-left: auto; font-size: 18px; color: #ffffff;">2024년
+							8월</span>
+					</div>
+					<div id="view-modes"
+						style="display: flex; padding: 0 20px; justify-content: flex-end;">
+						<button type="button" class="calendar-button"
+							data-view-mode="month">Month</button>
+						<button type="button" class="calendar-button"
+							data-view-mode="week">Week</button>
+						<button type="button" class="calendar-button" data-view-mode="day">Day</button>
+					</div>
 				</div>
 
 
 				<div class="calendar-container">
 					<div id="calendar" style="height: 800px; width: 80%;"></div>
-					<div id="todo-list" style="width: 30%; margin-left: 2%; padding: 10px;">
+					<div id="todo-list"
+						style="width: 30%; margin-left: 2%; padding: 10px;">
 						<h3>오늘의 할 일</h3>
 						<h4 id="today-date"></h4>
 						<ul id="todo-items"></ul>
 					</div>
 				</div>
-				
-				
+
+
 				<script>
             document.addEventListener('DOMContentLoaded', function() {
                 let allEvents = [];
@@ -907,8 +917,9 @@ button.active {
 		<div id="eventDetailsModal" class="modal">
 			<div class="modal-content">
 				<div class="modal-header" style="position: relative; padding: 10px;">
-   				 <h2 id="eventTitle" style="margin: 0;">Event Title</h2>
-    			<span class="close" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 24px;">&times;</span>
+					<h2 id="eventTitle" style="margin: 0;">Event Title</h2>
+					<span class="close"
+						style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 24px;">&times;</span>
 				</div>
 				<div class="modal-body">
 					<p>
