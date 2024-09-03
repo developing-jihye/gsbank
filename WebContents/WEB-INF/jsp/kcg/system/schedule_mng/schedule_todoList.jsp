@@ -94,10 +94,14 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd; /* 기본 테두리 색상 설정 */
     cursor: pointer;
     position: relative;
+    background-color: #fff; /* 기본 배경색 설정 */
+    border-radius: 4px; /* 모서리 둥글게 설정 (선택 사항) */
+    margin: 8px;
 }
+
 
 .todo-item:last-child {
     border-bottom: none;
@@ -142,7 +146,7 @@ body {
     position: absolute;
     right: 10px;
     top: 10px;
-    background-color: #009688;
+    background-color: #0073e6;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -216,17 +220,17 @@ button.active {
         }
 
 	.calendar-button {
-    background-color: rgb(108, 122, 137); /* 배경 색상 */
-    color: #ffffff; /* 글자 색상 */
-    border: none; /* 테두리 없애기 */
-    border-radius: 4px; /* 모서리 둥글게 만들기 */
-    padding: 4px 8px; /* 여백 추가 */
-    font-size: 14px; /* 글자 크기 */
-    font-weight: bold; /* 글자 굵게 */
-    cursor: pointer; /* 마우스 커서가 버튼 위에 올 때 손가락 모양으로 변경 */
-    transition: background-color 0.3s, box-shadow 0.3s; /* 배경 색상 및 그림자 부드러운 전환 효과 */
-    outline: none; /* 포커스 시 외곽선 없애기 */
-    margin: 0 2px;
+    background-color: rgb(108, 122, 137);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    outline: none;
+    margin: 0 5px;
 }
 
 /* 버튼 호버 상태 */
@@ -269,7 +273,13 @@ button.active {
 }
 
 
-
+.breadcrumb.bc-3, .breadcrumb.breadcrumb-3 {
+    padding-left: 35px;
+    margin: 10px 0px;
+    background-color: transparent;
+    margin-top: 3%;
+    font-size: 18px;
+}
 
 </style>
 
@@ -292,16 +302,18 @@ button.active {
 
 				<div id="menu"> <!-- 스케줄 아이콘 변경 -->
 				    <div id="menu-navi" style="display: flex; align-items: center; padding: 6px 20px;">
-				        <button type="button" class="calendar-button move-day" data-action="move-prev" style="padding: 4px 16px;">&lt;</button>
-				        <button type="button" class="calendar-button move-today" data-action="move-today">오늘</button>
-						<button type="button" class="calendar-button move-day" data-action="move-next" style="padding: 4px 16px;">&gt;</button>
+				        <div style="display: flex; justify-content: center; flex: 1;">
+       					 <button type="button" class="calendar-button move-day" data-action="move-prev" style="padding: 4px 16px;">&lt;</button>
+        				<button type="button" class="calendar-button move-today" data-action="move-today">오늘로</button>
+       					 <button type="button" class="calendar-button move-day" data-action="move-next" style="padding: 4px 16px;">&gt;</button>
+    					</div>
 				         <span id="renderRange" class="render-range" style="margin: 10px; margin-left: auto; font-size: 18px; color: #ffffff;">2024년 8월</span>
 				    </div>
-				    <div id="view-modes" style="display: flex; padding: 0 20px;">
-				        <button type="button" class="calendar-button" data-view-mode="month">Month</button>
-				        <button type="button" class="calendar-button" data-view-mode="week">Week</button>
-				        <button type="button" class="calendar-button" data-view-mode="day">Day</button>
-				    </div>
+				   <div id="view-modes" style="display: flex; padding: 0 20px; justify-content: flex-end;">
+    <button type="button" class="calendar-button" data-view-mode="month">Month</button>
+    <button type="button" class="calendar-button" data-view-mode="week">Week</button>
+    <button type="button" class="calendar-button" data-view-mode="day">Day</button>
+</div>
 				</div>
 
 
@@ -894,9 +906,9 @@ button.active {
 
 		<div id="eventDetailsModal" class="modal">
 			<div class="modal-content">
-				<div class="modal-header">
-					<span class="close">&times;</span>
-					<h2 id="eventTitle"></h2>
+				<div class="modal-header" style="position: relative; padding: 10px;">
+   				 <h2 id="eventTitle" style="margin: 0;">Event Title</h2>
+    			<span class="close" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 24px;">&times;</span>
 				</div>
 				<div class="modal-body">
 					<p>
