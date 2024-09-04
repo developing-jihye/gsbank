@@ -93,33 +93,40 @@
 	
 	<select id="getCustInfoList" parameterType="cmmnMap" resultType="cmmnMap">
 	/* system.cust_mng.getCustInfoList */
-	    select
-            A.CUST_NM             as CUST_NM 
-           ,SUBSTRING(A.RRNO,1,6) as RRNO
-           ,A.CUST_MBL_TELNO      as CUST_MBL_TELNO
-           ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '140' AND CODE_NO = A.OCCP_TY_CD) as OCCP_TY_CD_NM
-           ,A.CUST_ADDR           as CUST_ADDR
-        from TB_CUSTMST    A
-            ,TB_CUSTPICREL B
-            ,TB_PICMST     C
-        WHERE 1=1
-          and A.CUST_MBL_TELNO = B.CUST_MBL_TELNO
-          and B.PIC_MBL_TELNO  = C.PIC_MBL_TELNO
-          and A.CURR_STCD      = '0'
-          and B.CURR_STCD      = '0'
-          and C.CURR_STCD      = '0'
-        <if test='pic_nm != ""'>
-			AND C.PIC_NM = #{pic_nm}
-	    </if>
-	    <if test='dept_nm != ""'>
-			AND C.DEPT_NM = #{dept_nm}
-	    </if>
-	    <if test='cust_nm != ""'>
-      		and A.CUST_NM = #{cust_nm}
-        </if>
-        <if test='rrno != ""'>
-      	    and SUBSTRING(A.RRNO,1,6) = #{rrno}
-        </if>
+	    SELECT
+    A.CUST_NM             AS CUST_NM,
+    SUBSTRING(A.RRNO, 1, 6) AS RRNO,
+    A.CUST_MBL_TELNO      AS CUST_MBL_TELNO,
+    (SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '140' AND CODE_NO = A.OCCP_TY_CD) AS OCCP_TY_CD_NM,
+    A.CUST_ADDR           AS CUST_ADDR
+FROM 
+    TB_CUSTMST A
+LEFT JOIN 
+    TB_CUSTPICREL B ON A.CUST_MBL_TELNO = B.CUST_MBL_TELNO
+LEFT JOIN 
+    TB_PICMST C ON B.PIC_MBL_TELNO = C.PIC_MBL_TELNO
+WHERE 
+    A.CURR_STCD = '0'
+    AND (B.CURR_STCD = '0' OR B.CURR_STCD IS NULL)
+    AND (C.CURR_STCD = '0' OR C.CURR_STCD IS NULL)
+    -- 담당자명 조건: 빈 문자열이 아닌 경우
+    <if test='pic_nm != ""'>
+        AND C.PIC_NM = #{pic_nm}
+    </if>
+    -- 부서명 조건: 빈 문자열이 아닌 경우
+    <if test='dept_nm != ""'>
+        AND C.DEPT_NM = #{dept_nm}
+    </if>
+    -- 고객명 조건: 빈 문자열이 아닌 경우
+    <if test='cust_nm != ""'>
+        AND A.CUST_NM = #{cust_nm}
+    </if>
+    -- 생년월일 조건: 빈 문자열이 아닌 경우
+    <if test='rrno != ""'>
+        AND SUBSTRING(A.RRNO, 1, 6) = #{rrno}
+    </if>
+ORDER BY 
+    A.CUST_NM ASC;
 	</select>
 	
 	<select id="getCustInfoListAll" parameterType="cmmnMap" resultType="cmmnMap">
