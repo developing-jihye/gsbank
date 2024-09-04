@@ -49,6 +49,7 @@ body {
    
     background-color: #fff;
 
+
    
 }
 
@@ -69,11 +70,6 @@ body {
     background-color: rgb(255, 192, 97);
     border-radius: 22px;
 }
-
-
-
-
-
 
 .flex-gap-10 { gap: 10px; }
 
