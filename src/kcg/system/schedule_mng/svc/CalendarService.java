@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 @Service
@@ -27,31 +28,31 @@ public class CalendarService {
     @Autowired
     private CommonSvc commonSvc;
 
-    public List<CmmnMap> getAllEvents(UserInfoVO userInfo) {
+    public List<CmmnMap> getAllEvents(String userId) {
     	CmmnMap params = new CmmnMap();
-	    params.put("userPhoneNumber", userInfo.getHandphone());
-	    params.put("userTdeptNm", userInfo.getTdeptNm());
-	    List<CmmnMap> events = cmmnDao.selectList("Calendar.getAllEvents", params);
-        
+        params.put("userId", userId); // userId만 사용
+        logger.info("Fetching events with userId: {}", userId);
+
+        List<CmmnMap> events = cmmnDao.selectList("Calendar.getAllEvents", params);
+        logger.info("Number of events retrieved: {}", events.size());
+
         if (events != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-            
+
             for (CmmnMap event : events) {
-                logger.info("Event: {}", event);
-                
+                logger.info("Raw Event Data: {}", event);
+
                 // 필드 이름을 대문자로 변환
                 event.put("EVT_SN", event.get("evt_sn"));
                 event.put("EVT_TITLE", event.get("evt_title"));
                 event.put("EVT_BGNG_DT", event.get("evt_bgng_dt"));
                 event.put("EVT_END_DT", event.get("evt_end_dt"));
                 event.put("CALENDAR_ID", event.get("calendar_id"));
-                
-                // location과 attendees, state 처리
+
+                // location과 state 처리
                 event.put("location", event.get("EVT_LOCATION"));
                 event.put("state", event.get("EVT_STCD"));
-                String attendees = event.getString("EVT_ATND_LST");
-                event.put("attendees", attendees != null && !attendees.isEmpty() ? attendees.split(",") : new String[0]);
                 
                 // 날짜 형식 변환
                 if (event.get("EVT_BGNG_DT") instanceof java.sql.Timestamp) {
@@ -60,7 +61,7 @@ public class CalendarService {
                 if (event.get("EVT_END_DT") instanceof java.sql.Timestamp) {
                     event.put("end", sdf.format(event.get("EVT_END_DT")));
                 }
-                
+
                 // 프론트엔드에서 예상하는 필드 이름으로 매핑
                 event.put("id", event.get("EVT_SN"));
                 event.put("calendarId", event.get("CALENDAR_ID"));
@@ -73,7 +74,7 @@ public class CalendarService {
                 event.put("isPrivate", "Y".equals(event.get("is_private")));
             }
         }
-        
+
         return events;
     }
 
