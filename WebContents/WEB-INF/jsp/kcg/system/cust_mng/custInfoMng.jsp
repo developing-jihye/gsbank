@@ -428,7 +428,6 @@
 				if (data.status == "OK") {
 					alert("고객정보 입력 완료");
 					// 고객 등록 완료 후, 고객 목록 페이지로 이동 시 자동 조회하지 않도록 함
-					cf_movePage('/custMng/custInfoList?autoSearch=false');
 				}
 			},
 			
