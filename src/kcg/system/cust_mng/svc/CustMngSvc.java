@@ -45,7 +45,13 @@ public class CustMngSvc {
 	}
 	
 	public PageList<CmmnMap> getCustInfoList(CmmnMap params, PagingConfig pagingConfig) {
-		return cmmnDao.selectListPage("system.cust_mng.getCustInfoList", params, pagingConfig);
+	    // PagingConfig가 null인지 체크 (이 부분은 추가로 불필요할 수도 있음, Controller에서 이미 처리)
+	    if (pagingConfig == null) {
+	        throw new IllegalArgumentException("PagingConfig cannot be null");
+	    }
+
+	    // 기존 로직 수행
+	    return cmmnDao.selectListPage("system.cust_mng.getCustInfoList", params, pagingConfig);
 	}
 	
 	public PageList<CmmnMap> getCustInfoListAll(CmmnMap params, PagingConfig pagingConfig) {
