@@ -1,412 +1,430 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp" flush="false"/>
-	<!-- Imported styles on this page -->
-	<link rel="stylesheet" href="/static_resources/system/js/datatables/datatables.css">
-	<link rel="stylesheet" href="/static_resources/system/js/select2/select2-bootstrap.css">
-	<link rel="stylesheet" href="/static_resources/system/js/select2/select2.css">
-	<link rel="stylesheet" href="/static_resources/system/js/datatables/promion.css">
-	
-	<!-- Bilboard Chart(https://naver.github.io/billboard.js) -->
-	<script src="https://d3js.org/d3.v6.min.js"></script>
-	<script src="/static_resources/system/js/datatables/billboard.js"></script>
-	<link rel="stylesheet" href="/static_resources/system/js/datatables/billboard.css">
-	
-	<title>금융계산기</title>
+<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp"
+	flush="false" />
+<!-- Imported styles on this page -->
+<link rel="stylesheet"
+	href="/static_resources/system/js/datatables/datatables.css">
+<link rel="stylesheet"
+	href="/static_resources/system/js/select2/select2-bootstrap.css">
+<link rel="stylesheet"
+	href="/static_resources/system/js/select2/select2.css">
+<link rel="stylesheet"
+	href="/static_resources/system/js/datatables/promion.css">
+
+<!-- Bilboard Chart(https://naver.github.io/billboard.js) -->
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="/static_resources/system/js/datatables/billboard.js"></script>
+<link rel="stylesheet"
+	href="/static_resources/system/js/datatables/billboard.css">
+
+<title>금융계산기</title>
 </head>
 <body class="page-body">
 
-<div class="page-container">
+	<div class="page-container" style="width: 100%; overflow-x: hidden;">
 
-	<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp" flush="false"/>
+		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp"
+			flush="false" />
 
-	<div class="main-content">
+		<div class="main-content">
 
-		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp" flush="false"/>
-		
-		<ol class="breadcrumb bc-3">
-			<li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
-			<li class="active"><strong>금융계산기</strong></li>
-		</ol>
-	
-		<h2>프로모션 > 금융계산기 (적금 설계)</h2>
-		<br/>
-		
-		<div class="row">
-			<div class="dataTables_wrapper flex" id="vueapp">
-			<template>
-			
-				<div class="left flex-column flex-gap-10 flex-40" v-if="info.simpl_ty_cd == '1'">
-                    <label>고객정보:</label>
-                    <div class="form-group">
-                        <label>작성일자:</label>
-                        <input class="form-control" v-model="info.wrt_dt" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>성명:</label>
-                        <input class="form-control" v-model="custInfo.cust_nm" disabled />
-                        <button type="button" class="btn" @click="popupCust()">
-                             <i class="fa fa-search"></i>
-                         </button>
-                    </div>
-                    <div class="form-group">
-                        <label>실명번호:</label>
-                        <input class="form-control" v-model="custInfo.rrno" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>E-mail:</label>
-                        <input class="form-control" v-model="custInfo.cust_eml_addr" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>전화번호:</label>
-                        <input class="form-control" v-model="custInfo.co_telno" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>핸드폰번호:</label>
-                        <input class="form-control" v-model="custInfo.cust_mbl_telno" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>직업:</label>
-                        <input class="form-control" v-model="custInfo.occp_ty_cd_nm" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>주소:</label>
-                        <input class="form-control" v-model="custInfo.cust_addr" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>관리담당자:</label>
-                        <input class="form-control" v-model="custInfo.pic_nm" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>부서:</label>
-                        <input class="form-control" v-model="custInfo.dept_nm" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>직위:</label>
-                        <input class="form-control" v-model="custInfo.jbps_ty_cd_nm" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label>연락처:</label>
-                        <input class="form-control" v-model="custInfo.pic_mbl_telno" disabled />
-                    </div>
-                </div>
-                
-				<div class="right flex-column flex-100">
-                    <div class="right-top">
-					    <ul class="nav">
-					        <li class="nav-tab active" style="background-color: rgb(0,51,102);" @click="tabChange(1)">적금 설계</li>
-					        <!-- <li class="nav-tab" @click="tabChange(2)">목돈마련적금 설계</li> -->
-					        <li class="nav-tab" style="background-color: rgba(0,51,102,0.3);" @click="tabChange(3)">예금 설계</li>
-					        <li class="nav-tab" style="background-color: rgba(0,51,102,0.3);" @click="tabChange(4)">대출 설계</li>
-					    </ul>
-					    <div class="nav-content flex-column flex-gap-10">
-					        <%-- <div class="form-group" style="justify-content: left">
-					            <label>설계번호:</label>
-					            <input class="form-control" id="prod_ds_sn" v-model="info.prod_ds_sn" disabled />
-					        </div> --%>
-					        <div class="form-group flex-row align-items-center" style="height: 40px;">
-					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">상품선택:</label>
-					            <input class="form-control" id="prod_cd" v-model="info.prod_cd" disabled style="height: 100%;"/>
-					            <input class="form-control" id="prod_nm" v-model="info.prod_nm" style="height: 100%;"/>
-					            <button type="button" class="btn" @click="popupProd()" style="height: 100%;">
-					                <i class="fa fa-search"></i>
-					            </button>
-					        </div>
-					        <div class="form-group flex-row align-items-center" style="height: 40px;">
-					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">납입주기:</label>
-					            <select class="form-control" id="pay_ty_cd" v-model="info.pay_ty_cd" style="height: 100%; padding-top: 0;" disabled>
-					                <option value="1">월납</option>
-					                <option value="2">년납</option>
-					                <option value="3">일시납</option>
-					            </select>
-					        </div>
-					        <div class="form-group flex-row align-items-center" style="height: 40px;">
-					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">불입금액 (원):</label>
-					            <input class="form-control flex-50" type="text" id="circle_acml_amt" v-model="info.circle_acml_amt" style="height: 100%; width: 700px;"/>
-					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(10)" style="height: 100%;">+10만원</button>
-					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(50)" style="height: 100%;">+50만원</button>
-					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(100)" style="height: 100%;">+100만원</button>
-					            <button type="button" class="btn btn-transparent flex-20" @click="setCircleAcmlAmt(0)" style="height: 100%;">정정</button>
-					        </div>
-					        <div class="form-group flex-row align-items-center" style="height: 40px;">
-					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">목표기간 (개월):</label>
-					            <input class="form-control flex-50" type="text" id="goal_prd" v-model="info.goal_prd" style="height: 100%; width: 700px;"/>
-					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(3)" style="height: 100%;">+3개월</button>
-					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(6)" style="height: 100%;">+6개월</button>
-					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(12)" style="height: 100%;">+12개월</button>
-					            <button type="button" class="btn btn-transparent flex-20" @click="setGoalPrd(0)" style="height: 100%;">정정</button>
-					        </div>
-					        <div class="form-group flex-row align-items-center" style="height: 40px;">
-					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">적용금리 (%):</label>
-					            <input class="form-control" type="text" id="aply_rate" v-model="info.aply_rate" style="height: 100%;"/>
-					        </div>
-					        <div class="form-group flex-row align-items-center" style="height: 40px;">
-					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">이자과세:</label>
-					            <select class="form-control" id="int_tax_ty_cd" v-model="info.int_tax_ty_cd" style="height: 100%; padding-top: 0;" disabled>
-					                <option value="1">일반과세 (15.4%)</option>
-					                <option value="2">세금우대 (9.5%)</option>
-					                <option value="3">비과세</option>
-					            </select>
-					        </div>
-					        <div class="form-group flex-row align-items-center" style="height: 40px;">
-					            <label style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">작성일자:</label>
-					            <input class="form-control" v-model="info.wrt_dt" disabled style="height: 100%;"/>
-					            <button type="button" class="btn btn-red btn-small" @click="prcCalc()" style="height: 100%; margin-left: 10px; background-color:#FF9900">
-					                계산하기
-					            </button>
-					        </div>
-					    </div>
-					</div>
+			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp"
+				flush="false" />
 
-                    
-					<%-- <div class="dt-buttons" style="padding-top: 15px;"> 삭제 되는 부분
-						<input id="external" type="radio" v-model="info.simpl_ty_cd" value="1" :disabled="info.prod_ds_sn!=''&&info.prod_ds_sn!=undefined">
-						<label class="tab_item" for="external">정상설계</label>
-						<input id="internal" type="radio" v-model="info.simpl_ty_cd"  value="0" :disabled="info.prod_ds_sn!=''&&info.prod_ds_sn!=undefined">
-						<label class="tab_item" for="internal">간편설계</label>
-					</div>
-					<div class="dataTables_filter">
-						<button type="button" class="btn btn-red btn-small" @click="prcCalc()">
-							이자계산
-						</button>
-						<button type="button" class="btn btn-orange btn-small" @click="save()">
-							설계저장
-						</button>
-						<button type="button" class="btn btn-blue btn-icon btn-small" @click="popupPrint()">
-							설계발행 <i class="entypo-print"></i>
-						</button>
-						<button type="button" class="btn btn-blue btn-icon btn-small" @click="gotoList()">
-							목록 <i class="entypo-list"></i>
-						</button>
-					</div> --%>
-					
-                    <div class="right-bottom flex-100"> <%-- 계산 결과 보여주는 부분 --%>
-                        <form class="form flex-column" method="POST" action="#">
-	                        <table>
-	                        	<tr>
-	                        	<%-- 계산 결과 차트 그리는 부분 --%>
-	                        		<td class="center" style="width: 40%; vertical-align: top;">
-	                        			<!-- <div class="panel-heading">
-											<div class="panel-title">계산 결과 차트</div>
-										</div> -->
-										<div id="chart" class="bottom-right-bottom flex-100"></div>
-	                        			<div class="form-wrapper flex flex-wrap flex-gap-10">
-			                                <div class="form-group">
-			                                    <label>불입금액합계:</label>
-			                                    <input class="form-control" id="tot_dpst_amt" v-model="info.tot_dpst_amt_fmt" disabled />
-			                                </div>
-			                                <div class="form-group">
-			                                    <label>세전이자:</label>
-			                                    <input class="form-control" id="tot_dpst_int" v-model="info.tot_dpst_int_fmt" disabled />
-			                                </div>
-			                                <div class="form-group">
-			                                    <label>세전수령액:</label>
-			                                    <input class="form-control" id="bfo_rcve_amt" v-model="info.bfo_rcve_amt_fmt" disabled />
-			                                </div>
-			                                <div class="form-group">
-			                                    <label>이자과세금:</label>
-			                                    <input class="form-control" id="int_tax_amt" v-model="info.int_tax_amt_fmt" disabled />
-			                                </div>
-			                                <div class="form-group">
-			                                    <label>세후수령액:</label>
-			                                    <input class="form-control" id="atx_rcve_amt" v-model="info.atx_rcve_amt_fmt" disabled />
-			                                </div>
-			                            </div>
-	                        		</td>
-	                        		<!-- <td class="center" style="width: 3%;">
-	                        		</td> -->
-	                        		<td class="center" style="width: 57%; vertical-align: top;">
-			                            <table class="table table-bordered datatable dataTable" id="grid_app">
-											<thead>
-												<tr class="replace-inputs">
-													<th style="width: 10%;" class="center">회차</th>
-													<th style="width: 23%;" class="center">회차불입금액</th>
-													<th style="width: 23%;" class="center">누적불입금액</th>
-													<th style="width: 21%;" class="center">회차이자</th>
-													<th style="width: 23%;" class="center">회차원리금</th>
-												</tr>
-											</thead>
-											<tbody id="grid_tbody">
-											</tbody>
-										</table>
-	                        		</td>
-	                        	</tr>
-	                        </table>
-                        </form>
-                    </div>
-                </div>
-                
-                <!-- 프린트 Start -->
-                <div border="1"  class="modal fade" id="printArea"> <%-- 차트 그리는 부분 --%>
-                    <span style="font-size: 30px; font-weight: bold">[ {{custInfo.cust_nm}} ]</span> <span style="font-size: 30px;">고객님!! </span>
-                    <span style="color: red; font-size: 30px; font-weight: bold">[ {{info.prod_nm}} ]</span> <span style="font-size: 30px;">가입을 제안 드립니다. </span>
-				    <table border="1" style="width: 1100px; height: 700px;">
-				       <tr>
-				       		<td class="center" style="width: 12%;">
-				       			<label>상품설계기준</label>
-				       		</td>
-							<td class="left" style="width: 35%;">
-								<label>상품명:</label>
-								{{info.prod_nm}}<br>
-								<label>납입주기:</label>
-								{{info.pay_ty_cd}}<br>
-								<label>불입금액:</label>
-								{{info.circle_acml_amt_fmt}} 원<br>
-								<label>불입기간:</label>
-								{{info.goal_prd}} 개월<br>
-								<label>적용금리:</label>
-								{{info.aply_rate}} %<br>
-								<label>이자과세:</label>
-								{{info.int_tax_ty_cd}}<br>
-							</td>
-							<td rowspan="2" style="width: 53%;">
-								<div id="printArea_chart"></div>
-							</td>
-				       </tr>
-				       <tr>
-				       		<td class="center">
-				       			<label>상품설계산출결과</label>
-				       		</td>
-							<td class="left">
-								<label>원금:</label>
-								{{info.tot_dpst_amt_fmt}} 원<br>
-								<label>이자:</label>
-								{{info.tot_dpst_int_fmt}} 원<br>
-								<label>총금액:</label>
-								{{info.bfo_rcve_amt_fmt}} 원<br>
-								<label>세액공제금액:</label>
-								{{info.int_tax_amt_fmt}} 원
-							</td>
-				       </tr>
-				    </table>
+			<ol class="breadcrumb bc-3">
+				<li><a href="#none" onclick="cf_movePage('/system')"><i
+						class="fa fa-home"></i>Home</a></li>
+				<li class="active"><strong>금융계산기</strong></li>
+			</ol>
+
+			<h2>프로모션 > 금융계산기 (적금 설계)</h2>
+			<br />
+
+			<div class="right flex-column flex-100" id="changeCalc">
+				<div class="right-top">
+					<ul class="nav">
+						<li class="nav-tab active"
+							style="background-color: rgb(0, 51, 102);" @click="changeCalc(1)">적금
+							설계</li>
+						<li class="nav-tab"
+							style="background-color: rgba(0, 51, 102, 0.3);"
+							@click="changeCalc(3)">예금 설계</li>
+						<li class="nav-tab"
+							style="background-color: rgba(0, 51, 102, 0.3);"
+							@click="changeCalc(4)">대출 설계</li>
+					</ul>
 				</div>
-				<!-- 프린트 End -->
-				
-			</template>
 			</div>
-			
-		</div>
-		
-		<br />
-		
-		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp" flush="false"/>
-		
-	</div>
-</div>
 
-<!-- 상품팝업 -->
-<div class="modal fade" id="pop_prod">
-  <template>
-    <div class="modal-dialog" style="width: 500px;">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="dataTables_wrapper">					
-            <div class="dt-buttons" style="display: flex; align-items: center;">
-              <div style="display: flex; align-items: center;">
-                <label style="margin-right: 5px;">상품코드:</label>
-                <input type="search" id="pop_prod_cd" style="width: 85px; height: 24px;" v-model="pop_prod_cd">
-                <label style="margin: 0 5px;">상품명:</label>
-                <input type="search" id="pop_prod_nm" style="width: 160px; height: 24px;" v-model="pop_prod_nm">
-                <button type="button" class="btn btn-red" style="margin-left: 5px; height: 24px; display: flex; align-items: center; justify-content: center;" @click="getList">
-                  검색하기
-                </button>
-              </div>
-            </div>
-          </div>
-          <div style="height: 400px; overflow: auto;" class="dataTables_wrapper">		
-            <table class="table table-bordered datatable dataTable">
-              <thead style="position: sticky; top: 0px;">
-                <tr>
-                  <th class="center" style="width: 25%;">상품코드</th>
-                  <th class="center" style="width: 50%;">상품명</th>
-                  <th class="center" style="width: 25%;">가입대상</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in dataList" @click="selProd(item.prod_cd)" style="cursor: pointer;">
-                  <td class="center">{{item.prod_cd}}</td>
-                  <td class="left">{{item.prod_nm}}</td>
-                  <td class="left">{{item.sbstg_ty_cd_nm}}</td>
-                </tr>
-              </tbody>
-            </table>	
-          </div>				
-        </div>
-      </div>
-    </div>
-  </template>
-</div>
-                            
-<!-- 고객팝업 -->
-<div class="modal fade" id="pop_cust">
-<template>
-	<div class="modal-dialog" style="width: 500px;">
-		<div class="modal-content">
-			<div class="modal-body">
-				<div class="dataTables_wrapper">					
-					<div class="dt-buttons">
-						<div>
-							<label>고객명:</label>
-							<input type="search" id="pop_cust_nm" style="width: 250px;" v-model="pop_cust_nm">
-							<button type="button" class="btn btn-red" style="margin-left: 5px;" @click="getList">
-								검색
-							</button>
+			<div class="row">
+				<div class="dataTables_wrapper flex" id="vueapp">
+					<template>
+
+						<div style="display: flex; width: 100%;">
+							<div class="left-side" style="width: 45%;">
+								<!-- 위쪽 내용 -->
+								<div class="nav-content flex-column flex-gap-10"
+									style="width: 100%;">
+									<!-- 기존 내용 -->
+									<div class="form-group flex-row align-items-center"
+										style="height: 40px;">
+										<label
+											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">상품선택:</label>
+										<input class="form-control" id="prod_cd"
+											v-model="info.prod_cd" disabled style="height: 100%;" /> <input
+											class="form-control" id="prod_nm" v-model="info.prod_nm"
+											style="height: 100%;" />
+										<button type="button" class="btn" @click="popupProd()"
+											style="height: 100%;">
+											<i class="fa fa-search"></i>
+										</button>
+									</div>
+									<div class="form-group flex-row align-items-center"
+										style="height: 40px;">
+										<label
+											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">납입주기:</label>
+										<select class="form-control" id="pay_ty_cd"
+											v-model="info.pay_ty_cd"
+											style="height: 100%; padding-top: 0;" disabled>
+											<option value="1">월납</option>
+											<option value="2">년납</option>
+											<option value="3">일시납</option>
+										</select>
+									</div>
+									<div class="form-group flex-row align-items-center"
+										style="height: 40px;">
+										<label
+											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">불입금액
+											(원):</label> <input class="form-control flex-50" type="text"
+											id="circle_acml_amt" v-model="info.circle_acml_amt"
+											style="height: 100%; width: 700px;" />
+										<button type="button" class="btn btn-transparent flex-20"
+											@click="setCircleAcmlAmt(10)" style="height: 100%;">+10만원</button>
+										<button type="button" class="btn btn-transparent flex-20"
+											@click="setCircleAcmlAmt(50)" style="height: 100%;">+50만원</button>
+										<button type="button" class="btn btn-transparent flex-20"
+											@click="setCircleAcmlAmt(100)" style="height: 100%;">+100만원</button>
+										<button type="button" class="btn btn-transparent flex-20"
+											@click="setCircleAcmlAmt(0)" style="height: 100%;">정정</button>
+									</div>
+									<div class="form-group flex-row align-items-center"
+										style="height: 40px;">
+										<label
+											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">목표기간
+											(개월):</label> <input class="form-control flex-50" type="text"
+											id="goal_prd" v-model="info.goal_prd"
+											style="height: 100%; width: 700px;" />
+										<button type="button" class="btn btn-transparent flex-20"
+											@click="setGoalPrd(3)" style="height: 100%;">+3개월</button>
+										<button type="button" class="btn btn-transparent flex-20"
+											@click="setGoalPrd(6)" style="height: 100%;">+6개월</button>
+										<button type="button" class="btn btn-transparent flex-20"
+											@click="setGoalPrd(12)" style="height: 100%;">+12개월</button>
+										<button type="button" class="btn btn-transparent flex-20"
+											@click="setGoalPrd(0)" style="height: 100%;">정정</button>
+									</div>
+									<div class="form-group flex-row align-items-center"
+										style="height: 40px;">
+										<label
+											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">적용금리
+											(%):</label> <input class="form-control" type="text" id="aply_rate"
+											v-model="info.aply_rate" style="height: 100%;" />
+									</div>
+									<div class="form-group flex-row align-items-center"
+										style="height: 40px;">
+										<label
+											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">이자과세:</label>
+										<select class="form-control" id="int_tax_ty_cd"
+											v-model="info.int_tax_ty_cd"
+											style="height: 100%; padding-top: 0;" disabled>
+											<option value="1">일반과세 (15.4%)</option>
+											<option value="2">세금우대 (9.5%)</option>
+											<option value="3">비과세</option>
+										</select>
+									</div>
+									<div class="form-group flex-row align-items-center"
+										style="height: 40px;">
+										<label
+											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">작성일자:</label>
+										<input class="form-control" v-model="info.wrt_dt" disabled
+											style="height: 100%;" />
+										<button type="button" class="btn btn-red btn-small"
+											@click="prcCalc()"
+											style="height: 100%; margin-left: 10px; background-color: #FF9900">
+											계산하기</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="middle-side" style="width: 5%;"></div>
+
+							<div class="right-side" style="width: 50%;">
+								<!-- 아래쪽 내용 -->
+								<div class="right-bottom flex-100" style="width: 100%;">
+									<form class="form flex-column" method="POST" action="#">
+										<table>
+											<tr>
+												<td class="center" style="width: 40%; vertical-align: top;">
+													<div id="chart" class="bottom-right-bottom flex-100"></div>
+													<div class="form-wrapper flex flex-wrap flex-gap-10">
+														<!-- 기존 내용 -->
+														<div class="form-group">
+															<label>불입금액합계:</label> <input class="form-control"
+																id="tot_dpst_amt" v-model="info.tot_dpst_amt_fmt"
+																disabled />
+														</div>
+														<div class="form-group">
+															<label>세전이자:</label> <input class="form-control"
+																id="tot_dpst_int" v-model="info.tot_dpst_int_fmt"
+																disabled />
+														</div>
+														<div class="form-group">
+															<label>세전수령액:</label> <input class="form-control"
+																id="bfo_rcve_amt" v-model="info.bfo_rcve_amt_fmt"
+																disabled />
+														</div>
+														<div class="form-group">
+															<label>이자과세금:</label> <input class="form-control"
+																id="int_tax_amt" v-model="info.int_tax_amt_fmt" disabled />
+														</div>
+														<div class="form-group">
+															<label>세후수령액:</label> <input class="form-control"
+																id="atx_rcve_amt" v-model="info.atx_rcve_amt_fmt"
+																disabled />
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td class="center" style="width: 40%; vertical-align: top;">
+													<table class="table table-bordered datatable dataTable"
+														id="grid_app">
+														<!-- 기존 내용 -->
+														<thead>
+															<tr class="replace-inputs">
+																<th style="width: 10%;" class="center">회차</th>
+																<th style="width: 23%;" class="center">회차불입금액</th>
+																<th style="width: 23%;" class="center">누적불입금액</th>
+																<th style="width: 21%;" class="center">회차이자</th>
+																<th style="width: 23%;" class="center">회차원리금</th>
+															</tr>
+														</thead>
+														<tbody id="grid_tbody">
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</template>
+				</div>
+
+			</div>
+
+			<br />
+
+			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
+				flush="false" />
+
+		</div>
+	</div>
+
+	<!-- 상품팝업 -->
+	<div class="modal fade" id="pop_prod">
+		<template>
+			<div class="modal-dialog" style="width: 500px;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="dataTables_wrapper">
+							<div class="dt-buttons"
+								style="display: flex; align-items: center;">
+								<div style="display: flex; align-items: center;">
+									<label style="margin-right: 5px;">상품코드:</label> <input
+										type="search" id="pop_prod_cd"
+										style="width: 85px; height: 24px;" v-model="pop_prod_cd">
+									<label style="margin: 0 5px;">상품명:</label> <input type="search"
+										id="pop_prod_nm" style="width: 160px; height: 24px;"
+										v-model="pop_prod_nm">
+									<button type="button" class="btn btn-red"
+										style="margin-left: 5px; height: 24px; display: flex; align-items: center; justify-content: center;"
+										@click="getList">검색하기</button>
+								</div>
+							</div>
+						</div>
+						<div style="height: 400px; overflow: auto;"
+							class="dataTables_wrapper">
+							<table class="table table-bordered datatable dataTable">
+								<thead style="position: sticky; top: 0px;">
+									<tr>
+										<th class="center" style="width: 25%;">상품코드</th>
+										<th class="center" style="width: 50%;">상품명</th>
+										<th class="center" style="width: 25%;">가입대상</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="item in dataList" @click="selProd(item.prod_cd)"
+										style="cursor: pointer;">
+										<td class="center">{{item.prod_cd}}</td>
+										<td class="left">{{item.prod_nm}}</td>
+										<td class="left">{{item.sbstg_ty_cd_nm}}</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
-				<div style="height: 400px;overflow: auto;" class="dataTables_wrapper">		
-					<table class="table table-bordered datatable dataTable">
-						<thead style="position: sticky;top: 0px;">
-							<tr>
-								<th class="center" style="width: 25%;">고객명</th>
-								<th class="center" style="width: 20%;">생년월일</th>
-								<th class="center" style="width: 30%;">핸드폰번호</th>
-								<th class="center" style="width: 25%;">담당자</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="item in dataList" @click="selCust(item)" style="cursor: pointer;">
-								<td class="center">{{item.cust_nm}}</td>
-								<td class="center">{{item.rrno}}</td>
-								<td class="center">{{item.cust_mbl_telno}}</td>
-								<td class="center">{{item.pic_nm}}</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="dataTables_paginate paging_simple_numbers" id="div_paginate">
-					</div>  
-				</div>				
 			</div>
-		</div>
+		</template>
 	</div>
-</template>
-</div>
+
+	<!-- 고객팝업 -->
+	<div class="modal fade" id="pop_cust">
+		<template>
+			<div class="modal-dialog" style="width: 500px;">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="dataTables_wrapper">
+							<div class="dt-buttons">
+								<div>
+									<label>고객명:</label> <input type="search" id="pop_cust_nm"
+										style="width: 250px;" v-model="pop_cust_nm">
+									<button type="button" class="btn btn-red"
+										style="margin-left: 5px;" @click="getList">검색</button>
+								</div>
+							</div>
+						</div>
+						<div style="height: 400px; overflow: auto;"
+							class="dataTables_wrapper">
+							<table class="table table-bordered datatable dataTable">
+								<thead style="position: sticky; top: 0px;">
+									<tr>
+										<th class="center" style="width: 25%;">고객명</th>
+										<th class="center" style="width: 20%;">생년월일</th>
+										<th class="center" style="width: 30%;">핸드폰번호</th>
+										<th class="center" style="width: 25%;">담당자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="item in dataList" @click="selCust(item)"
+										style="cursor: pointer;">
+										<td class="center">{{item.cust_nm}}</td>
+										<td class="center">{{item.rrno}}</td>
+										<td class="center">{{item.cust_mbl_telno}}</td>
+										<td class="center">{{item.pic_nm}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="dataTables_paginate paging_simple_numbers"
+								id="div_paginate"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
+	</div>
 
 </body>
+
+<script>
+var vueapp = new Vue({
+	el : "#changeCalc",
+	data : {
+		info : {
+			prod_ds_sn : "${prod_ds_sn}", /* 상품 설명 일련번호? */
+			cust_mbl_telno : "${cust_mbl_telno}", /* 고객휴대폰전화번호 */
+			prod_ty_cd : "${prod_ty_cd}",  /* 상품유형코드 */
+			simpl_ty_cd : "0", /* 간편유형코드 */
+			wrt_dt : "", /* 작성일시 */
+			int_cty_cd : "", /* 이자국가코드? */ 
+			rrno : "", /* 주민등록번호 */
+			prod_cd : "", /* 상품코드 */
+			prod_nm : "", /* 상품명 */
+			goal_prd : "", /* 목표기간? */
+			circle_acml_amt : "", /* 순환 적립 금액? */
+			tot_dpst_amt : "", /* 총 예금액 */
+			tot_dpst_int : "", /* 총 이자액 */
+			int_tax_amt : "", /* 이자 세금 금액 */
+			bfo_rcve_amt : "", /* 세전 수령 금액 */
+			atx_rcve_amt : "", /* 세후 수령 금액 */
+			
+			circle_acml_amt_fmt : "",
+			tot_dpst_amt_fmt : "",
+			tot_dpst_int_fmt : "",
+			int_tax_amt_fmt : "",
+			bfo_rcve_amt_fmt : "",
+			atx_rcve_amt_fmt : "",
+			circle_acml_amt_fmt : "",
+			circle_acml_amt_fmt : "",
+		},
+		custInfo : {
+			cust_mbl_telno : "",
+			cust_nm : "",
+			rrno : "",
+			cust_eml_addr : "",
+			co_telno : "",
+			occp_ty_cd_nm : "",
+			cust_addr : "",
+			pic_nm : "",
+			dept_nm : "",
+			jbps_ty_cd_nm : "",
+			pic_mbl_telno : "",
+			tsk_dtl_cn : "",
+		},
+	},
+	mounted : function(){
+	},
+	methods : {
+
+		changeCalc : function(index) {
+					
+					if(this.info.prod_ds_sn != "" && this.info.prod_ds_sn != undefined) {
+						alert("신규일 경우만 TAB 이동이 가능합니다.");
+						return;
+					}
+					
+					var params = {
+						cust_mbl_telno : cf_defaultIfEmpty(this.info.cust_mbl_telno, ""),
+						prod_ty_cd : index,
+					}
+					cf_movePage("/promion_mng/dtl", params);
+					
+				}
+               
+		},
+});
+
+</script>
+
 <script>
 var vueapp = new Vue({
 	el : "#vueapp",
 	data : {
 		info : {
-			prod_ds_sn : "${prod_ds_sn}",
-			cust_mbl_telno : "${cust_mbl_telno}",
-			prod_ty_cd : "${prod_ty_cd}",
-			simpl_ty_cd : "0",
-			wrt_dt : "",
-			int_cty_cd : "",
-			rrno : "",
-			prod_cd : "",
-			prod_nm : "",
-			goal_prd : "",
-			circle_acml_amt : "",
-			tot_dpst_amt : "",
-			tot_dpst_int : "",
-			int_tax_amt : "",
-			bfo_rcve_amt : "",
-			atx_rcve_amt : "",
+			prod_ds_sn : "${prod_ds_sn}", /* 상품 설명 일련번호? */
+			cust_mbl_telno : "${cust_mbl_telno}", /* 고객휴대폰전화번호 */
+			prod_ty_cd : "${prod_ty_cd}",  /* 상품유형코드 */
+			simpl_ty_cd : "0", /* 간편유형코드 */
+			wrt_dt : "", /* 작성일시 */
+			int_cty_cd : "", /* 이자국가코드? */ 
+			rrno : "", /* 주민등록번호 */
+			prod_cd : "", /* 상품코드 */
+			prod_nm : "", /* 상품명 */
+			goal_prd : "", /* 목표기간? */
+			circle_acml_amt : "", /* 순환 적립 금액? */
+			tot_dpst_amt : "", /* 총 예금액 */
+			tot_dpst_int : "", /* 총 이자액 */
+			int_tax_amt : "", /* 이자 세금 금액 */
+			bfo_rcve_amt : "", /* 세전 수령 금액 */
+			atx_rcve_amt : "", /* 세후 수령 금액 */
 			
 			circle_acml_amt_fmt : "",
 			tot_dpst_amt_fmt : "",
@@ -467,14 +485,11 @@ var vueapp = new Vue({
 		},
 		save : function(){
 			
-			if(this.info.simpl_ty_cd != "1"){
-				alert("정상설계만 저장할 수 있습니다.");
-				return;
-			}else if(cf_isEmpty(this.info.atx_rcve_amt) || this.info.atx_rcve_amt == 0){
+			if(cf_isEmpty(this.info.atx_rcve_amt) || this.info.atx_rcve_amt == 0){
 				alert("이자계산 후 저장할 수 있습니다.");
 				return;
 			}else if(cf_isEmpty(this.custInfo.cust_nm)){
-				alert("고객정보를 선택하세요.");
+				alert("고객정보를 저장하세요.");
 				return;
 			}
 			

@@ -38,9 +38,9 @@
 
 		WHERE 1=1
 		<if test="userNm != null and userNm != ''">
-			AND name = #{userNm}
-		</if>
-		<if test="mblTelno != null and mblTelno != ''">
+			AND user_id = #{user_id}
+		</if> 
+		<!-- <if test="mblTelno != null and mblTelno != ''">
 			AND mbl_telno = #{mblTelno}
 		</if>
 		<if test="jncmpYmd != null and jncmpYmd != ''">
@@ -48,7 +48,7 @@
 		</if>
 		<if test="emlAddr != null and emlAddr != ''">
 			AND email = #{emlAddr}
-		</if>
+		</if> --> -->
 	</select>
 
 	<select id="findUserPw" resultType="string">
@@ -290,11 +290,11 @@
 		,now()
 		,'AAA'
 		,#{userNm}
-		,'1234'
+		,#{tdeptNm}
 		,#{jbpsNm}
 		,'test'
-		,'1234'
-		,'test@test.com'
+		,#{picMblTelno}
+		,#{picEmlAddr}
 		,'N'
 		,#{userPswd}
 		)

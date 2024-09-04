@@ -43,23 +43,24 @@
 	
 
 	<select id="getDayList" parameterType="cmmnMap" resultType="cmmnMap">
-	/* system.schedule_mng.getDayList */
-	    select to_char(A.tsk_bgng_dt, 'HH24') as "TSK_BGNG_DT_HH"
-              ,to_char(A.tsk_bgng_dt, 'MI') as "TSK_BGNG_DT_MM"
-              ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '130' AND CODE_NO = A.TSK_TY_CD) as "TSK_TY_CD_NM"
-              ,A.TSK_SJ        as "TSK_SJ"
-          from TB_PICTASK A
-              ,TB_PICMST  B
-              ,TB_CUSTPICREL C
-              ,TB_CUSTMST D
-         where A.pic_mbl_telno = B.pic_mbl_telno
-           and B.pic_mbl_telno = C.pic_mbl_telno
-           and C.cust_mbl_telno  = D.cust_mbl_telno
-           and B.pic_nm = #{user_id}
-           and to_char(A.tsk_bgng_dt, 'yyyy') = #{year}
-           and to_char(A.tsk_bgng_dt, 'mm') LIKE concat('%',#{mon})
-           and to_char(A.tsk_bgng_dt, 'dd') LIKE concat('%',#{day})
-	</select>
+    /* system.schedule_mng.getDayList */
+    SELECT 
+        TO_CHAR(A.tsk_bgng_dt, 'HH24') AS "TSK_BGNG_DT_HH",
+        TO_CHAR(A.tsk_bgng_dt, 'MI') AS "TSK_BGNG_DT_MM",
+        (SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '130' AND CODE_NO = A.TSK_TY_CD) AS "TSK_TY_CD_NM",
+        A.TSK_SJ AS "TSK_SJ"
+    FROM 
+        TB_PICTASK A
+        JOIN TB_PICMST B ON A.pic_mbl_telno = B.pic_mbl_telno
+        LEFT JOIN TB_CUSTPICREL C ON B.pic_mbl_telno = C.pic_mbl_telno
+        LEFT JOIN TB_CUSTMST D ON C.cust_mbl_telno = D.cust_mbl_telno
+    WHERE 
+        B.pic_nm = #{user_id}
+        AND A.tsk_bgng_dt BETWEEN 
+            TO_TIMESTAMP(CONCAT(#{year}, '-', LPAD(#{mon}, 2, '0'), '-', LPAD(#{day}, 2, '0'), ' 00:00:00'), 'YYYY-MM-DD HH24:MI:SS')
+            AND 
+            TO_TIMESTAMP(CONCAT(#{year}, '-', LPAD(#{mon}, 2, '0'), '-', LPAD(#{day}, 2, '0'), ' 23:59:59'), 'YYYY-MM-DD HH24:MI:SS')
+</select>
 	
 	<select id="getCustInfo" parameterType="cmmnMap" resultType="cmmnMap">
 	/* system.schedule_mng.getCustInfo */

@@ -76,7 +76,7 @@
 					</a>
 					<ul data-lnb="12" data-snb="0">
 						<li data-lnb="12" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/scheduleMng/scheduleList')">
+							<a href="#gm" onclick="cf_movePage('/schedule/calendar')">
 								<span class="title">스케쥴관리</span>
 							</a>
 						</li>						
@@ -88,13 +88,13 @@
 						<span class="title">GSITM 프로모션</span>
 					</a>
 					<ul data-lnb="13" data-snb="0">
-						<%-- <li data-lnb="13" data-snb="1">
+						<!-- <li data-lnb="13" data-snb="1">
 							<a href="#gm" onclick="cf_movePage('/promion_mng/list')">
 								<span class="title">설계이력조회</span>
 							</a>
-						</li>  --%> 
+						</li> -->
 						<li data-lnb="13" data-snb="2">
-							<a href="#gm" onclick="cf_movePage('/promion_mng/dtl')">
+							<a href="#gm" onclick="cf_movePage('/promion_mng/dtl?prod_ty_cd=1')">
 								<span class="title">금융계산기</span>
 							</a>
 						</li>					

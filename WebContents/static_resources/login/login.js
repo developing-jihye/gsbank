@@ -36,10 +36,11 @@ function findUserInfo() {
 	//TODO 정규식, 유효성검사 
 
 	// ajax로 전달할 값 세팅
-	var userNm = document.getElementById("userNm").value;
+	var userNm = document.getElementById("user").value;
 	var jncmpYmd = document.getElementById("jncmpYmd").value;
 	var mblTelno = document.getElementById("mblTelno").value;
-	/*
+	
+	
 	if (userNm == "") {
 		alert('사용자명 입력하세요');
 		return false;
@@ -53,8 +54,7 @@ function findUserInfo() {
 	if (mblTelno == "") {
 		alert('휴대폰 번호를 입력하세요');
 		return false;
-	}*/
-
+	}
 
 	$.ajax({
 		async: false, //값을 리턴시 해당코드를 추가하여 동기로 변경 false : 동기, true : 비동기
@@ -85,7 +85,6 @@ function findUserInfo() {
 		complete: function(response) {
 			console.log("완료후 로직 실행되는 로직");
 			console.log(response.message);
-
 
 
 

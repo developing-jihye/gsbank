@@ -42,8 +42,10 @@
 			<br />
 			
 			
+			
+			
+			
 					
-		
 			
 			
 			
@@ -55,21 +57,47 @@
             </div>
             <div class="form-group2">
                 <label for="prodCode" class="form-control">가입대상:</label>
-                <input id="prodCode" class="form-control" type="text" placeholder="상품코드 입력">
+                <select
+									v-model="sbstg_ty_cd" class="form-control">
+									
+									<!-- <option value="0">전체</option> -->
+									
+									<option value="1">일반개인</option>
+									<option value="2">청년생활지원</option>
+								</select>
             </div>
-            <div class="form-group2">
-                <label for="startDate" class="form-control">판매시작일:</label>
+            
+            
+           <!--  <div class="form-group2">
+                <label for="startDate" class="form-control">이후에 판매 시작:</label>
                 <input id="startDate" class="form-control" type="date">
-            </div>
+            </div> -->
+            
+            
             <div class="form-group2">
-                <label for="paymentCycle" class="form-control">납입주기:</label>
-                <select id="paymentCycle" class="form-control">
-                    <option value="">전체</option>
-                    <option value="1">월납</option>
-                    <option value="2">년납</option>
-                    <option value="3">일시납</option>
-                </select>
-            </div>
+    <label class="form-control">이후에 판매 시작:</label>
+    <input 
+        id="startDate" 
+        type="date" 
+        class="form-control" 
+        v-model="from_date"
+        style="width: 400px;"
+         placeholder="yyyy-mm-dd"
+        >
+</div>
+            
+            
+            
+           <div class="form-group2">
+    <label for="paymentCycle" class="form-control">납입주기:</label>
+    <select id="paymentCycle" class="form-control" v-model="pay_ty_cd">
+        <option value="">전체</option>
+        <option value="1">월납</option>
+        <option value="2">년납</option>
+        <option value="3">일시납</option>
+    </select>
+</div>
+            
             <div class="Align_A">
             
             <button type="button"
@@ -80,6 +108,8 @@
 						</div>
         </div>
         <div class="right">
+        
+        
         
         
         
@@ -420,13 +450,20 @@ function setDatePicker() {
 					$this.datepicker(opts).on("changeDate", function(e) {
 						var objID = e.currentTarget.id;
 						if (objID == 'fromdtbtn') { //시작일시
-							vueapp.from_date = e.date.format('yyyy-MM-dd')
+
+						/* 	vueapp.from_date = e.date.format('yyyy-MM-dd') */
+						
+							var formattedDate = e.date.format('yyyymmdd');
+		                    vueapp.from_date = formattedDate;
+							
+		                    
+		                    console.log("Selected Date (YYYYMMDD):", vueapp.from_date); // 콘솔 로그 추가
 						}
 					});
 				}
 			}, 300);
 }
-setDatePicker();
+/* setDatePicker(); */
 
 var todaystr = "${today}";
 var today = todaystr.toDate();
@@ -473,6 +510,12 @@ var vueapp = new Vue(
 			if(isInit === true){
 				cv_pagingConfig.pageNo = 1;
 			}
+			
+			
+			
+			var formattedDate = this.from_date ? this.from_date.replace(/-/g, '') : '';
+			
+			console.log("Formatted Date:", formattedDate);
 
 			var params = {}
 			if(this.all_srch != "Y") {
@@ -480,7 +523,7 @@ var vueapp = new Vue(
 					prod_nm : this.prod_nm,
 					sbstg_ty_cd : this.sbstg_ty_cd,
 					pay_ty_cd : this.pay_ty_cd,
-					from_date : this.from_date,
+					from_date : formattedDate,
 				}
 			}
 			cv_sessionStorage

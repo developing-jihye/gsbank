@@ -59,25 +59,28 @@
 
 <!-- 아이디 찾기 -->
 <div id="forgotten-id-container">
-   <h1>ID 찾기</h1>
+   <h1 class=findIdHeading>ID 찾기</h1>
   <span class="close-btn-inform">
     <img src="/static_resources/login/images/deletBtn.png">
   </span>
 
   <form class="findIdForm">
-        *사용자명 :
-        <input type="text" class="findIdForm-input" id="userNm" name="userNm" placeholder="" required autofocus>         
+        <!-- *사용자명 : -->
+        <input type="text" class="findIdForm-input" id="userNm" name="userNm" placeholder="사용자 이름"required autofocus >         
 
-        *연락처 :
+       <!--  *연락처 : -->
         <input type="text" class="findIdForm-input" id="mblTelno" name="mblTelno" placeholder="-를 제외한 번호를 입력" required autofocus>
                 
-        *입사일자 :
-        <input type="date" class="findIdForm-input" id="jncmpYmd" name="jncmpYmd" required pattern="\d{4}-\d{2}-\d{2}" placeholder="" required autofocus>
+       <!--  *입사일자 : -->
+        <input type="date" class="findIdForm-input" id="jncmpYmd" name="jncmpYmd" required pattern="\d{4}-\d{2}-\d{2}" placeholder="\d{4}-\d{2}-\d{2}" required autofocus>
+
+      <!--   사용자ID : -->
+        <input type="text" class="findIdForm-input" id="emlAddr" name="emlAddr" placeholder="사용자ID확인가능" >
+
 
         <input type="button" class="submitButton" onClick="findUserInfo()" value="확인"/>
 
-        사용자ID :
-        <input type="text" class="findIdForm-input" id="emlAddr" name="emlAddr" placeholder="" readonly>
+       
   </form>
 </div>
 
@@ -85,28 +88,30 @@
 
 <!-- Forgotten Password Container -->
 <div id="forgotten-pw-container">
-   <h1> PW 찾기 </h1>
+   <h1 class=findIdHeading> PW 찾기 </h1>
   <span class="close-btn-inform">
     <img src="/static_resources/login/images/deletBtn.png">
   </span>
 
     <form class="findPwForm">
-        *사용자명 :
-        <input type="text" class="findIdForm-input" id="findPwForm-userNm" name="findPwForm-userNm" placeholder="" required autofocus>         
+       
+        <!-- 사용자ID : -->
+      <!--   <input type="text" class="findIdForm-input" id="emlAddr" name="emlAddr" placeholder="사용자ID" required autofocus> -->
+       
+       <!--  *사용자명 : -->
+        <input type="text" class="findIdForm-input" id="findPwForm-userNm" name="findPwForm-userNm" placeholder="사용자 이름" required autofocus>         
 
-        *연락처 :
+      <!--   *연락처 : -->
         <input type="text" class="findIdForm-input" id="mblTelno" name="mblTelno" placeholder="-를 제외한 번호를 입력" required autofocus>
                 
-        *입사일자 :
-        <input type="date" class="findIdForm-input" id="jncmpYmd" name="jncmpYmd" required pattern="\d{4}-\d{2}-\d{2}" placeholder="" required autofocus>
+       <!--  *입사일자 : -->
+        <input type="date" class="findIdForm-input" id="jncmpYmd" name="jncmpYmd" required pattern="\d{4}-\d{2}-\d{2}" placeholder="연도-월-일" required autofocus>
        
-        사용자ID :
-        <input type="text" class="findIdForm-input" id="emlAddr" name="emlAddr" placeholder="">
-
+     <!--    비밀번호 : -->
+        <input type="text" class="findIdForm-input" id="pw" name="pw" placeholder="비밀번호" readonly>
+        
+        
         <input type="button" class="submitButton" onClick="findPw()" value="확인"/>
-
-        비밀번호 :
-        <input type="text" class="findIdForm-input" id="pw" name="pw" placeholder="" readonly>
 
   </form>
 </div>

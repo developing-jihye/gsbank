@@ -24,6 +24,204 @@
     --orange-100: rgb(233, 112, 52);
 }
 
+
+/* 컨테이너 스타일링 */
+.container {
+    display: flex;
+    width: 100%;
+    height: 800px;
+   
+    background-color: #fff;
+
+   
+}
+
+/* 왼쪽 컨테이너 스타일링 */
+.container .left {
+    flex: 1;
+    padding: 30px; 
+  /*   border-right: 2px solid black; */
+    border-radius: 22px;
+    background-color: rgb(108, 122, 137);
+     margin-right: 15px;
+}
+
+/* 오른쪽 컨테이너 스타일링 */
+.container .right {
+    flex: 1;
+    padding: 30px;
+    background-color: rgb(108, 122, 137);
+    border-radius: 22px;
+}
+
+
+
+
+.rounded-input {
+    border-radius: 20px; /* 원하는 값으로 조정 가능 */
+    border: 1px solid #ccc; /* 필요에 따라 border 색상 및 두께 조정 */
+    padding: 8px; /* 필요에 따라 패딩 조정 */
+}
+
+
+
+
+
+.panel-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+	 display: flex; /* Flexbox 컨테이너로 설정 */
+    margin-bottom: 10px;
+              align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 레이블과 입력 필드를 양 끝으로 정렬 */
+    
+}
+
+.form-group1 {
+	 display: flex; /* Flexbox 컨테이너로 설정 */
+    margin-bottom: 10px;
+    
+              align-items: center; /* 세로 중앙 정렬 */
+  justify-content: flex-start; /* 레이블과 입력 필드를 왼쪽으로 정렬 */
+    gap: 10px; /* 요소들 사이의 간격 설정 */
+    flex-wrap: wrap; 
+    
+}
+
+.form-control-label {
+    width: 50%;
+    font-weight: bold;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.form-control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-control {
+    flex: 1;
+    height: 50px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    background: #f9f9f9;
+}
+
+.form-control1 {
+   color: #fff;
+}
+
+
+.form-control2 {
+    display: flex;
+    align-items: center; /* 수직 정렬을 가운데로 설정 */
+    gap: 10px; /* 요소들 사이에 간격을 설정 */
+    height: 50px; /* 높이 설정 */
+    font-size: 14px; /* 글자 크기 설정 */
+    border: 1px solid #ccc; /* 테두리 설정 */
+    padding: 0 10px; /* 내부 여백 설정 */
+    background: #f9f9f9; /* 배경색 설정 */
+}
+
+.form-control2 input[type="text"] {
+    flex: 1; /* 입력 요소가 가로폭을 차지하도록 설정 */
+    margin: 0 5px; /* 입력 요소와 라벨 사이에 간격을 설정 */
+    padding: 5px; /* 입력 요소의 내부 여백 설정 */
+}
+
+
+
+.form-control3 {
+    display: flex;
+    align-items: left; /* 수직 정렬을 가운데로 설정 */
+    gap: 20px; /* 날짜 입력 필드 사이의 간격 설정 */
+}
+
+.date-group {
+    margin-left: 48px;
+    align-items: left; /* 수직 정렬을 가운데로 설정 */
+    gap: 5px; /* 날짜 입력 필드와 라벨 사이의 간격 설정 */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.form-group label {
+    width: 120px; /* 레이블의 너비를 설정하여 일관된 레이아웃 유지 */
+    text-align: left; /* 레이블을 오른쪽 정렬 */
+/*     margin-right: 5px; 레이블과 입력 필드 간의 간격 */
+}
+
+
+
+
+input.form-control[disabled] {
+    background: #e9ecef;
+}
+
+select.form-control {
+    height: 50px;
+}
+
+.form-control-textarea {
+    width: 100%;
+    height: 370px;
+    font-size: 13px;
+    border: 1px solid #666;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* 버튼 간의 간격 조정 */
+    justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+    width: 100%; /* 버튼 그룹이 컨테이너의 전체 너비를 차지하도록 설정 */
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-green {
+    background-color: #28a745;
+
+
+.form-group input { height: 50px; border: 1px solid var(--gray-200); margin-left:10px; font-size: 14px; }
+
+
+
+
+
+
+
+
+
 /* 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙타占쏙옙 */
 body {
     width: 100%;
@@ -85,15 +283,7 @@ body {
 
 .custdtlabel {height:30px; font-weight: bold; text-align: center;margin-right: -10px; line-height: 32px;}
 
-input.form-control {height:37px; margin-left: 5% }
-input.form-control[disabled] { background: var(--gray-100); }
-label.form-control {height:37px; font-weight: bold; }
-textarea.form-control[disabled] { background: var(--gray-100); padding: 4px 8px; }
-select.form-control {
-    width: 150px !important; /* !important로 우선순위 높이기 */
-    height: 37px;
-    margin-left : 5%;
-}
+
 
 /*** fix width of percentage**/
 .fix-width-33 {
@@ -101,9 +291,16 @@ select.form-control {
     max-width: 150px; /* 최대 너비 설정, 필요에 따라 조정 */
     text-align: center; /* 레이블 텍스트 오른쪽 정렬 (기본값) */
 }
-.panel-body {display: flex; width: 40%;}
+
+
+.panel-body {display: flex; width: 100%;}
+
 .panel-body h2 {text-align: center;/* 중앙 정렬 */font-size: 24px; margin-bottom: 20px;/* 원하는 폰트 크기로 변경 */}
+
+
 .left-panel{gap: 10px;display: flex;flex-direction: column;border: 1px solid #999999;margin: 10px;padding: 15px;}
+
+
 .right-panel{gap: 10px;display: flex;flex-direction: column;border: 1px solid #999999;margin: 10px;padding: 5px; }
 .contorllbox {}
 .info {
@@ -126,5 +323,6 @@ select.form-control {
   margin: auto 0;
   border-radius: 3px;
 }
+
 
 @charset "UTF-8";
