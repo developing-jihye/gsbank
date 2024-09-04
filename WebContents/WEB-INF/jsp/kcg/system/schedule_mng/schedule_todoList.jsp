@@ -26,7 +26,6 @@
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap"
 	rel="stylesheet">
 
-
 <!-- 의존성 스크립트 -->
 <script
 	src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>

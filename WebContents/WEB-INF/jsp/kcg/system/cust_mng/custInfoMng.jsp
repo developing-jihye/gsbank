@@ -110,6 +110,7 @@
         <button type="button" class="btn btn-blue3" @click="popupPicInfo" style="position: absolute;height: 28px;top: 5px;right: 31px;border-radius: 3px;">검색</button>
     </div>
 </div>
+<input type="hidden" id="user_id" v-model="user_id"> <!-- 숨겨진 user_id 필드 -->
 
 							<!-- <div class="form-group">
 										<label for="prod_nm" class="fix-width-33">상담내역:</label>
@@ -165,8 +166,43 @@
 				flush="false" />
 		</div>
 	</div>
+<!-- 담당자 팝업 -->
+<div class="modal fade" id="pop_pic_info">
+    <template>
+        <div class="modal-dialog" style="width: 500px;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="height: 400px; overflow: auto;" class="dataTables_wrapper">
+                        <table class="table table-bordered datatable dataTable">
+                            <thead style="position: sticky; top: 0px;">
+                                <tr>
+                                    <th class="center" style="width: 20%;">담당자명</th>
+                                    <th class="center" style="width: 20%;">부서명</th>
+                                    <th class="center" style="width: 20%;">직위</th>
+                                    <th class="center" style="width: 50%;">연락처</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- v-for를 통해 item 변수를 정의하고 사용 -->
+                                <tr v-for="item in dataList" :key="item.user_id" @click="selItem(item)"
+                                    style="cursor: pointer;">
+                                    <td class="center">{{item.pic_nm}}</td>
+                                    <td class="center">{{item.dept_nm}}</td>
+                                    <td class="center">{{item.jbps_ty_cd_nm}}</td>
+                                    <td class="center">{{item.pic_mbl_telno}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</div>
+<!-- 담당자 팝업 끝 -->
+</body>
 	<!-- 고객명 팝업 -->
-	<div class="modal fade" id="pop_cust_info">
+<!-- 	<div class="modal fade" id="pop_cust_info">
 		<template>
 			<div class="modal-dialog" style="width: 500px;">
 				<div class="modal-content">
@@ -191,42 +227,8 @@
 				</div>
 			</div>
 		</template>
-	</div>
+	</div> -->
 	<!-- 고객명 팝업 -->
-<!-- 담당자 팝업 -->
-<div class="modal fade" id="pop_pic_info">
-    <template>
-        <div class="modal-dialog" style="width: 500px;">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div style="height: 400px; overflow: auto;" class="dataTables_wrapper">
-                        <table class="table table-bordered datatable dataTable">
-                            <thead style="position: sticky; top: 0px;">
-                                <tr>
-                                    <th class="center" style="width: 20%;">담당자명</th>
-                                    <th class="center" style="width: 20%;">부서명</th>
-                                    <th class="center" style="width: 20%;">직위</th>
-                                    <th class="center" style="width: 50%;">연락처</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in dataList" @click="selItem(item)"
-                                    style="cursor: pointer;">
-                                    <td class="center">{{item.pic_nm}}</td>
-                                    <td class="center">{{item.dept_nm}}</td>
-                                    <td class="center">{{item.jbps_ty_cd_nm}}</td>
-                                    <td class="center">{{item.pic_mbl_telno}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
-</div>
-<!-- 담당자 팝업 끝 -->
-</body>
 <script>
 	var vueapp = new Vue({
 		el : "#vueapp",
@@ -243,14 +245,18 @@
 	        cust_addr: "",
 	        tsk_dtl_cn: "",
 	        pic_nm: "", // 선택된 담당자 이름
+	        user_id: "", // 추가된 user_id 필드
 	        pic_mbl_telno: "", // 선택된 담당자 핸드폰 번호
 	        dept_nm: "",
 	        jbps_ty_cd_nm: "",
+
 	    },
 		mounted : function() {
 			this.getInitInfo();
 			var params = cv_sessionStorage.getItem("params");
-			this.cust_nm = params.cust_nm;
+			if (params) {
+			    this.cust_nm = params.cust_nm;
+			}
 		},
 		methods : {
 			custInfo : function(isInit) {
@@ -301,7 +307,7 @@
 	            $('#pop_pic_info').modal('show');
 	        },
 
-	        getPicSelInfo: function (pic_nm) {
+	        getPicSelInfo: function(pic_nm) {
 	            var params = {
 	                pic_nm: pic_nm,
 	            }
@@ -373,48 +379,58 @@
 
 				}
 			},
-			custInsert : function() {
+	        // 고객 정보 등록
+	        custInsert: function() {
+	            var cust_nm = this.cust_nm2;
+	            var rrno = this.rrno;
+	            var cust_eml_addr = this.cust_eml_addr;
+	            var co_telno = this.co_telno;
+	            var cust_mbl_telno = this.cust_mbl_telno;
+	            var occp_ty_cd = this.occp_ty_cd;
+	            var cust_addr = this.cust_addr;
+	            var wrter_nm = "정약용";
+	            var curr_stcd = "0";
+	            var user_id = this.user_id;  // 수정된 부분: user_id 추가
+	            
+	            if (!user_id) {
+	                alert("담당자를 선택해 주세요.");
+	                return;
+	            }
 
-				var cust_nm = vueapp.cust_nm2;
-				var rrno = vueapp.rrno;
-				var cust_eml_addr = vueapp.cust_eml_addr;
-				var co_telno = vueapp.co_telno;
-				var cust_mbl_telno = vueapp.cust_mbl_telno;
-				var occp_ty_cd = vueapp.occp_ty_cd;
-				var cust_addr = vueapp.cust_addr;
-				var wrter_nm = "정약용";
-				var curr_stcd = "0";
+	            var params = {
+	                cust_nm: cust_nm,
+	                rrno: rrno,
+	                cust_eml_addr: cust_eml_addr,
+	                co_telno: co_telno,
+	                cust_mbl_telno: cust_mbl_telno,
+	                occp_ty_cd: occp_ty_cd,
+	                cust_addr: cust_addr,
+	                wrter_nm: wrter_nm,
+	                curr_stcd: curr_stcd,
+	                user_id: user_id, // user_id 추가
+	            };
+	            cf_ajax("/custMng/insertCustInfo", params, this.insertStsCB);
 
-				var params = {
-					cust_nm : cust_nm,
-					rrno : rrno,
-					cust_eml_addr : cust_eml_addr,
-					co_telno : co_telno,
-					cust_mbl_telno : cust_mbl_telno,
-					occp_ty_cd : occp_ty_cd,
-					cust_addr : cust_addr,
-					wrter_nm : wrter_nm,
-					curr_stcd : curr_stcd,
-				}
-				cf_ajax("/custMng/insertCustInfo", params, this.insertStsCB);
+	            var pic_mbl_telno = this.pic_mbl_telno;
+	            var rel_ty_cd = "10";
 
-				var pic_mbl_telno = vueapp.pic_mbl_telno;
-				var rel_ty_cd = "10";
-
-				var params = {
-					cust_mbl_telno : cust_mbl_telno,
-					pic_mbl_telno : pic_mbl_telno,
-					rel_ty_cd : rel_ty_cd,
-					wrter_nm : wrter_nm,
-					curr_stcd : curr_stcd,
-				}
-				cf_ajax("/custMng/insertPicRel", params, this.insertPicCB);
-			},
-			insertStsCB : function(data) {
+	            var params = {
+	                cust_mbl_telno: cust_mbl_telno,
+	                pic_mbl_telno: pic_mbl_telno,
+	                rel_ty_cd: rel_ty_cd,
+	                wrter_nm: wrter_nm,
+	                curr_stcd: curr_stcd,
+	            };
+	            cf_ajax("/custMng/insertPicRel", params, this.insertPicCB);
+	        },
+	        
+	        insertStsCB: function(data) {
 				if (data.status == "OK") {
 					alert("고객정보 입력 완료");
+					// 고객 등록 완료 후, 고객 목록 페이지로 이동 시 자동 조회하지 않도록 함
 				}
 			},
+			
 			insertPicCB : function(data) {
 				if (data.status == "OK") {
 
@@ -475,12 +491,21 @@
 					pop_pic_info.dataList = data;
 				});
 			},
-			selItem : function(pic_nm) {
+			
+	        selItem: function(item) { // 선택된 item을 전체로 받아옴
+	            $('#pop_pic_info').modal('hide');
 
-				$('#pop_pic_info').modal('hide');
-				//$('#pop_pic_info').hide();
-				vueapp.getPicSelInfo(pic_nm);
-			},
+	            // 선택된 담당자의 정보를 vueapp에 설정
+	            vueapp.pic_nm = item.pic_nm;
+	            vueapp.user_id = item.user_id; // user_id도 설정 (추가된 부분)
+	            vueapp.pic_mbl_telno = item.pic_mbl_telno;
+	            vueapp.dept_nm = item.dept_nm;
+	            vueapp.jbps_ty_cd_nm = item.jbps_ty_cd_nm;
+
+	            // 디버깅 로그 추가
+	            console.log("Selected User ID: ", vueapp.user_id);
+	        },
+
 		},
 	});
 </script>
