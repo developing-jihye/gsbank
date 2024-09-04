@@ -84,7 +84,11 @@ public class CalendarController {
     
     @RequestMapping("/event/delete")
     @ResponseBody
-    public CmmnMap deleteEvent(@RequestBody CmmnMap params) {
+    public CmmnMap deleteEvent(@RequestBody CmmnMap params, HttpServletRequest request, HttpServletResponse response) {
+    	  HttpSession session = request.getSession();
+          // 세션에서 값 꺼내기
+          String userId = (String) session.getAttribute("userId");
+          params.put("userId", userId);
         calendarService.deleteEvent(params);
         return new CmmnMap().put("status", "OK");
     }

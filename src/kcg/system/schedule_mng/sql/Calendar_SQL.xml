@@ -65,7 +65,7 @@
 	</update>
 	<delete id="deleteEvent" parameterType="CmmnMap">
 		DELETE FROM TB_CALENDAR_EVENTS
-		WHERE EVT_SN = #{EVT_SN} AND CALENDAR_ID = #{CALENDAR_ID}
+		WHERE EVT_SN = #{EVT_SN} AND USER_ID = #{userId}
 	</delete>
 
 </mapper>
