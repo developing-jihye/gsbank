@@ -373,217 +373,26 @@
 			            cv_sessionStorage.setItem('pagingConfig', cv_pagingConfig).setItem('params', params);
 			            cf_ajax("/custMng/getList", params, this.getListCB);
 			        },
-					getListAll : function(isInit) {
+			        getListAll: function(isInit) {
+			            cv_pagingConfig.func = this.getListAll;
+			            if (isInit === true) {
+			                cv_pagingConfig.pageNo = 1;
+			                cv_pagingConfig.orders = [{
+			                    target: "AVDAY_YMD",
+			                    isAsc: false
+			                }];
+			            }
 
-						cv_pagingConfig.func = this.getList;
-						if (isInit === true) {
-							cv_pagingConfig.pageNo = 1;
-							cv_pagingConfig.orders = [ {
-								target : "AVDAY_YMD",
-								isAsc : false
-							} ];
-						}
+			            var params = {
+			                search_nm: this.search_nm,
+			                search_val: this.search_val,
+			            };
 
-						var params = {
-							search_nm : this.search_nm,
-							search_val : this.search_val,
-						}
+			            cv_sessionStorage.setItem('pagingConfig', cv_pagingConfig).setItem('params', params);
 
-						cv_sessionStorage.setItem('pagingConfig',
-								cv_pagingConfig).setItem('params', params);
-
-						cf_ajax("/custMng/getListAll", params, this.getListCB);
-					},
-					getListAll: function(isInit) {
-					    console.log("getListAll 호출됨, 초기화 여부:", isInit);  // 디버깅용 콘솔 로그
-
-					    cv_pagingConfig.func = this.getListAll;
-					    if (isInit === true) {
-					        console.log("초기화 수행 중...");  // 디버깅용 콘솔 로그
-					        cv_pagingConfig.pageNo = 1;
-					        cv_pagingConfig.orders = [{
-					            target: "AVDAY_YMD",
-					            isAsc: false
-					        }];
-					    }
-
-					    // Ajax 요청을 대체하는 더미 데이터 생성
-					    var dummyData = [
-					        {
-					            cust_nm: "홍길동",
-					            rrno: "901010-1234567",
-					            cust_mbl_telno: "010-1234-5678",
-					            pic_nm: "김철수",
-					            cust_evt_ty_cd_nm: "Birthday",
-					            avday_ymd: "2024-12-01"
-					        },
-					        {
-					            cust_nm: "김영희",
-					            rrno: "920202-2345678",
-					            cust_mbl_telno: "010-8765-4321",
-					            pic_nm: "박영수",
-					            cust_evt_ty_cd_nm: "상령일",
-					            avday_ymd: "2024-11-15"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        {
-					            cust_nm: "이철수",
-					            rrno: "930303-3456789",
-					            cust_mbl_telno: "010-5678-1234",
-					            pic_nm: "정미경",
-					            cust_evt_ty_cd_nm: "입사기념일",
-					            avday_ymd: "2024-10-10"
-					        },
-					        // 더 많은 더미 데이터를 추가할 수 있습니다.
-					    ];
-
-					    console.log("더미 데이터 생성 완료:", dummyData);  // 디버깅용 콘솔 로그
-
-					    // 데이터 리스트에 더미 데이터를 할당
-					    this.dataList = dummyData;
-
-					    console.log("데이터 리스트 업데이트 완료");  // 디버깅용 콘솔 로그
-
-					    // 기존 Ajax 요청 부분은 주석 처리
-					    // cf_ajax("/custMng/getListAll", params, this.getListCB);
-
-					    console.log("Ajax 요청 대신 더미 데이터로 대체됨");  // 디버깅용 콘솔 로그
-					},
+			            // 실제 Ajax 요청으로 대체합니다.
+			            cf_ajax("/custMng/getListAll", params, this.getListCB);
+			        },
 					getListCB : function(data) {
 						//console.log(data);
 						this.dataList = data.list;

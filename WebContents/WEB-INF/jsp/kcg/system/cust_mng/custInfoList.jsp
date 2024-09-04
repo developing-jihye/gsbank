@@ -147,7 +147,7 @@
             <tbody>
                 <tr v-for="(item, index) in visibleDataList" :key="index" @click="gotoDtl(item.cust_mbl_telno)">
                     <td style="width: 5%;">
-                        <input type="checkbox" v-model="item.isChecked" @click.stop="onItemCheck">
+                        <input type="checkbox" v-model="item.isChecked" name="'is_check_' + index" @click.stop="onItemCheck">
                     </td>
                     <td style="width: 20%;">{{ item.cust_nm }}</td>
                     <td style="width: 20%;">{{ item.rrno }}</td>
@@ -675,9 +675,9 @@
 											<button type="button" class="btn" @click="popupPicInfo">
 												<i class="fa fa-search"></i>
 											</button>
-											<button type="button" class="btn btn-blue btn-icon icon-left"
+											<button type="button" class="btn btn-blue2 btn-icon icon-left"
 												style="margin-left: 5px;" @click="damdangSave">
-												등록 <i class="entypo-search"></i>
+												등록
 											</button>
 										</div>
 									</div>
@@ -731,7 +731,7 @@
 												style="width: 100%;"></textarea>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group" style="max-height: 200px; overflow-y: auto;">
 										<table class="table datatable dataTable">
 											<thead>
 												<tr class="replace-inputs">
@@ -766,7 +766,7 @@
 	</div>
 	<!--// 담당자설정 팝업  -->
 	<!-- 팝업 -->
-	<div class="modal fade" id="pop_pic_info">
+<div class="modal fade" id="pop_pic_info" ref="modal">
 		<template>
 			<div class="modal-dialog" style="width: 500px;">
 				<div class="modal-content">
@@ -829,7 +829,7 @@
                         newTskDtl: "",  // 새로운 상담내역 입력을 위한 변수
                         allSelected: false, // 전체 체크박스의 상태
                         autoSearch: true, // 고객 목록 자동 조회 여부 플래그
-                        filteredDataList: []  // 필터링된 데이터 리스트
+                        filteredDataList: [],  // 필터링된 데이터 리스트
                     }
                 },
                 
@@ -837,12 +837,18 @@
                     var urlParams = new URLSearchParams(window.location.search);
                     this.autoSearch = urlParams.get('autoSearch') !== 'false';
                     
-                    // 데이터 로드 및 초기화
-                    if (this.autoSearch) {
-                        this.loadData();
+                },
+                
+                computed: {
+                    isSearchEnabled() {
+                        // 조건 검색을 활성화하기 위해 하나라도 값이 있어야 함
+                        return this.cust_nm.trim() !== '' || 
+                               this.pic_nm.trim() !== '' || 
+                               this.rrno.trim() !== '' || 
+                               this.dept_nm.trim() !== '';
                     }
                 },
-                watch: {
+/*                 watch: {
                     cust_nm() {
                         this.filterData();
                     },
@@ -856,9 +862,9 @@
                         this.filterData();
                     }
                 },
-                
+                 */
                 methods: {
-                    loadData() {
+/*                     loadData() {
                         axios.get('/custMng/getCustInfoListAll').then(response => {
                             this.dataList = response.data.map(item => ({
                                 ...item,
@@ -867,7 +873,7 @@
                             this.filteredDataList = [...this.dataList];  // 초기 데이터 설정
                             this.addMoreItems(); // 초기 데이터 일부 표시
                         });
-                    },
+                    }, */
                     filterData() {
                         this.filteredDataList = this.dataList.filter(item => {
                             return (
@@ -908,70 +914,36 @@
                             item.isChecked = this.allSelected;
                         });
                     },
-                	//고객변경
-            custUpdate() {
-                var params = {
-                    cust_nm: this.selectedCustomer.cust_nm,
-                    wrt_dt: this.selectedCustomer.wrt_dt,
-                    rrno: this.selectedCustomer.rrno,
-                    cust_eml_addr: this.selectedCustomer.cust_eml_addr,
-                    co_telno: this.selectedCustomer.co_telno,
-                    cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
-                    occp_ty_cd_nm: this.selectedCustomer.occp_ty_cd_nm,
-                    cust_addr: this.selectedCustomer.cust_addr,
-                };
-                cf_ajax("/custMng/updateCust", params, this.changeStsCB);
-            },
-                  // 고객 정보 삭제 메서드
-                     custDelete: function () {
-                         var params = {
-                             cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
-                         };
-                         cf_ajax("/custMng/updateCustStcd", params, this.deleteStsCB);
-                     },
-
-                     // 변경 성공 콜백 메서드
-                     changeStsCB: function (data) {
-                         if (data.status == "OK") {
-                             alert("고객정보 변경 완료");
-                             this.getCustInfoList(true); // 변경 후 고객 목록을 다시 불러옵니다.
-                         }
-                     },
-
-                     // 삭제 성공 콜백 메서드
-                     deleteStsCB: function (data) {
-                         if (data.status == "OK") {
-                             alert("고객정보 삭제 완료");
-                             this.getCustInfoList(true); // 삭제 후 고객 목록을 다시 불러옵니다.
-                         }
-                     },
+                	
                      
                     
-                     getCustInfoList: function () {
-                         var params = {
-                             cust_nm: this.cust_nm || '',  // 입력된 고객명
-                             pic_nm: this.pic_nm || '',  // 입력된 관리 담당자
-                             rrno: this.rrno || '',  // 입력된 생년월일
-                             dept_nm: this.dept_nm || ''  // 입력된 관리부서
-                         };
+                     getCustInfoList: function (isInit) {
+                         if (!this.cust_nm.trim() && !this.pic_nm.trim() && !this.rrno.trim() && !this.dept_nm.trim()) {
+                             alert("검색 조건을 하나 이상 입력해 주세요.");
+                             return; // 조건이 만족되지 않으면 함수 실행 중단
+                         }
+                         cv_pagingConfig.func = this.getCustInfoList;
+                         if (isInit === true) {
+                             cv_pagingConfig.pageNo = 1;
+                             cv_pagingConfig.orders = [{ target: "cust_nm", isAsc: false }];
+                         }
 
-                         // AJAX 호출로 서버로부터 필터링된 데이터 가져오기
-                         axios.post('/custMng/getCustInfoList', params)
-                             .then(response => {
-                                 // 서버로부터 받은 데이터를 dataList에 저장하고,
-                                 // 필터링된 데이터로 visibleDataList를 업데이트합니다.
-                                 this.dataList = response.data.map(item => ({
-                                     ...item,
-                                     isChecked: false, // 체크박스 초기화
-                                 }));
-                                 this.filteredDataList = [...this.dataList];  // 필터링된 데이터로 리스트 갱신
-                                 this.visibleDataList = [];
-                                 this.addMoreItems(); // 필터링된 데이터로 다시 일부만 표시
-                             })
-                             .catch(error => {
-                                 console.error("There was an error fetching the data!", error);
-                             });
+                         var params = {
+                             search_nm: this.search_nm,
+                             search_val: this.search_val,
+                             pic_nm: this.pic_nm,
+                             dept_nm: this.dept_nm,
+                             cust_nm: this.cust_nm,
+                             rrno: this.rrno,
+                         }
+
+                         cv_sessionStorage
+                             .setItem('pagingConfig', cv_pagingConfig)
+                             .setItem('params', params);
+
+                         cf_ajax("/custMng/getCustInfoList", params, this.getListCB);
                      },
+                    	        
                     getCustInfoListAll: function (isInit) {
                         cv_pagingConfig.func = this.getCustInfoListAll;
                         if (isInit === true) {
@@ -1021,6 +993,55 @@
                         this.dataList = newData;
                         this.getFilteredDataList(); // 데이터 업데이트 후 필터링 수행
                     },
+                  //고객변경
+                    custUpdate() {
+                        // 모든 필드가 비어 있는지 확인하는 조건 추가
+                        if (!this.selectedCustomer.cust_nm.trim() ||
+                            !this.selectedCustomer.wrt_dt.trim() ||
+                            !this.selectedCustomer.rrno.trim() ||
+                            !this.selectedCustomer.cust_eml_addr.trim() ||
+                            !this.selectedCustomer.co_telno.trim() ||
+                            !this.selectedCustomer.cust_mbl_telno.trim() ||
+                            !this.selectedCustomer.occp_ty_cd_nm.trim() ||
+                            !this.selectedCustomer.cust_addr.trim()) {
+                            alert("모든 필드를 채워주세요.");  // 오류 메시지 표시
+                            return; // 조건이 만족되지 않으면 함수 실행 중단
+                        }
+                        var params = {
+                            cust_nm: this.selectedCustomer.cust_nm,
+                            wrt_dt: this.selectedCustomer.wrt_dt,
+                            rrno: this.selectedCustomer.rrno,
+                            cust_eml_addr: this.selectedCustomer.cust_eml_addr,
+                            co_telno: this.selectedCustomer.co_telno,
+                            cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
+                            occp_ty_cd_nm: this.selectedCustomer.occp_ty_cd_nm,
+                            cust_addr: this.selectedCustomer.cust_addr,
+                        };
+                        cf_ajax("/custMng/updateCust", params, this.changeStsCB);
+                    },
+                          // 고객 정보 삭제 메서드
+                             custDelete: function () {
+                                 var params = {
+                                     cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
+                                 };
+                                 cf_ajax("/custMng/updateCustStcd", params, this.deleteStsCB);
+                             },
+
+                             // 변경 성공 콜백 메서드
+                             changeStsCB: function (data) {
+                                 if (data.status == "OK") {
+                                     alert("고객정보 변경 완료");
+/*                                      this.getCustInfoList(true); // 변경 후 고객 목록을 다시 불러옵니다. */
+                                 }
+                             },
+
+                             // 삭제 성공 콜백 메서드
+                             deleteStsCB: function (data) {
+                                 if (data.status == "OK") {
+                                     alert("고객정보 삭제 완료");
+                                     this.getCustInfoList(true); // 삭제 후 고객 목록을 다시 불러옵니다.
+                                 }
+                             },
 
                  // 상담내역 수정 로직 추가
                     updateTskDtl: function () {
@@ -1155,7 +1176,9 @@ popCustmngCardPrint() {
                             rrno: item.rrno,
                             cust_mbl_telno: item.cust_mbl_telno,
                             occp_ty_cd_nm: item.occp_ty_cd_nm,
+                            isChecked: item.isChecked
                         }));
+                        console.log("선택된 고객 데이터:", dateCopyList);  // 디버깅용 출력
 
                         pop_damdang_set.init(dateCopyList);
                         $('#pop_damdang_set').modal('show');
@@ -1313,6 +1336,7 @@ popCustmngCardPrint() {
                         tsk_dtl_cn: "",
                     }
                 },
+                
                 methods: {
                 	init: function (dateCopyList) {
                 	    if (dateCopyList && dateCopyList.length > 0) {
@@ -1439,6 +1463,7 @@ popCustmngCardPrint() {
             var pop_damdang_set = new Vue({
                 el: "#pop_damdang_set",
                 data: {
+                	visibleDataList: [], 
                     picInfo: {
                         //custCount : 0,
                         pic_nm: "",
@@ -1452,10 +1477,40 @@ popCustmngCardPrint() {
                     }
                 },
                 methods: {
-                    init: function (dateCopyList) {
-                        this.initInfo(dateCopyList);
-                        this.getInitInfo();
+                    showModal: function () {
+                        this.$refs.modal.show();
                     },
+                    hideModal: function () {
+                        this.$refs.modal.hide();
+                    },
+                    loadData() {
+                        axios.get('/api/getCustomers')
+                            .then(response => {
+                                if (Array.isArray(response.data)) {
+                                    // 응답 데이터가 배열인 경우, 각 항목에 `isChecked` 속성을 추가
+                                    this.visibleDataList = response.data.map(item => ({
+                                        ...item,
+                                        isChecked: false // 초기화
+                                    }));
+                                    console.log("visibleDataList 설정 완료:", this.visibleDataList); // 디버깅용 로그
+                                } else {
+                                    console.error("서버에서 반환된 데이터가 배열이 아닙니다:", response.data);
+                                    this.visibleDataList = [];
+                                }
+                            })
+                            .catch(error => {
+                                console.error("데이터 로드 중 오류 발생:", error);
+                                this.visibleDataList = [];
+                            });
+                    },
+                	init: function (dateCopyList) {
+                	    console.log("init 메서드 호출됨, 전달된 dateCopyList:", dateCopyList); // 디버깅용 로그
+
+                	    this.initInfo(dateCopyList);
+                	    this.visibleDataList = dateCopyList;  // visibleDataList에 dateCopyList 할당
+                	    console.log("init 메서드 이후 visibleDataList 상태:", this.visibleDataList);
+                	    this.getInitInfo();
+                	},
                     initInfo: function (dateCopyList) {
                         this.picInfo = {
                             pic_nm: pic_nm,
@@ -1466,7 +1521,8 @@ popCustmngCardPrint() {
                             jncmp_ymd: jncmp_ymd,
                             etc_tsk_cn: etc_tsk_cn,
                             custList: dateCopyList,
-                        }
+                        };
+                        this.visibleDataList = dateCopyList;
                     },
                     getInitInfo: function () {
                         var params = {
@@ -1484,8 +1540,11 @@ popCustmngCardPrint() {
                         this.picInfo.etc_tsk_cn = data.etc_tsk_cn;
                     },
                     popupPicInfo: function () {
+                        console.log('Opening popup...');
                         pop_pic_info.init();
-                        $('#pop_pic_info').modal('show');
+                        $('#pop_pic_info').modal('show').on('shown.bs.modal', function () {
+                            console.log('Popup shown!');
+                        });
                     },
                     getPicSelInfo: function (pic_nm) {
                         var params = {
@@ -1494,7 +1553,7 @@ popCustmngCardPrint() {
                         cf_ajax("/custMng/getInitInfo", params, this.getInfoCB);
                     },
                     popupPicClose: function () {
-                        //pop_pic_info.init();
+                        pop_pic_info.init();
                         $('#pop_pic_info').modal('hide');
                     },
                     all_check: function (obj) {
@@ -1506,50 +1565,42 @@ popCustmngCardPrint() {
                         );
                     },
                     damdangSave: function () {
+                        console.log("damdangSave 메서드 호출됨");
 
-                        var chkedList = $("[name=is_check]:checked");
-                        if (chkedList.length == 0) {
+                        // visibleDataList 상태 확인
+                        console.log("현재 visibleDataList 상태:", this.visibleDataList);
+
+                        // 선택된 고객 필터링
+                        const checkedCustomers = this.visibleDataList.filter(item => item.isChecked);
+
+                        console.log("선택된 고객 리스트 (필터링 후):", checkedCustomers);  // 선택된 고객 리스트 확인
+
+                        if (checkedCustomers.length === 0) {
                             alert("변경할 고객대상을 선택하여 주십시오.");
                             return;
                         }
 
-                        //check list 가져오기..
-                        var dateCopyList = [];
-                        var idx;
-                        chkedList.each(function (i) {
-                            idx = $(this).attr("data-idx");
-                            dateCopyList.push(pop_damdang_set.picInfo.custList.getElementFirst("cust_nm", idx));
-                        });
-
-                        // 			alert("dateCopyList==>" + dateCopyList);
-                        // 			alert("dateCopyList.length==>" + dateCopyList.length);
-
-                        // 			//var cust_mbl_telno_list = [];
-                        // 			var cust_mbl_telno = [];
-
-                        // 		    for (var i = 0; i < dateCopyList.length; i++) {
-                        // 		    	cust_mbl_telno.push(dateCopyList[i].cust_mbl_telno);
-                        // 		    }
-
-                        // 		    alert("cust_mbl_telno_list==>" + cust_mbl_telno_list);
-
-                        // 		    alert("cust_mbl_telno==>" + typeof(cust_mbl_telno));
-
-                        var pic_mbl_telno_data = "";
-                        pic_mbl_telno_data = pop_damdang_set.picInfo.pic_mbl_telno;
-
-                        //alert("pic_mbl_telno==>" + pic_mbl_telno_data);
-
+                        // 서버로 보낼 데이터 구성
                         var params = {
-                            dateCopyList: dateCopyList,
-                            pic_mbl_telno: pic_mbl_telno_data,
-                        }
+                            dateCopyList: checkedCustomers,
+                            pic_mbl_telno: this.picInfo.pic_mbl_telno,
+                        };
+
+                        console.log("전송할 데이터:", params);  // 서버로 전송할 데이터 확인
+
+                        // 서버로 AJAX 요청 보내기
                         cf_ajax("/custMng/updatePicRoof", params, this.changeStsCB);
                     },
                     changeStsCB: function (data) {
-                        if (data.status == "OK") {
-                            this.getInitInfo();
+                        console.log("서버 응답:", data);  // 디버깅용: 서버 응답 확인
+
+                        if (data.status === "OK") {
                             alert("담당자 변경 완료");
+                            $('#pop_damdang_set').modal('show'); // 모달 닫기
+/*                             $('.modal-backdrop').modal('hide'); // 백드롭 제거 */
+                            
+                        } else {
+                            alert("담당자 변경 실패. 다시 시도해 주세요.");
                         }
                     },
                     damdangDelete: function () {
@@ -1583,23 +1634,39 @@ popCustmngCardPrint() {
                 },
                 methods: {
                     init: function () {
+                    	this.dataList = [];
                         this.getPicInfo();
                     },
                     getPicInfo: function () {
-                        this.dataList = [];
+                        
                         var params = {
                             pic_nm: " ",
                         }
 
                         cf_ajax("/custMng/getPicInfo", params, function (data) {
                             pop_pic_info.dataList = data;
+                            console.log("Data loaded for popup:", data);
                         });
                     },
                     selItem: function (pic_nm) {
 
                         //$('#pop_pic_info').modal('hide');
                         $('#pop_pic_info').hide();
+  /*                       $('.modal-backdrop').remove(); // 백드롭 제거 */
                         pop_damdang_set.getPicSelInfo(pic_nm);
+                    },
+                    mounted() {
+                        this.init();
+                        var self = this;
+                        $('#pop_pic_info').on('hidden.bs.modal', function () {
+                            // 모달이 닫힐 때 데이터를 다시 초기화
+                            self.init();
+                        });
+
+                        // 모달을 열 때 초기화 수행
+                        $('#pop_pic_info').on('show.bs.modal', function () {
+                            self.getPicInfo();
+                        });
                     },
                 },
             });
