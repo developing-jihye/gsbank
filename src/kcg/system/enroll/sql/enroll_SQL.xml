@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace='enroller'>
+
+	<!-- 상품 가입을 등록하는 테이블에서 상품 테이블의 상품 이름과 고객 테이블의 고객 이름을 JOIN하는 쿼리문(변경예정) -->
+	<select id="getList" parameterType="cmmnMap"
+		resultType="cmmnMap">
+		<!-- enroller.getList 서비스가 리포지토리를 사용해서 쿼리를사용는 연결코드 -->
+		/* system.cust_mng.getList */
+		SELECT
+		p.prodnm AS 상품이름,         <!-- 상품 이름 -->
+		c.custnm AS 고객이름          <!-- 고객 이름 -->
+		FROM
+		team4.tb_prd_enrl e          <!--  가입 테이블 -->
+		JOIN
+		team4.tb_prodmst p           <!--  상품 테이블 -->
+		ON
+		e.prod_cd = p.prod_cd        <!--  상품 코드로 조인 -->
+		JOIN
+		team4.tb_custmst c           <!--  고객 테이블 -->
+		ON
+		e.cust_mbl_telno = c.cust_mbl_telno   <!-- 고객 모바일 전화번호로 조인 --> 
+	</select>
+
+</mapper>
