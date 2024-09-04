@@ -45,7 +45,13 @@ public class CustMngSvc {
 	}
 	
 	public PageList<CmmnMap> getCustInfoList(CmmnMap params, PagingConfig pagingConfig) {
-		return cmmnDao.selectListPage("system.cust_mng.getCustInfoList", params, pagingConfig);
+	    // PagingConfig가 null인지 체크 (이 부분은 추가로 불필요할 수도 있음, Controller에서 이미 처리)
+	    if (pagingConfig == null) {
+	        throw new IllegalArgumentException("PagingConfig cannot be null");
+	    }
+
+	    // 기존 로직 수행
+	    return cmmnDao.selectListPage("system.cust_mng.getCustInfoList", params, pagingConfig);
 	}
 	
 	public PageList<CmmnMap> getCustInfoListAll(CmmnMap params, PagingConfig pagingConfig) {
@@ -226,6 +232,7 @@ public class CustMngSvc {
 		String cust_addr = params.getString("cust_addr");
 		String wrter_nm = params.getString("wrter_nm");
 		String curr_stcd = params.getString("curr_stcd");
+		String user_id = params.getString("user_id");
 		
 		params.put("cust_mbl_telno", cust_mbl_telno);
 		params.put("cust_nm", cust_nm);
@@ -236,6 +243,7 @@ public class CustMngSvc {
 		params.put("cust_addr", cust_addr);
 		params.put("wrter_nm", wrter_nm);
 		params.put("curr_stcd", curr_stcd);
+		params.put("user_id", user_id);
 		
 		cmmnDao.insert("system.cust_mng.insertCustInfo", params);
 		

@@ -254,7 +254,7 @@ var vueapp = new Vue({
         	var jncmp_ymd = vueapp.jncmp_ymd;
         	var etc_tsk_cn = vueapp.etc_tsk_cn;
         	var user_id = "ddja01a";
-        	var user_pswd = "ddja01a123";
+        	var user_pswd = "ddja01";
         	var wrter_nm  = "정약용";
         	var curr_stcd = "0";
 		    

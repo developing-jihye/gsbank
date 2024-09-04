@@ -101,10 +101,9 @@ public class CustMngCtl {
 	
 	@RequestMapping("/getCustInfoList")
 	public PageList<CmmnMap> getCustInfoList(CmmnMap params, PagingConfig pagingConfig) {
-		PageList<CmmnMap> pageList = custMngSvc.getCustInfoList(params, pagingConfig); 
-		log.debug("{}",pageList);
-		return pageList;
-		//return custMngSvc.getList(params, pagingConfig);
+	    PageList<CmmnMap> pageList = custMngSvc.getCustInfoList(params, pagingConfig); 
+	    log.debug("{}",pageList);
+	    return pageList;
 	}
 	
 	@RequestMapping("/getCustInfoListAll")

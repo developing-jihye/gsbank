@@ -4109,6 +4109,21 @@ fieldset[disabled] .btn-orange.focus {
   padding-right: 12px;
   padding-left: 39px;
 }
+
+
+.align11 {
+    display: flex;            /* Makes the button a flex container */
+    align-items: center;      /* Vertically centers content */
+    justify-content: center;  /* Horizontally centers content */
+    text-align: center;       /* Ensures text is centered within its container */
+    padding: 0.5em 1em;       /* Adjust padding as needed */
+    border: none;             /* Removes default button border */
+}
+
+
+
+
+
 .btn-orange.btn-icon.icon-left i {
   float: left;
   right: auto;

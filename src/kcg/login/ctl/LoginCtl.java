@@ -97,6 +97,8 @@ public class LoginCtl {
 			auth_menulist = userInfoVO.getMenuList();
 			// log.debug("getName = " + userInfoVO.getName());
 			session.setAttribute("userName", userInfoVO.getName());
+			session.setAttribute("userId", userInfoVO.getUserId());
+			log.info("아이디 =====>" + userInfoVO.getUserId());
 		} else {
 			auth_menulist = new ArrayList<MenuVO>();
 		}

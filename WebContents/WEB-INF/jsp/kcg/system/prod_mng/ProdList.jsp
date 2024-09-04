@@ -116,7 +116,7 @@
         
     
         
-        <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background round1"
+        <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background"
 						style="justify-content: flex-end; border: 1px solid #999999;">
 						
 						
@@ -136,7 +136,7 @@
 					
 					
 					
-					<div style="height: 30px;"></div>
+					<div style="height: 15px;"></div>
 					
 					<div class="table-container" style="max-height: 580px; overflow-y: auto; border: 1px solid #999999;">
     <table class="table table-bordered datatable dataTable custom-table"

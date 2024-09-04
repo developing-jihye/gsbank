@@ -23,10 +23,10 @@
 		
 		<ol class="breadcrumb bc-3">
 			<li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
-			<li class="active"><strong>사용자 관리</strong></li>
+			<li class="active"><strong>상품 가입</strong></li>
 		</ol>
 	
-		<h2>사용자 목록</h2>
+	
 		<br />
 		
     <div class="flex-column" id="vueapp">
