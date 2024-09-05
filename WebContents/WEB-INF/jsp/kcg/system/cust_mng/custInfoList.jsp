@@ -15,7 +15,7 @@
 <link rel="stylesheet"
 	href="/static_resources/system/js/select2/select2.css">
 <link rel="stylesheet"
-	href="/static_resources/system/js/datatables/proddtl.css">
+	href="/static_resources/system/js/datatables/custcss.css">
 <title>관리자시스템</title>
 </head>
 
@@ -91,6 +91,7 @@
             </div>
         </div> -->
 						</div>
+					</div>
 					</div>
 					<div style="display: flex; width: 100%; gap: 20px;">
 
