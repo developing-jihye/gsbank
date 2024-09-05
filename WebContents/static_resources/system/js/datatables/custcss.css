@@ -24,6 +24,19 @@
     --orange-100: rgb(233, 112, 52);
 }
 
+.main{
+	display: flex; 
+	flex-direction: column;
+	gap: 10px;
+}
+
+.main-searchcontainer{
+	display: flex;
+	flex: 1 1 calc(100% - 6px);
+}
+
+
+
 /* 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙타占쏙옙 */
 body {
     width: 100%;
