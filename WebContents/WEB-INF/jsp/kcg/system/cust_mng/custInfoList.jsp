@@ -40,9 +40,9 @@
 			<h2>고객정보 목록</h2>
 			<br />
 
-			<div class="flex-column flex-gap-10" id="vueapp">
+			<div class="main" id="vueapp">
 				<template>
-					<div class="flex flex-100">
+					<div class="main-searchcontainer">
 						<div class="flex-wrap flex-100 flex flex-gap-10 flex-padding-15"
 							style="justify-content: center; flex-direction: column; align-items: center;">
 							<div
@@ -52,15 +52,15 @@
 										class="form-control" v-model="cust_nm" value="">
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">관리담당자:</label> <input
+									<label class="fix-width-33">관리담당자 :</label> <input
 										class="form-control" v-model="pic_nm" value="">
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">생년월일:</label> <input type="text"
+									<label class="fix-width-33">생년월일 :</label> <input type="text"
 										class="form-control" v-model="rrno">
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">관리부서:</label> <input type="text"
+									<label class="fix-width-33">관리부서 :</label> <input type="text"
 										class="form-control" v-model="dept_nm">
 								</div>
 							</div>

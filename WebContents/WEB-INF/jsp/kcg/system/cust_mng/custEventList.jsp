@@ -42,19 +42,17 @@
 			<br />
 			<div class="flex-column flex-gap-10" id="vueapp">
 				<template>
-					<!-- 조회 입력창과 조회 버튼을 한 div로 묶기 -->
-					<div class="flex flex-100"
-						style="justify-content: center; align-items: center; margin-bottom: 20px;">
-						<div class="flex flex-100 flex-wrap flex-gap-10 flex-padding-15"
-							style="justify-content: center; align-items: center;">
+					<div class="flex flex-100">
+						<div class="flex-wrap flex-100 flex flex-gap-10 flex-padding-15"
+							style="justify-content: center; flex-direction: column; align-items: center;">
 							<div
 								style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
 								<div class="form-group flex-40">
-									<label class="fix-width-33">고객명:</label> <input
+									<label class="fix-width-33">고객명 :</label> <input
 										class="form-control" v-model="cust_nm" value="">
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">고객이벤트:</label> <select
+									<label class="fix-width-33">고객이벤트 :</label> <select
 										class="form-control" id="search_nm" v-model="cust_evt_ty_cd"
 										@change="getList(true)" style="margin-right: 24px;">
 										<option value="10">Birthday</option>
@@ -66,7 +64,7 @@
 									</select>
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">관리부서:</label> <input type="text"
+									<label class="fix-width-33">관리부서 :</label> <input type="text"
 										class="form-control" v-model="dept_nm">
 								</div>
 								<div class="form-group flex-40">
@@ -75,20 +73,19 @@
 								</div>
 							</div>
 
-							<!-- 조회 버튼을 포함하는 div -->
+							<!-- 검색 버튼들을 아래로 이동 -->
 							<div
 								style="display: flex; justify-content: center; width: 100%; margin-top: 0px;">
 								<!-- 버튼들을 하나의 div로 묶고 중앙 정렬 -->
 								<div style="display: flex; justify-content: center; gap: 20%;">
 									<button type="button" class="btn btn-blue2 btn-icon icon-left"
-										v-model="search_val" @click="getList(true)"
-										>조건검색</button>
+										v-model="search_val" @click="getList(true)">조건검색</button>
 									<button type="button" class="btn btn-blue2 btn-icon icon-left"
-										v-model="search_val" @click="getListAll(true)"
-										>전체검색</button>
+										v-model="search_val" @click="getListAll(true)">전체검색</button>
 								</div>
 							</div>
 						</div>
+					</div>
 					</div>
 					<!-- 아래 박스들: 인쇄 버튼과 테이블 -->
 					<div class="flex flex-100 flex-padding-10 flex-gap-10"
