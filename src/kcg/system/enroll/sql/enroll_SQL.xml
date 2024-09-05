@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace='system.enroll'>
+
+	<!-- 상품 가입을 등록하는 테이블에서 상품 테이블의 상품 이름과 고객 테이블의 고객 이름을 JOIN하는 쿼리문(변경예정) -->
+	<select id="getList" parameterType="cmmnMap"
+		resultType="cmmnMap">
+
+		/* system.enroll.getList */
+		SELECT
+		p.prod_nm,                  
+		c.cust_nm                   
+		FROM
+		tb_prd_enrl e          
+		JOIN
+		tb_prodmst p          
+		ON
+		e.prod_cd = p.prod_cd       
+		JOIN
+		tb_custmst c           
+		ON
+		e.cust_mbl_telno = c.cust_mbl_telno  
+	</select>
+
+</mapper>

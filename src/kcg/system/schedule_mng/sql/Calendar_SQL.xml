@@ -19,7 +19,7 @@
 		OR
 		(CALENDAR_ID = 'personal' AND USER_ID = #{userId})
 		OR (CALENDAR_ID =
-		'team' AND USER_ID = #{userId});
+		'team' AND JIKGUB_CD = #{jikgubCd});
 		<!-- OR (CALENDAR_ID = 'personal' AND PIC_MBL_TELNO = #{userPhoneNumber}) -->
 		<!-- OR (CALENDAR_ID = 'team' AND EVT_ATND_LST = #{userTdeptNm}) -->
 	</select>
@@ -31,16 +31,20 @@
 		EVT_LOCATION,
 		EVT_BGNG_DT, EVT_END_DT, IS_ALL_DAY, EVT_CATEGORY,
 		EVT_STCD,
-		IS_PRIVATE, WRTER_NM, WRT_DT, EVT_ATND_LST,IAM_YN,USER_ID
+		IS_PRIVATE, WRTER_NM, WRT_DT, EVT_ATND_LST,IAM_YN,USER_ID,
+		JIKGUB_CD
 		)
 		VALUES (
-		#{EVT_SN}, #{PIC_MBL_TELNO}, #{CALENDAR_ID}, #{EVT_TITLE},
+		#{EVT_SN}, #{PIC_MBL_TELNO}, #{CALENDAR_ID},
+		#{EVT_TITLE},
 		#{EVT_LOCATION},
-		#{EVT_BGNG_DT}, #{EVT_END_DT}, #{IS_ALL_DAY},
+		#{EVT_BGNG_DT}, #{EVT_END_DT},
+		#{IS_ALL_DAY},
 		#{EVT_CATEGORY},
 		#{EVT_STCD},
-		#{IS_PRIVATE}, #{WRTER_NM}, NOW(),
-		#{EVT_ATND_LST},'N', #{userId}
+		#{IS_PRIVATE}, #{WRTER_NM},
+		NOW(),
+		#{EVT_ATND_LST},'N', #{userId}, #{jikgubCd}
 		)
 	</insert>
 
@@ -64,7 +68,8 @@
 		#{EVT_SN}
 	</update>
 	<delete id="deleteEvent" parameterType="CmmnMap">
-		DELETE FROM TB_CALENDAR_EVENTS
+		DELETE FROM
+		TB_CALENDAR_EVENTS
 		WHERE EVT_SN = #{EVT_SN} AND USER_ID = #{userId}
 	</delete>
 
