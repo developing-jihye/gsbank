@@ -14,8 +14,8 @@
 		<webcontent-dir>${project.basedir}/WebContents/WEB-INF/lib</webcontent-dir>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
 	</properties>
-	
-	
+
+
 	<!-- KOMORAN 
 	<repositories>
 		<repository>
@@ -231,7 +231,8 @@
 			<version>0.2.7</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-		<!-- Guava는 Google이 제공하는 Java 프로그래밍을 위한 유틸리티 라이브러리로, 다양한 기능과 유틸리티 클래스를 제공하여 개발을 간편하게 도와줍니다. -->
+		<!-- Guava는 Google이 제공하는 Java 프로그래밍을 위한 유틸리티 라이브러리로, 다양한 기능과 유틸리티 클래스를
+		제공하여 개발을 간편하게 도와줍니다. -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -295,6 +296,14 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+
+		<!-- JSON 추가 -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20230227</version>
+		</dependency>
+
 		<!-- hive DB -->
 		<!-- <dependency> -->
 		<!-- <groupId>org.apache.hive</groupId> -->
@@ -359,7 +368,7 @@
 			<artifactId>libfb303</artifactId>
 			<version>0.9.3</version>
 		</dependency>
-		
+
 		<!--
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
@@ -380,7 +389,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency> -->
-		
+
 		<!-- jwt -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
@@ -399,7 +408,7 @@
 			</exclusions>
 		</dependency>
 		<!-- 외부라이브러리 -->
-		
+
 		<!--
 		<dependency>
 			<groupId>third-party</groupId>
@@ -415,7 +424,8 @@
 			<scope>system</scope>
 			<systemPath>${webcontent-dir}/tools.jar</systemPath>
 		</dependency>-->
-		<!-- https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor -->
+		<!--
+		https://mvnrepository.com/artifact/com.drewnoakes/metadata-extractor -->
 		<dependency>
 			<groupId>com.drewnoakes</groupId>
 			<artifactId>metadata-extractor</artifactId>
@@ -482,37 +492,37 @@
 					<packagingExcludes>**/*.java</packagingExcludes>
 				</configuration>
 			</plugin>
-			
-			
+
+
 			<!-- Checkstyle 플러그인 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.1</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>9.3</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-			
-			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.1.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>9.3</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<configLocation>checkstyle.xml</configLocation>
+					<encoding>UTF-8</encoding>
+					<consoleOutput>true</consoleOutput>
+					<failsOnError>true</failsOnError>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+
 		</plugins>
 	</build>
 </project>
