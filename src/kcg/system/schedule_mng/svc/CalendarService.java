@@ -28,9 +28,10 @@ public class CalendarService {
     @Autowired
     private CommonSvc commonSvc;
 
-    public List<CmmnMap> getAllEvents(String userId) {
+    public List<CmmnMap> getAllEvents(String userId, String jikgubCd) {
     	CmmnMap params = new CmmnMap();
-        params.put("userId", userId); // userId만 사용
+        params.put("userId", userId);
+        params.put("jikgubCd", jikgubCd);// userId만 사용
         logger.info("Fetching events with userId: {}", userId);
 
         List<CmmnMap> events = cmmnDao.selectList("Calendar.getAllEvents", params);
