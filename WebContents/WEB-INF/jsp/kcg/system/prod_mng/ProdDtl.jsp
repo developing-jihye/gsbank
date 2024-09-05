@@ -41,15 +41,15 @@
         <div class="left-panel flex-66">
         
             <div class="form-group">
-                <label for="prod_nm" class="form-control1">상품명:</label>
+                <label for="prod_nm" class="form-control2">상품명:</label>
                 <input type="text" class="form-control" id="prod_nm" v-model="info.prod_nm">
             </div>
             <div class="form-group">
-                <label for="prod_cd" class="form-control1">상품코드:</label>
+                <label for="prod_cd" class="form-control2">상품코드:</label>
                 <input type="text" class="form-control" id="prod_cd" v-model="info.prod_cd" :disabled="info.wrter_nm!=''&&info.wrter_nm!=undefined">
             </div>
             <div class="form-group">
-                <label for="prod_ty_cd" class="form-control1">상품유형:</label>
+                <label for="prod_ty_cd" class="form-control2">상품유형:</label>
                 <select class="form-control" id="prod_ty_cd" v-model="info.prod_ty_cd" :disabled="info.wrter_nm!=''&&info.wrter_nm!=undefined">
                     <option value="1">적금설계</option>
                     <option value="2">목돈마련설계</option>
@@ -58,15 +58,19 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="sbstg_ty_cd" class="form-control1">가입대상:</label>
+                <label for="sbstg_ty_cd" class="form-control2">가입대상:</label>
                 <select class="form-control" id="sbstg_ty_cd" v-model="info.sbstg_ty_cd">
                     <option value="1">일반개인</option>
                     <option value="2">청년생활지원</option>
                     <option value="3">장애자우선지원</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="ntsl_amt_min" class="form-control1">가입금액:</label>
+            
+            
+            
+            
+           <!--  <div class="form-group">
+                <label for="ntsl_amt_min" class="form-control2">가입금액:</label>
                 <div class="form-control2">
                     <label>(최소)</label>
                     <input type="text" id="ntsl_amt_min" v-model="info.ntsl_amt_min" class="rounded-input">
@@ -75,8 +79,25 @@
                     <label>원</label>
                 </div>
             </div>
+             -->
+             
+           <div class="form-group1">
+    <label for="ntsl_amt_min" class="form-control2">가입금액:</label>
+    <div class="input-container">
+        <label>(최소)</label>
+        <input type="text" id="ntsl_amt_min" v-model="info.ntsl_amt_min" class="rounded-input">
+        <label>원 ~ (최대)</label>
+        <input type="text" id="ntsl_amt_max" v-model="info.ntsl_amt_max" class="rounded-input">
+        <label>원</label>
+    </div>
+</div>
+            
+            
+            
+            
+            
             <div class="form-group">
-                <label for="pay_ty_cd" class="form-control1">납입주기:</label>
+                <label for="pay_ty_cd" class="form-control2">납입주기:</label>
                 <select class="form-control" id="pay_ty_cd" v-model="info.pay_ty_cd">
                     <option value="1">월납</option>
                     <option value="2">년납</option>
@@ -84,12 +105,14 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="prod_air_min"  class="form-control1">적용이율(최저):</label>
+                <label for="prod_air_min"  class="form-control2">적용이율(최저):</label>
                 <input type="text" class="form-control" id="prod_air_min" v-model="info.prod_air_min">
             </div>
-            <div class="form-group">
-                <label for="prod_air_max" class="form-control1">적용이율(최대):</label>
-                <div class="form-control2">
+            
+            
+            <div class="form-group1">
+                <label for="prod_air_max" class="form-control2">적용이율(최대):</label>
+                <div class="input-container">
                     <label>(최소)</label>
                     <input type="text" id="prod_air_min" v-model="info.prod_air_min" class="rounded-input">
                     <label>%  ~ (최대)</label>
@@ -97,8 +120,11 @@
                     <label>%</label>
                 </div>
             </div>
-            <div class="form-group1">
-                <label for="prod_air_bgng_ymd" class="form-control1">적용기간:</label>
+            
+            
+            
+            <div class="form-group4">
+                <label for="prod_air_bgng_ymd" class="form-control2">적용기간:</label>
                 
                 
              <!--    <div class="form-control3">
@@ -107,22 +133,29 @@
                     <input type="date" id="prod_air_end_ymd" v-model="info.prod_air_end_ymd">
                     <label>End</label> -->
                     
-                    <div class="form-control3">
+                    
+                
+              
     <div class="date-group">
+    
+    <label for="prod_air_bgng_ymd">From</label>
         <input type="date" id="prod_air_bgng_ymd" v-model="info.prod_air_bgng_ymd">
-        <label for="prod_air_bgng_ymd">To</label>
+        
     </div>
     <div class="date-group">
+          <label for="prod_air_end_ymd">To</label>
         <input type="date" id="prod_air_end_ymd" v-model="info.prod_air_end_ymd">
-        <label for="prod_air_end_ymd">End</label>
-    </div>
+  
+  
+  
 </div>
                     
                     
                 </div>
+                
             </div>
             <div class="form-group">
-                <label for="int_tax_ty_cd_nm" class="form-control1">이자과세구분:</label>
+                <label for="int_tax_ty_cd_nm" class="form-control2">이자과세구분:</label>
                 <select class="form-control" id="int_tax_ty_cd" v-model="info.int_tax_ty_cd">
                     <option value="1">일반과세</option>
                     <option value="2">세금우대</option>
@@ -130,7 +163,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="curr_stcd" class="form-control1">판매상태:</label>
+                <label for="curr_stcd" class="form-control2">판매상태:</label>
                 <select class="form-control" id="curr_stcd" v-model="info.curr_stcd">
                     <option value="0">정상(판매)</option>
                     <option value="1">판매준비</option>
@@ -138,19 +171,21 @@
                     <option value="3">판매중지</option>
                 </select>
             </div>
-           <div class="form-group1">
-    <label for="ntsl_bgng_ymd" class="form-control1">판매기간:</label>
+           <div class="form-group4">
+    <label for="ntsl_bgng_ymd" class="form-control2">판매기간:</label>
 
-    <div class="form-control3">
+ 
         <div class="date-group">
+          <label for="ntsl_bgng_ymd">From</label>
             <input type="date" id="ntsl_bgng_ymd" v-model="info.ntsl_bgng_ymd">
-            <label for="ntsl_bgng_ymd">To</label>
+          
         </div>
         <div class="date-group">
+        <label for="ntsl_end_ymd">To</label>
             <input type="date" id="ntsl_end_ymd" v-model="info.ntsl_end_ymd">
-            <label for="ntsl_end_ymd">End</label>
+            
         </div>
-    </div>
+   
 </div>
 
 <!--  <div class="form-group">
