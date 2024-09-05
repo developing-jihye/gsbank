@@ -10,7 +10,7 @@
 <link rel="stylesheet"
 	href="/static_resources/system/js/datatables/datatables.css">
 <link rel="stylesheet"
-	href="/static_resources/system/js/datatables/proddtl.css">
+	href="/static_resources/system/js/datatables/custcss.css">
 <link rel="stylesheet"
 	href="/static_resources/system/js/select2/select2-bootstrap.css">
 <link rel="stylesheet"
@@ -330,7 +330,7 @@
 					search_val : "",
 				},
 			    mounted: function() {
-			        var fromDtl = cf_getUrlParam("fromDtl");
+			        /* var fromDtl = cf_getUrlParam("fromDtl");
 			        var pagingConfig = cv_sessionStorage.getItem("pagingConfig");
 			        if ("Y" === fromDtl && !cf_isEmpty(pagingConfig)) {
 			            cv_pagingConfig.pageNo = pagingConfig.pageNo;
@@ -348,10 +348,14 @@
 			        } else {
 			            cv_sessionStorage.removeItem("pagingConfig").removeItem("params");
 			            this.getList(true);
-			        }
+			        } */
 			    },
 				methods : {
 			        getList: function(isInit) {
+                        if (!this.cust_nm.trim() && !this.cust_evt_ty_cd.trim() && !this.dept_nm.trim() && !this.wrt_dt.trim()) {
+                            alert("검색 조건을 하나 이상 입력해 주세요.");
+                            return; // 조건이 만족되지 않으면 함수 실행 중단
+                        }
 			            cv_pagingConfig.func = this.getList;
 			            if (isInit === true) {
 			                cv_pagingConfig.pageNo = 1;
