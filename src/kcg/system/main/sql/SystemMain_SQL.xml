@@ -2,68 +2,282 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace='system.main'>
 
-	<select id="getTodayStat" parameterType="string" resultType="cmmnMap">
-	/* system.main.getTodayStat */
+	<!-- 고객 연령대 분포를 조회하는 쿼리 -->
+	<select id="fetchCustomerAgeDistribution" parameterType="String"
+		resultType="cmmnMap">
+		/* system.main.fetchCustomerAgeDistribution*/
 		SELECT
-			SUM(visit_cnt) visit_cnt
-			,SUM(reg_cnt) reg_cnt
-			,SUM(req_anal_tool_cnt) req_anal_tool_cnt
-			,SUM(req_data_anal_cnt) req_data_anal_cnt
-			,SUM(req_data_collect_cnt) req_data_collect_cnt
-			,SUM(req_dnld_cnt) req_dnld_cnt
-			,SUM(share_anal_idea_cnt) share_anal_idea_cnt
-			,SUM(share_data_visual_cnt) share_data_visual_cnt
-			,SUM(share_use_example_cnt) share_use_example_cnt
-			,SUM(communi_bigdata_cnt) communi_bigdata_cnt
-			,SUM(communi_inquire_cnt) communi_inquire_cnt
-			,SUM(communi_lib_cnt) communi_lib_cnt
-			,SUM(communi_news_cnt) communi_news_cnt
+		CASE
+		WHEN 2024 - birth_year BETWEEN 20 AND 29 THEN '20대'
+		WHEN 2024 -
+		birth_year BETWEEN 30 AND 39 THEN '30대'
+		WHEN 2024 - birth_year BETWEEN
+		40 AND 49 THEN '40대'
+		WHEN 2024 - birth_year BETWEEN 50 AND 59 THEN
+		'50대'
+		WHEN 2024 - birth_year BETWEEN 60 AND 69 THEN '60대'
+		ELSE '기타'
+		END
+		AS ageGroup,
+		COUNT(DISTINCT cust_mbl_telno) AS count
+		FROM (
+		SELECT
+		CASE
+		WHEN SUBSTR(rrno, 8, 1) IN ('1', '2', '5', '6') THEN 1900
+		WHEN
+		SUBSTR(rrno, 8, 1) IN ('3', '4', '7', '8') THEN 2000
+		ELSE 1800
+		END +
+		CAST(SUBSTR(rrno, 1, 2) AS INTEGER) AS birth_year,
+		cust_mbl_telno
 		FROM
-			t_statistic
-		WHERE 1=1
-			AND statistic_date = #{statistic_date}
+		team4.tb_custmst
+		WHERE
+		USER_ID = #{userId}
+		) AS birth_data
+		GROUP BY
+		ageGroup
+		ORDER BY ageGroup;
 	</select>
-	
+
+	<!-- 고객 성별 분포를 조회하는 쿼리 -->
+	<select id="fetchCustomerGenderDistribution"
+		parameterType="String" resultType="cmmnMap">
+		/*system.main.fetchCustomerGenderDistribution*/
+		SELECT
+		CASE
+		WHEN
+		MOD(CAST(COALESCE(NULLIF(SUBSTR(rrno, 8, 1),
+		''), '0') AS INT), 2) =
+		1
+		THEN '남성'
+		ELSE '여성'
+		END AS gender,
+		COUNT(*) AS
+		count
+		FROM tb_custmst
+		WHERE
+		USER_ID = #{userId}
+		GROUP
+		BY gender
+	</select>
+
+	<!-- 고객 직업 분포를 조회하는 쿼리 -->
+	<select id="fetchCustomerJobDistribution" parameterType="String"
+		resultType="cmmnMap">
+		/*system.main.fetchCustomerJobDistribution*/
+		SELECT
+		tc2.code_nm,
+		COUNT(*) AS count
+		FROM
+		tb_custmst tc
+		JOIN
+		tb_codemst tc2 ON
+		tc.occp_ty_cd = tc2.code_no
+		WHERE
+		tc.user_id = #{userId}
+		GROUP BY
+		tc2.code_nm
+		;
+	</select>
+
+
+	<!-- 나의 최근 판매량을 조회하는 쿼리 -->
+	<select id="fetchMySales" parameterType="String"
+		resultType="cmmnMap">
+		/* system.main.fetchMySales*/
+		SELECT
+		enrl_dt,
+		COUNT(enrl_id)
+		AS sales_count
+		FROM (
+		SELECT
+		enrl_dt,
+		enrl_id
+		FROM
+		team4.tb_prd_enrl enrl
+		JOIN
+		team4.tb_custmst cust ON enrl.CUST_MBL_TELNO = cust.CUST_MBL_TELNO
+		WHERE
+		cust.USER_ID = #{userId}
+		) AS recent_enrollments
+		WHERE
+		enrl_dt IN (
+		SELECT DISTINCT enrl_dt
+		FROM team4.tb_prd_enrl enrl
+		JOIN
+		team4.tb_custmst cust ON enrl.CUST_MBL_TELNO = cust.CUST_MBL_TELNO
+		WHERE cust.USER_ID = #{userId}
+		ORDER BY enrl_dt DESC
+		LIMIT 15
+		)
+		GROUP BY
+		enrl_dt
+		ORDER BY
+		enrl_dt ASC;
+	</select>
+
+	<!-- 인기 상품을 조회하는 쿼리 -->
+	<select id="fetchPopProd1" resultType="cmmnMap">
+		/*
+		system.main.fetchPopProd1*/
+		SELECT
+		prod_nm,
+		SUM(sl_qtt) AS total_sales
+		FROM
+		team4.tb_prodmst
+		WHERE
+		sl_qtt IS NOT NULL
+		AND prod_ty_cd = '1'
+		GROUP
+		BY
+		prod_nm
+		ORDER BY
+		total_sales DESC
+		LIMIT 7
+	</select>
+
+	<select id="fetchPopProd2" resultType="cmmnMap">
+		/*
+		system.main.fetchPopProd2*/
+		SELECT
+		prod_nm,
+		SUM(sl_qtt) AS total_sales
+		FROM
+		team4.tb_prodmst
+		WHERE
+		sl_qtt IS NOT NULL
+		AND prod_ty_cd = '2'
+		GROUP
+		BY
+		prod_nm
+		ORDER BY
+		total_sales DESC
+		LIMIT 7
+	</select>
+
+	<select id="fetchPopProd3" resultType="cmmnMap">
+		/*
+		system.main.fetchPopProd3 */
+		SELECT
+		prod_nm,
+		SUM(sl_qtt) AS total_sales
+		FROM
+		team4.tb_prodmst
+		WHERE
+		sl_qtt IS NOT NULL
+		AND prod_ty_cd = '3'
+		GROUP
+		BY
+		prod_nm
+		ORDER BY
+		total_sales DESC
+		LIMIT 7
+	</select>
+
+
+	<select id="fetchBestMarketer" resultType="cmmnMap">
+		/*
+		system.main.fetchBestMarketer */
+		SELECT
+		u.name AS marketer_name,
+		COUNT(e.enrl_id) AS total_sales_count
+		FROM
+		team4.tb_prd_enrl e
+		JOIN
+		team4.tb_custmst c ON e.CUST_MBL_TELNO = c.CUST_MBL_TELNO
+		JOIN
+		team4.t_user u ON u.USER_ID = c.USER_ID
+		WHERE
+		EXTRACT(YEAR FROM e.enrl_dt) = EXTRACT(YEAR FROM CURRENT_DATE)
+		AND EXTRACT(MONTH FROM e.enrl_dt) = EXTRACT(MONTH FROM CURRENT_DATE) 
+		GROUP BY
+		u.name
+		ORDER BY
+		total_sales_count DESC
+		LIMIT 3
+	</select>
+
+
+
+
+
+	<!-- 기존 코드 -->
+
+	<select id="getTodayStat" parameterType="string"
+		resultType="cmmnMap">
+		/* system.main.getTodayStat */
+		SELECT
+		SUM(visit_cnt)
+		visit_cnt
+		,SUM(reg_cnt) reg_cnt
+		,SUM(req_anal_tool_cnt)
+		req_anal_tool_cnt
+		,SUM(req_data_anal_cnt) req_data_anal_cnt
+		,SUM(req_data_collect_cnt) req_data_collect_cnt
+		,SUM(req_dnld_cnt)
+		req_dnld_cnt
+		,SUM(share_anal_idea_cnt) share_anal_idea_cnt
+		,SUM(share_data_visual_cnt) share_data_visual_cnt
+		,SUM(share_use_example_cnt) share_use_example_cnt
+		,SUM(communi_bigdata_cnt) communi_bigdata_cnt
+		,SUM(communi_inquire_cnt) communi_inquire_cnt
+		,SUM(communi_lib_cnt)
+		communi_lib_cnt
+		,SUM(communi_news_cnt) communi_news_cnt
+		FROM
+		t_statistic
+		WHERE 1=1
+		AND statistic_date = #{statistic_date}
+	</select>
+
 	<insert id="init" parameterType="string">
-	/* system.main.init */
-		INSERT INTO t_statistic (
-			statistic_date
-			,user_id
+		/* system.main.init */
+		INSERT
+		INTO t_statistic (
+		statistic_date
+		,user_id
 		) VALUES (
-			#{statistic_date}
-			,'SYSTEM'
+		#{statistic_date}
+		,'SYSTEM'
 		)
 	</insert>
-	
-	<select id="getReqStat" parameterType="cmmnMap" resultType="cmmnMap">
-	/* system.main.getReqStat */
+
+	<select id="getReqStat" parameterType="cmmnMap"
+		resultType="cmmnMap">
+		/* system.main.getReqStat */
 		SELECT
-			SUM(req_anal_tool_cnt) req_anal_tool_cnt
-			,SUM(req_data_anal_cnt) req_data_anal_cnt
-			,SUM(req_data_collect_cnt) req_data_collect_cnt
-			,SUM(req_dnld_cnt) req_dnld_cnt
+		SUM(req_anal_tool_cnt)
+		req_anal_tool_cnt
+		,SUM(req_data_anal_cnt) req_data_anal_cnt
+		,SUM(req_data_collect_cnt) req_data_collect_cnt
+		,SUM(req_dnld_cnt)
+		req_dnld_cnt
 		FROM
-			t_statistic
+		t_statistic
 		WHERE 1=1
-			AND statistic_date BETWEEN #{from_date} AND #{to_date}
+		AND statistic_date BETWEEN
+		#{from_date} AND #{to_date}
 	</select>
-	
-	<select id="getVisitStat" parameterType="cmmnMap" resultType="cmmnMap">
-	/* system.main.getVisitStat */
+
+	<select id="getVisitStat" parameterType="cmmnMap"
+		resultType="cmmnMap">
+		/* system.main.getVisitStat */
 		SELECT
-			B.visit_cnt
-			,B.statistic_date
-			,substring(B.statistic_date, 6) mmdd_date
+		B.visit_cnt
+		,B.statistic_date
+		,substring(B.statistic_date, 6) mmdd_date
 		FROM (
-				SELECT
-					SUM(A.visit_cnt) visit_cnt
-					,A.statistic_date
-				FROM
-					t_statistic A
-				WHERE 1=1
-					AND statistic_date BETWEEN #{from_date} AND #{to_date}
-				GROUP BY A.statistic_date
-			) B
+		SELECT
+		SUM(A.visit_cnt) visit_cnt
+		,A.statistic_date
+		FROM
+		t_statistic A
+		WHERE 1=1
+		AND statistic_date BETWEEN #{from_date} AND #{to_date}
+		GROUP
+		BY A.statistic_date
+		) B
 		ORDER BY B.statistic_date
 	</select>
 

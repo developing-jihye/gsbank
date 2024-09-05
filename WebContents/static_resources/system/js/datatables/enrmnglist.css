@@ -49,6 +49,7 @@ body {
    
     background-color: #fff;
 
+
    
 }
 
@@ -84,7 +85,7 @@ body {
  .form-group2 {
             margin-bottom: 10px;
               align-items: center; /* 세로 중앙 정렬 */
-   
+    justify-content: space-between; /* 레이블과 입력 필드를 양 끝으로 정렬 */
         }
         
  
@@ -186,7 +187,13 @@ body {
 
 .form-group select { flex: 1; height: 50px; border: 1px solid var(--gray-200); font-size: 14px;  }
 
-.form-control { flex: 1; width: 100%; }
+.form-control {
+    flex: 1;             /* 가능한 모든 공간을 차지하도록 설정 */
+    width: 100%;         /* 부모 컨테이너의 전체 너비를 차지하도록 설정 */
+    display: flex;      /* Flexbox를 사용하여 내부 요소를 정렬 */
+    align-items: center; /* 내부 요소를 수직 중앙에 정렬 */
+    padding: 0 10px;     /* 여백을 조정하여 수직 중앙 배치를 개선할 수 있음 */
+}
 /*---*/
 .form-group-right { display:flex;width:100%;justify-content: flex-end;}
 .form-group-right label {height:30px; font-weight: bold; text-align: right;margin-right: 10px;}

@@ -98,7 +98,9 @@ public class LoginCtl {
 			// log.debug("getName = " + userInfoVO.getName());
 			session.setAttribute("userName", userInfoVO.getName());
 			session.setAttribute("userId", userInfoVO.getUserId());
+			session.setAttribute("jikgubCd", userInfoVO.getJikgubCd());
 			log.info("아이디 =====>" + userInfoVO.getUserId());
+			log.info("직업 =====>" + userInfoVO.getJikgubCd());
 		} else {
 			auth_menulist = new ArrayList<MenuVO>();
 		}

@@ -103,12 +103,24 @@
 				
 				
 				
+				
+				<li data-lnb="1" data-snb="0">
+					<a href="#gm" onclick="cf_movePage('/enr_mng/list')">
+						<i class="entypo-newspaper"></i>
+						<span class="title">상품 가입</span>
+					</a>
+				</li>
+				
+				
+				
 				<li data-lnb="1" data-snb="0">
 					<a href="#gm" onclick="cf_movePage('/system/user_mng/list')">
 						<i class="entypo-newspaper"></i>
 						<span class="title">사용자 관리</span>
 					</a>
 				</li>
+				
+				
 				<li data-lnb="8" data-snb="0">
 					<a href="#gm">
 						<i class="entypo-newspaper"></i>
