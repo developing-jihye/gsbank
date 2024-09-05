@@ -199,6 +199,9 @@ public class CustMngCtl {
 	
 	@RequestMapping("/insertCustInfo")
 	public CmmnMap insertCustInfo(CmmnMap params) {
+		
+		log.info("params >>> " + params);
+		
 		return custMngSvc.insertCustInfo(params);
 	}
 	

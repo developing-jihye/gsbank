@@ -387,6 +387,7 @@
 	            var co_telno = this.co_telno;
 	            var cust_mbl_telno = this.cust_mbl_telno;
 	            var occp_ty_cd = this.occp_ty_cd;
+	            var occp_ty_cd_nm = this.occp_ty_cd_nm;
 	            var cust_addr = this.cust_addr;
 	            var wrter_nm = "정약용";
 	            var curr_stcd = "0";
@@ -404,6 +405,7 @@
 	                co_telno: co_telno,
 	                cust_mbl_telno: cust_mbl_telno,
 	                occp_ty_cd: occp_ty_cd,
+	                occp_ty_cd_nm: occp_ty_cd_nm,
 	                cust_addr: cust_addr,
 	                wrter_nm: wrter_nm,
 	                curr_stcd: curr_stcd,
