@@ -11,7 +11,7 @@
 <script src="/static_resources/system/js/bootstrap-datepicker.js"></script>
 <script src="/static_resources/system/js/bootstrap-datepicker.ko.js"></script>
 <link rel="stylesheet"
-	href="/static_resources/system/js/datatables/proddtl.css">
+	href="/static_resources/system/js/datatables/custcss.css">
 
 <!-- Imported styles on this page -->
 <title>관리자시스템</title>
