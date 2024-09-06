@@ -49,6 +49,13 @@
 		<if test='prod_ty_cd != null and prod_ty_cd != ""'>
 		   and prod_ty_cd = #{prod_ty_cd}
 		</if>
+		
+		<if test='int_tax_ty_cd != null and int_tax_ty_cd != ""'>
+		   and int_tax_ty_cd = #{int_tax_ty_cd}
+		</if>
+		
+		
+		
 	</select>
 	
 	<select id="getHist" parameterType="cmmnMap" resultType="cmmnMap">

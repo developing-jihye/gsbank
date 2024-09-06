@@ -353,9 +353,9 @@ var cv_pagingConfig = {
 	totalCnt : 0,
 	pageSlider : [],
 	orders : [],
-	limit : 10,
+	limit : 50,
 	init : function(){
-		cv_pagingConfig.limit = 10;
+		cv_pagingConfig.limit = 50;
 		cv_pagingConfig.orders = [];
 		cv_pagingConfig.pageNo = 1;
 		cv_pagingConfig.func = null;
@@ -424,6 +424,9 @@ var cv_pagingConfig = {
 		}
 	},
 }
+
+
+
 
 function pagenationHtmlPortal01(){
 	
