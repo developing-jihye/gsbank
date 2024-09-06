@@ -79,9 +79,12 @@
 								style="display: flex; justify-content: center; width: 100%; margin-top: 0px;">
 								<!-- 버튼들을 하나의 div로 묶고 중앙 정렬 -->
 								<div style="display: flex; justify-content: center; gap: 20%;">
-									<button type="button" class="btn btn-blue2 btn-icon icon-left"
-										v-model="search_val" @click="getList(true)">조건검색</button>
-									<button type="button" class="btn btn-blue2 btn-icon icon-left"
+									<button type="button" class="btn btn-small"
+										v-model="search_val" @click="getList(true)"
+										style="font-family: 'Noto Sans KR', 'Noto Sans', sans-serif; font-size: 14px; font-weight: normal; background-color: #FF9900; color: white; padding: 10px; border: none; cursor: pointer;">
+										조건검색</button>
+									<button type="button" class="btn btn-small"
+										style="font-family: 'Noto Sans KR', 'Noto Sans', sans-serif; font-size: 14px; font-weight: normal; background-color: #FF9900; color: white; padding: 10px; border: none; cursor: pointer;"
 										v-model="search_val" @click="getListAll(true)">전체검색</button>
 								</div>
 							</div>
