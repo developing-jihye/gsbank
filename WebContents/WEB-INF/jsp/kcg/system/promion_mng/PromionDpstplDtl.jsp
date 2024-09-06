@@ -65,7 +65,8 @@
 				<div class="dataTables_wrapper flex" id="vueapp">
 					<template>
 
-						<div style="display: flex; width: 100%;">
+						<div
+							style="display: flex; width: 100%; border: 5px solid; border-color: rgb(255, 192, 97);">
 
 							<div class="left-side" style="width: 45%;">
 								<!-- 위쪽 내용 -->
