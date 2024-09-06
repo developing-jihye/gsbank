@@ -35,7 +35,8 @@
 			<ol class="breadcrumb bc-3">
 				<li><a href="#none" onclick="cf_movePage('/system')"><i
 						class="fa fa-home"></i>Home</a></li>
-				<li class="active"><strong>고객이벤트 조회</strong></li>
+				<li><a href="#gm">고객관리</a></li>
+				<li class="active"><strong>고객 이벤트 조회</strong></li>
 			</ol>
 
 			<h2>고객이벤트 목록</h2>
