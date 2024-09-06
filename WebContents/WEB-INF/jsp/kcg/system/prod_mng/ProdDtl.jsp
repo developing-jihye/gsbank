@@ -81,24 +81,13 @@
             </div>
              -->
              
-        <!--    <div class="form-group1">
+           <div class="form-group1">
     <label for="ntsl_amt_min" class="form-control2">가입금액:</label>
     <div class="input-container">
         <label>(최소)</label>
         <input type="text" id="ntsl_amt_min" v-model="info.ntsl_amt_min" class="rounded-input">
         <label>원 ~ (최대)</label>
         <input type="text" id="ntsl_amt_max" v-model="info.ntsl_amt_max" class="rounded-input">
-        <label>원</label>
-    </div>
-</div> -->
-
-<div class="form-group5">
-    <label for="ntsl_amt_min5" class="form-control5">가입금액:</label>
-    <div class="input-container5">
-        <label>(최소)</label>
-        <input type="number" id="ntsl_amt_min5" v-model="info.ntsl_amt_min" class="input-field5" min="0" step="1000">
-        <label>원 ~ (최대)</label>
-        <input type="number" id="ntsl_amt_max5" v-model="info.ntsl_amt_max" class="input-field5" min="0" step="1000">
         <label>원</label>
     </div>
 </div>
@@ -121,7 +110,7 @@
             </div>
             
             
-        <!--     <div class="form-group1">
+            <div class="form-group1">
                 <label for="prod_air_max" class="form-control2">적용이율(최대):</label>
                 <div class="input-container">
                     <label>(최소)</label>
@@ -131,25 +120,6 @@
                     <label>%</label>
                 </div>
             </div>
-             -->
-            
-            
-            
-            
-            
-            <div class="form-group5">
-    <label for="prod_air_max" class="form-control5 marginEdit2">적용이율(최대):</label>
-    <div class="input-container5">
-        <label class = "marginEdit1">(최소)</label>
-        <input type="number" id="prod_air_min" v-model="info.prod_air_min" class="input-field5" min="0" step="1">
-        <label>%  ~ (최대)</label>
-        <input type="number" id="prod_air_max" v-model="info.prod_air_max" class="input-field5" min="0" step="1">
-        <label>%</label>
-    </div>
-</div>
-
-
-
             
             
             
@@ -227,6 +197,7 @@
 
 
 
+
       
                 <div class="button-group">
                     <button type="button" class="btn btn-green btn-icon btn-small" @click="save">
@@ -246,7 +217,6 @@
         </div>
     </div>
 </div>
-
 
         
         <div class="right">
@@ -436,6 +406,9 @@ var vueapp = new Vue({
 				return;
 			}else if(cf_isEmpty(this.info.prod_ty_cd)){
 				alert("상품유형을 입력하세요.");
+				return;
+			}else if(cf_isEmpty(this.info.sl_qtt)){
+				alert("판매량을 입력하세요.");
 				return;
 			}
 			
