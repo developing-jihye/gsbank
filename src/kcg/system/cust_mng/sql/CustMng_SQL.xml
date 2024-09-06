@@ -65,6 +65,7 @@
            ,A.CUST_MBL_TELNO as CUST_MBL_TELNO
            ,A.CO_TELNO as CO_TELNO
            ,A.CUST_EML_ADDR as CUST_EML_ADDR
+           ,A.OCCP_TY_CD as OCCP_TY_CD
            ,A.OCCP_TY_CD_NM as OCCP_TY_CD_NM
            ,A.CUST_ADDR as CUST_ADDR
            ,A.WRT_DT as WRT_DT
@@ -75,7 +76,8 @@
                ,A.CUST_MBL_TELNO as CUST_MBL_TELNO
                ,A.CO_TELNO as CO_TELNO
                ,A.CUST_EML_ADDR as CUST_EML_ADDR
-               ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '140' AND CODE_NO = A.OCCP_TY_CD) as OCCP_TY_CD_NM
+               ,A.OCCP_TY_CD as OCCP_TY_CD
+               ,A.OCCP_TY_CD_NM as OCCP_TY_CD_NM
                ,A.CUST_ADDR as CUST_ADDR
                ,TO_CHAR(A.WRT_DT, 'YYYYDDMM') as WRT_DT
                ,B.TSK_DTL_CN as TSK_DTL_CN
@@ -385,6 +387,7 @@ WHERE A.rownumber = 1;
 	       ,co_telno
 	       ,cust_eml_addr
 	       ,occp_ty_cd
+			,occp_ty_cd_nm
 	       ,cust_addr
 	       ,wrter_nm
 	       ,wrt_dt
@@ -397,6 +400,7 @@ WHERE A.rownumber = 1;
 	       ,#{co_telno}
 	       ,#{cust_eml_addr}
 	       ,#{occp_ty_cd}
+	       ,#{occp_ty_cd_nm}
 	       ,#{cust_addr}
 	       ,#{wrter_nm}
 	       ,now()

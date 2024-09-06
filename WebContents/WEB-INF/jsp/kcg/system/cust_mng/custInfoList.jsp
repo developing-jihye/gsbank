@@ -15,7 +15,7 @@
 <link rel="stylesheet"
 	href="/static_resources/system/js/select2/select2.css">
 <link rel="stylesheet"
-	href="/static_resources/system/js/datatables/proddtl.css">
+	href="/static_resources/system/js/datatables/custcss.css">
 <title>관리자시스템</title>
 </head>
 
@@ -34,15 +34,16 @@
 			<ol class="breadcrumb bc-3">
 				<li><a href="#none" onclick="cf_movePage('/system')"><i
 						class="fa fa-home"></i>Home</a></li>
-				<li class="active"><strong>밥먹자</strong></li>
+				<li><a href="#gm">고겍관리</a></li>
+				<li class="active"><strong>고객정보 목록 조회</strong></li>
 			</ol>
 
 			<h2>고객정보 목록</h2>
 			<br />
 
-			<div class="flex-column flex-gap-10" id="vueapp">
+			<div class="main" id="vueapp">
 				<template>
-					<div class="flex flex-100">
+					<div class="main-searchcontainer">
 						<div class="flex-wrap flex-100 flex flex-gap-10 flex-padding-15"
 							style="justify-content: center; flex-direction: column; align-items: center;">
 							<div
@@ -52,15 +53,15 @@
 										class="form-control" v-model="cust_nm" value="">
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">관리담당자:</label> <input
+									<label class="fix-width-33">관리담당자 :</label> <input
 										class="form-control" v-model="pic_nm" value="">
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">생년월일:</label> <input type="text"
+									<label class="fix-width-33">생년월일 :</label> <input type="text"
 										class="form-control" v-model="rrno">
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">관리부서:</label> <input type="text"
+									<label class="fix-width-33">관리부서 :</label> <input type="text"
 										class="form-control" v-model="dept_nm">
 								</div>
 							</div>
@@ -91,6 +92,7 @@
             </div>
         </div> -->
 						</div>
+					</div>
 					</div>
 					<div style="display: flex; width: 100%; gap: 20px;">
 
@@ -208,10 +210,21 @@
 								</div>
 								<div class="custdtlabel"
 									style="display: flex; align-items: center; justify-content: center; margin-bottom: 30px; margin-right: 10px">
-									<label style="width: 100px; text-align: center;">직업</label> <input
-										type="text" class="form-control"
-										v-model="selectedCustomer.occp_ty_cd_nm"
-										style="flex: 1; max-width: 300px;">
+									<label style="width: 100px; text-align: center;">직업</label> 
+									<select class="form-control" v-model="this.selectedCustomer.occp_ty_cd">
+									<option value="10000000">관리자(사무직)</option>
+									<option value="10100000">전문가 및 관련 종사자</option>
+									<option value="10200000">사무 종사자</option>
+									<option value="10300000">서비스 종사자</option>
+									<option value="10400000">판매 종사자</option>
+									<option value="10500000">농림어업 숙련 종사자</option>
+									<option value="10600000">기능원 및 관련 기능 종사자</option>
+									<option value="10700000">장치·기계조작 및 조립 종사자</option>
+									<option value="10800000">단순노무 종사자</option>
+									<option value="10900000">군인</option>
+									<option value="11000000">주부,학생 및 기타 비경제활동인구</option>
+								</select>
+									<input type="text" class="form-control" v-model="selectedCustomer.occp_ty_cd_nm" style="flex: 1; max-width: 300px;">
 								</div>
 								<div class="custdtlabel"
 									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
@@ -822,6 +835,7 @@
                             cust_eml_addr: "",
                             co_telno: "",
                             cust_mbl_telno: "",
+                            occp_ty_cd:"",
                             occp_ty_cd_nm: "",
                             cust_addr: "",
                             tsk_dtl_cn: "",  // 상담내역 추가
@@ -995,30 +1009,39 @@
                     },
                   //고객변경
                     custUpdate() {
-                        // 모든 필드가 비어 있는지 확인하는 조건 추가
-                        if (!this.selectedCustomer.cust_nm.trim() ||
-                            !this.selectedCustomer.wrt_dt.trim() ||
-                            !this.selectedCustomer.rrno.trim() ||
-                            !this.selectedCustomer.cust_eml_addr.trim() ||
-                            !this.selectedCustomer.co_telno.trim() ||
-                            !this.selectedCustomer.cust_mbl_telno.trim() ||
-                            !this.selectedCustomer.occp_ty_cd_nm.trim() ||
-                            !this.selectedCustomer.cust_addr.trim()) {
-                            alert("모든 필드를 채워주세요.");  // 오류 메시지 표시
-                            return; // 조건이 만족되지 않으면 함수 실행 중단
-                        }
-                        var params = {
-                            cust_nm: this.selectedCustomer.cust_nm,
-                            wrt_dt: this.selectedCustomer.wrt_dt,
-                            rrno: this.selectedCustomer.rrno,
-                            cust_eml_addr: this.selectedCustomer.cust_eml_addr,
-                            co_telno: this.selectedCustomer.co_telno,
-                            cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
-                            occp_ty_cd_nm: this.selectedCustomer.occp_ty_cd_nm,
-                            cust_addr: this.selectedCustomer.cust_addr,
-                        };
-                        cf_ajax("/custMng/updateCust", params, this.changeStsCB);
-                    },
+    // selectedCustomer 객체가 정의되어 있는지 확인
+    if (!this.selectedCustomer) {
+        alert("고객 정보가 없습니다.");
+        return;
+    }
+
+    // 모든 필드가 비어 있는지 확인하는 조건 추가
+    if (!this.selectedCustomer.cust_nm?.trim() ||
+        !this.selectedCustomer.wrt_dt?.trim() ||
+        !this.selectedCustomer.rrno?.trim() ||
+        !this.selectedCustomer.cust_eml_addr?.trim() ||
+        !this.selectedCustomer.co_telno?.trim() ||
+        !this.selectedCustomer.cust_mbl_telno?.trim() ||
+        (!this.selectedCustomer.occp_ty_cd?.trim() && !this.selectedCustomer.occp_ty_cd_nm?.trim()) || // CD 또는 NM 중 하나라도 값이 있는지 확인
+        !this.selectedCustomer.cust_addr?.trim()) {
+        alert("모든 필드를 채워주세요.");  // 오류 메시지 표시
+        return; // 조건이 만족되지 않으면 함수 실행 중단
+    }
+
+    var params = {
+        cust_nm: this.selectedCustomer.cust_nm,
+        wrt_dt: this.selectedCustomer.wrt_dt,
+        rrno: this.selectedCustomer.rrno,
+        cust_eml_addr: this.selectedCustomer.cust_eml_addr,
+        co_telno: this.selectedCustomer.co_telno,
+        cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
+        occp_ty_cd: this.selectedCustomer.occp_ty_cd || '', // 기본 값 설정
+        occp_ty_cd_nm: this.selectedCustomer.occp_ty_cd_nm || '', // 기본 값 설정
+        cust_addr: this.selectedCustomer.cust_addr,
+    };
+
+    cf_ajax("/custMng/updateCust", params, this.changeStsCB);
+},
                           // 고객 정보 삭제 메서드
                              custDelete: function () {
                                  var params = {
@@ -1081,10 +1104,25 @@
                         var params = { cust_mbl_telno: cust_mbl_telno };
                         cf_ajax("/custMng/getInfo", params, function(data) {
                             vueapp.selectedCustomer = data;
-                            // 팝업에서 불러온 상담내역을 고객 상세정보에도 반영
+
+                            // 검증하여 occp_ty_cd가 없는 경우 처리
+                            if (!data.hasOwnProperty('occp_ty_cd')) {
+                                console.error("occp_ty_cd 값이 없습니다. 서버 응답을 확인하십시오.");
+                                vueapp.selectedCustomer.occp_ty_cd = ''; // 기본값 설정
+                            }
+
+                            // occp_ty_cd가 있는 경우 드롭다운 선택 및 직업명 초기화
+                           /* if (vueapp.selectedCustomer.occp_ty_cd) {
+                                vueapp.selectedCustomer.occp_ty_cd_nm = ''; // 직업명 초기화
+                            } else {
+                                vueapp.selectedCustomer.occp_ty_cd_nm = data.occp_ty_cd_nm; // 직업명 설정
+                            }*/
+
+                            // 상담내역 설정
                             if (data.tsk_dtl_cn) {
                                 vueapp.selectedCustomer.tsk_dtl_cn = data.tsk_dtl_cn;
                             }
+
                             console.log("Selected customer data:", vueapp.selectedCustomer);
                         });
                     },
