@@ -34,5 +34,20 @@
         JOIN tb_custmst c ON e.cust_mbl_telno = c.cust_mbl_telno
         WHERE c.cust_nm = #{customer}
     </select>
+    
+    <insert id="insertInfo" parameterType="cmmnMap">
+    INSERT INTO tb_prd_enrl (
+        enrl_id,
+        enrl_dt,
+        prod_cd,
+        cust_mbl_telno
+    )
+    VALUES (
+        (SELECT FLOOR(RANDOM() * (500 - 100 + 1) + 100)::BIGINT),
+        #{enrl_dt},
+        #{prod_cd},
+        #{cust_mbl_telno}
+    )
+</insert> 
 
 </mapper>
