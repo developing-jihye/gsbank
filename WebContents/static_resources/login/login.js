@@ -32,7 +32,7 @@ window.onload = function() {
 }
 
 function findUserInfo() {
-
+	/*alert("아이디찾기");*/
 	// alert("아이디찾기");
 	//TODO 정규식, 유효성검사 
 
@@ -53,8 +53,8 @@ function findUserInfo() {
 
 	}
 
-	
-	
+
+
 	/*	if (jncmpYmd == "") {
 			alert('입사일자를 입력하세요');
 			return false;
@@ -71,10 +71,10 @@ function findUserInfo() {
 		url: '/login/ajaxFindUserIdProc',
 		type: "GET",
 		data: {
-				userNm: userNm,
-				mblTelno: mblTelno
+			userNm: userNm,
+			mblTelno: mblTelno
 
-			},
+		},
 		dataType: "Json", // 서버에서 보내주는 데이터를 어떤 타입으로 받을건지 EX) "json", "String" 
 		/*data: {
 			userNm: userNm,
