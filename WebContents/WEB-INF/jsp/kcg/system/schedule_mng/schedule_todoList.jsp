@@ -740,7 +740,7 @@ button.active {
                         isAllDay: event.is_all_day === 'Y',
                         category: event.is_all_day === 'Y' ? 'allday' : 'time',
                         isVisible: true,
-                        isReadOnly: event.calendar_id !== 'personal',
+                        isReadOnly: false,
                         location: event.evt_location,
                         attendees: event.evt_atnd_lst ? event.evt_atnd_lst.split(',') : []
                     }));
@@ -794,10 +794,10 @@ button.active {
 
                 calendar.on('beforeUpdateEvent', function(eventData) {
                     console.log('Updating event:', eventData);
-                    if (eventData.event.calendarId !== 'personal') {
+                   /*  if (eventData.event.calendarId !== 'personal') {
                         alert('개인 일정만 수정할 수 있습니다.');
                         return;
-                    }
+                    } */
                     const calendarId = eventData.event.calendarId || 'personal';
                     const colors = calendarColors[calendarId] || calendarColors['personal'];
                     const params = {
