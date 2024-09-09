@@ -94,12 +94,19 @@ new Vue({
             axios.get('/enr_mng/getlist')
                 .then(response => {
                     console.log("API response:", response);
+                    console.log("Response data:", response.data);
+                    console.log("Response body:", response.data.body);
+                    this.items = response.data
+                    /*
                     if (response.data && response.data.body) {
                         console.log("Response body:", response.data.body);
                         this.items = response.data.body
+                        
+                        this.convertToJSON(response.data.body);
+                        
                     } else {
                         console.error("Unexpected response data structure:", response.data);
-                    }
+                    }*/
                 })
                 .catch(error => {
                     console.error("There was an error fetching the data:", error);
@@ -113,7 +120,22 @@ new Vue({
         cf_movePage(url) {
             console.log("Redirecting to:", url);
             window.location.href = url
-        }
+        },
+        
+        convertToJSON(data) {
+            try {
+                // JSON.stringify를 사용하여 JavaScript 객체를 JSON 문자열로 변환
+                const jsonString = JSON.stringify(data, null, 2); // `null`과 `2`는 포맷팅을 위한 것
+                
+                console.log("jsonString == " + jsonString);
+                
+                return jsonString;
+            } catch (error) {
+                console.error('Error converting to JSON:', error);
+                return null;
+            }
+        },
+
     }
 });
 </script>
