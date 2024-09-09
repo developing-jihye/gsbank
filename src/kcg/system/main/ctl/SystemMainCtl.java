@@ -1,5 +1,7 @@
 package kcg.system.main.ctl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,17 +37,19 @@ public class SystemMainCtl {
 	@Autowired
 	CommonSvc commonSvc;
 
-	@Autowired
-	HnpWeather hnpWeather;
-
 	@RequestMapping("")
 	public String openPage(ModelMap model, HttpServletRequest request) {
 
-		// 세션에서 로그인한 마케터의 정보를 가져와야 함
+		// 세션에서 로그인한 마케터의 userId를 추출
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
-		System.out.println("아이디: " + userId);
 		model.addAttribute("userId", userId);
+		
+		// DB에서 가져온 정보를 세션에 추가로 저장
+		List<CmmnMap> userInfoCmmnMaps = systemMainSvc.getUserInfoFromDB(userId);
+		System.out.println("유저정보맵" + userInfoCmmnMaps);
+		session.setAttribute("userName", userInfoCmmnMaps.get(0).get("name"));
+		session.setAttribute("profileImage", userInfoCmmnMaps.get(0).get("profile_image"));
 
 		// 담당 고객 나이 분포
 		List<CmmnMap> ageDistr = systemMainSvc.getAgeDistr(userId);
@@ -67,17 +73,17 @@ public class SystemMainCtl {
 
 		// 종류별 인기 상품 조회
 		// 적금
-		List<CmmnMap> popSavings = systemMainSvc.getPopProd1();
+		List<CmmnMap> popSavings = systemMainSvc.getPopProdSavings();
 		System.out.println("인기 적금 상품: " + popSavings);
 		model.addAttribute("popSavings", popSavings);
 
 		// 예금
-		List<CmmnMap> popDeposit = systemMainSvc.getPopProd2();
+		List<CmmnMap> popDeposit = systemMainSvc.getPopProdDeposit();
 		System.out.println("인기 예금 상품: " + popDeposit);
 		model.addAttribute("popDeposit", popDeposit);
 
 		// 대출
-		List<CmmnMap> popLoan = systemMainSvc.getPopProd3();
+		List<CmmnMap> popLoan = systemMainSvc.getPopProdLoan();
 		System.out.println("인기 대출 상품: " + popLoan);
 		model.addAttribute("popLoan", popLoan);
 		
@@ -86,29 +92,34 @@ public class SystemMainCtl {
 		System.out.println("이 달의 마케터: " + bestMarketer);
 		model.addAttribute("bestMarketer", bestMarketer);
 		
-		
-		
-
-		// 기존 코드
-		CmmnMap statData = systemMainSvc.getStatData();
-		model.addAttribute("statData", statData);
-
-		/*
-		 * 페이지 온로드시 ajax로 호출할 예정 int x = latitude; int y = longitude;
-		 * 
-		 * 
-		 * log.info("현재 위도는 : " + x); log.info("현재 경도는 : " + y);
-		 * 
-		 * 
-		 * String[] v = new String[5]; v = hnpWeather.get(x, y, v); // TODO 현재 위치를 받아와야함
-		 * model.addAttribute("date", v[0]); model.addAttribute("time", v[1]);
-		 * model.addAttribute("weather", v[2]); model.addAttribute("Temperatures",
-		 * v[3]); model.addAttribute("humidity", v[4]);
-		 */
-
 		return "kcg/system/main/SystemMain";
 	}
+	
+	
+	
+//	전체 흐름:
+//		클라이언트가 **"/app/hello"**로 메시지를 보냄.
+//		서버는 이 메시지를 받아서 처리.
+//		처리한 메시지를 **"/topic/chat"**을 구독하는 클라이언트들에게 전송.
+	@MessageMapping("/hello") // 서버로 보내는 메시지 처리하는 경로 지정
+	@SendTo("/topic/chatted") // 서버가 처리한 결과를 보내는 경로 지정
+	public CmmnMap chat(CmmnMap map) {
+		String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd HH:mm"));
+		
+		CmmnMap msg = new CmmnMap();
+		// 메시지, 이름, 사진, 시간
+		msg.put("message", map.get("message"));
+		msg.put("name", map.get("name"));
+		msg.put("profileImage", map.get("profileImage"));
+		msg.put("time", currentTime);
+		return msg;
+	}
 
+	
+	
+	
+	
+	// 기존 코드
 	@RequestMapping("/getReqStat")
 	public CmmnMap getReqStat(CmmnMap params) {
 		return systemMainSvc.getReqStat(params);
