@@ -43,6 +43,7 @@ public class CustMngCtl {
 	@RequestMapping("/custInfoMng")
 	public String openCustInfoMng(ModelMap model) {
 		log.debug(">>> open page list");
+	
 		
 		return "kcg/system/cust_mng/custInfoMng";
 	}

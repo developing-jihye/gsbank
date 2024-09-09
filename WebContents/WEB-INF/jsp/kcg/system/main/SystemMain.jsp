@@ -101,8 +101,7 @@ for (CmmnMap popLoanData : popLoan) {
 <script src="/static_resources/system/js/bootstrap-datepicker.ko.js"></script>
 
 <!-- 스타일 시트 -->
-<link rel="stylesheet"
-	href="/static_resources/system/css/systemMain.css" />
+<link rel="stylesheet" href="/static_resources/system/css/systemMain.css" />
 
 <!-- chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

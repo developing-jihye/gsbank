@@ -103,14 +103,27 @@ public class CustMngSvc {
 		List<CmmnMap> dateCopyList = params.getCmmnMapList("dateCopyList");
 		String pic_mbl_telno = params.getString("pic_mbl_telno");
 		
-		for (CmmnMap map : dateCopyList) {
-			String cust_mbl_telno = map.getString("cust_mbl_telno");
-			map.put("cust_mbl_telno", cust_mbl_telno);
-			map.put("pic_mbl_telno", pic_mbl_telno);
-			System.out.print("pic_mbl_telno==>" + pic_mbl_telno);
-			System.out.print("cust_mbl_telno==>" + cust_mbl_telno);
-			cmmnDao.update("system.cust_mng.updatePicRoof", map);
-		}
+	    for (CmmnMap map : dateCopyList) {
+	        String cust_mbl_telno = map.getString("cust_mbl_telno");
+	        map.put("cust_mbl_telno", cust_mbl_telno);
+	        map.put("pic_mbl_telno", pic_mbl_telno);
+	        map.put("rel_ty_cd", 10);
+	        map.put("wrter_nm", "정약용");
+	        map.put("wrt_dt", java.time.LocalDateTime.now()); 
+	        map.put("curr_stcd", 0); 
+	        
+	        
+	        System.out.print("pic_mbl_telno==>" + pic_mbl_telno);
+	        System.out.print("cust_mbl_telno==>" + cust_mbl_telno);
+	        
+	        // 각 데이터에 대해 업데이트 시도
+	        int updateCount = cmmnDao.update("system.cust_mng.updatePicRoof", map);
+	        
+	        // 업데이트된 데이터가 없을 경우 해당 데이터를 삽입
+	        if (updateCount == 0) {
+	            cmmnDao.insert("system.cust_mng.insertPicRoof", map);
+	        }
+	    }
 		return new CmmnMap().put("status", "OK");
 	}
 	
