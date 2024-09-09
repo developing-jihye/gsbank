@@ -16,6 +16,13 @@
 	<link rel="stylesheet" href="/static_resources/system/js/select2/select2-bootstrap.css">
 
 <title>상품목록조회</title>
+
+<style>
+button:hover {
+color: #fff !important;
+}
+</style>
+
 </head>
 <body class="page-body">
 
@@ -33,7 +40,8 @@
 				flush="false" />
 
 			<ol class="breadcrumb bc-3">
-				<li><a href="#none" onclick="cf_movePage('/system')"><i
+				<li><a href="#none" onclick="cf_movePage('/system')">
+				<i
 						class="fa fa-home"></i>Home</a></li>
 				<li class="active"><strong>상품목록조회</strong></li>
 			</ol>
@@ -113,7 +121,7 @@
             <div class="Align_A">
             
             <button type="button"
-							class="btn btn-blue"
+							class="btn btn-blue2 btn-icon icon-left"
 							@click="getListCond(true)">
 							검색
 						</button>
@@ -133,14 +141,15 @@
 						
 						
 						
-						<button type="button" class="btn btn-blue btn-icon icon-left"
+						<button type="button" class="btn btn-blue2 btn-icon icon-left"
 							@click="popupPrint()">
-							인쇄 <i class="entypo-print"></i>
+							인쇄 <!-- <i class="entypo-print"></i> -->
 						</button>
+						
 						<button type="button"
-							class="btn btn-orange btn-icon icon-left btn-small"
+							class="btn btn-orange2 btn-icon icon-left"
 							@click="cf_movePage('/prod_mng/dtl')">
-							등록 <i class="entypo-plus"></i>
+							등록 <!-- <i class="entypo-plus"></i> -->
 						</button>
 				
 					</div>

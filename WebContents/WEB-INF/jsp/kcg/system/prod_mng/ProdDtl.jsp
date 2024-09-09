@@ -10,6 +10,11 @@
 	<link rel="stylesheet" href="/static_resources/system/js/select2/select2.css">
 	<link rel="stylesheet" href="/static_resources/system/js/datatables/proddtl.css">
 	
+	<style>
+button:hover {
+color: #fff !important;
+}
+</style>
 	<title>상품정보관리</title>
 </head>
 <body class="page-body">
@@ -199,18 +204,18 @@
 
 
       
-                <div class="button-group">
-                    <button type="button" class="btn btn-green btn-icon btn-small" @click="save">
+                <div class="button-group" style="display: flex; justify-content: center; gap: 20px;">
+                    <button type="button" class="btn btn-blue2 btn-icon icon-left" @click="save" style="border: none">
                         저장
-                        <i class="entypo-check"></i>
+                        <!-- <i class="entypo-check"></i> -->
                     </button>
-                    <button type="button" id="btn_delete" class="btn btn-red btn-icon btn-small" @click="delInfo">
+                    <button type="button" id="btn_delete" class="btn btn-red btn-icon icon-left" @click="delInfo">
                         삭제
-                        <i class="entypo-trash"></i>
+                        <!-- <i class="entypo-trash"></i> -->
                     </button>
-                    <button type="button" class="btn btn-blue btn-icon btn-small" @click="gotoList">
+                    <button type="button" class="btn btn-orange2 btn-icon icon-left" @click="gotoList" style="border: none">
                         목록
-                        <i class="entypo-list"></i>
+                        <!-- <i class="entypo-list"></i> -->
                     </button>
                 </div>
        

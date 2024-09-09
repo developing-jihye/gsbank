@@ -7179,16 +7179,19 @@ dd-content,
 }
 
 .btn-blue3 {
+		  font-size: 14px;
   color: #FFF;
   background-color: #003366;
   border-color: #003366;
 }
 .btn-blue2.btn-icon.icon-left {
+	  font-size: 14px;
   padding-right: 30px !important;
   padding-left: 30px !important;
 }
 
 .btn-blue3.btn-icon.icon-left {
+	  font-size: 14px;
   padding-right: 20px !important;
   padding-left: 20px !important;
 }
@@ -7200,6 +7203,7 @@ dd-content,
   border-color: #FF9900;
 }
 .btn-orange2.btn-icon.icon-left {
+  font-size: 14px;
   padding-right: 30px !important;
   padding-left: 30px !important;
 }
@@ -7211,11 +7215,19 @@ dd-content,
   border-color: #66CC66;
 }
 .btn-green3.btn-icon.icon-left {
+	  font-size: 14px;
   padding-right: 30px !important;
   padding-left: 30px !important;
 }
 
 .btn-green2.btn-icon.icon-left {
+	  font-size: 14px;
   padding-right: 20px !important;
   padding-left: 20px !important;
+}
+
+.btn-red.btn-icon.icon-left {
+	  font-size: 14px;
+  padding-right: 30px !important;
+  padding-left: 30px !important;
 }
