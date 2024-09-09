@@ -69,7 +69,6 @@
            ,A.OCCP_TY_CD_NM as OCCP_TY_CD_NM
            ,A.CUST_ADDR as CUST_ADDR
            ,A.WRT_DT as WRT_DT
-           ,A.TSK_DTL_CN as TSK_DTL_CN
     FROM (
         SELECT A.CUST_NM as CUST_NM
                ,A.RRNO as RRNO
@@ -80,18 +79,22 @@
                ,A.OCCP_TY_CD_NM as OCCP_TY_CD_NM
                ,A.CUST_ADDR as CUST_ADDR
                ,TO_CHAR(A.WRT_DT, 'YYYYDDMM') as WRT_DT
-               ,B.TSK_DTL_CN as TSK_DTL_CN
-               ,row_number() over (PARTITION by A.CUST_NM order by A.CUST_NM desc) as rownumber
         FROM 
         	TB_CUSTMST A
-        	LEFT OUTER JOIN TB_PICTASK B 
-        	ON A.CUST_MBL_TELNO = B.CUST_MBL_TELNO
         WHERE 1=1
           AND A.CUST_MBL_TELNO = #{cust_mbl_telno}
     ) A
-    WHERE rownumber = 1
 </select>
 
+
+<select id="getInfoTsk" parameterType="cmmnMap" resultType="cmmnMap">
+    SELECT csul_id , 
+    csul_dtl , 
+    TO_CHAR(csul_dt, 'YYYY-MM-DD') AS csul_dt
+    FROM TB_CSUL
+    WHERE CUST_MBL_TELNO = #{cust_mbl_telno}
+    ORDER BY csul_dt ASC
+</select>
 	
 	<select id="getCustInfoList" parameterType="cmmnMap" resultType="cmmnMap">
 /* system.cust_mng.getCustInfoList */
@@ -242,6 +245,13 @@ WHERE A.rownumber = 1;
 	      AND CUST_MBL_TELNO = #{cust_mbl_telno}
 	</update>
 	
+<insert id="insertPicRoof" parameterType="cmmnMap">
+    INSERT INTO 
+        TB_CUSTPICREL (CUST_MBL_TELNO, PIC_MBL_TELNO, REL_TY_CD, WRTER_NM, WRT_DT, CURR_STCD)
+    VALUES 
+        (#{cust_mbl_telno}, #{pic_mbl_telno}, #{rel_ty_cd}, #{wrter_nm}, NOW(),#{curr_stcd})
+</insert>
+	
 	<update id="updateStcdRoof" parameterType="cmmnMap">
 	/* system.cust_mng.updateStcdRoof */
 		UPDATE 
@@ -303,8 +313,8 @@ WHERE A.rownumber = 1;
 		  and A.CUST_NM = #{cust_nm} ) A
          WHERE rownumber = 1
 	</select>
-	
-	<update id="updateCust" parameterType="cmmnMap">
+
+		<update id="updateCust" parameterType="cmmnMap">
 	/* system.cust_mng.updateCust */
 		UPDATE 
 			TB_CUSTMST 
@@ -316,6 +326,7 @@ WHERE A.rownumber = 1;
 		   ,co_telno = #{co_telno}
 		   ,cust_mbl_telno = #{cust_mbl_telno}
 		   ,occp_ty_cd = #{occp_ty_cd}
+		   ,occp_ty_cd_nm = #{occp_ty_cd_nm}
 		   ,cust_addr = #{cust_addr} 
 		WHERE 1=1
 		  AND CUST_MBL_TELNO = #{cust_mbl_telno}
@@ -469,4 +480,23 @@ WHERE A.rownumber = 1;
         </if>
 	</select>
 	
+<insert id="newTskDtl" parameterType="cmmnMap">
+	/* system.cust_mng.newTskDtl */
+	INSERT INTO TB_CSUL (
+		cust_mbl_telno,
+		csul_dt,
+		csul_dtl
+	) VALUES (
+		#{cust_mbl_telno},
+		NOW(),
+		#{csul_dtl}
+	)
+	</insert>
+	
+<update id="updateTskDtl" parameterType="cmmnMap">
+/* system.cust_mng.updateTskDtl */
+    UPDATE TB_CSUL
+    SET csul_dtl = #{csul_dtl}
+    WHERE csul_id = #{csul_id};
+</update>
 </mapper>

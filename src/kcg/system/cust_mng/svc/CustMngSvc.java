@@ -40,9 +40,14 @@ public class CustMngSvc {
 	
 	public CmmnMap getInfo(CmmnMap params) {
 		CmmnMap rslt = cmmnDao.selectOne("system.cust_mng.getInfo", params);
-		
 		return rslt;
 	}
+	
+	public List<CmmnMap> getInfoTsk(CmmnMap params) {
+		List<CmmnMap> rsltTsk = cmmnDao.selectList("system.cust_mng.getInfoTsk", params);
+		return rsltTsk;
+	}
+	
 	
 	public PageList<CmmnMap> getCustInfoList(CmmnMap params, PagingConfig pagingConfig) {
 	    // PagingConfig가 null인지 체크 (이 부분은 추가로 불필요할 수도 있음, Controller에서 이미 처리)
@@ -98,14 +103,27 @@ public class CustMngSvc {
 		List<CmmnMap> dateCopyList = params.getCmmnMapList("dateCopyList");
 		String pic_mbl_telno = params.getString("pic_mbl_telno");
 		
-		for (CmmnMap map : dateCopyList) {
-			String cust_mbl_telno = map.getString("cust_mbl_telno");
-			map.put("cust_mbl_telno", cust_mbl_telno);
-			map.put("pic_mbl_telno", pic_mbl_telno);
-			System.out.print("pic_mbl_telno==>" + pic_mbl_telno);
-			System.out.print("cust_mbl_telno==>" + cust_mbl_telno);
-			cmmnDao.update("system.cust_mng.updatePicRoof", map);
-		}
+	    for (CmmnMap map : dateCopyList) {
+	        String cust_mbl_telno = map.getString("cust_mbl_telno");
+	        map.put("cust_mbl_telno", cust_mbl_telno);
+	        map.put("pic_mbl_telno", pic_mbl_telno);
+	        map.put("rel_ty_cd", 10);
+	        map.put("wrter_nm", "정약용");
+	        map.put("wrt_dt", java.time.LocalDateTime.now()); 
+	        map.put("curr_stcd", 0); 
+	        
+	        
+	        System.out.print("pic_mbl_telno==>" + pic_mbl_telno);
+	        System.out.print("cust_mbl_telno==>" + cust_mbl_telno);
+	        
+	        // 각 데이터에 대해 업데이트 시도
+	        int updateCount = cmmnDao.update("system.cust_mng.updatePicRoof", map);
+	        
+	        // 업데이트된 데이터가 없을 경우 해당 데이터를 삽입
+	        if (updateCount == 0) {
+	            cmmnDao.insert("system.cust_mng.insertPicRoof", map);
+	        }
+	    }
 		return new CmmnMap().put("status", "OK");
 	}
 	
@@ -140,6 +158,34 @@ public class CustMngSvc {
 		params.put("co_telno", co_telno);
 		params.put("occp_ty_cd", occp_ty_cd);
 		params.put("cust_addr", cust_addr);
+		
+		cmmnDao.update("system.cust_mng.updateCust", params);
+		
+		return new CmmnMap().put("status", "OK");
+	}
+	
+	public CmmnMap updateCustTsk(CmmnMap params) {
+		
+		String cust_mbl_telno = params.getString("cust_mbl_telno");
+		String cust_nm = params.getString("cust_nm");
+		String wrt_dt = params.getString("wrt_dt");
+		String rrno = params.getString("rrno");
+		String cust_eml_addr = params.getString("cust_eml_addr");
+		String co_telno = params.getString("co_telno");
+		String occp_ty_cd = params.getString("occp_ty_cd");
+		String cust_addr = params.getString("cust_addr");
+		String tsk_dtl_cn = params.getString("tsk_dtl_cn");
+		
+		params.put("cust_mbl_telno", cust_mbl_telno);
+		params.put("cust_nm", cust_nm);
+		params.put("wrt_dt", wrt_dt);
+		params.put("rrno", rrno);
+		params.put("cust_eml_addr", cust_eml_addr);
+		params.put("co_telno", co_telno);
+		params.put("occp_ty_cd", occp_ty_cd);
+		params.put("cust_addr", cust_addr);
+		params.put("tsk_dtl_cn", tsk_dtl_cn);
+		
 		
 		cmmnDao.update("system.cust_mng.updateCust", params);
 		
@@ -304,6 +350,31 @@ public class CustMngSvc {
 		List<CmmnMap> dataList = cmmnDao.selectList("system.cust_mng.getPicName", params);
 		
 		return dataList;
+	}
+
+	public CmmnMap newTskDtl(CmmnMap params) {
+		String csul_dtl = params.getString("csul_dtl");
+		String cust_mbl_telno = params.getString("cust_mbl_telno");
+		
+		params.put("csul_dtl", csul_dtl);
+		params.put("cust_mbl_telno", cust_mbl_telno);
+		
+		cmmnDao.insert("system.cust_mng.newTskDtl", params);
+		
+		return new CmmnMap().put("status", "OK");
+	}
+	
+	
+	public CmmnMap updateTskDtl(CmmnMap params) {
+	    Integer csul_id = params.getInteger("csul_id");
+	    String csul_dtl = params.getString("csul_dtl");
+		
+	    params.put("csul_id", csul_id);
+	    params.put("csul_dtl", csul_dtl);
+		
+		cmmnDao.insert("system.cust_mng.updateTskDtl", params);
+		
+		return new CmmnMap().put("status", "OK");
 	}
     
 //	public CmmnMap getInfo(CmmnMap params) {

@@ -91,7 +91,9 @@
 						</div>
 					</div>
 			</div>
-			<!-- 아래 박스들: 인쇄 버튼과 테이블 -->
+			
+			<!-- 
+			/* 아래 박스들: 인쇄 버튼과 테이블 */
 			<div class="flex flex-100 flex-padding-10 flex-gap-10"
 				style="justify-content: flex-end; border: 1px solid #999999;">
 				<button type="button" class="btn btn-blue btn-icon icon-left"
@@ -99,6 +101,7 @@
 					인쇄 <i class="entypo-print"></i>
 				</button>
 			</div>
+			 -->
 
 			<!-- 데이터 테이블 -->
 			<div class="flex flex-100"
@@ -348,7 +351,8 @@
 					    this.wrt_dt = params.wrt_dt;
 					    this.search_val = params.search_val;
 
-					    this.getList(true);
+					    this.
+	getList(true);
 					} else {
 					    cv_sessionStorage.removeItem("pagingConfig").removeItem("params");
 					    this.getList(true);
