@@ -22,6 +22,12 @@
 <link rel="stylesheet"
 	href="/static_resources/system/js/datatables/billboard.css">
 
+<style>
+button:hover {
+color: #fff !important;
+}
+</style>
+
 <title>금융계산기</title>
 </head>
 <body class="page-body">
@@ -155,7 +161,7 @@
 											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">작성일자:</label>
 										<input class="form-control" v-model="info.wrt_dt" disabled
 											style="height: 100%;" />
-										<button type="button" class="btn btn-red btn-small"
+										<button type="button" class="btn btn-orange2 btn-icon icon-left"
 											@click="prcCalc()"
 											style="height: 100%; margin-left: 10px; background-color: #FF9900">
 											계산하기</button>

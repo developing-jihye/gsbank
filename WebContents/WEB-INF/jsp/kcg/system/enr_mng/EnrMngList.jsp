@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+
+<style>
+button:hover {
+color: #fff !important;
+}
+</style>
+
 <html>
 <head>
     <jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp" flush="false" />
@@ -40,7 +47,7 @@
                         </select>
                     </div>
                     <div class="Align_A">
-                        <button type="button" class="btn btn-blue" @click="getListCond()">가입하기</button>
+                        <button type="button" class="btn btn-blue2 btn-icon icon-left" @click="getListCond()">가입하기</button>
                     </div>
                 </div>
                 <div class="right">
@@ -68,7 +75,7 @@
                     </div>
                     <div style="height: 15px"></div>
                     <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background" style="justify-content: flex-end border: 1px solid #999999">
-                        <button type="button" class="btn btn-orange btn-small align11" @click="cf_movePage('/prod_mng/dtl')">삭제</button>
+                        <button type="button" class="btn btn-red btn-icon icon-left" @click="cf_movePage('/prod_mng/dtl')">삭제</button>
                     </div>
                 </div>
             </div>

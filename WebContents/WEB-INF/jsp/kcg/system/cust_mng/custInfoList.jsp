@@ -116,7 +116,7 @@
 
 
 							<div style="display: flex; gap: 10px;">
-								<button type="button" class="btn btn-orange2 btn-icon icon-left"
+								<button type="button" class="btn btn-orange2 btn-icon icon-left" v-model="search_val"
 									@click="custInfoMng">고객관리</button>
 								<button type="button" class="btn btn-orange2 btn-icon icon-left"
 									@click="picInfoMng">담당자관리</button>
@@ -884,32 +884,7 @@
                                this.dept_nm.trim() !== '';
                     }
                 },
-/*                 watch: {
-                    cust_nm() {
-                        this.filterData();
-                    },
-                    pic_nm() {
-                        this.filterData();
-                    },
-                    rrno() {
-                        this.filterData();
-                    },
-                    dept_nm() {
-                        this.filterData();
-                    }
-                },
-                 */
                 methods: {
-/*                     loadData() {
-                        axios.get('/custMng/getCustInfoListAll').then(response => {
-                            this.dataList = response.data.map(item => ({
-                                ...item,
-                                isChecked: false,
-                            }));
-                            this.filteredDataList = [...this.dataList];  // 초기 데이터 설정
-                            this.addMoreItems(); // 초기 데이터 일부 표시
-                        });
-                    }, */
                     filterData() {
                         this.filteredDataList = this.dataList.filter(item => {
                             return (

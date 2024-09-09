@@ -166,7 +166,7 @@ body {
 
 
 /* ��ư */
-.btn { padding: 4px 12px; border: 1px solid var(--black-100); cursor: pointer; }
+.btn { padding: 4px 12px; cursor: pointer; }
 .btn.btn-default { background: var(--white-100); color: var(--black-100); }
 .btn.btn-skyblue { background: var(--blue-500); color: var(--black-100); }
 .btn.btn-blue { background: var(--blue-100); color: var(--white-100); }
