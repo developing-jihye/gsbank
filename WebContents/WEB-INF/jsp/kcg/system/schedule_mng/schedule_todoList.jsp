@@ -267,17 +267,25 @@ button.active {
 .kc-main-content {
 	background-color: rgb(255, 192, 97);
 	padding: 10px;
-	margin: 30px;
 	border-radius: 8px;
 }
 
 .breadcrumb.bc-3, .breadcrumb.breadcrumb-3 {
-	padding-left: 35px;
-	margin: 10px 0px;
 	background-color: transparent;
-	margin-top: 3%;
-	font-size: 18px;
 }
+
+.whole{
+  position: relative;
+    display: table-cell;
+    vertical-align: top;
+    padding: 20px;
+    background: #ffffff;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 </style>
 
 </head>
@@ -288,7 +296,7 @@ button.active {
 		<div class="whole">
 			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp"
 				flush="false" />
-			<ol class="breadcrumb bc-3 breadinfo">
+			<ol class="breadcrumb bc-3">
 				<li><a href="#none" onclick="cf_movePage('/system')"><i
 						class="fa fa-home"></i>Home</a></li>
 				<li class="active"><strong>스케줄 관리</strong></li>
