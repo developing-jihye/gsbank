@@ -1,5 +1,6 @@
 package kcg.system.cust_mng.ctl;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -218,6 +219,24 @@ public class CustMngCtl {
 	@RequestMapping("/getPicName")
 	public List<CmmnMap> getPicName(CmmnMap params){
 		return custMngSvc.getPicName(params); 
+	}
+	
+	@RequestMapping("/getInfoTsk")
+	public List<CmmnMap> getInfoTsk(CmmnMap params) {
+		return custMngSvc.getInfoTsk(params);
+	}
+	
+	@RequestMapping("/newTskDtl")
+	public CmmnMap newTskDtl(CmmnMap params) {
+		System.out.println("params>>>>>>>>>>>>>"+ params);
+		log.debug("params>>>>>>>>>>>>>"+ params);
+		return custMngSvc.newTskDtl(params);
+	}
+	
+	@RequestMapping("/updateTskDtl")
+	public CmmnMap updateTskDtl(CmmnMap params) {
+	    // 고객 상담 내역 수정 로직
+	    return custMngSvc.updateTskDtl(params);
 	}
 	
 	/** 
