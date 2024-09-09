@@ -14,7 +14,9 @@
 </head>
 <body class="page-body">
     <div class="page-container">
+        <jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp" flush="false" />
         <div class="main-content">
+            <jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp" flush="false" />
             <ol class="breadcrumb bc-3">
                 <li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
                 <li class="active"><strong>상품가입</strong></li>
@@ -42,8 +44,8 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div class="table-container" style="max-height: 580px; overflow-y: auto; border: 1px solid #999999">
-                        <table class="table table-bordered datatable dataTable custom-table" id="grid_app" style="width: 100%; border-collapse: collapse">
+                    <div class="table-container" style="max-height: 580px overflow-y: auto border: 1px solid #999999">
+                        <table class="table table-bordered datatable dataTable custom-table" id="grid_app" style="width: 100% border-collapse: collapse">
                             <thead>
                                 <tr class="replace-inputs">
                                     <th style="width: 4%" class="center hidden-xs nosort"><input type="checkbox" id="allCheck"></th>
@@ -54,7 +56,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in uniqueItems" :key="index">
+                                <tr v-for="(item, index) in items" :key="index">
                                     <td class="center"><input type="checkbox" name="is_check"></td>
                                     <td class="center center-align">{{ item.enrl_id }}</td>
                                     <td class="center center-align">{{ item.cust_nm }}</td>
@@ -65,14 +67,14 @@
                         </table>
                     </div>
                     <div style="height: 15px"></div>
-                    <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background" style="justify-content: flex-end; border: 1px solid #999999">
+                    <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background" style="justify-content: flex-end border: 1px solid #999999">
                         <button type="button" class="btn btn-orange btn-small align11" @click="cf_movePage('/prod_mng/dtl')">삭제</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
+   <script>
     new Vue({
         el: '#vueapp',
         data: {
