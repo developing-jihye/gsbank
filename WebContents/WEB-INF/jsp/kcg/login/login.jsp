@@ -71,9 +71,11 @@
        <!--  *연락처 : -->
         <input type="text" class="findIdForm-input" id="mblTelno" name="mblTelno" placeholder="-를 제외한 번호를 입력" required autofocus>
                 
-       <!--  *입사일자 : -->
-        <input type="date" class="findIdForm-input" id="jncmpYmd" name="jncmpYmd" required pattern="\d{4}-\d{2}-\d{2}" placeholder="\d{4}-\d{2}-\d{2}" required autofocus>
-
+                
+                
+    <!--  *입사일자 : -->
+      <!--   <input type="date" class="findIdForm-input" id="jncmpYmd" name="jncmpYmd" required pattern="\d{4}-\d{2}-\d{2}" placeholder="\d{4}-\d{2}-\d{2}" required autofocus>
+ - -->
       <!--   사용자ID : -->
         <input type="text" class="findIdForm-input" id="emlAddr" name="emlAddr" placeholder="사용자ID확인가능" >
 
@@ -102,10 +104,10 @@
         <input type="text" class="findIdForm-input" id="findPwForm-userNm" name="findPwForm-userNm" placeholder="사용자 이름" required autofocus>         
 
       <!--   *연락처 : -->
-        <input type="text" class="findIdForm-input" id="mblTelno" name="mblTelno" placeholder="-를 제외한 번호를 입력" required autofocus>
+       <!--  <input type="text" class="findIdForm-input" id="mblTelno" name="mblTelno" placeholder="-를 제외한 번호를 입력" required autofocus> -->
                 
        <!--  *입사일자 : -->
-        <input type="date" class="findIdForm-input" id="jncmpYmd" name="jncmpYmd" required pattern="\d{4}-\d{2}-\d{2}" placeholder="연도-월-일" required autofocus>
+        <!-- <input type="date" class="findIdForm-input" id="jncmpYmd" name="jncmpYmd" required pattern="\d{4}-\d{2}-\d{2}" placeholder="연도-월-일" required autofocus> -->
        
      <!--    비밀번호 : -->
         <input type="text" class="findIdForm-input" id="pw" name="pw" placeholder="비밀번호" readonly>
