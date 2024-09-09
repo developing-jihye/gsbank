@@ -245,6 +245,13 @@ WHERE A.rownumber = 1;
 	      AND CUST_MBL_TELNO = #{cust_mbl_telno}
 	</update>
 	
+<insert id="insertPicRoof" parameterType="cmmnMap">
+    INSERT INTO 
+        TB_CUSTPICREL (CUST_MBL_TELNO, PIC_MBL_TELNO, REL_TY_CD, WRTER_NM, WRT_DT, CURR_STCD)
+    VALUES 
+        (#{cust_mbl_telno}, #{pic_mbl_telno}, #{rel_ty_cd}, #{wrter_nm}, NOW(),#{curr_stcd})
+</insert>
+	
 	<update id="updateStcdRoof" parameterType="cmmnMap">
 	/* system.cust_mng.updateStcdRoof */
 		UPDATE 
