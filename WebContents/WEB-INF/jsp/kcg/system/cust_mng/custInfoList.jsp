@@ -248,7 +248,8 @@
 				<!-- 고객 상세정보 (비율 1) -->
 				<div style="flex: 1; border: 1px solid #999999; padding: 15px;">
 					<!-- 상담내역 표시 -->
-					<div style="min-height: 319px; max-height: 319px; overflow-y: auto;">
+					<div
+						style="min-height: 319px; max-height: 319px; overflow-y: auto;">
 						<table class="table" style="width: 100%; table-layout: fixed;">
 							<thead
 								style="position: sticky; top: 0; background-color: white; z-index: 1;">
@@ -834,6 +835,10 @@
 	<!-- 팝업 -->
 </body>
 <script>
+export default {
+  props: {
+    params: Object
+  }
             var vueapp = new Vue({
                 el: "#vueapp",
                 data() {

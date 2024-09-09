@@ -11,6 +11,7 @@
            ,D.PIC_NM              as PIC_NM
            ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '133' AND CODE_NO = A.CUST_EVT_TY_CD) as CUST_EVT_TY_CD_NM
            ,A.AVDAY_YMD           as AVDAY_YMD
+           ,A.EVENT_SN            as serial_number
         from TB_CUSTEVENT  A
             ,TB_CUSTMST    B
             ,TB_CUSTPICREL C
@@ -45,6 +46,7 @@
            ,D.PIC_NM              as PIC_NM
            ,(SELECT CODE_NM FROM TB_CODEMST WHERE CODE_CL = '133' AND CODE_NO = A.CUST_EVT_TY_CD) as CUST_EVT_TY_CD_NM
            ,A.AVDAY_YMD           as AVDAY_YMD
+           ,A.EVENT_SN            as serial_number
         from TB_CUSTEVENT  A
             ,TB_CUSTMST    B
             ,TB_CUSTPICREL C
