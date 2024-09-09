@@ -407,11 +407,7 @@ var vueapp = new Vue({
 			}else if(cf_isEmpty(this.info.prod_ty_cd)){
 				alert("상품유형을 입력하세요.");
 				return;
-			}else if(cf_isEmpty(this.info.sl_qtt)){
-				alert("판매량을 입력하세요.");
-				return;
 			}
-			
 			
 			if(!confirm("저장하시겠습니까?")) return;
 			
