@@ -352,7 +352,7 @@ a:hover{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   display: flex; /* Flexbox 레이아웃을 사용 */
   flex-direction: column; /* 열 방향으로 배치 */
-  gap: 5px; /* 폼 요소 간의 간격 설정 */
+  gap: 25px; /* 폼 요소 간의 간격 설정 */
   width: 100%; /* 폼 너비를 부모 요소에 맞게 설정 */
   max-width: 400px; /* 최대 너비 설정 */
   margin: 0 auto; /* 수평 중앙 정렬 */
@@ -379,7 +379,7 @@ a:hover{
   bottom: 0;
   margin: auto;
   width: 260px;
-  height: 450px;
+  height: 280px;
   border-radius: 10px;
   background: rgb(255, 255, 255);
   box-shadow: 1px 1px 50px #000;

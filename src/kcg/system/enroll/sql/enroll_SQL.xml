@@ -22,5 +22,17 @@
 		tb_custmst c
 		ON e.cust_mbl_telno = c.cust_mbl_telno;
 	</select>
+	
+	
+	<select id="getList2" parameterType="cmmnMap" resultType="cmmnMap">
+        SELECT 
+        e.enrl_id,
+		e.enrl_dt,
+        p.prod_nm
+        FROM tb_prodmst p
+        JOIN tb_prd_enrl e ON p.prod_cd = e.prod_cd
+        JOIN tb_custmst c ON e.cust_mbl_telno = c.cust_mbl_telno
+        WHERE c.cust_nm = #{customer}
+    </select>
 
 </mapper>

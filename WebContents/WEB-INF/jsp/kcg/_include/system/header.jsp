@@ -3,23 +3,22 @@
 
 <link rel="stylesheet" href="/static_resources/system/css/header.css" />
 <header>
-	<div class="local-date-time">여기 뭐 넣을까요</div>
-	<ul class="personal-information">
-		<li class="image-box">
-			<img
-				src="https://newsimg-hams.hankookilbo.com/2022/03/03/4a69a88d-35f7-4473-9f7b-662e34f179c3.jpg"
-				alt="프로필사진" />
+	<p class="greeting">
+		반갑습니다, <b>${userName}</b>님! 고객에게 맞는 상품을 추천할 준비가 되셨나요?
+	</p>
+	<ul class="user_logInOut">
+		<li class="image-box" onclick="toggleDropdown()">
+			<img src="${profileImage}" alt="프로필사진" />
 		</li>
-		<li class="user-id" onclick="toggleDropdown()">${userInfoVO.userId}</li>
-		<li class="dropdown-menu">
-			<a href="#gm" onclick="cf_logout()"> 로그아웃</a>
+		<li class="dropdown">
+			<a href="#gm" onclick="cf_logout()">로그아웃</a>
 		</li>
 	</ul>
 </header>
 
 <script>
 	function toggleDropdown() {
-		const dropdownMenu = document.querySelector('.dropdown-menu');
+		const dropdownMenu = document.querySelector('.dropdown');
 		dropdownMenu.classList.toggle('show');
 	}
 </script>

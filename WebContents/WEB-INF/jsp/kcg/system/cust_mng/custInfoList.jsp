@@ -93,179 +93,199 @@
         </div> -->
 						</div>
 					</div>
+			</div>
+			<div style="display: flex; width: 100%; gap: 20px;">
+
+				<!-- 고객조회 페이지 (비율 2) -->
+				<div style="flex: 2; border: 1px solid #999999; padding: 15px;">
+					<div>
+						<div
+							style="display: flex; gap: 161px; margin-top: 10px; justify-content: flex-end; margin-bottom: 15px;">
+							<div style="display: flex; gap: 10px;">
+								<button type="button" class="btn btn-blue3 btn-icon icon-left"
+									@click="popCustmnglistPrint">관리대장출력</button>
+								<button type="button" class="btn btn-blue3 btn-icon icon-left"
+									@click="popCustmngCardPrint">관리카드출력</button>
+								<button type="button" class="btn btn-blue3 btn-icon icon-left"
+									@click="popDamdangSet">담당자설정</button>
+							</div>
+
+
+							<!-- <div style="margin-right: 20px;"></div> 간격 추가 -->
+
+
+
+							<div style="display: flex; gap: 10px;">
+								<button type="button" class="btn btn-orange2 btn-icon icon-left"
+									@click="custInfoMng">고객관리</button>
+								<button type="button" class="btn btn-orange2 btn-icon icon-left"
+									@click="picInfoMng">담당자관리</button>
+							</div>
+						</div>
+
+
+						<div id="vueapp">
+							<div style="overflow-x: auto;">
+								<table class="table table-bordered"
+									style="width: 100%; text-align: center; table-layout: fixed; margin-bottom: 0;">
+									<thead>
+										<tr>
+											<th style="text-align: center; width: 5%;"><input
+												type="checkbox" :checked="allSelected"
+												@click="selectAll($event)"></th>
+											<th style="text-align: center; width: 20%;">성명</th>
+											<th style="text-align: center; width: 20%;">생년월일</th>
+											<th style="text-align: center; width: 25%;">핸드폰번호</th>
+											<th style="text-align: center; width: 30%;">직업</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+
+							<!-- 데이터가 있는 경우에만 표시 -->
+							<div v-show="visibleDataList.length > 0"
+								style="max-height: 368px; overflow-y: auto; border: 1px solid #ddd;">
+								<table class="table table-bordered"
+									style="width: 100%; text-align: center; table-layout: fixed;">
+									<tbody>
+										<tr v-for="(item, index) in visibleDataList" :key="index"
+											@click="gotoDtl(item.cust_mbl_telno)">
+											<td style="width: 5%;"><input type="checkbox"
+												v-model="item.isChecked" name="'is_check_' + index"
+												@click.stop="onItemCheck"></td>
+											<td style="width: 20%;">{{ item.cust_nm }}</td>
+											<td style="width: 20%;">{{ item.rrno }}</td>
+											<td style="width: 25%;">{{ item.cust_mbl_telno }}</td>
+											<td style="width: 30%;">{{ item.occp_ty_cd_nm }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
-					<div style="display: flex; width: 100%; gap: 20px;">
+				</div>
 
-						<!-- 고객조회 페이지 (비율 2) -->
-						<div style="flex: 2; border: 1px solid #999999; padding: 15px;">
-							<div>
-								<div
-									style="display: flex; gap: 161px; margin-top: 10px; justify-content: flex-end; margin-bottom: 15px;">
-									<div style="display: flex; gap: 10px;">
-										<button type="button" class="btn btn-blue3 btn-icon icon-left"
-											@click="popCustmnglistPrint">관리대장출력</button>
-										<button type="button" class="btn btn-blue3 btn-icon icon-left"
-											@click="popCustmngCardPrint">관리카드출력</button>
-										<button type="button" class="btn btn-blue3 btn-icon icon-left"
-											@click="popDamdangSet">담당자설정</button>
-									</div>
-
-
-									<!-- <div style="margin-right: 20px;"></div> 간격 추가 -->
-
-
-
-									<div style="display: flex; gap: 10px;">
-										<button type="button"
-											class="btn btn-orange2 btn-icon icon-left"
-											@click="custInfoMng">고객관리</button>
-										<button type="button"
-											class="btn btn-orange2 btn-icon icon-left"
-											@click="picInfoMng">담당자관리</button>
-									</div>
-								</div>
-
-
-<div id="vueapp">
-    <div style="overflow-x: auto;">
-        <table class="table table-bordered" style="width: 100%; text-align: center; table-layout: fixed; margin-bottom: 0;">
-            <thead>
-                <tr>
-                    <th style="text-align: center; width: 5%;">
-                        <input type="checkbox" :checked="allSelected" @click="selectAll($event)">
-                    </th>
-                    <th style="text-align: center; width: 20%;">성명</th>
-                    <th style="text-align: center; width: 20%;">생년월일</th>
-                    <th style="text-align: center; width: 25%;">핸드폰번호</th>
-                    <th style="text-align: center; width: 30%;">직업</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-
-    <!-- 데이터가 있는 경우에만 표시 -->
-    <div v-show="visibleDataList.length > 0" style="max-height: 368px; overflow-y: auto; border: 1px solid #ddd;">
-        <table class="table table-bordered" style="width: 100%; text-align: center; table-layout: fixed;">
-            <tbody>
-                <tr v-for="(item, index) in visibleDataList" :key="index" @click="gotoDtl(item.cust_mbl_telno)">
-                    <td style="width: 5%;">
-                        <input type="checkbox" v-model="item.isChecked" name="'is_check_' + index" @click.stop="onItemCheck">
-                    </td>
-                    <td style="width: 20%;">{{ item.cust_nm }}</td>
-                    <td style="width: 20%;">{{ item.rrno }}</td>
-                    <td style="width: 25%;">{{ item.cust_mbl_telno }}</td>
-                    <td style="width: 30%;">{{ item.occp_ty_cd_nm }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-							</div>
+				<!-- 고객 상세정보 (비율 1) -->
+				<div style="flex: 1; border: 1px solid #999999; padding: 15px;">
+					<div style="margin-top: 15px">
+						<div class="custdtlabel"
+							style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+							<label style="width: 100px; text-align: center;">작성일자</label> <input
+								type="text" class="form-control"
+								v-model="selectedCustomer.wrt_dt"
+								style="flex: 1; max-width: 300px;">
 						</div>
-
-						<!-- 고객 상세정보 (비율 1) -->
-						<div style="flex: 1; border: 1px solid #999999; padding: 15px;">
-							<div style="margin-top: 15px">
-								<div class="custdtlabel"
-									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
-									<label style="width: 100px; text-align: center;">작성일자</label> <input
-										type="text" class="form-control"
-										v-model="selectedCustomer.wrt_dt"
-										style="flex: 1; max-width: 300px;">
-								</div>
-								<div class="custdtlabel"
-									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
-									<label style="width: 100px; text-align: center;">성명</label> <input
-										type="text" class="form-control"
-										v-model="selectedCustomer.cust_nm"
-										style="flex: 1; max-width: 300px;">
-								</div>
-								<div class="custdtlabel"
-									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
-									<label style="width: 100px; text-align: center;">주민번호</label> <input
-										type="text" class="form-control"
-										v-model="selectedCustomer.rrno"
-										style="flex: 1; max-width: 300px;">
-								</div>
-								<div class="custdtlabel"
-									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
-									<label style="width: 100px; text-align: center;">E-mail</label>
-									<input type="text" class="form-control"
-										v-model="selectedCustomer.cust_eml_addr"
-										style="flex: 1; max-width: 300px;">
-								</div>
-								<div class="custdtlabel"
-									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
-									<label style="width: 100px; text-align: center;">전화번호</label> <input
-										type="text" class="form-control"
-										v-model="selectedCustomer.co_telno"
-										style="flex: 1; max-width: 300px;">
-								</div>
-								<div class="custdtlabel"
-									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
-									<label style="width: 100px; text-align: center">핸드폰번호</label> <input
-										type="text" class="form-control"
-										v-model="selectedCustomer.cust_mbl_telno"
-										style="flex: 1; max-width: 300px;">
-								</div>
-								<div class="custdtlabel"
-									style="display: flex; align-items: center; justify-content: center; margin-bottom: 30px; margin-right: 10px">
-									<label style="width: 100px; text-align: center;">직업</label> 
-									<select class="form-control" v-model="this.selectedCustomer.occp_ty_cd">
-									<option value="10000000">관리자(사무직)</option>
-									<option value="10100000">전문가 및 관련 종사자</option>
-									<option value="10200000">사무 종사자</option>
-									<option value="10300000">서비스 종사자</option>
-									<option value="10400000">판매 종사자</option>
-									<option value="10500000">농림어업 숙련 종사자</option>
-									<option value="10600000">기능원 및 관련 기능 종사자</option>
-									<option value="10700000">장치·기계조작 및 조립 종사자</option>
-									<option value="10800000">단순노무 종사자</option>
-									<option value="10900000">군인</option>
-									<option value="11000000">주부,학생 및 기타 비경제활동인구</option>
-								</select>
-									<input type="text" class="form-control" v-model="selectedCustomer.occp_ty_cd_nm" style="flex: 1; max-width: 300px;">
-								</div>
-								<div class="custdtlabel"
-									style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
-									<label style="width: 100px; text-align: center;">주소</label>
-									<textarea class="form-control"
-										v-model="selectedCustomer.cust_addr" rows="3"
-										style="flex: 1; max-width: 300px; padding: 5px 10px; resize: none; margin-left: 19px;"></textarea>
-								</div>
-							</div>
-							<div
-								style="display: flex; justify-content: center; gap: 10px; margin-top: 57px;">
-								<button class="btn btn-blue2 btn-icon icon-left"
-									@click="custUpdate">변경</button>
-								<button class="btn btn-red btn-icon icon-left"
-									@click="custDelete">삭제</button>
-								<button class="btn btn-orange2 btn-icon icon-left"
-									@click="clearSelectedCustomer">초기화</button>
-							</div>
+						<div class="custdtlabel"
+							style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+							<label style="width: 100px; text-align: center;">성명</label> <input
+								type="text" class="form-control"
+								v-model="selectedCustomer.cust_nm"
+								style="flex: 1; max-width: 300px;">
 						</div>
-						<!-- 고객 상세정보 (비율 1) -->
-						<div style="flex: 1; border: 1px solid #999999; padding: 15px;">
-							<!-- 상담내역 표시 -->
-							<!-- <h3 style="margin-top: 0px; text-align: center;">고객 상담내용</h3> -->
+						<div class="custdtlabel"
+							style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+							<label style="width: 100px; text-align: center;">주민번호</label> <input
+								type="text" class="form-control" v-model="selectedCustomer.rrno"
+								style="flex: 1; max-width: 300px;">
+						</div>
+						<div class="custdtlabel"
+							style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+							<label style="width: 100px; text-align: center;">E-mail</label> <input
+								type="text" class="form-control"
+								v-model="selectedCustomer.cust_eml_addr"
+								style="flex: 1; max-width: 300px;">
+						</div>
+						<div class="custdtlabel"
+							style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+							<label style="width: 100px; text-align: center;">전화번호</label> <input
+								type="text" class="form-control"
+								v-model="selectedCustomer.co_telno"
+								style="flex: 1; max-width: 300px;">
+						</div>
+						<div class="custdtlabel"
+							style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+							<label style="width: 100px; text-align: center">핸드폰번호</label> <input
+								type="text" class="form-control"
+								v-model="selectedCustomer.cust_mbl_telno"
+								style="flex: 1; max-width: 300px;">
+						</div>
+						<div class="custdtlabel"
+							style="display: flex; align-items: center; justify-content: center; margin-bottom: 30px; margin-right: 10px">
+							<label style="width: 100px; text-align: center;">직업</label> <select
+								class="form-control" v-model="selectedCustomer.occp_ty_cd">
+								<option value="10000000">관리자(사무직)</option>
+								<option value="10100000">전문가 및 관련 종사자</option>
+								<option value="10200000">사무 종사자</option>
+								<option value="10300000">서비스 종사자</option>
+								<option value="10400000">판매 종사자</option>
+								<option value="10500000">농림어업 숙련 종사자</option>
+								<option value="10600000">기능원 및 관련 기능 종사자</option>
+								<option value="10700000">장치·기계조작 및 조립 종사자</option>
+								<option value="10800000">단순노무 종사자</option>
+								<option value="10900000">군인</option>
+								<option value="11000000">주부,학생 및 기타 비경제활동인구</option>
+							</select> <input type="text" class="form-control"
+								v-model="selectedCustomer.occp_ty_cd_nm"
+								style="flex: 1; max-width: 300px;">
+						</div>
+						<div class="custdtlabel"
+							style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px; margin-right: 10px">
+							<label style="width: 100px; text-align: center;">주소</label>
 							<textarea class="form-control"
-								v-model="selectedCustomer.tsk_dtl_cn"
-								style="height: 307px; resize: none; background-color: white; margin-top: 11px;"
-								readonly></textarea>
-
-							<!-- 상담내역 입력창 -->
-							<textarea v-model="newTskDtl" class="form-control"
-								style="height: 64px; resize: none; margin-top: 10px"></textarea>
-
-							<!-- 수정 버튼 -->
-							<div
-								style="display: flex; justify-content: center; margin-top: 39px; gap: 10px">
-								<button class="btn btn-green3 btn-icon icon-left"
-									@click="updateTskDtl">수정</button>
-							</div>
+								v-model="selectedCustomer.cust_addr" rows="3"
+								style="flex: 1; max-width: 300px; padding: 5px 10px; resize: none; margin-left: 19px;"></textarea>
 						</div>
 					</div>
-					<!-- <table class="table table-bordered datatable dataTable"
+					<div
+						style="display: flex; justify-content: center; gap: 10px; margin-top: 57px;">
+						<button class="btn btn-blue2 btn-icon icon-left"
+							@click="custUpdate">변경</button>
+						<button class="btn btn-red btn-icon icon-left" @click="custDelete">삭제</button>
+						<button class="btn btn-orange2 btn-icon icon-left"
+							@click="clearSelectedCustomer">초기화</button>
+					</div>
+				</div>
+				<!-- 고객 상세정보 (비율 1) -->
+				<div style="flex: 1; border: 1px solid #999999; padding: 15px;">
+					<!-- 상담내역 표시 -->
+					<div style="min-height: 319px; max-height: 319px; overflow-y: auto;">
+						<table class="table" style="width: 100%; table-layout: fixed;">
+							<thead
+								style="position: sticky; top: 0; background-color: white; z-index: 1;">
+								<tr>
+									<th style="width: 27%; padding: 10px;">상담 일자</th>
+									<th style="padding: 10px;">상담 내용</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="tsk in tskList" :key="tsk.csul_id"
+									:style="{ backgroundColor: tsk.csul_id === selectedCsulId ? '#f0f8ff' : 'transparent' }"
+									@click="selectTskDtl(tsk.csul_id)">
+									<td
+										style="padding: 10px; overflow: hidden; text-overflow: ellipsis;">{{
+										tsk.csul_dt }}</td>
+									<td
+										style="padding: 10px; word-wrap: break-word; overflow: hidden; text-overflow: ellipsis;">{{
+										tsk.csul_dtl }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- 상담내역 입력창 -->
+					<textarea v-model="IPTskDtl" class="form-control"
+						style="height: 64px; resize: none; margin-top: 10px"></textarea>
+
+					<!-- 수정 버튼 -->
+					<div
+						style="display: flex; justify-content: center; margin-top: 39px; gap: 10px">
+						<button class="btn btn-blue2 btn-icon icon-left"
+							@click="newTskDtl">등록</button>
+						<button class="btn btn-green3 btn-icon icon-left"
+							@click="updateTskDtl">수정</button>
+					</div>
+				</div>
+			</div>
+			<!-- <table class="table table-bordered datatable dataTable"
 						id="grid_app" style="border: 1px solid #999999;">
 						<thead>
 							<tr class="replace-inputs">
@@ -294,13 +314,13 @@
 							</tr>
 						</tbody>
 					</table> -->
-				</template>
-			</div>
-
-
-			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
-				flush="false" />
+			</template>
 		</div>
+
+
+		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
+			flush="false" />
+	</div>
 	</div>
 
 	<!-- <!-- 고객기본정보조회 팝업
@@ -688,10 +708,9 @@
 											<button type="button" class="btn" @click="popupPicInfo">
 												<i class="fa fa-search"></i>
 											</button>
-											<button type="button" class="btn btn-blue2 btn-icon icon-left"
-												style="margin-left: 5px;" @click="damdangSave">
-												등록
-											</button>
+											<button type="button"
+												class="btn btn-blue2 btn-icon icon-left"
+												style="margin-left: 5px;" @click="damdangSave">등록</button>
 										</div>
 									</div>
 									<div class="form-group">
@@ -744,7 +763,8 @@
 												style="width: 100%;"></textarea>
 										</div>
 									</div>
-									<div class="form-group" style="max-height: 200px; overflow-y: auto;">
+									<div class="form-group"
+										style="max-height: 200px; overflow-y: auto;">
 										<table class="table datatable dataTable">
 											<thead>
 												<tr class="replace-inputs">
@@ -779,7 +799,7 @@
 	</div>
 	<!--// 담당자설정 팝업  -->
 	<!-- 팝업 -->
-<div class="modal fade" id="pop_pic_info" ref="modal">
+	<div class="modal fade" id="pop_pic_info" ref="modal">
 		<template>
 			<div class="modal-dialog" style="width: 500px;">
 				<div class="modal-content">
@@ -835,12 +855,14 @@
                             cust_eml_addr: "",
                             co_telno: "",
                             cust_mbl_telno: "",
-                            occp_ty_cd:"",
+                            occp_ty_cd:'',
                             occp_ty_cd_nm: "",
                             cust_addr: "",
-                            tsk_dtl_cn: "",  // 상담내역 추가
                         },
-                        newTskDtl: "",  // 새로운 상담내역 입력을 위한 변수
+                        tskList: [],
+                        selectedCustomerTelNo: null,
+                        selectedCsulId: null,
+                        IPTskDtl: "",  // 새로운 상담내역 입력을 위한 변수
                         allSelected: false, // 전체 체크박스의 상태
                         autoSearch: true, // 고객 목록 자동 조회 여부 플래그
                         filteredDataList: [],  // 필터링된 데이터 리스트
@@ -1065,29 +1087,72 @@
                                      this.getCustInfoList(true); // 삭제 후 고객 목록을 다시 불러옵니다.
                                  }
                              },
+                             
+
+                 // 상담내역 등록 로직 추가
+newTskDtl: function () {
+    if (this.IPTskDtl.trim() === '') {
+        alert('상담 내용을 입력하세요.');
+        return;
+    }
+
+    if (!this.selectedCustomerTelNo) {
+        alert('고객을 선택하지 않았습니다.');
+        return;
+    }
+    
+    var params = {
+        csul_dt: new Date().toLocaleString(), // 오늘 날짜
+        csul_dtl: this.IPTskDtl,
+        cust_mbl_telno: this.selectedCustomerTelNo // 고객 전화번호
+    };
+
+    cf_ajax("/custMng/newTskDtl", params, this.newTskDtlCB);
+},
+
+newTskDtlCB: function(data) {
+    if (data.status == "OK") {
+        alert("등록완료");
+        this.IPTskDtl = "";  // 수정 후 고객 목록을 다시 불러옵니다.
+        this.gotoDtl(this.selectedCustomerTelNo);
+    }else{
+		alert("등록실패");
+    }
+},
+
 
                  // 상담내역 수정 로직 추가
-                    updateTskDtl: function () {
-                        if (this.newTskDtl.trim()) {
-                            this.selectedCustomer.tsk_dtl_cn = this.newTskDtl;
-                            var params = {
-                                cust_mbl_telno: this.selectedCustomer.cust_mbl_telno,
-                                tsk_dtl_cn: this.selectedCustomer.tsk_dtl_cn,
-                            };
-                            cf_ajax("/custMng/updateCust", params, this.updateTskDtlCB);
-                            this.newTskDtl = "";  // 수정 후 입력창 초기화
-                        } else {
-                            alert("수정할 상담내역을 입력해주세요.");
-                        }
-                    },
+                    updateTskDtl: function() {
+    if (this.IPTskDtl.trim() === '') {
+        alert('상담 내용을 입력하세요.');
+        return;
+    }
 
-                    // 상담내역 업데이트 콜백
-                    updateTskDtlCB: function(data) {
-                        if (data.status == "OK") {
-                            alert("상담내역 수정 완료");
-                            this.getCustInfoList(true);  // 수정 후 고객 목록을 다시 불러옵니다.
-                        }
-                    },
+    var params = {
+        csul_id: this.selectedCsulId,  // 선택한 상담 내역 ID
+        csul_dtl: this.IPTskDtl        // 입력된 상담 내역 내용
+    };
+
+    // AJAX 요청
+    cf_ajax("/custMng/updateTskDtl", params, this.updateTskDtlCB);
+},
+
+// 상담내역 업데이트 후 콜백
+updateTskDtlCB: function(data) {
+    if (data.status === "OK") {
+        alert("상담내역 수정 완료");
+        this.IPTskDtl = '';  // 입력 창 초기화
+        this.gotoDtl(this.selectedCustomerTelNo);   // 수정 후 상담 내역 다시 불러오기
+    } else {
+        alert("수정 실패");
+    }
+},
+                    
+                    //수정하고객 선택 
+                    selectTskDtl: function(tsk_csul_id) {
+                        this.selectedCsulId = tsk_csul_id;  // 선택된 상담 내역 ID를 저장
+                    },            
+                    
                     
                     selectAll(event) {
                         const isChecked = event.target.checked;
@@ -1100,33 +1165,28 @@
                         checkbox.checked = !checkbox.checked; // 체크박스 상태 토글
                     },
                     
-                    gotoDtl: function (cust_mbl_telno) {
+                    gotoDtl: function(cust_mbl_telno) {
                         var params = { cust_mbl_telno: cust_mbl_telno };
+
+                        // 고객 상세 정보 불러오기
                         cf_ajax("/custMng/getInfo", params, function(data) {
-                            vueapp.selectedCustomer = data;
+                          vueapp.selectedCustomerTelNo = cust_mbl_telno;  // 선택된 고객의 전화번호 저장
+                          vueapp.selectedCustomer = data;
 
-                            // 검증하여 occp_ty_cd가 없는 경우 처리
-                            if (!data.hasOwnProperty('occp_ty_cd')) {
-                                console.error("occp_ty_cd 값이 없습니다. 서버 응답을 확인하십시오.");
-                                vueapp.selectedCustomer.occp_ty_cd = ''; // 기본값 설정
-                            }
-
-                            // occp_ty_cd가 있는 경우 드롭다운 선택 및 직업명 초기화
-                           /* if (vueapp.selectedCustomer.occp_ty_cd) {
-                                vueapp.selectedCustomer.occp_ty_cd_nm = ''; // 직업명 초기화
-                            } else {
-                                vueapp.selectedCustomer.occp_ty_cd_nm = data.occp_ty_cd_nm; // 직업명 설정
-                            }*/
-
-                            // 상담내역 설정
-                            if (data.tsk_dtl_cn) {
-                                vueapp.selectedCustomer.tsk_dtl_cn = data.tsk_dtl_cn;
-                            }
-
-                            console.log("Selected customer data:", vueapp.selectedCustomer);
+                          // occp_ty_cd가 없는 경우 기본값 처리
+                          if (!data.hasOwnProperty('occp_ty_cd')) {
+                            console.error("occp_ty_cd 값이 없습니다. 서버 응답을 확인하십시오.");
+                            vueapp.selectedCustomer.occp_ty_cd = ''; // 기본값 설정
+                          }
+                          console.log("Selected customer data:", vueapp.selectedCustomer);
                         });
-                    },
-                    
+
+                        // 상담 내역 불러오기
+                        cf_ajax("/custMng/getInfoTsk", params, function(data) {
+                          vueapp.tskList = data; // 상담 내역 리스트를 tskList에 저장
+                          console.log("Selected tsk data:", vueapp.tskList);
+                        });
+                      },
                     
                     clearSelectedCustomer: function () {
                         // selectedCustomer 객체 초기화

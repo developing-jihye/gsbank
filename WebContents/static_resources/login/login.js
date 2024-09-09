@@ -32,39 +32,55 @@ window.onload = function() {
 }
 
 function findUserInfo() {
-
+	/*alert("아이디찾기");*/
+	// alert("아이디찾기");
 	//TODO 정규식, 유효성검사 
 
 	// ajax로 전달할 값 세팅
-	var userNm = document.getElementById("user").value;
+
+	var userNm = document.getElementById("userNm").value;
 	var jncmpYmd = document.getElementById("jncmpYmd").value;
 	var mblTelno = document.getElementById("mblTelno").value;
-	
-	
+
+	//console.log("userNm == " + userNm);
+	//console.log("jncmpYmd == " + jncmpYmd);
+	//console.log("mblTelno == " + mblTelno);
+
+
 	if (userNm == "") {
 		alert('사용자명 입력하세요');
 		return false;
+
 	}
- 
-	if (jncmpYmd == "") {
-		alert('입사일자를 입력하세요');
-		return false;
-	}
- 
+
+
+
+	/*	if (jncmpYmd == "") {
+			alert('입사일자를 입력하세요');
+			return false;
+		}*/
+
 	if (mblTelno == "") {
 		alert('휴대폰 번호를 입력하세요');
 		return false;
 	}
 
+
 	$.ajax({
 		async: false, //값을 리턴시 해당코드를 추가하여 동기로 변경 false : 동기, true : 비동기
 		url: '/login/ajaxFindUserIdProc',
 		type: "GET",
-		dataType: "Json", // 서버에서 보내주는 데이터를 어떤 타입으로 받을건지 EX) "json", "String" 
 		data: {
 			userNm: userNm,
-			jncmpYmd: jncmpYmd
+			mblTelno: mblTelno
+
 		},
+		dataType: "Json", // 서버에서 보내주는 데이터를 어떤 타입으로 받을건지 EX) "json", "String" 
+		/*data: {
+			userNm: userNm,
+			mblTelno: mblTelno
+
+		},*/
 		headers: {
 			"Accept-Language": "ko-KR" // 한글을 지원하는 언어 코드로 설정
 		},
@@ -72,8 +88,9 @@ function findUserInfo() {
 		success: function(response) {
 			console.log("ajax 통신 성공");
 			console.log("서버 응답:", response.message);
+
 			document.getElementById("emlAddr").value = response.message;
-			//console.log("서버 응답:", response);
+			// console.log("서버 응답:", response);
 		},
 
 		error: function(xhr, status, error) {

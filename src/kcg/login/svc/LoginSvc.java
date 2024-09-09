@@ -171,6 +171,7 @@ public class LoginSvc  {
 
 
 	public String ajaxFindUserIdProc(CmmnMap params) {
+		log.info("아이디 찾기 성공");
 
 		return cmmnDao.selectOne("login.findUserId", params);
 	}

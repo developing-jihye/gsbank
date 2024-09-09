@@ -1,18 +1,15 @@
 package kcg.system.cust_mng.ctl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.utils.common.CmmnMap;
-import common.utils.common.ConfigExcelDn;
 import common.utils.common.PagingConfig;
 import common.utils.mybatis_paginator.domain.PageList;
 import kcg.common.svc.CommonSvc;
@@ -46,13 +43,15 @@ public class CustMngCtl {
 	@RequestMapping("/custInfoMng")
 	public String openCustInfoMng(ModelMap model) {
 		log.debug(">>> open page list");
+	
 		
 		return "kcg/system/cust_mng/custInfoMng";
 	}
 	
 	@RequestMapping("/custInfoList")
-	public String openCustInfolist(ModelMap model) {
+	public String openCustInfolist(ModelMap model, CmmnMap params) {
 		log.debug(">>> open page list");
+		log.info(">>> params" + params);
 		
 		return "kcg/system/cust_mng/custInfoList";
 	}
@@ -218,6 +217,24 @@ public class CustMngCtl {
 	@RequestMapping("/getPicName")
 	public List<CmmnMap> getPicName(CmmnMap params){
 		return custMngSvc.getPicName(params); 
+	}
+	
+	@RequestMapping("/getInfoTsk")
+	public List<CmmnMap> getInfoTsk(CmmnMap params) {
+		return custMngSvc.getInfoTsk(params);
+	}
+	
+	@RequestMapping("/newTskDtl")
+	public CmmnMap newTskDtl(CmmnMap params) {
+		System.out.println("params>>>>>>>>>>>>>"+ params);
+		log.debug("params>>>>>>>>>>>>>"+ params);
+		return custMngSvc.newTskDtl(params);
+	}
+	
+	@RequestMapping("/updateTskDtl")
+	public CmmnMap updateTskDtl(CmmnMap params) {
+	    // 고객 상담 내역 수정 로직
+	    return custMngSvc.updateTskDtl(params);
 	}
 	
 	/** 
