@@ -49,11 +49,11 @@
 							<div
 								style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
 								<div class="form-group flex-40">
-									<label class="fix-width-33">고객명 :</label> <input
+									<label class="fix-width-40">고객명 :</label> <input
 										class="form-control" v-model="cust_nm" value="">
 								</div>
 								<div class="form-group flex-40">
-									<label class="fix-width-33">고객이벤트 :</label> <select
+									<label class="fix-width-40">고객이벤트 :</label> <select
 										class="form-control" id="search_nm" v-model="cust_evt_ty_cd"
 										@change="getList(true)" style="margin-right: 24px;">
 										<option value="10">Birthday</option>
@@ -64,14 +64,14 @@
 										<option value="32">예금만기</option>
 									</select>
 								</div>
-								<div class="form-group flex-40">
+								<!-- <div class="form-group flex-40">
 									<label class="fix-width-33">관리부서 :</label> <input type="text"
 										class="form-control" v-model="dept_nm">
 								</div>
 								<div class="form-group flex-40">
 									<label class="fix-width-33">작성일자 :</label> <input type="text"
 										class="form-control" v-model="wrt_dt">
-								</div>
+								</div> -->
 							</div>
 
 							<!-- 검색 버튼들을 아래로 이동 -->
@@ -112,12 +112,13 @@
 								<th style="width: 5%;" class="center"><input
 									type="checkbox" id="allCheck" @click="all_check(event.target)"
 									style="cursor: pointer;"></th>
-								<th style="width: 20%;" class="center">성명</th>
+								<th style="width: 10%;" class="center">성명</th>
 								<th style="width: 15%;" class="center">생년월일</th>
 								<th style="width: 15%;" class="center">핸드폰번호</th>
 								<th style="width: 15%;" class="center">관리담당자</th>
 								<th style="width: 15%;" class="center">고객이벤트</th>
 								<th style="width: 15%;" class="center">기념일</th>
+								<th style="width: 10%;" class="center"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -133,6 +134,12 @@
 								<td class="center">{{item.pic_nm}}</td>
 								<td class="center">{{item.cust_evt_ty_cd_nm}}</td>
 								<td class="center">{{item.avday_ymd}}</td>
+								<td class="center">
+									<button type="button" class="btn btn-blue btn-icon icon-left"
+										style="margin-left: 5px;" @click="custInfoList(item.serial_number)">
+										수정
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -457,6 +464,14 @@
 						pop_cust_mnglist_print.init(dateCopyList);
 						$('#pop_cust_mnglist_print').modal('show');
 
+					},
+					custInfoList : function(init) {
+						
+						var params = {
+								serial_number : init
+							};
+						
+						cf_movePage('/custMng/custInfoList', params);
 					},
 				},
 			});

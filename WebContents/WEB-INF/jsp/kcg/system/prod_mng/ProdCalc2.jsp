@@ -14,7 +14,7 @@
 	<script src="/static_resources/system/js/datatables/billboard.js"></script>
 	<link rel="stylesheet" href="/static_resources/system/js/datatables/billboard.css">
 	
-	<title>금융계산기</title>ㅇ
+	<title>금융계산기1</title>ㅇ
 </head>
 <body class="page-body">
 

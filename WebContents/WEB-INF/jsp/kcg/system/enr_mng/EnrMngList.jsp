@@ -46,9 +46,18 @@ color: #fff !important;
                             <option v-for="product in uniqueProducts" :value="product">{{ product }}</option>
                         </select>
                     </div>
+                    
+                    
                     <div class="Align_A">
+<<<<<<< HEAD
                         <button type="button" class="btn btn-blue2 btn-icon icon-left" @click="getListCond()">가입하기</button>
                     </div>
+=======
+    <button type="button" class="btn btn-blue" @click="saveData()">가입하기</button>
+</div>
+                    
+                    
+>>>>>>> branch 'develop' of https://gitlab.com/klp100119/team4.git
                 </div>
                 <div class="right">
                     <div class="table-container" style="max-height: 580px overflow-y: auto border: 1px solid #999999">
@@ -74,9 +83,15 @@ color: #fff !important;
                         </table>
                     </div>
                     <div style="height: 15px"></div>
+<<<<<<< HEAD
                     <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background" style="justify-content: flex-end border: 1px solid #999999">
                         <button type="button" class="btn btn-red btn-icon icon-left" @click="cf_movePage('/prod_mng/dtl')">삭제</button>
                     </div>
+=======
+                    <!-- <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background" style="justify-content: flex-end border: 1px solid #999999"> -->
+                        <!-- <button type="button" class="btn btn-orange btn-small align11" @click="cf_movePage('/prod_mng/dtl')">삭제</button> -->
+                    <!-- </div> -->
+>>>>>>> branch 'develop' of https://gitlab.com/klp100119/team4.git
                 </div>
             </div>
         </div>
@@ -151,6 +166,47 @@ color: #fff !important;
             },
             getListCond(flag) {
                 console.log("getListCond called with flag:", flag);
+            },
+            saveData() {
+                // Validate selection
+                
+               	
+                if (this.selectedCustomer === '0' || this.selectedProduct === '0') {
+                    alert("Please select both customer and product.");
+                    return;
+                }
+
+                // Prepare the data to send
+               /*  const payload = {
+                    cust_mbl_telo: this.selectedCustomer,
+                    prod_cd: this.selectedProduct,
+                    enrl_dt: new Date().toISOString() // Example: Current date and time
+                }; */
+                
+                
+                const payload = {
+                	    cust_mbl_telno: '010-0002-3434',  // Random example string for customer mobile telephone
+                	    prod_cd: 'A1005'            // Random example string for product code
+                	 
+                	};
+                
+                
+
+                console.log("Saving data:", payload);	
+          
+
+                cf_ajax('/enr_mng/save', payload);
+                
+                /*
+                axios.post('/enr_mng/save', payload)
+                    .then(response => {
+                        console.log("Data saved successfully:", response);
+                        this.fetchData(); // Refresh data after saving
+                    })
+                    .catch(error => {
+                        console.error("There was an error saving the data:", error);
+                      
+                    });*/
             },
             cf_movePage(url) {
                 console.log("Redirecting to:", url);

@@ -7,12 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.utils.common.CmmnMap;
 import kcg.common.svc.CommonSvc;
 import kcg.system.enroll.svc.enrollService;
-import kcg.system.prod_mng.svc.ProdMngSvc;
 
 
 
@@ -31,6 +31,7 @@ public class enrollController {
 	@Autowired
 	CommonSvc commonSvc;
 	
+		
 	@RequestMapping("/list")
 	public String openPageList(Model model) {
 		return "kcg/system/enr_mng/EnrMngList";
@@ -46,6 +47,19 @@ public class enrollController {
 		
 		return es.getList(params);
 	}
+	
+	
+	@PostMapping("/save")
+	public void save(CmmnMap payload) {
+		log.info("Saved");
+		log.info("Saving parameters111:" + payload);
+		es.save(payload);
+	}
+	
+	
+	
+		
+	
 	
 	
 	

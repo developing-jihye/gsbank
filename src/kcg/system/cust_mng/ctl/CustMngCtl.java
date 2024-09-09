@@ -1,19 +1,15 @@
 package kcg.system.cust_mng.ctl;
 
-import java.io.Console;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.utils.common.CmmnMap;
-import common.utils.common.ConfigExcelDn;
 import common.utils.common.PagingConfig;
 import common.utils.mybatis_paginator.domain.PageList;
 import kcg.common.svc.CommonSvc;
@@ -53,8 +49,9 @@ public class CustMngCtl {
 	}
 	
 	@RequestMapping("/custInfoList")
-	public String openCustInfolist(ModelMap model) {
+	public String openCustInfolist(ModelMap model, CmmnMap params) {
 		log.debug(">>> open page list");
+		log.info(">>> params" + params);
 		
 		return "kcg/system/cust_mng/custInfoList";
 	}
