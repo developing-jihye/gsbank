@@ -840,10 +840,10 @@ button.active {
 
                 calendar.on('beforeDeleteEvent', function(eventData) {
                     console.log('Deleting event:', eventData);
-                    if (eventData.calendarId !== 'personal') {
+                    /* if (eventData.calendarId !== 'personal') {
                         alert('개인 일정만 삭제할 수 있습니다.');
                         return;
-                    }
+                    } */
                     cf_ajax('/schedule/event/delete', {EVT_SN: eventData.id}, function(response) {
                         console.log('Event deleted:', response);
                         if (response.status === 'OK') {
