@@ -23,7 +23,8 @@
 		WHERE 1=1
 		AND USR.del_yn =
 		'N'
-		AND USR.user_id = #{user_id}
+		AND
+		USR.user_id = #{user_id}
 		AND USR.iam_yn = #{iam_yn}
 	</select>
 
@@ -32,24 +33,25 @@
 		/* login.findUserId */
 
 		SELECT
-		user_id as userId
+		user_id AS userId
 		FROM
 		t_user
-
-		WHERE 1=1
-		<if test="userNm != null and userNm != ''">
-			AND user_id = #{user_id}
-		</if> 
-		<!-- <if test="mblTelno != null and mblTelno != ''">
-			AND mbl_telno = #{mblTelno}
-		</if>
-		<if test="jncmpYmd != null and jncmpYmd != ''">
-			AND jncmp_Ymd = #{jncmpYmd}
-		</if>
-		<if test="emlAddr != null and emlAddr != ''">
-			AND email = #{emlAddr}
-		</if> --> -->
+		WHERE
+		name = #{userNm}
+		AND tdept_nm = #{mblTelno}
+		<!-- </if> <if test="mblTelno != null and mblTelno != ''"> -->
+		<!-- AND tdept_nm = #{mblTelno} -->
+		<!-- </if> -->
+		<!-- <if test="jncmpYmd != null and jncmpYmd != ''"> AND jncmp_Ymd = #{jncmpYmd} 
+			</if> -->
+		<!-- <if test="emlAddr != null and emlAddr != ''"> AND email = #{emlAddr} 
+			</if> -->
 	</select>
+
+
+
+
+
 
 	<select id="findUserPw" resultType="string">
 		/* login.findUserPw */
@@ -136,7 +138,8 @@
 		,t_user USR
 		WHERE 1=1
 		AND
-		auth.auth_cd = USR.auth_cd
+		auth.auth_cd =
+		USR.auth_cd
 		AND USR.user_id = #{user_id}
 		AND USR.iam_yn =
 		#{iam_yn}
@@ -208,7 +211,8 @@
 		,t_menu mnu
 		WHERE 1=1
 		AND
-		amm.menu_url = mnu.menu_url
+		amm.menu_url =
+		mnu.menu_url
 		AND amm.auth_cd = #{auth_cd}
 	</select>
 
@@ -247,24 +251,30 @@
 
 
 	<select id="selectCodeJbpsTyCdList" resultType="TbCodemstEntity">
-		/* login.selectCodeJbpsTyCdList */
+		/*
+		login.selectCodeJbpsTyCdList */
 		select
-		code_no as codeNo, code_nm as codeNm
+		code_no as codeNo, code_nm as
+		codeNm
 		from
 		tb_codemst
 		where
 		code_cl = '141'
 	</select>
-	
-	<select id="selectCodeJbpsTyCdList2" resultType="TbCodemstEntity">
+
+	<select id="selectCodeJbpsTyCdList2"
+		resultType="TbCodemstEntity">
 		/* login.selectCodeJbpsTyCdList2 */
 		select
-		code_no as codeNo, code_nm as codeNm
+		code_no as codeNo,
+		code_nm as codeNm
 		from
 		tb_codemst
 		where
 		code_cl = '400'
 	</select>
+
+
 
 	<insert id="registUserInfo" parameterType="cmmnMap">
 		/*login.registUserInfo */
