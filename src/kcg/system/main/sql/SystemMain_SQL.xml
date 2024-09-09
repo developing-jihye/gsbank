@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace='system.main'>
 
+	<!-- 프사 가져오기 -->
+	<select id="fetchUserInfoFromDB" parameterType="String"
+		resultType="cmmnMap">
+		/* system.main.fetchUserInfoFromDB*/
+		select
+		name,
+		profile_image
+		from t_user
+		where user_id = #{userId}
+	</select>
+
 	<!-- 고객 연령대 분포를 조회하는 쿼리 -->
 	<select id="fetchCustomerAgeDistribution" parameterType="String"
 		resultType="cmmnMap">
@@ -118,17 +129,19 @@
 	</select>
 
 	<!-- 인기 상품을 조회하는 쿼리 -->
-	<select id="fetchPopProd1" resultType="cmmnMap">
+	<select id="fetchPopProdSavings" resultType="cmmnMap">
 		/*
-		system.main.fetchPopProd1*/
+		system.main.fetchPopProdSavings*/
 		SELECT
 		prod_nm,
-		SUM(sl_qtt) AS total_sales
+		SUM(sl_qtt) AS
+		total_sales
 		FROM
 		team4.tb_prodmst
 		WHERE
 		sl_qtt IS NOT NULL
-		AND prod_ty_cd = '1'
+		AND prod_ty_cd =
+		'1'
 		GROUP
 		BY
 		prod_nm
@@ -137,17 +150,19 @@
 		LIMIT 7
 	</select>
 
-	<select id="fetchPopProd2" resultType="cmmnMap">
+	<select id="fetchPopProdDeposit" resultType="cmmnMap">
 		/*
-		system.main.fetchPopProd2*/
+		system.main.fetchPopProdDeposit*/
 		SELECT
 		prod_nm,
-		SUM(sl_qtt) AS total_sales
+		SUM(sl_qtt) AS
+		total_sales
 		FROM
 		team4.tb_prodmst
 		WHERE
 		sl_qtt IS NOT NULL
-		AND prod_ty_cd = '2'
+		AND prod_ty_cd =
+		'3'
 		GROUP
 		BY
 		prod_nm
@@ -156,17 +171,19 @@
 		LIMIT 7
 	</select>
 
-	<select id="fetchPopProd3" resultType="cmmnMap">
+	<select id="fetchPopProdLoan" resultType="cmmnMap">
 		/*
-		system.main.fetchPopProd3 */
+		system.main.fetchPopProdLoan */
 		SELECT
 		prod_nm,
-		SUM(sl_qtt) AS total_sales
+		SUM(sl_qtt) AS
+		total_sales
 		FROM
 		team4.tb_prodmst
 		WHERE
 		sl_qtt IS NOT NULL
-		AND prod_ty_cd = '3'
+		AND prod_ty_cd =
+		'4'
 		GROUP
 		BY
 		prod_nm
@@ -181,18 +198,22 @@
 		system.main.fetchBestMarketer */
 		SELECT
 		u.name AS marketer_name,
+		u.profile_image AS profile_image,
 		COUNT(e.enrl_id) AS total_sales_count
 		FROM
 		team4.tb_prd_enrl e
 		JOIN
-		team4.tb_custmst c ON e.CUST_MBL_TELNO = c.CUST_MBL_TELNO
+		team4.tb_custmst c ON e.CUST_MBL_TELNO =
+		c.CUST_MBL_TELNO
 		JOIN
 		team4.t_user u ON u.USER_ID = c.USER_ID
 		WHERE
 		EXTRACT(YEAR FROM e.enrl_dt) = EXTRACT(YEAR FROM CURRENT_DATE)
-		AND EXTRACT(MONTH FROM e.enrl_dt) = EXTRACT(MONTH FROM CURRENT_DATE) 
-		GROUP BY
-		u.name
+		AND
+		EXTRACT(MONTH FROM e.enrl_dt) = EXTRACT(MONTH FROM CURRENT_DATE)
+		GROUP
+		BY
+		u.name, u.profile_image
 		ORDER BY
 		total_sales_count DESC
 		LIMIT 3

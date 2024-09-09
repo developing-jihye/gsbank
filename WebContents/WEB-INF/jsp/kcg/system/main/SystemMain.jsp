@@ -108,6 +108,9 @@ for (CmmnMap popLoanData : popLoan) {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
+<!-- 웹소켓 -->
+<script
+	src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
 
 <title>관리자시스템 | Dashboard</title>
 </head>
@@ -496,7 +499,7 @@ for (CmmnMap popLoanData : popLoan) {
 					<div class="person">
 						<p class="rank">1위</p>
 						<img
-							src="https://newsimg-hams.hankookilbo.com/2022/03/03/4a69a88d-35f7-4473-9f7b-662e34f179c3.jpg"
+							src="${bestMarketer[0].profile_image}"
 							alt="프로필 사진" />
 						<div class="person-info">
 							<p class="name">${bestMarketer[0].marketer_name}</p>
@@ -507,7 +510,7 @@ for (CmmnMap popLoanData : popLoan) {
 					<div class="person">
 						<p class="rank">2위</p>
 						<img
-							src="https://images.pexels.com/photos/2748239/pexels-photo-2748239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+							src="${bestMarketer[1].profile_image}"
 							alt="프로필 사진" />
 						<div class="person-info">
 							<p class="name">${bestMarketer[1].marketer_name}</p>
@@ -518,7 +521,7 @@ for (CmmnMap popLoanData : popLoan) {
 					<div class="person">
 						<p class="rank">3위</p>
 						<img
-							src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+							src="${bestMarketer[2].profile_image}"
 							alt="프로필 사진" />
 						<div class="person-info">
 							<p class="name">${bestMarketer[2].marketer_name}</p>
@@ -573,21 +576,46 @@ for (CmmnMap popLoanData : popLoan) {
 				event.currentTarget.classList.add("active");
 			}
 
+			// 웹소켓
+			const stompClient = new StompJs.Client({
+			    brokerURL: 'ws://localhost:8080/live-chat'
+			});
+			
+			stompClient.onConnect = (frame) => {
+			    console.log('Connected: ' + frame);
+			    // 구독
+			    stompClient.subscribe('/topic/chatted', (wsMessage) => {
+			    	showMessage(JSON.parse(wsMessage.body));
+			    });
+			};
+			
+			stompClient.activate();
+			
 			// 메시지 전송 함수
 			function sendMessage() {
-				var input = document.getElementById("messageInput");
-				var messageText = input.value.trim();
-
-				if (messageText !== "") {
+				var userName = "${userName}";
+				var profileImage = "${profileImage}";
+				
+				var input = document.getElementById("messageInput").value;
+				
+				stompClient.publish({
+					destination: "/app/hello",
+					body: JSON.stringify({'message': input, "name": userName, "profileImage": profileImage})
+				});
+			}
+			
+			// 메시지 화면 출력 함수
+			function showMessage(chat) {
+				if (chat !== "") {
 					var chatRoom = document.querySelector(".chatting-room");
 					var newChat = document.createElement("div");
 					newChat.className = "chat";
-					newChat.innerHTML = '<img src="https://newsimg-hams.hankookilbo.com/2022/03/03/4a69a88d-35f7-4473-9f7b-662e34f179c3.jpg" alt="프로필 사진" />'
+					newChat.innerHTML = '<img src="' + chat.profileImage + '" alt="프로필사진" />'
 							+ '<div class="chat-info">'
-							+ '<span class="name"><%=request.getAttribute("userId")%></span>'
-							+ '<span class="chattedAt">방금</span>'
+							+ '<span class="name">' + chat.name + '</span>'
+							+ '<span class="chattedAt">' + chat.time + '</span>'
 							+ '<p class="message">'
-							+ messageText
+							+ chat.message
 							+ "</p>"
 							+ "</div>";
 					chatRoom.insertBefore(newChat, chatRoom.lastElementChild);
@@ -604,6 +632,7 @@ for (CmmnMap popLoanData : popLoan) {
 			window.onload = function() {
 				scrollToBottom();
 			}
+			
 		</script>
 
 	</div>

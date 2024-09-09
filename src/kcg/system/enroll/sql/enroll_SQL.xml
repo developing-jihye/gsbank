@@ -9,18 +9,18 @@
 
 		/* system.enroll.getList */
 		SELECT
-		p.prod_nm,                  
-		c.cust_nm                   
+		e.enrl_id,
+		e.enrl_dt,
+		p.prod_nm,
+		c.cust_nm
 		FROM
-		tb_prd_enrl e          
+		tb_prd_enrl e
 		JOIN
-		tb_prodmst p          
-		ON
-		e.prod_cd = p.prod_cd       
+		tb_prodmst p
+		ON e.prod_cd = p.prod_cd
 		JOIN
-		tb_custmst c           
-		ON
-		e.cust_mbl_telno = c.cust_mbl_telno  
+		tb_custmst c
+		ON e.cust_mbl_telno = c.cust_mbl_telno;
 	</select>
 
 </mapper>

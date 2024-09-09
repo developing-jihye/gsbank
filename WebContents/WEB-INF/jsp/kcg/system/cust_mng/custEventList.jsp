@@ -35,7 +35,8 @@
 			<ol class="breadcrumb bc-3">
 				<li><a href="#none" onclick="cf_movePage('/system')"><i
 						class="fa fa-home"></i>Home</a></li>
-				<li class="active"><strong>고객이벤트 조회</strong></li>
+				<li><a href="#gm">고객관리</a></li>
+				<li class="active"><strong>고객 이벤트 조회</strong></li>
 			</ol>
 
 			<h2>고객이벤트 목록</h2>
@@ -78,69 +79,78 @@
 								style="display: flex; justify-content: center; width: 100%; margin-top: 0px;">
 								<!-- 버튼들을 하나의 div로 묶고 중앙 정렬 -->
 								<div style="display: flex; justify-content: center; gap: 20%;">
-									<button type="button" class="btn btn-blue2 btn-icon icon-left"
-										v-model="search_val" @click="getList(true)">조건검색</button>
-									<button type="button" class="btn btn-blue2 btn-icon icon-left"
+									<button type="button" class="btn btn-small"
+										v-model="search_val" @click="getList(true)"
+										style="font-family: 'Noto Sans KR', 'Noto Sans', sans-serif; font-size: 14px; font-weight: normal; background-color: #FF9900; color: white; padding: 10px; border: none; cursor: pointer;">
+										조건검색</button>
+									<button type="button" class="btn btn-small"
+										style="font-family: 'Noto Sans KR', 'Noto Sans', sans-serif; font-size: 14px; font-weight: normal; background-color: #FF9900; color: white; padding: 10px; border: none; cursor: pointer;"
 										v-model="search_val" @click="getListAll(true)">전체검색</button>
 								</div>
 							</div>
 						</div>
 					</div>
-					</div>
-					<!-- 아래 박스들: 인쇄 버튼과 테이블 -->
-					<div class="flex flex-100 flex-padding-10 flex-gap-10"
-						style="justify-content: flex-end; border: 1px solid #999999;">
-						<button type="button" class="btn btn-blue btn-icon icon-left"
-							style="margin-left: 5px;" @click="popCustmnglistPrint">
-							인쇄 <i class="entypo-print"></i>
-						</button>
-					</div>
+			</div>
+			
+			<!-- 
+			/* 아래 박스들: 인쇄 버튼과 테이블 */
+			<div class="flex flex-100 flex-padding-10 flex-gap-10"
+				style="justify-content: flex-end; border: 1px solid #999999;">
+				<button type="button" class="btn btn-blue btn-icon icon-left"
+					style="margin-left: 5px;" @click="popCustmnglistPrint">
+					인쇄 <i class="entypo-print"></i>
+				</button>
+			</div>
+			 -->
 
-					<!-- 데이터 테이블 -->
-<div class="flex flex-100" style="border: 1px solid #999999; margin-top: 20px; display: flex; justify-content: center;">
-    <div style="height: 400px; overflow-x: hidden; overflow-y: auto; width: 100%; max-width: 100%;">
-        <table class="table table-bordered datatable dataTable" id="grid_app" style="width: 100%; table-layout: fixed; margin: 0;">
-            <thead>
-                <tr class="replace-inputs">
-                    <th style="width: 5%;" class="center"><input
-                        type="checkbox" id="allCheck" @click="all_check(event.target)"
-                        style="cursor: pointer;"></th>
-                    <th style="width: 20%;" class="center">성명</th>
-                    <th style="width: 15%;" class="center">생년월일</th>
-                    <th style="width: 15%;" class="center">핸드폰번호</th>
-                    <th style="width: 15%;" class="center">관리담당자</th>
-                    <th style="width: 15%;" class="center">고객이벤트</th>
-                    <th style="width: 15%;" class="center">기념일</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="item in dataList"
-                    @dblclick="gotoDtl(item.cust_mbl_telno)"
-                    style="cursor: pointer;">
-                    <td class="center"><input type="checkbox"
-                        :data-idx="item.cust_nm" name="is_check" @click="onCheck"
-                        style="cursor: pointer;"></td>
-                    <td class="center">{{item.cust_nm}}</td>
-                    <td class="center">{{item.rrno}}</td>
-                    <td class="center">{{item.cust_mbl_telno}}</td>
-                    <td class="center">{{item.pic_nm}}</td>
-                    <td class="center">{{item.cust_evt_ty_cd_nm}}</td>
-                    <td class="center">{{item.avday_ymd}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-					<!-- 페이지네이션 섹션에 여백 추가 -->
-					<!-- <div class="dataTables_paginate paging_simple_numbers"
-						id="div_paginate" style="margin-top: 20px; text-align: center;"></div> -->
-				</template>
+			<!-- 데이터 테이블 -->
+			<div class="flex flex-100"
+				style="border: 1px solid #999999; margin-top: 20px; display: flex; justify-content: center;">
+				<div
+					style="height: 400px; overflow-x: hidden; overflow-y: auto; width: 100%; max-width: 100%;">
+					<table class="table table-bordered datatable dataTable"
+						id="grid_app" style="width: 100%; table-layout: fixed; margin: 0;">
+						<thead>
+							<tr class="replace-inputs">
+								<th style="width: 5%;" class="center"><input
+									type="checkbox" id="allCheck" @click="all_check(event.target)"
+									style="cursor: pointer;"></th>
+								<th style="width: 20%;" class="center">성명</th>
+								<th style="width: 15%;" class="center">생년월일</th>
+								<th style="width: 15%;" class="center">핸드폰번호</th>
+								<th style="width: 15%;" class="center">관리담당자</th>
+								<th style="width: 15%;" class="center">고객이벤트</th>
+								<th style="width: 15%;" class="center">기념일</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="item in dataList"
+								@dblclick="gotoDtl(item.cust_mbl_telno)"
+								style="cursor: pointer;">
+								<td class="center"><input type="checkbox"
+									:data-idx="item.cust_nm" name="is_check" @click="onCheck"
+									style="cursor: pointer;"></td>
+								<td class="center">{{item.cust_nm}}</td>
+								<td class="center">{{item.rrno}}</td>
+								<td class="center">{{item.cust_mbl_telno}}</td>
+								<td class="center">{{item.pic_nm}}</td>
+								<td class="center">{{item.cust_evt_ty_cd_nm}}</td>
+								<td class="center">{{item.avday_ymd}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 
-			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
-				flush="false" />
+			<!-- 페이지네이션 섹션에 여백 추가 -->
+			<!-- <div class="dataTables_paginate paging_simple_numbers"
+						id="div_paginate" style="margin-top: 20px; text-align: center;"></div> -->
+			</template>
 		</div>
+
+		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
+			flush="false" />
+	</div>
 	</div>
 
 	<!-- 고객기본정보조회 팝업 -->
@@ -326,74 +336,78 @@
 					wrt_dt : "",
 					search_val : "",
 				},
-			    mounted: function() {
-			        /* var fromDtl = cf_getUrlParam("fromDtl");
-			        var pagingConfig = cv_sessionStorage.getItem("pagingConfig");
-			        if ("Y" === fromDtl && !cf_isEmpty(pagingConfig)) {
-			            cv_pagingConfig.pageNo = pagingConfig.pageNo;
-			            cv_pagingConfig.orders = pagingConfig.orders;
+				mounted : function() {
+					/* var fromDtl = cf_getUrlParam("fromDtl");
+					var pagingConfig = cv_sessionStorage.getItem("pagingConfig");
+					if ("Y" === fromDtl && !cf_isEmpty(pagingConfig)) {
+					    cv_pagingConfig.pageNo = pagingConfig.pageNo;
+					    cv_pagingConfig.orders = pagingConfig.orders;
 
-			            var params = cv_sessionStorage.getItem("params");
-			            this.search_nm = params.search_nm;
-			            this.cust_evt_ty_cd = params.cust_evt_ty_cd;
-			            this.dept_nm = params.dept_nm;
-			            this.cust_nm = params.cust_nm;
-			            this.wrt_dt = params.wrt_dt;
-			            this.search_val = params.search_val;
+					    var params = cv_sessionStorage.getItem("params");
+					    this.search_nm = params.search_nm;
+					    this.cust_evt_ty_cd = params.cust_evt_ty_cd;
+					    this.dept_nm = params.dept_nm;
+					    this.cust_nm = params.cust_nm;
+					    this.wrt_dt = params.wrt_dt;
+					    this.search_val = params.search_val;
 
-			            this.getList(true);
-			        } else {
-			            cv_sessionStorage.removeItem("pagingConfig").removeItem("params");
-			            this.getList(true);
-			        } */
-			    },
+					    this.
+	getList(true);
+					} else {
+					    cv_sessionStorage.removeItem("pagingConfig").removeItem("params");
+					    this.getList(true);
+					} */
+				},
 				methods : {
-			        getList: function(isInit) {
-                        if (!this.cust_nm.trim() && !this.cust_evt_ty_cd.trim() && !this.dept_nm.trim() && !this.wrt_dt.trim()) {
-                            alert("검색 조건을 하나 이상 입력해 주세요.");
-                            return; // 조건이 만족되지 않으면 함수 실행 중단
-                        }
-			            cv_pagingConfig.func = this.getList;
-			            if (isInit === true) {
-			                cv_pagingConfig.pageNo = 1;
-			                cv_pagingConfig.orders = [{
-			                    target: "AVDAY_YMD",
-			                    isAsc: false
-			                }];
-			            }
+					getList : function(isInit) {
+						if (!this.cust_nm.trim() && !this.cust_evt_ty_cd.trim()
+								&& !this.dept_nm.trim() && !this.wrt_dt.trim()) {
+							alert("검색 조건을 하나 이상 입력해 주세요.");
+							return; // 조건이 만족되지 않으면 함수 실행 중단
+						}
+						cv_pagingConfig.func = this.getList;
+						if (isInit === true) {
+							cv_pagingConfig.pageNo = 1;
+							cv_pagingConfig.orders = [ {
+								target : "AVDAY_YMD",
+								isAsc : false
+							} ];
+						}
 
-			            var params = {
-			                search_nm: this.search_nm,
-			                search_val: this.search_val,
-			                cust_evt_ty_cd: this.cust_evt_ty_cd,
-			                dept_nm: this.dept_nm,
-			                cust_nm: this.cust_nm,
-			                wrt_dt: this.wrt_dt,
-			            };
+						var params = {
+							search_nm : this.search_nm,
+							search_val : this.search_val,
+							cust_evt_ty_cd : this.cust_evt_ty_cd,
+							dept_nm : this.dept_nm,
+							cust_nm : this.cust_nm,
+							wrt_dt : this.wrt_dt,
+						};
 
-			            cv_sessionStorage.setItem('pagingConfig', cv_pagingConfig).setItem('params', params);
-			            cf_ajax("/custMng/getList", params, this.getListCB);
-			        },
-			        getListAll: function(isInit) {
-			            cv_pagingConfig.func = this.getListAll;
-			            if (isInit === true) {
-			                cv_pagingConfig.pageNo = 1;
-			                cv_pagingConfig.orders = [{
-			                    target: "AVDAY_YMD",
-			                    isAsc: false
-			                }];
-			            }
+						cv_sessionStorage.setItem('pagingConfig',
+								cv_pagingConfig).setItem('params', params);
+						cf_ajax("/custMng/getList", params, this.getListCB);
+					},
+					getListAll : function(isInit) {
+						cv_pagingConfig.func = this.getListAll;
+						if (isInit === true) {
+							cv_pagingConfig.pageNo = 1;
+							cv_pagingConfig.orders = [ {
+								target : "AVDAY_YMD",
+								isAsc : false
+							} ];
+						}
 
-			            var params = {
-			                search_nm: this.search_nm,
-			                search_val: this.search_val,
-			            };
+						var params = {
+							search_nm : this.search_nm,
+							search_val : this.search_val,
+						};
 
-			            cv_sessionStorage.setItem('pagingConfig', cv_pagingConfig).setItem('params', params);
+						cv_sessionStorage.setItem('pagingConfig',
+								cv_pagingConfig).setItem('params', params);
 
-			            // 실제 Ajax 요청으로 대체합니다.
-			            cf_ajax("/custMng/getListAll", params, this.getListCB);
-			        },
+						// 실제 Ajax 요청으로 대체합니다.
+						cf_ajax("/custMng/getListAll", params, this.getListCB);
+					},
 					getListCB : function(data) {
 						//console.log(data);
 						this.dataList = data.list;

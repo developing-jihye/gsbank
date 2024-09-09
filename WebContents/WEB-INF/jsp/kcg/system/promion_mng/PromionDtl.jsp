@@ -65,7 +65,9 @@
 				<div class="dataTables_wrapper flex" id="vueapp">
 					<template>
 
-						<div style="display: flex; width: 100%;">
+						<div
+							style="display: flex; width: 100%; border: 5px solid; border-radius: 22px; border-color: rgb(255, 192, 97);">
+
 							<div class="left-side" style="width: 45%;">
 								<!-- 위쪽 내용 -->
 								<div class="nav-content flex-column flex-gap-10"
@@ -223,6 +225,7 @@
 									</form>
 								</div>
 							</div>
+
 						</div>
 
 					</template>

@@ -71,10 +71,12 @@
 			</div>
 
 			<div class="row">
+
 				<div class="dataTables_wrapper flex" id="vueapp">
 					<template>
-					
-						<div style="display: flex; width: 100%;">
+
+						<div
+							style="display: flex; width: 100%; border: 5px solid; border-radius: 22px; border-color: rgb(255, 192, 97);">
 
 							<div class="left-side" style="width: 45%;">
 								<!-- 위쪽 내용 -->
@@ -85,9 +87,10 @@
 										style="height: 40px;">
 										<label
 											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">상품선택:</label>
-										<input class="form-control" id="prod_cd" v-model="info.prod_cd"
-											disabled style="height: 100%;" /> <input class="form-control"
-											id="prod_nm" v-model="info.prod_nm" style="height: 100%;" />
+										<input class="form-control" id="prod_cd"
+											v-model="info.prod_cd" disabled style="height: 100%;" /> <input
+											class="form-control" id="prod_nm" v-model="info.prod_nm"
+											style="height: 100%;" />
 										<button type="button" class="btn" @click="popupProd()"
 											style="height: 100%;">
 											<i class="fa fa-search"></i>
@@ -157,79 +160,80 @@
 								</div>
 							</div>
 
-						<div class="middle-side" style="width: 5%;"></div>
+							<div class="middle-side" style="width: 5%;"></div>
 
-						<div class="right-side" style="width: 50%;">
-							<!-- 아래쪽 내용 -->
-							<div class="right-bottom flex-100" style="width: 100%;">
-								<form class="form flex-column" method="POST" action="#">
-									<table>
-										<tr>
-											<td class="center" style="width: 40%; vertical-align: top;">
-												<div id="chart" class="bottom-right-bottom flex-100"></div>
-												<div class="form-wrapper flex flex-wrap flex-gap-10">
-													<!-- 기존 내용 -->
-													<div class="form-group">
-														<label>회차별납입금:</label> <input class="form-control"
-															id="circle_pay_amt" v-model="info.circle_pay_amt_fmt"
-															disabled />
+							<div class="right-side" style="width: 50%;">
+								<!-- 아래쪽 내용 -->
+								<div class="right-bottom flex-100" style="width: 100%;">
+									<form class="form flex-column" method="POST" action="#">
+										<table>
+											<tr>
+												<td class="center" style="width: 40%; vertical-align: top;">
+													<div id="chart" class="bottom-right-bottom flex-100"></div>
+													<div class="form-wrapper flex flex-wrap flex-gap-10">
+														<!-- 기존 내용 -->
+														<div class="form-group">
+															<label>회차별납입금:</label> <input class="form-control"
+																id="circle_pay_amt" v-model="info.circle_pay_amt_fmt"
+																disabled />
+														</div>
+														<div class="form-group">
+															<label>회차상환금:</label> <input class="form-control"
+																id="circle_repy_amt" v-model="info.circle_repy_amt_fmt"
+																disabled />
+														</div>
+														<div class="form-group">
+															<label>회차이자:</label> <input class="form-control"
+																id="circle_int" v-model="info.circle_int_fmt" disabled />
+														</div>
+														<div class="form-group">
+															<label>총납입이자:</label> <input class="form-control"
+																id="tot_int_amt" v-model="info.tot_int_amt_fmt" disabled />
+														</div>
+														<div class="form-group">
+															<label>총상환금액:</label> <input class="form-control"
+																id="tot_pay_amt" v-model="info.tot_pay_amt_fmt" disabled />
+														</div>
 													</div>
-													<div class="form-group">
-														<label>회차상환금:</label> <input class="form-control"
-															id="circle_repy_amt" v-model="info.circle_repy_amt_fmt"
-															disabled />
-													</div>
-													<div class="form-group">
-														<label>회차이자:</label> <input class="form-control"
-															id="circle_int" v-model="info.circle_int_fmt" disabled />
-													</div>
-													<div class="form-group">
-														<label>총납입이자:</label> <input class="form-control"
-															id="tot_int_amt" v-model="info.tot_int_amt_fmt" disabled />
-													</div>
-													<div class="form-group">
-														<label>총상환금액:</label> <input class="form-control"
-															id="tot_pay_amt" v-model="info.tot_pay_amt_fmt" disabled />
-													</div>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td class="center" style="width: 57%; vertical-align: top;">
-												<table class="table table-bordered datatable dataTable"
-													id="grid_app">
-													<thead>
-														<tr class="replace-inputs">
-															<th style="width: 10%;" class="center">회차</th>
-															<th style="width: 18%;" class="center">총상환금</th>
-															<th style="width: 18%;" class="center">납입원금</th>
-															<th style="width: 18%;" class="center">회차이자</th>
-															<th style="width: 18%;" class="center">누적납입원금</th>
-															<th style="width: 18%;" class="center">잔금</th>
-														</tr>
-													</thead>
-													<tbody id="grid_tbody">
-													</tbody>
-												</table>
-											</td>
-										</tr>
-									</table>
-								</form>
+												</td>
+											</tr>
+											<tr>
+												<td class="center" style="width: 57%; vertical-align: top;">
+													<table class="table table-bordered datatable dataTable"
+														id="grid_app">
+														<thead>
+															<tr class="replace-inputs">
+																<th style="width: 10%;" class="center">회차</th>
+																<th style="width: 18%;" class="center">총상환금</th>
+																<th style="width: 18%;" class="center">납입원금</th>
+																<th style="width: 18%;" class="center">회차이자</th>
+																<th style="width: 18%;" class="center">누적납입원금</th>
+																<th style="width: 18%;" class="center">잔금</th>
+															</tr>
+														</thead>
+														<tbody id="grid_tbody">
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</form>
+								</div>
 							</div>
+
 						</div>
+
+					</template>
 				</div>
 
-				</template>
 			</div>
 
+			<br />
+
+			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
+				flush="false" />
+
 		</div>
-
-		<br />
-
-		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/footer.jsp"
-			flush="false" />
-
-	</div>
 	</div>
 
 	<!-- 상품팝업 -->

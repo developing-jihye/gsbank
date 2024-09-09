@@ -18,6 +18,12 @@ public class SystemMainSvc {
 
 	@Autowired
 	CmmnDao cmmnDao;
+	
+	// 유저 정보 가져오기
+	public List<CmmnMap> getUserInfoFromDB(String userId) {
+		return cmmnDao.selectList("system.main.fetchUserInfoFromDB", userId);
+		
+	}
 
 	// 담당 고객 나이 분포
 	public List<CmmnMap> getAgeDistr(String userId) {
@@ -41,18 +47,18 @@ public class SystemMainSvc {
 
 	// 종류별 인기 상품 조회
 	// 적금
-	public List<CmmnMap> getPopProd1() {
-		return cmmnDao.selectList("system.main.fetchPopProd1");
+	public List<CmmnMap> getPopProdSavings() {
+		return cmmnDao.selectList("system.main.fetchPopProdSavings");
 	}
 
 	// 예금
-	public List<CmmnMap> getPopProd2() {
-		return cmmnDao.selectList("system.main.fetchPopProd2");
+	public List<CmmnMap> getPopProdDeposit() {
+		return cmmnDao.selectList("system.main.fetchPopProdDeposit");
 	}
 
 	// 대출
-	public List<CmmnMap> getPopProd3() {
-		return cmmnDao.selectList("system.main.fetchPopProd3");
+	public List<CmmnMap> getPopProdLoan() {
+		return cmmnDao.selectList("system.main.fetchPopProdLoan");
 	}
 
 	// 베스트 마케터 조회
@@ -60,6 +66,7 @@ public class SystemMainSvc {
 		return cmmnDao.selectList("system.main.fetchBestMarketer");
 	}
 	
+	// 웹소켓
 	
 	
 	

@@ -45,8 +45,7 @@
 			
 			
 			
-					
-			
+							
 			
 			
 			<div class="container" id="vueapp">
@@ -97,6 +96,19 @@
         <option value="3">일시납</option>
     </select>
 </div>
+
+
+   <div class="form-group2">
+    <label for="taxType" class="form-control">이자과세:</label>
+    <select id="taxType" class="form-control" v-model="int_tax_ty_cd">
+        <option value="">전체</option>
+        <option value="1">일반과세</option>
+        <option value="2">세금우대</option>
+    </select>
+</div>
+
+
+
             
             <div class="Align_A">
             
@@ -477,6 +489,7 @@ var vueapp = new Vue(
 		sbstg_ty_cd : "",
 		pay_ty_cd : "",
 		from_date : "",
+		int_tax_ty_cd: "",		
 		all_srch : "N",
 	},
 	mounted : function() {
@@ -524,6 +537,7 @@ var vueapp = new Vue(
 					sbstg_ty_cd : this.sbstg_ty_cd,
 					pay_ty_cd : this.pay_ty_cd,
 					from_date : formattedDate,
+					int_tax_ty_cd : this.int_tax_ty_cd,
 				}
 			}
 			cv_sessionStorage
