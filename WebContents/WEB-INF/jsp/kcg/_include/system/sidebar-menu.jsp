@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	
+	<style>
+	.sidebar-menu {
+		background-color: #003366 !important;	
+	}
+	#main-menu li a {
+		color: #F6F6F6 !important;
+		background-color: #003366 !important;
+	}
+	</style>
+	
 	<div class="sidebar-menu">
 
 		<div class="sidebar-menu-inner">
@@ -35,7 +46,7 @@
 			
 				<li data-lnb="10" data-snb="0">
 					<a href="#gm">
-						<i class="entypo-newspaper"></i>
+						<i class="entypo-user"></i>
 						<span class="title">GSITM 고객관리</span>
 					</a>
 					<ul data-lnb="10" data-snb="0">
@@ -58,10 +69,19 @@
 				</li> 
 				<li data-lnb="11" data-snb="0">
 					<a href="#gm">
-						<i class="entypo-newspaper"></i>
+						<i class="entypo-suitcase"></i>
 						<span class="title">GSITM 상품관리</span>
 					</a>
 					<ul data-lnb="11" data-snb="0">
+						
+						
+						<li data-lnb="11" data-snb="0">
+							<a href="#gm" onclick="cf_movePage('/enr_mng/list')">
+								<span class="title">상품 가입</span>
+							</a>
+						</li>
+						
+						
 						<li data-lnb="11" data-snb="1">
 							<a href="#gm" onclick="cf_movePage('/prod_mng/list')">
 								<span class="title">상품목록 조회</span>
@@ -70,160 +90,132 @@
 					</ul>
 				</li>
 				<li data-lnb="12" data-snb="0">
-					<a href="#gm">
-						<i class="entypo-newspaper"></i>
-						<span class="title">GSITM 활동관리</span>
+					<a href="#gm" onclick="cf_movePage('/promion_mng/dtl?prod_ty_cd=1')">
+						<i class="entypo-chart-bar"></i>
+						<span class="title">금융계산기</span>
 					</a>
-					<ul data-lnb="12" data-snb="0">
-						<li data-lnb="12" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/schedule/calendar')">
-								<span class="title">스케쥴관리</span>
-							</a>
-						</li>						
-					</ul>
 				</li>
 				<li data-lnb="13" data-snb="0">
-					<a href="#gm">
-						<i class="entypo-newspaper"></i>
-						<span class="title">GSITM 프로모션</span>
-					</a>
-					<ul data-lnb="13" data-snb="0">
-						<!-- <li data-lnb="13" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/promion_mng/list')">
-								<span class="title">설계이력조회</span>
-							</a>
-						</li> -->
-						<li data-lnb="13" data-snb="2">
-							<a href="#gm" onclick="cf_movePage('/promion_mng/dtl?prod_ty_cd=1')">
-								<span class="title">금융계산기</span>
-							</a>
-						</li>					
-					</ul>
-				</li>
-				
-				
-				
-				
-				<li data-lnb="1" data-snb="0">
-					<a href="#gm" onclick="cf_movePage('/enr_mng/list')">
-						<i class="entypo-newspaper"></i>
-						<span class="title">상품 가입</span>
+					<a href="#gm" onclick="cf_movePage('/schedule/calendar')">
+						<i class="entypo-calendar"></i>
+						<span class="title">일정 관리</span>
 					</a>
 				</li>
 				
 				
 				
-				<li data-lnb="1" data-snb="0">
-					<a href="#gm" onclick="cf_movePage('/system/user_mng/list')">
-						<i class="entypo-newspaper"></i>
-						<span class="title">사용자 관리</span>
-					</a>
-				</li>
+				
+<!-- 				<li data-lnb="1" data-snb="0"> -->
+<!-- 					<a href="#gm" onclick="cf_movePage('/system/user_mng/list')"> -->
+<!-- 						<i class="entypo-newspaper"></i> -->
+<!-- 						<span class="title">사용자 관리</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 				
 				
-				<li data-lnb="8" data-snb="0">
-					<a href="#gm">
-						<i class="entypo-newspaper"></i>
-						<span class="title">그룹 관리</span>
-					</a>
-					<ul data-lnb="8" data-snb="0">
-						<li data-lnb="8" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/system/portal_auth_mng/list')">
-								<span class="title">그룹 관리</span>
-							</a>
-						</li>
-						<li data-lnb="8" data-snb="2">
-							<a href="#gm" onclick="cf_movePage('/system/admin_auth_mng/list')">
-								<span class="title">관리 그룹 관리</span>
-							</a>
-						</li>
-					</ul>
-				</li>
-				<li data-lnb="2" data-snb="0">
-					<a href="#gm" onclick="cf_movePage('/system/menu_mng/list')">
-						<i class="entypo-newspaper"></i>
-						<span class="title">메뉴 관리</span>
-					</a>
-				</li>
+<!-- 				<li data-lnb="8" data-snb="0"> -->
+<!-- 					<a href="#gm"> -->
+<!-- 						<i class="entypo-newspaper"></i> -->
+<!-- 						<span class="title">그룹 관리</span> -->
+<!-- 					</a> -->
+<!-- 					<ul data-lnb="8" data-snb="0"> -->
+<!-- 						<li data-lnb="8" data-snb="1"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/portal_auth_mng/list')"> -->
+<!-- 								<span class="title">그룹 관리</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 						<li data-lnb="8" data-snb="2"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/admin_auth_mng/list')"> -->
+<!-- 								<span class="title">관리 그룹 관리</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 					</ul> -->
+<!-- 				</li> -->
+<!-- 				<li data-lnb="2" data-snb="0"> -->
+<!-- 					<a href="#gm" onclick="cf_movePage('/system/menu_mng/list')"> -->
+<!-- 						<i class="entypo-newspaper"></i> -->
+<!-- 						<span class="title">메뉴 관리</span> -->
+<!-- 					</a> -->
+<!-- 				</li> -->
 				
 	
 				
-				<li data-lnb="4" data-snb="0">
-					<a href="#gm">
-						<i class="entypo-newspaper"></i>
-						<span class="title">공유관리</span>
-					</a>
-					<ul data-lnb="4" data-snb="0">
-						<li data-lnb="4" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/system/share_mng/dataVisualization/list')">
-								<span class="title">시각화 갤러리</span>
-							</a>
-						</li>
-						<li data-lnb="4" data-snb="2">
-							<a href="#gm" onclick="cf_movePage('/system/share_mng/analIdea/list')">
-								<span class="title">데이터 소통방</span>
-							</a>
-						</li>
-						<li data-lnb="4" data-snb="3">
-							<a href="#gm" onclick="cf_movePage('/system/reg_mng/shareDoc/list')">
-								<span class="title">공유문서 등록관리</span>
-							</a>
-						</li>
-					</ul>
-				</li>
+<!-- 				<li data-lnb="4" data-snb="0"> -->
+<!-- 					<a href="#gm"> -->
+<!-- 						<i class="entypo-newspaper"></i> -->
+<!-- 						<span class="title">공유관리</span> -->
+<!-- 					</a> -->
+<!-- 					<ul data-lnb="4" data-snb="0"> -->
+<!-- 						<li data-lnb="4" data-snb="1"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/share_mng/dataVisualization/list')"> -->
+<!-- 								<span class="title">시각화 갤러리</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 						<li data-lnb="4" data-snb="2"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/share_mng/analIdea/list')"> -->
+<!-- 								<span class="title">데이터 소통방</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 						<li data-lnb="4" data-snb="3"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/reg_mng/shareDoc/list')"> -->
+<!-- 								<span class="title">공유문서 등록관리</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 					</ul> -->
+<!-- 				</li> -->
 				
-				<li data-lnb="5" data-snb="0">
-					<a href="#gm">
-						<i class="entypo-newspaper"></i>
-						<span class="title">소통/참여관리</span>
-					</a>
-					<ul data-lnb="5" data-snb="0">
-						<li data-lnb="5" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/system/communi_mng/news/list')">
-								<span class="title">새 소식</span>
-							</a>
-						</li>
-						<li data-lnb="5" data-snb="2">
-							<a href="#gm" onclick="cf_movePage('/system/communi_mng/library/list')">
-								<span class="title">자료실</span>
-							</a>
-						</li>
-						<li data-lnb="5" data-snb="3">
-							<a href="#gm" onclick="cf_movePage('/system/communi_mng/inquire/list')">
-								<span class="title">문의하기</span>
-							</a>
-						</li>
+<!-- 				<li data-lnb="5" data-snb="0"> -->
+<!-- 					<a href="#gm"> -->
+<!-- 						<i class="entypo-newspaper"></i> -->
+<!-- 						<span class="title">소통/참여관리</span> -->
+<!-- 					</a> -->
+<!-- 					<ul data-lnb="5" data-snb="0"> -->
+<!-- 						<li data-lnb="5" data-snb="1"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/communi_mng/news/list')"> -->
+<!-- 								<span class="title">새 소식</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 						<li data-lnb="5" data-snb="2"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/communi_mng/library/list')"> -->
+<!-- 								<span class="title">자료실</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 						<li data-lnb="5" data-snb="3"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/communi_mng/inquire/list')"> -->
+<!-- 								<span class="title">문의하기</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
 						
-					</ul>
-				</li>
-				<li data-lnb="6" data-snb="0">
-					<a href="#gm">
-						<i class="entypo-newspaper"></i>
-						<span class="title">기타 관리</span>
-					</a>
-					<ul data-lnb="6" data-snb="0">
-						<li data-lnb="6" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/system/etc_mng/popup/list')">
-								<span class="title">팝업 관리</span>
-							</a>
-						</li>
-						<li data-lnb="6" data-snb="2">
-							<a href="#gm" onclick="cf_movePage('/system/etc_mng/help/list')">
-								<span class="title">도움말 관리</span>
-							</a>
-						</li>
-						<li data-lnb="6" data-snb="3">
-							<a href="#gm" onclick="cf_movePage('/system/etc_mng/errCd/list')">
-								<span class="title">에러코드 관리</span>
-							</a>
-						</li>
-						<li data-lnb="6" data-snb="4">
-							<a href="#gm" onclick="cf_movePage('/system/etc_mng/externalSystemUrl/list')">
-								<span class="title">외부시스템URL 관리</span>
-							</a>
-						</li>
-					</ul>
-				</li>
+<!-- 					</ul> -->
+<!-- 				</li> -->
+<!-- 				<li data-lnb="6" data-snb="0"> -->
+<!-- 					<a href="#gm"> -->
+<!-- 						<i class="entypo-newspaper"></i> -->
+<!-- 						<span class="title">기타 관리</span> -->
+<!-- 					</a> -->
+<!-- 					<ul data-lnb="6" data-snb="0"> -->
+<!-- 						<li data-lnb="6" data-snb="1"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/etc_mng/popup/list')"> -->
+<!-- 								<span class="title">팝업 관리</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 						<li data-lnb="6" data-snb="2"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/etc_mng/help/list')"> -->
+<!-- 								<span class="title">도움말 관리</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 						<li data-lnb="6" data-snb="3"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/etc_mng/errCd/list')"> -->
+<!-- 								<span class="title">에러코드 관리</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 						<li data-lnb="6" data-snb="4"> -->
+<!-- 							<a href="#gm" onclick="cf_movePage('/system/etc_mng/externalSystemUrl/list')"> -->
+<!-- 								<span class="title">외부시스템URL 관리</span> -->
+<!-- 							</a> -->
+<!-- 						</li> -->
+<!-- 					</ul> -->
+<!-- 				</li> -->
 
 	
 				 

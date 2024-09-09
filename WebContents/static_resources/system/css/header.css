@@ -1,67 +1,69 @@
 @charset "UTF-8";
 
 header {
-	color: #212121;
-	display: flex;
-	flex-flow: nowrap;
-	justify-content: space-between;
-	align-items: center;
-	padding: 15px;
-	border-bottom: 1px solid #F6F6F6;
+	height: 90px;
+  color: #212121;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #f6f6f6;
 }
 
-.personal-information {
-	display: flex;
-	flex-flow: row;
-	gap: 10px;
-	align-items: center;
+.greeting {
 	margin: 0;
-	position: relative; /* 부모 요소에 상대적인 위치 설정 */
+}
+
+.user_logInOut {
+  /* 포지션 기준 위치 */
+  position: relative;
 }
 
 .image-box {
-	width: 40px;
-	height: 40px;
+  width: 50px;
+  height: 50px;
 }
 
 .image-box img {
-	width: 100%;
-	height: 100%;
-	border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 /* 리스트 스타일 제거 */
 li {
-	list-style: none;
+  list-style: none;
 }
 
 /* 드롭다운 메뉴 기본 스타일 */
-.dropdown-menu {
-	display: none; /* 기본적으로 숨김 */
-	position: absolute;
-	top: 50px; /* userId 요소 아래에 위치 */
-	right: 0;
-	background-color: #ffffff;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	padding: 10px;
+.user_logInOut .dropdown {
+  display: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* 포지션 */
+  position: absolute;
+  width: 120px;
+  right: 0;
 }
 
 /* 드롭다운 메뉴가 표시될 때 */
-.dropdown-menu.show {
-	display: block;
+.user_logInOut .dropdown .show {
+  display: block;
 }
 
 /* 드롭다운 메뉴 안의 링크 스타일 */
-.dropdown-menu a {
-	color: #333;
-	text-decoration: none;
-	display: block;
-	padding: 5px 10px;
-	text-align: right;
+.user_logInOut .dropdown a {
+  color: #212121;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  text-align: center;
 }
 
-.dropdown-menu a:hover {
-	font-weight: bold;
+.user_logInOut .dropdown a:hover {
+  font-weight: bold;
 }
