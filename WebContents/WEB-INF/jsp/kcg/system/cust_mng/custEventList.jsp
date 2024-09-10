@@ -136,7 +136,7 @@
 								<td class="center">{{item.avday_ymd}}</td>
 								<td class="center">
 									<button type="button" class="btn btn-blue btn-icon icon-left"
-										style="margin-left: 5px;" @click="custInfoList(item.serial_number)">
+										style="margin-left: 5px;" @click="custInfoList(item.cust_mbl_telno)">
 										수정
 									</button>
 								</td>
@@ -468,7 +468,7 @@
 					custInfoList : function(init) {
 						
 						var params = {
-								serial_number : init
+								cust_mbl_telno : init
 							};
 						
 						cf_movePage('/custMng/custInfoList', params);

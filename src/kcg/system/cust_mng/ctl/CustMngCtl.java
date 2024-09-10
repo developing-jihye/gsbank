@@ -51,7 +51,7 @@ public class CustMngCtl {
 	@RequestMapping("/custInfoList")
 	public String openCustInfolist(ModelMap model, CmmnMap params) {
 		log.debug(">>> open page list");
-		log.info(">>> params" + params);
+		log.info(">>> params : " + params);
 		
 		return "kcg/system/cust_mng/custInfoList";
 	}

@@ -411,7 +411,6 @@
                 </template>
             </div>
             // 고객기본정보조회 팝업  -->
-	-->
 
 	<!-- 관리대장출력 팝업 -->
 	<div class="modal fade" id="pop_cust_mnglist_print">
@@ -872,7 +871,8 @@
                 mounted() {
                     var urlParams = new URLSearchParams(window.location.search);
                     this.autoSearch = urlParams.get('autoSearch') !== 'false';
-                    
+                    /* console.log(urlParams.get('cust_mbl_telno')); */
+                    this.gotoDtl(urlParams.get('cust_mbl_telno'));
                 },
                 
                 computed: {
