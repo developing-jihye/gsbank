@@ -1,5 +1,6 @@
 package kcg.system.enr_mng.svc;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,5 +48,25 @@ public class EnrMngSvc {
 	            throw e;  // 예외를 다시 던져서 호출자에게 알림
 	        }
 	    }
+	   
+	   public List<CmmnMap> getCust(CmmnMap params) {
+	        log.info("Fetching list with params cust: {}", params);
+	        try {
+	            // 로그 추가: 파라미터와 매퍼 ID
+	            log.info("Calling cmmnDao.selectList with mapper ID: system.enrmng.getCust");
+	            List<CmmnMap> result = cmmnDao.selectList("system.enroll.custList", params);
+	            log.info("Result from selectList: {}", result);
+	            return result;
+	        } catch (Exception e) {
+	            log.error("Error during selectList call", e);
+	            throw e;  // 예외를 다시 던져서 호출자에게 알림
+	        }
+	    }
+	   
+	   public void deleteEvents(List<Long> enrlIds) {
+		    log.info("Deleting events with IDs: {}", enrlIds);
+		    cmmnDao.delete("system.enroll.delproBatch", Collections.singletonMap("list", enrlIds));
+		}
+	}
+	  
 
-}

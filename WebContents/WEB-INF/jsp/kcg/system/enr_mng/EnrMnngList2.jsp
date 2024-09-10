@@ -18,171 +18,150 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+
 <body class="page-body">
-	<div class="page-container">
-		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp"
-			flush="false" />
-		<div class="main-content">
-			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp"
-				flush="false" />
-			<ol class="breadcrumb bc-3">
-				<li><a href="#none" onclick="cf_movePage('/system')"><i
-						class="fa fa-home"></i>Home</a></li>
-				<li class="active"><strong>상품가입</strong></li>
-			</ol>
-			<h2>상품가입</h2>
-			<br />
-			<div class="container" id="vueapp">
-				<div class="left">
-					<div class="form-group2">
-						<label for="prodCode" class="form-control">고객:</label> <select
-							v-model="selectedCustomer" class="form-control">
-							<option value="0">전체</option>
-							<option v-for="customer in uniqueCustomers" :value="customer">{{
-								customer }}</option>
-						</select>
-					</div>
-					<!-- <div class="form-group2">
-                        <label for="prodCode" class="form-control">상품:</label>
-                        <select v-model="selectedProduct" class="form-control">
+    <div class="page-container">
+        <jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp" flush="false" />
+        <div class="main-content">
+            <jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp" flush="false" />
+            <ol class="breadcrumb bc-3">
+                <li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
+                <li class="active"><strong>상품가입</strong></li>
+            </ol>
+            <h2>상품가입</h2>
+            <br />
+            <div class="container" id="vueapp">
+                <div class="left">
+                    <div class="form-group2">
+                        <label for="prodCode" class="form-control">고객:</label>
+                        <select v-model="selectedCustomer" class="form-control">
                             <option value="0">전체</option>
-                            <option v-for="product in uniqueProducts" :value="product">{{ product }}</option>
+                            <option v-for="customer in customers" :key="customer.cust_nm" :value="customer.cust_nm">{{ customer.cust_nm }}</option>
                         </select>
-                    </div> -->
-					<div class="Align_A">
-						<button type="button" class="btn btn-blue" @click="getListCond()">조회하기</button>
-					</div>
-				</div>
-				<div class="right">
-					<div class="table-container"
-						style="max-height: 580px overflow-y: auto border: 1px solid #999999">
-						<table
-							class="table table-bordered datatable dataTable custom-table"
-							id="grid_app" style="width: 100% border-collapse: collapse">
-							<thead>
-								<tr class="replace-inputs">
-									<th style="width: 4%" class="center hidden-xs nosort"><input
-										type="checkbox" id="allCheck"></th>
-									<th style="width: 24%" class="center">가입ID</th>
-									<th style="width: 24%" class="center">상품명</th>
-									<th style="width: 24%" class="center">가입날짜</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="(item, index) in items" :key="index">
-									<td class="center"><input type="checkbox" name="is_check"></td>
-									<td class="center center-align">{{ item.enrl_id }}</td>
-									<td class="center center-align">{{ item.prod_nm }}</td>
-									<td class="center center-align">{{ new
-										Date(item.enrl_dt).toLocaleDateString() }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div style="height: 15px"></div>
-					<div
-						class="flex flex-100 flex-padding-10 flex-gap-10 white-background"
-						style="justify-content: flex-end border: 1px solid #999999">
-						<button type="button" class="btn btn-orange btn-small align11"
-							@click="cf_movePage('/prod_mng/dtl')">삭제</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script>
+                    </div>
+                    <div class="Align_A">
+                        <button type="button" class="btn btn-blue" @click="getListCond()">조회하기</button>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="table-container" style="max-height: 580px; overflow-y: auto; border: 1px solid #999999;">
+                        <table class="table table-bordered datatable dataTable custom-table" id="grid_app" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr class="replace-inputs">
+                                    <th style="width: 4%" class="center hidden-xs nosort">
+                                        <input type="checkbox" id="allCheck" @change="toggleAllChecks">
+                                    </th>
+                                    <th style="width: 24%" class="center">가입ID</th>
+                                    <th style="width: 24%" class="center">상품명</th>
+                                    <th style="width: 24%" class="center">가입날짜</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in items" :key="index">
+                                    <td class="center">
+                                        <input type="checkbox" :value="item.enrl_id" v-model="selectedItems">
+                                    </td>
+                                    <td class="center center-align">{{ item.enrl_id }}</td>
+                                    <td class="center center-align">{{ item.prod_nm }}</td>
+                                    <td class="center center-align">{{ new Date(item.enrl_dt).toLocaleDateString() }}</td>
+                                </tr>
+                                <tr v-if="items.length === 0">
+                                    <td colspan="4" class="center">데이터가 없습니다</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="height: 15px"></div>
+                    <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background" style="justify-content: flex-end border: 1px solid #999999">
+                        <button type="button" class="btn btn-orange btn-small align11" @click="deleteSelectedItems">삭제</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
     new Vue({
         el: '#vueapp',
         data: {
             selectedCustomer: '0',
             selectedProduct: '0',
-            items: [], // 전체 데이터
-            uniqueItems: [], // 중복 제거된 데이터
-            uniqueCustomers: [], // 중복 제거된 고객 이름
-            uniqueProducts: [] // 중복 제거된 상품명
+            items: [], // 필터된 데이터
+            customers: [], // 고객 데이터
+            selectedItems: [] // 선택된 항목의 ID
         },
         mounted() {
             console.log("Vue instance mounted");
-            this.fetchData(); // 컴포넌트가 마운트되면 데이터 가져오기
+            this.fetchCustomers(); // 컴포넌트가 마운트되면 고객 데이터 가져오기
+        },
+        watch: {
+            selectedItems(newVal) {
+                console.log('Selected items updated:', newVal); // selectedItems 값 변경 시 로그 출력
+            }
         },
         methods: {
-            fetchData() {
-                console.log("Fetching data...");
-                axios.get('/enr_mng/getlist')
+            fetchCustomers() {
+                console.log("Fetching customers...");
+                axios.get('/enr_mngg/custlist') // 고객 목록을 가져오는 API 호출
                     .then(response => {
-                        console.log("API response:", response);
-                        this.items = response.data; // 전체 데이터 저장
-                        this.filterUniqueItems(); // 중복 제거된 데이터 추출
-                        this.extractUniqueCustomers(); // 중복 제거된 고객 이름 추출
-                        this.extractUniqueProducts(); // 중복 제거된 상품명 추출
+                        console.log("Customer list response:", response);
+                        this.customers = response.data;
+                        console.log("Customers:", this.customers); // 디버깅용
                     })
                     .catch(error => {
-                        console.error("There was an error fetching the data:", error);
+                        console.error("There was an error fetching the customer list:", error);
                     });
-            },
-            filterUniqueItems() {
-                const seen = new Set();
-                this.uniqueItems = this.items.filter(item => {
-                    const key = item.cust_nm + '|' + item.prod_nm;
-                    if (seen.has(key)) {
-                        return false;
-                    }
-                    seen.add(key);
-                    return true;
-                });
-                console.log("Unique items:", this.uniqueItems);
-            },
-            extractUniqueCustomers() {
-                const seen = new Set();
-                this.uniqueCustomers = this.items
-                    .map(item => item.cust_nm) // 고객 이름 추출
-                    .filter(name => {
-                        if (seen.has(name)) {
-                            return false;
-                        }
-                        seen.add(name);
-                        return true;
-                    });
-                console.log("Unique customers:", this.uniqueCustomers);
-            },
-            extractUniqueProducts() {
-                const seen = new Set();
-                this.uniqueProducts = this.items
-                    .map(item => item.prod_nm) // 상품명 추출
-                    .filter(name => {
-                        if (seen.has(name)) {
-                            return false;
-                        }
-                        seen.add(name);
-                        return true;
-                    });
-                console.log("Unique products:", this.uniqueProducts);
             },
             getListCond() {
                 console.log("Fetching data for selected customer...");
-
-                // 선택된 고객 정보를 URL 쿼리 파라미터로 전달
-                const params = {
-                    customer: this.selectedCustomer
-                };
+                const params = { customer: this.selectedCustomer };
 
                 axios.get('/enr_mngg/getlist', { params: params })
                     .then(response => {
                         console.log("Filtered data response:", response);
                         this.items = response.data; // 필터된 데이터 저장
-                        this.filterUniqueItems(); // 중복 제거된 데이터 재추출
-                        this.extractUniqueCustomers(); // 고객 이름 재추출
                     })
                     .catch(error => {
                         console.error("There was an error fetching the filtered data:", error);
                     });
             },
-            
-            
-          
-            cf_movePage(url) {
-                console.log("Redirecting to:", url);
-                window.location.href = url;
+            deleteSelectedItems() {
+                console.log("Deleting selected items:", this.selectedItems); // 선택된 항목 확인
+                if (this.selectedItems.length === 0) {
+                    alert('삭제할 항목을 선택해 주세요.');
+                    return;
+                }
+
+                // JSON 형식으로 데이터를 직렬화
+                const cleanData = { enrl_ids: this.selectedItems };
+
+                console.log('Data to send:', cleanData);
+
+                axios.post('/enr_mngg/delete', JSON.stringify(cleanData), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log("Delete response:", response);
+                    this.getListCond(); // 삭제 후 목록 갱신
+                })
+                .catch(error => {
+                    console.error("There was an error deleting the items:", error);
+                });
+            },
+            toggleAllChecks(event) {
+                console.log("toggleAllChecks method called"); // 메서드 호출 확인
+                if (!event || !event.target) {
+                    console.error('Event or event.target is undefined.');
+                    return;
+                }
+                
+                const isChecked = event.target.checked;
+                console.log('Checkbox state:', isChecked); // 체크박스의 체크 상태를 로그로 출력
+
+                // 모든 항목의 ID를 선택하거나 해제
+                this.selectedItems = isChecked ? this.items.map(item => item.enrl_id) : [];
+                console.log('Selected items after toggle:', this.selectedItems); // 선택된 항목의 ID를 로그로 출력
             }
         }
     });
