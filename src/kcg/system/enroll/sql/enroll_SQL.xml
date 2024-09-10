@@ -19,18 +19,20 @@
 		tb_prd_enrl e
 		JOIN
 		tb_prodmst p
-		ON e.prod_cd = p.prod_cd
+		ON e.prod_cd =
+		p.prod_cd
 		JOIN
 		tb_custmst c
 		ON e.cust_mbl_telno = c.cust_mbl_telno
 		ORDER BY
         c.cust_nm ASC;
 	</select>
-	
-	
-	<select id="getList2" parameterType="cmmnMap" resultType="cmmnMap">
-        SELECT 
-        e.enrl_id,
+
+
+	<select id="getList2" parameterType="cmmnMap"
+		resultType="cmmnMap">
+		SELECT
+		e.enrl_id,
 		e.enrl_dt,
         p.prod_nm
         FROM tb_prodmst p
@@ -53,6 +55,41 @@
         #{cust_mbl_telno}
     )
 </insert> 
+
+	
+
+	<select id="custList" parameterType="cmmnMap"
+		resultType="cmmnMap">
+		SELECT
+		cust_nm
+		FROM tb_custmst
+	</select>
+
+	<insert id="insertInfo" parameterType="cmmnMap">
+		INSERT INTO tb_prd_enrl (
+		enrl_id,
+		enrl_dt,
+		prod_cd,
+		cust_mbl_telno
+		)
+		VALUES (
+		(SELECT FLOOR(RANDOM()
+		* (500 - 100 + 1) + 100)::BIGINT),
+		#{enrl_dt},
+		#{prod_cd},
+		#{cust_mbl_telno}
+		)
+	</insert>
+
+	<delete id="delproBatch" parameterType="cmmnMap">
+	/* system.enroll.delproBatch */
+    DELETE FROM tb_prd_enrl
+    WHERE enrl_id IN 
+    <foreach collection="enrl_id" item="id" open="(" separator="," close=")">
+        #{id}
+    </foreach>
+	</delete>
+
 
 
 

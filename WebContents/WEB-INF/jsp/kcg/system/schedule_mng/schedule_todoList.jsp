@@ -4,12 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <jsp:include page="/WEB-INF/jsp/kcg/_include/system/header_meta.jsp"
 	flush="false" />
+	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <link rel="stylesheet"
 	href="/static_resources/system/css/schedule_todoList.css">
-
+	
 <!-- TOAST UI Calendar 관련 CSS -->
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
@@ -214,9 +217,9 @@ button.active {
 	color: white;
 }
 
-* {
+/* * {
 	font-family: 'Noto Sans', sans-serif !important;
-}
+} */
 
 .calendar-button {
 	background-color: rgb(108, 122, 137);
@@ -297,8 +300,7 @@ button.active {
 			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp"
 				flush="false" />
 			<ol class="breadcrumb bc-3">
-				<li><a href="#none" onclick="cf_movePage('/system')"><i
-						class="fa fa-home"></i>Home</a></li>
+				<li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
 				<li class="active"><strong>스케줄 관리</strong></li>
 			</ol>
 			<div class="kc-main-content">
