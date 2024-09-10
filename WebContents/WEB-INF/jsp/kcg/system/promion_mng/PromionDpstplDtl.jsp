@@ -66,7 +66,7 @@
 					<template>
 
 						<div
-							style="display: flex; width: 100%; border: 5px solid; border-radius: 22px; border-color: rgb(255, 192, 97);">
+							style="display: flex; width: 100%; border: 1px solid #a6a6a6;">
 
 							<div class="left-side" style="width: 45%;">
 								<!-- 위쪽 내용 -->
