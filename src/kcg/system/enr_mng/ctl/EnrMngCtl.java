@@ -72,15 +72,16 @@ public class EnrMngCtl {
 	}
 	
 	@PostMapping("/delete")
-	public List<CmmnMap> deleteEvent(@RequestBody CmmnMap params) {
-	    List<String> enrlIdList = (List<String>) params.get("enrl_id");
-	    System.out.println("Received enrl_id object: " + enrlIdList);
+	public CmmnMap deleteEvent(@RequestBody CmmnMap params) {
+	    System.out.println("Received enrl_id object: " + params);
 
-	    if (enrlIdList == null || enrlIdList.isEmpty()) {
-	        throw new IllegalArgumentException("No enrl_id provided for deletion");
-	    }
+	    // 삭제된 레코드 수를 받아 CmmnMap으로 반환
+	    int deletedCount = es.deleteEvents(params);
+	    
+	    CmmnMap result = new CmmnMap();
+	    result.put("deletedCount", deletedCount); // 삭제된 행 수를 결과로 포함
 
-	    return es.deleteEvents(params); // deleteEvents 함수가 제대로 동작하는지 확인 필요
+	    return result; // CmmnMap으로 반환
 	}
 			/*
 			 * System.out.println("Deleting events with params: " + params);
