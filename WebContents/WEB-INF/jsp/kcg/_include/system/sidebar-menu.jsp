@@ -73,18 +73,24 @@
 						<span class="title">GSITM 상품관리</span>
 					</a>
 					<ul data-lnb="11" data-snb="0">
-						
-						
+					
 						<li data-lnb="11" data-snb="0">
-							<a href="#gm" onclick="cf_movePage('/enr_mng/list')">
-								<span class="title">상품 가입</span>
+							<a href="#gm" onclick="cf_movePage('/prod_mng/list')">
+								<span class="title">상품목록 조회</span>
 							</a>
 						</li>
 						
 						
 						<li data-lnb="11" data-snb="1">
-							<a href="#gm" onclick="cf_movePage('/prod_mng/list')">
-								<span class="title">상품목록 조회</span>
+							<a href="#gm" onclick="cf_movePage('/enr_mng/list')">
+								<span class="title">고객 상품 가입</span>
+							</a>
+						</li>
+						
+						
+						<li data-lnb="11" data-snb="2">
+							<a href="#gm" onclick="cf_movePage('/enr_mngg/list')">
+								<span class="title">고객 가입 상품 관리</span>
 							</a>
 						</li>
 					</ul>

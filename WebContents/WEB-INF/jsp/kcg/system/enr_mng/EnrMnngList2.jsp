@@ -29,9 +29,9 @@
 			<ol class="breadcrumb bc-3">
 				<li><a href="#none" onclick="cf_movePage('/system')"><i
 						class="fa fa-home"></i>Home</a></li>
-				<li class="active"><strong>고객 상품 관리</strong></li>
+				<li class="active"><strong>고객 가입 상품 관리</strong></li>
 			</ol>
-			<h2>고객 상품 관리</h2>
+			<h2>고객 가입 상품 관리</h2>
 			<br />
 			<div class="container" id="vueapp">
 				<div class="left">
