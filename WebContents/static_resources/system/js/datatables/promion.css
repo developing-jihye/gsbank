@@ -35,6 +35,10 @@ body {
     font-style: normal;
 }
 
+.main-content {
+	padding-top: 0 !important;
+}
+
 .text-center { text-align: center; }
 
 /* Flex 스타일 */
