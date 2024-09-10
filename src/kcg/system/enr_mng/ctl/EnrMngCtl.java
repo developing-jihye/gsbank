@@ -71,33 +71,32 @@ public class EnrMngCtl {
 		return es.getCust(params);
 	}
 	
-	  @PostMapping("/delete")
-	    @ResponseBody
-	    public CmmnMap deleteEvent(@RequestBody CmmnMap params) {
-	        System.out.println("Deleting events with params: " + params);
+	@PostMapping("/delete")
+	public List<CmmnMap> deleteEvent(@RequestBody CmmnMap params) {
+	    List<String> enrlIdList = (List<String>) params.get("enrl_id");
+	    System.out.println("Received enrl_id object: " + enrlIdList);
 
-	        // 데이터를 리스트로 추출
-	        List<Long> enrlIds = new ArrayList<>();
-	        Object ids = params.get("enrl_ids");
-
-	        if (ids instanceof List<?>) {
-	            for (Object id : (List<?>) ids) {
-	                if (id instanceof Number) {
-	                    enrlIds.add(((Number) id).longValue());
-	                } else {
-	                    System.out.println("Unexpected type in enrl_ids: " + id.getClass());
-	                }
-	            }
-	        } else {
-	            System.out.println("enrl_ids is not a List");
-	        }
-
-	        System.out.println("Extracted enrl_ids: " + enrlIds);
-
-	        if (!enrlIds.isEmpty()) {
-	            es.deleteEvents(enrlIds);
-	        }
-
-	        return new CmmnMap().put("status", "OK");
+	    if (enrlIdList == null || enrlIdList.isEmpty()) {
+	        throw new IllegalArgumentException("No enrl_id provided for deletion");
 	    }
+
+	    return es.deleteEvents(params); // deleteEvents 함수가 제대로 동작하는지 확인 필요
+	}
+			/*
+			 * System.out.println("Deleting events with params: " + params);
+			 * 
+			 * // 데이터를 리스트로 추출 List<Long> enrlIds = new ArrayList<>(); Object ids =
+			 * params.get("enrl_ids");
+			 * 
+			 * if (ids instanceof List<?>) { for (Object id : (List<?>) ids) { if (id
+			 * instanceof Number) { enrlIds.add(((Number) id).longValue()); } else {
+			 * System.out.println("Unexpected type in enrl_ids: " + id.getClass()); } } }
+			 * else { System.out.println("enrl_ids is not a List"); }
+			 * 
+			 * System.out.println("Extracted enrl_ids: " + enrlIds);
+			 * 
+			 * if (!enrlIds.isEmpty()) { es.deleteEvents(enrlIds); }
+			 * 
+			 * return new CmmnMap().put("status", "OK");
+			 */
 }

@@ -1,5 +1,6 @@
 package kcg.system.enr_mng.svc;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,10 +64,22 @@ public class EnrMngSvc {
 	        }
 	    }
 	   
-	   public void deleteEvents(List<Long> enrlIds) {
-		    log.info("Deleting events with IDs: {}", enrlIds);
-		    cmmnDao.delete("system.enroll.delproBatch", Collections.singletonMap("list", enrlIds));
+	   public List<CmmnMap> deleteEvents(CmmnMap params) {
+		    log.info("Deleting events with IDs: {}", params);
+		    
+		    // 삭제 작업 수행 (삭제된 행의 개수 반환)
+		    int deletedCount = cmmnDao.delete("system.enroll.delproBatch", params);
+		    
+		    // 삭제된 결과를 CmmnMap으로 감싸고 List로 반환
+		    CmmnMap resultMap = new CmmnMap();
+		    resultMap.put("deletedCount", deletedCount);
+
+		    List<CmmnMap> result = new ArrayList<>();
+		    result.add(resultMap);
+
+		    return result;
 		}
-	}
+		    //cmmnDao.delete("system.enroll.delproBatch", Collections.singletonMap("list", enrlIds));
+		}
 	  
 

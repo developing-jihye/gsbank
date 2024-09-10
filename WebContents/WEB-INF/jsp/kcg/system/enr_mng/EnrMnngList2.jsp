@@ -124,29 +124,28 @@
                         console.error("There was an error fetching the filtered data:", error);
                     });
             },
-            deleteSelectedItems() {
-                console.log("Deleting selected items:", this.selectedItems); // 선택된 항목 확인
+            deleteSelectedItems: function() {
+                console.log("선택된 항목 확인:", this.selectedItems); // 선택된 항목 확인
+
                 if (this.selectedItems.length === 0) {
                     alert('삭제할 항목을 선택해 주세요.');
                     return;
                 }
 
-                // JSON 형식으로 데이터를 직렬화
-                const cleanData = { enrl_ids: this.selectedItems };
+                var params = { enrl_id: this.selectedItems }; // 전송할 데이터
+                console.log("보내기전 로그확인:", params); // 서버에 보내기 전에 로그로 확인
 
-                console.log('Data to send:', cleanData);
-
-                axios.post('/enr_mngg/delete', JSON.stringify(cleanData), {
-                    headers: {
-                        'Content-Type': 'application/json'
+                // cf_ajax로 데이터 전송
+                cf_ajax("/enr_mngg/delete", params, function(response) {
+                    console.log("Delete response:", response); // 성공 시 응답 출력
+                    if (response.success) {
+                        console.log("Delete successful."); // 성공 메시지
+                        // 목록 갱신 또는 추가 처리
+                    } else {
+                        alert('삭제 중 오류가 발생했습니다.');
                     }
-                })
-                .then(response => {
-                    console.log("Delete response:", response);
-                    this.getListCond(); // 삭제 후 목록 갱신
-                })
-                .catch(error => {
-                    console.error("There was an error deleting the items:", error);
+                }, function(error) {
+                    console.error("There was an error deleting the items:", error); // 실패 시 오류 출력
                 });
             },
             toggleAllChecks(event) {

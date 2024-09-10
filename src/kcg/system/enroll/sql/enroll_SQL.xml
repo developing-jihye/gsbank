@@ -63,12 +63,12 @@
 	</insert>
 
 	<delete id="delproBatch" parameterType="cmmnMap">
-		DELETE FROM tb_prd_enrl
-		WHERE enrl_id IN
-		<foreach item="id" collection="list" open="(" separator=","
-			close=")">
-			#{id}
-		</foreach>
+	/* system.enroll.delproBatch */
+    DELETE FROM tb_prd_enrl
+    WHERE enrl_id IN 
+    <foreach collection="enrl_id" item="id" open="(" separator="," close=")">
+        #{id}
+    </foreach>
 	</delete>
 
 
