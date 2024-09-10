@@ -53,6 +53,44 @@
     )
 </insert> 
 
+
+<insert id="insertInfo1" parameterType="cmmnMap">
+    INSERT INTO tb_prd_enrl (
+        enrl_id,
+        enrl_dt,
+        prod_cd,
+        cust_mbl_telno
+    )
+    SELECT
+        (SELECT FLOOR(RANDOM() * (500 - 100 + 1) + 100)::BIGINT),
+        CURRENT_DATE,
+        p.prod_cd,
+        c.cust_mbl_telno
+    FROM
+        tb_productmst p
+    JOIN
+        tb_custmst c ON c.cust_nm = #{cust_nm}
+    WHERE
+        p.prod_nm = #{prod_nm}
+</insert>
+
+
+	<select id="getListTelephone" parameterType="cmmnMap" resultType="cmmnMap">
+        SELECT 
+        cust_mbl_telno
+		FROM tb_custmst p
+        WHERE cust_nm = #{cust_nm}
+    </select>
+    
+    
+    <select id="getProductId" parameterType="cmmnMap" resultType="cmmnMap">
+      SELECT 
+        prod_cd
+		FROM tb_prodmst p
+        WHERE prod_nm = #{prod_nm}
+    </select>
+
+
 <select id="custList" parameterType="cmmnMap"
         resultType="cmmnMap">
         SELECT
