@@ -49,10 +49,52 @@ public class enrollController {
 	}
 	
 	
+	
+	@RequestMapping("/getTelephone")
+	public List<CmmnMap> getListTelephone(CmmnMap payload1) {
+		
+
+		
+		log.info("Telephone:" + payload1);
+		
+		  List<CmmnMap> result = (List<CmmnMap>) es.getListTelephone(payload1);
+	        log.info("Result from es.getListTelephone111: {}", result);
+
+	        // Return the result
+	        return result;
+	}
+	
+
+	@RequestMapping("/getProductId")
+	public List<CmmnMap> getProductId(CmmnMap payload2) {
+		
+
+		
+		log.info("ProductId:" + payload2);
+		
+		  List<CmmnMap> result1 = (List<CmmnMap>) es.getProductId(payload2);
+	        log.info("Result from es.getProductId: {}", result1);
+
+	        // Return the result
+	        return result1;
+	}
+	
+	
+	
+	
+	
 	@PostMapping("/save")
 	public void save(CmmnMap payload) {
 		log.info("Saved");
 		log.info("Saving parameters111:" + payload);
+		es.save(payload);
+	}
+	
+
+	@PostMapping("/save1")
+	public void save1(CmmnMap payload) {
+		log.info("Saved");
+		log.info("Saving parameters222:" + payload);
 		es.save(payload);
 	}
 	

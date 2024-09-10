@@ -47,4 +47,38 @@ public class enrollService {
 			
 	}
 	
+	
+	public void save1(CmmnMap params) {
+		
+		
+	    cmmnDao.insert("system.enroll.insertInfo1", params);
+	
+			
+	}
+	
+	public List<CmmnMap> getListTelephone(CmmnMap params) {
+		
+		
+		
+		List<CmmnMap> rslt = cmmnDao.selectList("system.enroll.getListTelephone", params);
+		return rslt;
+	
+			
+	}
+	
+	
+public List<CmmnMap> getProductId(CmmnMap params) {
+		
+		
+		
+		List<CmmnMap> rslt = cmmnDao.selectList("system.enroll.getProductId", params);
+		return rslt;
+	
+			
+	}
+	
+	
+	
+	
+	
 }

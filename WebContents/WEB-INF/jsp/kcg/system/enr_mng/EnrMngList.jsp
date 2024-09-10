@@ -26,24 +26,47 @@
             <div class="container" id="vueapp">
                 <div class="left">
                     <div class="form-group2">
+                    <label for="prodCode" class="form-control">데이터 등록해서 가입하기</label>
                         <label for="prodCode" class="form-control">고객:</label>
-                        <select v-model="selectedCustomer" class="form-control">
-                            <option value="0">전체</option>
-                            <option v-for="customer in uniqueCustomers" :value="customer">{{ customer }}</option>
-                        </select>
+                        <div class="input-container">
+                         <input id="customerInput" type="text" v-model="selectedCustomer" class="form-control" placeholder="고객 전화번호를 입력하세요">
+                         </div>
+                      
                     </div>
                     <div class="form-group2">
                         <label for="prodCode" class="form-control">상품:</label>
-                        <select v-model="selectedProduct" class="form-control">
-                            <option value="0">전체</option>
-                            <option v-for="product in uniqueProducts" :value="product">{{ product }}</option>
-                        </select>
+                        <input id="productInput" type="text" v-model="selectedProduct" class="form-control" placeholder="상품 코드를 입력하세요">
+                 
                     </div>
                     
                     
                     <div class="Align_A">
-    <button type="button" class="btn btn-blue" @click="saveData()">가입하기</button>
+    <button type="button" class="btn btn-blue" @click="search()">저장하기</button>
 </div>
+
+<div style="height: 10px;"></div>
+
+
+    <label for="prodCode" class="form-control">선택해서 가입하기</label>
+<select v-model="selectedCustomer1" class="form-control">
+
+                            <option value="0">전체</option>
+                            <option v-for="customer in uniqueCustomers" :value="customer">{{ customer }}</option>
+                        </select> 
+                        
+                        <div style="height: 10px"></div>
+                        
+                  <select v-model="selectedProduct1" class="form-control">
+     
+                            <option value="0">전체</option>
+                            <option v-for="product in uniqueProducts" :value="product">{{ product }}</option>
+                        </select> 
+
+<div style="height: 10px"></div>
+<div class="Align_A">
+    <button type="button" class="btn btn-blue" @click="saveData()">저장하기</button>
+
+  </div>
                     
                     
                 </div>
@@ -52,19 +75,23 @@
                         <table class="table table-bordered datatable dataTable custom-table" id="grid_app" style="width: 100% border-collapse: collapse">
                             <thead>
                                 <tr class="replace-inputs">
-                                    <th style="width: 4%" class="center hidden-xs nosort"><input type="checkbox" id="allCheck"></th>
+                        
                                     <th style="width: 24%" class="center">가입ID</th>
                                     <th style="width: 24%" class="center">고객이름</th>
+                                    <th style="width: 24%" class="center">고객 전화번호</th>                                 
                                     <th style="width: 24%" class="center">상품명</th>
+                                    <th style="width: 24%" class="center">상품코드</th>
                                     <th style="width: 24%" class="center">가입날짜</th>
                                 </tr>
-                            </thead>
+                            </thead>	
                             <tbody>
                                 <tr v-for="(item, index) in items" :key="index">
-                                    <td class="center"><input type="checkbox" name="is_check"></td>
-                                    <td class="center center-align">{{ item.enrl_id }}</td>
+                                
+                                    <td class="center center-align">{{ item.enrl_id }}</td>                                    
                                     <td class="center center-align">{{ item.cust_nm }}</td>
+                                    <td class="center center-align">{{ item.cust_mbl_telno }}</td>
                                     <td class="center center-align">{{ item.prod_nm }}</td>
+                                    <td class="center center-align">{{ item.prod_cd }}</td>
                                     <td class="center center-align">{{ new Date(item.enrl_dt).toLocaleDateString() }}</td>
                                 </tr>
                             </tbody>
@@ -82,18 +109,25 @@
     new Vue({
         el: '#vueapp',
         data: {
-            selectedCustomer: '0',
-            selectedProduct: '0',
+            selectedCustomer: '',
+            selectedProduct: '',
+            
+            selectedCustomer1: '0',
+            selectedProduct1: '0',
+            
             items: [], // 전체 데이터
             uniqueItems: [], // 중복 제거된 데이터
             uniqueCustomers: [], // 중복 제거된 고객 이름
-            uniqueProducts: [] // 중복 제거된 상품명
-        },
+            uniqueProducts: [], // 중복 제거된 상품명
+            
+                },
         mounted() {
             console.log("Vue instance mounted");
             this.fetchData(); // 컴포넌트가 마운트되면 데이터 가져오기
         },
         methods: {
+
+        	
             fetchData() {
                 console.log("Fetching data...");
                 axios.get('/enr_mng/getlist')
@@ -149,6 +183,36 @@
             getListCond(flag) {
                 console.log("getListCond called with flag:", flag);
             },
+            search(){
+
+            	 const payload = {
+                         cust_mbl_telno: this.selectedCustomer,
+                         prod_cd: this.selectedProduct
+                     };
+                              
+                 cf_ajax('/enr_mng/save', payload);
+            	
+            	
+            	
+            	
+             	/*  const payload1 = {
+                         cust_nm: this.selectedCustomer
+                     };
+
+                     const payload2 = {
+                         prod_nm: this.selectedProduct
+                     };
+                     
+                       */
+                    /*  cf_ajax('/enr_mng/getTelephone', payload1);
+                     
+                     cf_ajax('/enr_mng/getProductId', payload2);  */
+                     
+            
+                     
+            	
+                                 
+            },
             saveData() {
                 // Validate selection
                 
@@ -166,18 +230,73 @@
                 }; */
                 
                 
-                const payload = {
+              /*   const payload = {
                 	    cust_mbl_telno: '010-0002-3434',  // Random example string for customer mobile telephone
                 	    prod_cd: 'A1005'            // Random example string for product code
                 	 
-                	};
-                
-                
+                	}; */
+                	
+                	
+                	
+                    const payload1 = {
+                            cust_nm: this.selectedCustomer
+                        };
+
+                        const payload2 = {
+                            prod_nm: this.selectedProduct
+                        };
+                         
+                        cf_ajax('/enr_mng/getTelephone', payload1);
+                        
+                        cf_ajax('/enr_mng/getProductId', payload2);
+                        
+                                                                 
+                        
+                        
+
+                    const payload = {
+                                cust_mbl_telno: this.selectedCustomer,
+                                prod_cd: this.selectedProduct
+                            };
+                                                     
+                                    
+                        cf_ajax('/enr_mng/save1', payload);
+                        
+                        
+                        
+                                                
+                        
+                        
+  
+                   /*      const payload = {
+                        	    cust_mbl_telno: '010-0002-3434',  // Random example string for customer mobile telephone
+                        	    prod_cd: 'A1005'            // Random example string for product code
+                        	 
+                        	};       
+                         */
 
                 console.log("Saving data:", payload);	
-          
 
-                cf_ajax('/enr_mng/save', payload);
+              /*   const payload1 = {
+                	     cust_nm: '이민호'            // Random example string for product code
+                };
+                
+                const payload2 = {
+               	     prod_nm: '미래 행복 적금'            // Random example string for product code
+               };
+                 */
+                
+                
+                console.log("Saving data1:", payload1);	
+                
+                
+                
+               
+               
+                
+                
+       
+                
                 
                 /*
                 axios.post('/enr_mng/save', payload)
@@ -190,6 +309,19 @@
                       
                     });*/
             },
+            
+            getListCB : function(data){
+				
+            	console.log("CB호출 data >> " + JSON.stringify(data));
+    			this.dataList = data.list;
+				console.log("CB호출 dataList >> " + dataList);
+				
+				this.dataList2 = data.list1;
+		
+    		},
+    		
+
+            
             cf_movePage(url) {
                 console.log("Redirecting to:", url);
                 window.location.href = url;
