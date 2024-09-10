@@ -214,18 +214,31 @@ body {
 
 /* 버튼 활성화 스타일 */
 button.active {
-	color: white;
+	background-color: #0073e6;
+	
 }
 
 /* * {
 	font-family: 'Noto Sans', sans-serif !important;
 } */
 
+.calendar-chMonth {
+	color: #212121;
+	background-color: transparent;
+	border: none;
+	padding: 8px 18px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s, box-shadow 0.3s;
+	outline: none;
+	margin: 0 5px;
+}
+
 .calendar-button {
-	background-color: rgb(108, 122, 137);
+	background-color: #003366;
 	color: #ffffff;
 	border: none;
-	border-radius: 4px;
 	padding: 8px 18px;
 	font-size: 14px;
 	font-weight: bold;
@@ -237,12 +250,12 @@ button.active {
 
 /* 버튼 호버 상태 */
 .calendar-button:hover {
-	background-color: #003366; /* 호버 시 배경 색상 변경 */
+	background-color: #0073e6; /* 호버 시 배경 색상 변경 */
 }
 
 /* 버튼 클릭 상태 */
 .calendar-button:active {
-	background-color: #001533; /* 클릭 시 배경 색상 변경 */
+	background-color: #0073e6; /* 클릭 시 배경 색상 변경 */
 	box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3); /* 클릭 시 안쪽 그림자 추가 */
 }
 
@@ -268,9 +281,10 @@ button.active {
 }
 
 .kc-main-content {
-	background-color: rgb(255, 192, 97);
-	padding: 10px;
-	border-radius: 8px;
+	padding: 15px;
+	border: 1px solid #a6a6a6;
+	margin-top: 15px;
+	padding-top: 15px;
 }
 
 .breadcrumb.bc-3, .breadcrumb.breadcrumb-3 {
@@ -282,6 +296,7 @@ button.active {
     display: table-cell;
     vertical-align: top;
     padding: 20px;
+    padding-top: 0;
     background: #ffffff;
     width: 100%;
     -webkit-box-sizing: border-box;
@@ -303,25 +318,25 @@ button.active {
 				<li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
 				<li class="active"><strong>스케줄 관리</strong></li>
 			</ol>
+			<h2 class="kc-consult-list-title">스케줄
+				관리</h2>
 			<div class="kc-main-content">
 
-				<h2 class="kc-consult-list-title"
-					style="padding: 0px 20px; color: #ffffff;">스케줄 관리</h2>
 
 				<div id="menu">
 					<!-- 스케줄 아이콘 변경 -->
 					<div id="menu-navi"
 						style="display: flex; align-items: center; padding: 6px 20px;">
 						<div style="display: flex; justify-content: center; flex: 1;">
-							<button type="button" class="calendar-button move-day"
-								data-action="move-prev" style="padding: 4px 16px;">&lt;</button>
-							<button type="button" class="calendar-button move-today"
+							<button type="button" class="calendar-chMonth move-day"
+								data-action="move-prev" style="padding: 4px 16px;"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+							<button type="button" class="calendar-chMonth move-today"
 								data-action="move-today">오늘로</button>
-							<button type="button" class="calendar-button move-day"
-								data-action="move-next" style="padding: 4px 16px;">&gt;</button>
+							<button type="button" class="calendar-chMonth move-day"
+								data-action="move-next" style="padding: 4px 16px;"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
 						</div>
 						<span id="renderRange" class="render-range"
-							style="margin: 10px; margin-left: auto; font-size: 18px; color: #ffffff;">2024년
+							style="margin: 10px; margin-left: auto; font-size: 18px; color: #212121;">2024년
 							8월</span>
 					</div>
 					<div id="view-modes"

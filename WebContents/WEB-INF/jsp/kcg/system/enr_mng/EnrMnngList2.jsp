@@ -20,66 +20,76 @@
 </head>
 
 <body class="page-body">
-    <div class="page-container">
-        <jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp" flush="false" />
-        <div class="main-content">
-            <jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp" flush="false" />
-            <ol class="breadcrumb bc-3">
-                <li><a href="#none" onclick="cf_movePage('/system')"><i class="fa fa-home"></i>Home</a></li>
-                <li class="active"><strong>상품가입</strong></li>
-            </ol>
-            <h2>상품가입</h2>
-            <br />
-            <div class="container" id="vueapp">
-                <div class="left">
-                    <div class="form-group2">
-                        <label for="prodCode" class="form-control">고객:</label>
-                        <select v-model="selectedCustomer" class="form-control">
-                            <option value="0">전체</option>
-                            <option v-for="customer in customers" :key="customer.cust_nm" :value="customer.cust_nm">{{ customer.cust_nm }}</option>
-                        </select>
-                    </div>
-                    <div class="Align_A">
-                        <button type="button" class="btn btn-blue" @click="getListCond()">조회하기</button>
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="table-container" style="max-height: 580px; overflow-y: auto; border: 1px solid #999999;">
-                        <table class="table table-bordered datatable dataTable custom-table" id="grid_app" style="width: 100%; border-collapse: collapse;">
-                            <thead>
-                                <tr class="replace-inputs">
-                                    <th style="width: 4%" class="center hidden-xs nosort">
-                                        <input type="checkbox" id="allCheck" @change="toggleAllChecks">
-                                    </th>
-                                    <th style="width: 24%" class="center">가입ID</th>
-                                    <th style="width: 24%" class="center">상품명</th>
-                                    <th style="width: 24%" class="center">가입날짜</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(item, index) in items" :key="index">
-                                    <td class="center">
-                                        <input type="checkbox" :value="item.enrl_id" v-model="selectedItems">
-                                    </td>
-                                    <td class="center center-align">{{ item.enrl_id }}</td>
-                                    <td class="center center-align">{{ item.prod_nm }}</td>
-                                    <td class="center center-align">{{ new Date(item.enrl_dt).toLocaleDateString() }}</td>
-                                </tr>
-                                <tr v-if="items.length === 0">
-                                    <td colspan="4" class="center">데이터가 없습니다</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div style="height: 15px"></div>
-                    <div class="flex flex-100 flex-padding-10 flex-gap-10 white-background" style="justify-content: flex-end border: 1px solid #999999">
-                        <button type="button" class="btn btn-orange btn-small align11" @click="deleteSelectedItems">삭제</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
+	<div class="page-container">
+		<jsp:include page="/WEB-INF/jsp/kcg/_include/system/sidebar-menu.jsp"
+			flush="false" />
+		<div class="main-content">
+			<jsp:include page="/WEB-INF/jsp/kcg/_include/system/header.jsp"
+				flush="false" />
+			<ol class="breadcrumb bc-3">
+				<li><a href="#none" onclick="cf_movePage('/system')"><i
+						class="fa fa-home"></i>Home</a></li>
+				<li class="active"><strong>고객 상품 관리</strong></li>
+			</ol>
+			<h2>고객 상품 관리</h2>
+			<br />
+			<div class="container" id="vueapp">
+				<div class="left">
+					<div class="form-group2">
+						<label for="prodCode" class="form-control">고객:</label> <select
+							v-model="selectedCustomer" class="form-control">
+							<option value="0">전체</option>
+							<option v-for="customer in customers" :key="customer.cust_nm"
+								:value="customer.cust_nm">{{ customer.cust_nm }}</option>
+						</select>
+					</div>
+					<div class="Align_A">
+						<button type="button" class="btn btn-blue" @click="getListCond()">조회하기</button>
+					</div>
+				</div>
+				<div class="right">
+					<div class="table-container"
+						style="max-height: 580px; overflow-y: auto; border: 1px solid #999999;">
+						<table
+							class="table table-bordered datatable dataTable custom-table"
+							id="grid_app" style="width: 100%; border-collapse: collapse;">
+							<thead>
+								<tr class="replace-inputs">
+									<th style="width: 4%" class="center hidden-xs nosort"><input
+										type="checkbox" id="allCheck" @change="toggleAllChecks">
+									</th>
+									<th style="width: 24%" class="center">가입ID</th>
+									<th style="width: 24%" class="center">상품명</th>
+									<th style="width: 24%" class="center">가입날짜</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="(item, index) in items" :key="index">
+									<td class="center"><input type="checkbox"
+										:value="item.enrl_id" v-model="selectedItems"></td>
+									<td class="center center-align">{{ item.enrl_id }}</td>
+									<td class="center center-align">{{ item.prod_nm }}</td>
+									<td class="center center-align">{{ new
+										Date(item.enrl_dt).toLocaleDateString() }}</td>
+								</tr>
+								<tr v-if="items.length === 0">
+									<td colspan="4" class="center">데이터가 없습니다</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div style="height: 15px"></div>
+					<div
+						class="flex flex-100 flex-padding-10 flex-gap-10 white-background"
+						style="justify-content: flex-end; border: 1px solid #999999">
+						<button type="button" class="btn btn-orange btn-small align11"
+							@click="deleteSelectedItems">삭제</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
     new Vue({
         el: '#vueapp',
         data: {
@@ -136,16 +146,16 @@
                 console.log("보내기전 로그확인:", params); // 서버에 보내기 전에 로그로 확인
 
                 // cf_ajax로 데이터 전송
-                cf_ajax("/enr_mngg/delete", params, function(response) {
+                cf_ajax("/enr_mngg/delete", params, (response) => {
                     console.log("Delete response:", response); // 성공 시 응답 출력
-                    if (response.success) {
-                        console.log("Delete successful."); // 성공 메시지
-                        // 목록 갱신 또는 추가 처리
-                    } else {
-                        alert('삭제 중 오류가 발생했습니다.');
-                    }
-                }, function(error) {
+                  
+                        alert('상품이 삭제되었습니다.'); // 성공 시 메시지 표시
+
+                    this.getListCond(); // 최신 정보를 다시 조회
+                }, (error) => {
                     console.error("There was an error deleting the items:", error); // 실패 시 오류 출력
+                    alert('상품이 삭제되었습니다.'); // 실패 메시지 표시
+                    this.getListCond(); // 오류 발생 시에도 최신 정보를 조회
                 });
             },
             toggleAllChecks(event) {
