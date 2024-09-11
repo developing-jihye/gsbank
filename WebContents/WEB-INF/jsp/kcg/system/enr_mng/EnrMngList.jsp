@@ -34,7 +34,7 @@
 			<br />
 			<div class="container" id="vueapp">
 				<div class="left">
-					<div class="form-group2">선택해서 가입하기
+					<div class="form-group2">
 						<label for="prodCode" class="form-control">데이터 등록해서 가입하기</label> <label
 							for="prodCode" class="form-control">고객:</label>
 						<div class="input-container">

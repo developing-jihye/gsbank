@@ -47,7 +47,7 @@
     )
     VALUES (
         (SELECT FLOOR(RANDOM() * (500 - 100 + 1) + 100)::BIGINT),
-        #{enrl_dt},
+        CURRENT_DATE,
         #{prod_cd},
         #{cust_mbl_telno}
     )
