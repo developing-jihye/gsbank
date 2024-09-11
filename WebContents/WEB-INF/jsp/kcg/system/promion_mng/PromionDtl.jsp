@@ -24,7 +24,7 @@
 
 <style>
 button:hover {
-color: #fff !important;
+	color: #fff !important;
 }
 </style>
 
@@ -72,7 +72,7 @@ color: #fff !important;
 					<template>
 
 						<div
-							style="display: flex; width: 90%; border: 1px solid #a6a6a6;">
+							style="display: flex; width: 100%; border: 1px solid #a6a6a6;">
 
 							<div class="left-side" style="width: 45%;">
 								<!-- 위쪽 내용 -->
@@ -161,7 +161,8 @@ color: #fff !important;
 											style="flex: 0 0 120px; margin-right: 10px; line-height: 40px;">작성일자:</label>
 										<input class="form-control" v-model="info.wrt_dt" disabled
 											style="height: 100%;" />
-										<button type="button" class="btn btn-orange2 btn-icon icon-left"
+
+										<button type="button" class="btn btn-red btn-small"
 											@click="prcCalc()"
 											style="height: 100%; margin-left: 10px; background-color: #FF9900">
 											계산하기</button>
