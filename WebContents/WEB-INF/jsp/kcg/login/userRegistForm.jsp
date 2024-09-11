@@ -76,7 +76,7 @@
 			<br />
 
 			<div>
-				연락처 : <input type="text" class="input-radius" id="picMblTelno"
+				*연락처 : <input type="text" class="input-radius" id="picMblTelno"
 					name="picMblTelno" placeholder="" />
 			</div>
 			<br />
